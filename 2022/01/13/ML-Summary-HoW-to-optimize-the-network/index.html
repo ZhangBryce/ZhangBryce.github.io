@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="评判与优化为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。 在训练过程中，会出现欠拟合与过拟合的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施  获取更多样本 尝试较小的特征集 增加正则化系数lambda  修复高偏差(欠拟合)可采取如下措施  增加额外的特征 尝试更多多项式特征 减少">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML Summary 4-How to optimize the network">
+<meta property="og:url" content="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="评判与优化为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。 在训练过程中，会出现欠拟合与过拟合的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施  获取更多样本 尝试较小的特征集 增加正则化系数lambda  修复高偏差(欠拟合)可采取如下措施  增加额外的特征 尝试更多多项式特征 减少">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png">
+<meta property="article:published_time" content="2022-01-13T00:51:29.000Z">
+<meta property="article:modified_time" content="2022-01-20T08:24:39.043Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png">
+
+
+<link rel="canonical" href="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/","path":"2022/01/13/ML-Summary-HoW-to-optimize-the-network/","title":"ML Summary 4-How to optimize the network"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ML Summary 4-How to optimize the network | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%84%E5%88%A4%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">评判与优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E5%88%86%E6%9E%90-Error-Analyze"><span class="nav-number">2.</span> <span class="nav-text">误差分析(Error Analyze)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ML Summary 4-How to optimize the network | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ML Summary 4-How to optimize the network
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-13 08:51:29" itemprop="dateCreated datePublished" datetime="2022-01-13T08:51:29+08:00">2022-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-20 16:24:39" itemprop="dateModified" datetime="2022-01-20T16:24:39+08:00">2022-01-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
+<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
+<ol>
+<li>获取更多样本</li>
+<li>尝试较小的特征集</li>
+<li>增加正则化系数lambda</li>
+</ol>
+<p>修复高偏差(欠拟合)可采取如下措施</p>
+<ol>
+<li>增加额外的特征</li>
+<li>尝试更多多项式特征</li>
+<li>减少正则化系数lambda</li>
+</ol>
+<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
+<p>同理，可画出关于lambda的误差图像并进行分析</p>
+<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
+<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
+<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
+<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">P</th>
+<th align="center">R</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Algorithm1</td>
+<td align="center">0.5</td>
+<td align="center">0.4</td>
+</tr>
+<tr>
+<td align="center">Algorithm2</td>
+<td align="center">0.7</td>
+<td align="center">0.1</td>
+</tr>
+<tr>
+<td align="center">Algorithm3</td>
+<td align="center">0.02</td>
+<td align="center">1.0</td>
+</tr>
+</tbody></table>
+<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
+<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
+<li>使用一个有很多参数的学习算法</li>
+<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/10/Machine-learning-Summary-3/" rel="prev" title="ML Summary 3-Backpropagation">
+                  <i class="fa fa-chevron-left"></i> ML Summary 3-Backpropagation
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/16/ML-Summary5-How-to-use-SVM/" rel="next" title="ML Summary 5-How to use SVM">
+                  ML Summary 5-How to use SVM <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

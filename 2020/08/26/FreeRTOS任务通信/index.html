@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、三种任务调度方式 优先级抢占式调度 每个任务都赋予了一个优先级 每个任务都可以存在于一个或多个状态 在任何时候都只有一个任务可以处于运行状态 调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行   选择任务优先级这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeRTOS任务间通信方式——队列">
+<meta property="og:url" content="http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="一、三种任务调度方式 优先级抢占式调度 每个任务都赋予了一个优先级 每个任务都可以存在于一个或多个状态 在任何时候都只有一个任务可以处于运行状态 调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行   选择任务优先级这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-26T01:58:47.000Z">
+<meta property="article:modified_time" content="2020-08-26T03:13:00.654Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/","path":"2020/08/26/FreeRTOS任务通信/","title":"FreeRTOS任务间通信方式——队列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>FreeRTOS任务间通信方式——队列 | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%89%E7%A7%8D%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、三种任务调度方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%98%9F%E5%88%97%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">二、队列管理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="FreeRTOS任务间通信方式——队列 | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FreeRTOS任务间通信方式——队列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-08-26 09:58:47 / 修改时间：11:13:00" itemprop="dateCreated datePublished" datetime="2020-08-26T09:58:47+08:00">2020-08-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
+<li>优先级抢占式调度<ul>
+<li>每个任务都赋予了一个优先级</li>
+<li>每个任务都可以存在于一个或多个状态</li>
+<li>在任何时候都只有一个任务可以处于运行状态</li>
+<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+</ul>
+</li>
+<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
+<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
+</ol>
+<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
+<ol>
+<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
+</li>
+<li><p>如何创建一个队列</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
+</li>
+<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/STM32/" rel="tag"># STM32</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" rel="prev" title="FreeRTOS基础概念">
+                  <i class="fa fa-chevron-left"></i> FreeRTOS基础概念
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/" rel="next" title="FreeRTOS中断管理">
+                  FreeRTOS中断管理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

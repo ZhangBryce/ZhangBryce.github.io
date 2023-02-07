@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover wh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL Summary 1-Initial Contact">
+<meta property="og:url" content="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover wh">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png">
+<meta property="article:published_time" content="2022-02-08T02:26:00.000Z">
+<meta property="article:modified_time" content="2022-02-08T05:50:12.197Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png">
+
+
+<link rel="canonical" href="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/","path":"2022/02/08/RL-Summary-1-Initial-Contact/","title":"RL Summary 1-Initial Contact"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RL Summary 1-Initial Contact | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E4%B8%8E%E7%9B%AE%E6%A0%87%E5%AF%BC%E5%90%91"><span class="nav-number">2.</span> <span class="nav-text">交互与目标导向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E7%96%91%E9%97%AE"><span class="nav-number">3.</span> <span class="nav-text">一些疑问</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RL Summary 1-Initial Contact | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RL Summary 1-Initial Contact
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-02-08 10:26:00 / 修改时间：13:50:12" itemprop="dateCreated datePublished" datetime="2022-02-08T10:26:00+08:00">2022-02-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+</blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reinforcement-Learning/" rel="tag"># Reinforcement Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/" rel="prev" title="Flow--交通网络仿真框架的安装">
+                  <i class="fa fa-chevron-left"></i> Flow--交通网络仿真框架的安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/10/FlOW-OR-CommonRoad/" rel="next" title="Flow vs CommonRoad-RL">
+                  Flow vs CommonRoad-RL <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

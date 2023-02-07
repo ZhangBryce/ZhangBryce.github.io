@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一些有意思的专用名词解释：  饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。  一、在应用程序中，FreeRTOS如何为各任务分配处理时间​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeRTOS基础概念">
+<meta property="og:url" content="http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="一些有意思的专用名词解释：  饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。  一、在应用程序中，FreeRTOS如何为各任务分配处理时间​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png">
+<meta property="og:image" content="http://example.com/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png">
+<meta property="article:published_time" content="2020-08-25T03:46:39.000Z">
+<meta property="article:modified_time" content="2020-08-25T03:50:33.785Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png">
+
+
+<link rel="canonical" href="http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/","path":"2020/08/25/FreeRTOS基础概念/","title":"FreeRTOS基础概念"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>FreeRTOS基础概念 | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%EF%BC%8CFreeRTOS%E5%A6%82%E4%BD%95%E4%B8%BA%E5%90%84%E4%BB%BB%E5%8A%A1%E5%88%86%E9%85%8D%E5%A4%84%E7%90%86%E6%97%B6%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">一、在应用程序中，FreeRTOS如何为各任务分配处理时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9C%A8%E4%BB%BB%E6%84%8F%E7%BB%99%E5%AE%9A%E6%97%B6%E5%88%BB%EF%BC%8CFreeRTOS%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E4%BB%BB%E5%8A%A1%E6%8A%95%E5%85%A5%E8%BF%90%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">二、在任意给定时刻，FreeRTOS如何选择任务投入运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%85%88%E7%BA%A7%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E7%B3%BB%E7%BB%9F%E8%A1%8C%E4%B8%BA"><span class="nav-number">3.</span> <span class="nav-text">三、任务优先级如何影响系统行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%BB%BB%E5%8A%A1%E5%AD%98%E5%9C%A8%E5%93%AA%E4%BA%9B%E7%8A%B6%E6%80%81"><span class="nav-number">4.</span> <span class="nav-text">四、任务存在哪些状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">五、基础使用与配置</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="FreeRTOS基础概念 | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FreeRTOS基础概念
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-08-25 11:46:39 / 修改时间：11:50:33" itemprop="dateCreated datePublished" datetime="2020-08-25T11:46:39+08:00">2020-08-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>一些有意思的专用名词解释：</p>
+<ul>
+<li>饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。</li>
+</ul>
+<h4 id="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"><a href="#一、在应用程序中，FreeRTOS如何为各任务分配处理时间" class="headerlink" title="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"></a>一、在应用程序中，FreeRTOS如何为各任务分配处理时间</h4><p>​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入<strong>心跳中断函数</strong>，来决定下一个时间片应该运行什么函数。而心跳中断频率由FreeRTOSConfig.h 中的编译时配置常量 configTICK_RATE_HZ 进行配置。比如说，如果 configTICK_RATE_HZ 设为 100(HZ)，则时间片长度为 10ms<br><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png" alt="任务切换基本原理"></p>
+<h4 id="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"><a href="#二、在任意给定时刻，FreeRTOS如何选择任务投入运行" class="headerlink" title="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"></a>二、在任意给定时刻，FreeRTOS如何选择任务投入运行</h4><p>​		在任意给定时刻，FreeRTOS执行处于就绪状态的任务，如果有多个就绪状态任务，则根据任务优先级来判断执行哪一个。如果此时没有就绪状态的任务，则执行定义好的<strong>空任务函数</strong>。</p>
+<h4 id="三、任务优先级如何影响系统行为"><a href="#三、任务优先级如何影响系统行为" class="headerlink" title="三、任务优先级如何影响系统行为"></a>三、任务优先级如何影响系统行为</h4><p>​		低优先级号表示任务的优先级低，优先级号0表示最低优先级。有效的优先级号范围从0到(configMAX_PRIORITES – 1) ，<strong>当两个任务都可以被执行(ready)时，高优先级的任务会被执行</strong>。FreeRTOS也可以设置同优先级任务。</p>
+<h4 id="四、任务存在哪些状态"><a href="#四、任务存在哪些状态" class="headerlink" title="四、任务存在哪些状态"></a>四、任务存在哪些状态</h4><p>​		由于只有一个处理器来执行程序，则任意时刻只有一个程序在运行。所有的任务都有基本的两个状态：<strong>运行状态</strong>和<strong>非运行状态</strong>(休眠)。为了使不同优先级的任务都能运行，不至于出现谁饿死谁的情况，将“非运行状态”扩充为不同状态，如阻塞、挂起等，以便于实现任务调度。下面来逐一解释各个状态</p>
+<ul>
+<li>阻塞状态(blocked)：任务可以进入阻塞以等待以下另种不同类型的时间<ol>
+<li>定时（时间相关）事件——这类事件可以是延迟到期或是绝对时间到点。比如说某个任务可以进入阻塞态以延迟10ms，可以程序设定等待超时时间。</li>
+<li>同步事件——源于其他任务或中断的事件。比如说，某个任务可以进入阻塞态以等待队列中有数据到来。同步事件囊括了所有板级范围内的事件类型。</li>
+</ol>
+</li>
+<li>挂起状态(suspended)：进入挂起状态的唯一办法是调用vTaskSuspend()API函数；唤醒任务的唯一途径是调用vTaskResume()或vTaskResumeFromlSR()API函数。<strong>大多数应用程序不会用到挂起状态</strong></li>
+<li>就绪状态(ready)：任务处于非运行态，但是既没有阻塞也没有挂起。<strong>处于就绪态的任务能够被运行</strong></li>
+</ul>
+<p>完整的状态转移图：</p>
+<p><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png" alt="状态转换图"></p>
+<h4 id="五、基础使用与配置"><a href="#五、基础使用与配置" class="headerlink" title="五、基础使用与配置"></a>五、基础使用与配置</h4><ol>
+<li><p>如何实现一个任务<br>1）调用xTaskCreate()创建任务，主要是对任务的各项属性进行配置</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">portBASE_TYPE <span class="title function_">xTaskCreate</span><span class="params">( pdTASK_CODE pvTaskCode,</span></span><br><span class="line"><span class="params">						<span class="type">const</span> <span class="type">signed</span> portCHAR * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portSHORT usStackDepth,</span></span><br><span class="line"><span class="params">						<span class="type">void</span> *pvParameters,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portBASE_TYPE uxPriority,</span></span><br><span class="line"><span class="params">						xTaskHandle *pxCreatedTask )</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2）创建任务函数实体，这是代码实际执行的函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTask1</span><span class="params">( <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pcTaskName = <span class="string">&quot;Task 1 is running\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">unsigned</span> <span class="type">long</span> ul;</span><br><span class="line">    <span class="comment">/* 和大多数任务一样，该任务处于一个死循环中。 */</span></span><br><span class="line">    <span class="keyword">for</span>( ;; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Print out the name of this task. */</span></span><br><span class="line">        vPrintString( pcTaskName );</span><br><span class="line">        <span class="comment">/* 延迟，以产生一个周期 */</span></span><br><span class="line">        <span class="keyword">for</span>( ul = <span class="number">0</span>; ul &lt; mainDELAY_LOOP_COUNT; ul++ )</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">/* 这个空循环是最原始的延迟实现方式。在循环中不做任何事情。后面的示例程序将采用</span></span><br><span class="line"><span class="comment">        delay/sleep函数代替这个原始空循环。 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>如何创建一个或多个任务的实例<br>通过void *pvParameters的参数传递，来使功能相同的函数，通过不同参数的传入来实现不同的用户需求</p>
+</li>
+<li><p>如何改变一个已创建任务的优先级<br>xTaskCreate() API 函数的参数 uxPriority 为创建的任务赋予了一个初始优先级。这<br>个优先级可以在调度器启动后调用 vTaskPrioritySet() API 函数进行修改。  </p>
+</li>
+<li><p>如何删除任务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">( xTaskHandle pxTaskToDelete )</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>空闲任务何时运行，可以用来干什么<br>空闲任务拥有最低优先级，以保证其不会妨碍具有更高优先级的应用任务进入运行态。空闲任务通常为延时很小的循环。用来在CPU没有代码运行时，让CPU有事可干</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag"># 嵌入式</a>
+              <a href="/tags/STM32/" rel="tag"># STM32</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/" rel="prev" title="行百里者半九十">
+                  <i class="fa fa-chevron-left"></i> 行百里者半九十
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/" rel="next" title="FreeRTOS任务间通信方式——队列">
+                  FreeRTOS任务间通信方式——队列 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

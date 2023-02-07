@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="初步印象机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)  亚瑟·塞缪尔（Arthur Samuel）将其描述为：“让计算机无需明确编程即可学习的研究领域。” 这是一个较旧的非正式定义。 Tom Mitchell 提供了一个更现代的定义：“如果计算机程序在 T 中的任务上的性能（以 P 衡量）随着经验 E 提高，则称其从经验 E 中学习关于某类任务 T 和性能度量 P。“  我把机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML Summary 1-Initial contact">
+<meta property="og:url" content="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="初步印象机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)  亚瑟·塞缪尔（Arthur Samuel）将其描述为：“让计算机无需明确编程即可学习的研究领域。” 这是一个较旧的非正式定义。 Tom Mitchell 提供了一个更现代的定义：“如果计算机程序在 T 中的任务上的性能（以 P 衡量）随着经验 E 提高，则称其从经验 E 中学习关于某类任务 T 和性能度量 P。“  我把机">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-04T05:18:00.000Z">
+<meta property="article:modified_time" content="2022-01-16T08:51:09.439Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/01/04/Machine%20Learning%20Summary%201/","path":"2022/01/04/Machine Learning Summary 1/","title":"ML Summary 1-Initial contact"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ML Summary 1-Initial contact | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E5%8D%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">初步印象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">有监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.2.</span> <span class="nav-text">无监督学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">模型和代价函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ML Summary 1-Initial contact | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ML Summary 1-Initial contact
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-04 13:18:00" itemprop="dateCreated datePublished" datetime="2022-01-04T13:18:00+08:00">2022-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-16 16:51:09" itemprop="dateModified" datetime="2022-01-16T16:51:09+08:00">2022-01-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="初步印象"><a href="#初步印象" class="headerlink" title="初步印象"></a>初步印象</h1><p>机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)</p>
+<blockquote>
+<p>亚瑟·塞缪尔（Arthur Samuel）将其描述为：“让计算机无需明确编程即可学习的研究领域。” 这是一个较旧的非正式定义。</p>
+<p>Tom Mitchell 提供了一个更现代的定义：“如果计算机程序在 T 中的任务上的性能（以 P 衡量）随着经验 E 提高，则称其从经验 E 中学习关于某类任务 T 和性能度量 P。“</p>
+</blockquote>
+<p>我把机器学习看做一个<strong>黑盒子</strong>的<strong>训练过程</strong>。黑盒子的内部结构是可变，当然，盒子的初步结构和变化规则由编程者确定。黑盒子内部结构的变化过程就是黑盒子的训练过程，训练的目的当然是为了更好地执行我们给它布置的任务。有时候人类能很好地推测出盒子里的结构，更多时候，即当机器在处理大量数据、复杂问题时，我们很难再准确地描述出这个黑盒子的内部结构。</p>
+<p>机器学习分为有监督学习和无监督学习两大类。</p>
+<h2 id="有监督学习"><a href="#有监督学习" class="headerlink" title="有监督学习"></a>有监督学习</h2><p>有监督学习指我们知道正确的输出应该是什么样子，给出样本的输入，机器应该得到样本的输出。机器从没有正确得到样本输出，到得到了样本输出或逐渐接近样本输出的过程，就是有监督学习的过程。有监督指的是<strong>样本中有正确答案</strong>。</p>
+<p>有监督学习问题中分为回归问题和分类问题。回归是构建数学模型，对已有数据进行拟合，并以此模型预测未知数据的问题。分类的关键是找到不同类型的边界线，并对未知数据进行分类。</p>
+<h2 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h2><p>无监督学习指没有基于预测结果的反馈，我们从数据中无法获知正确答案。然而，无监督学习可以通过基于数据中变量之间的关系对数据进行聚类来推导出数据的结构。例如可以将许多人的基因通过某种方法以不同的特征<strong>分类</strong>，年龄、身高、体重等。著名的“鸡尾酒会”算法可以分辨出两个人的声音，也可以从人声与音乐声的混合音频中<strong>分辨</strong>出人声和音乐声。     </p>
+<h1 id="模型和代价函数"><a href="#模型和代价函数" class="headerlink" title="模型和代价函数"></a>模型和代价函数</h1><p>模型即可以理解为黑盒子里的结构。下面以单参数输入，单参数输出的线性”黑盒子“为例写出模型函数。其中x为输入参数，h为输出结果。<br>$$<br>h_θ(x)&#x3D;θ_0+θ_1x  \qquad假设函数(模型的表示)<br>$$<br>代价函数可以理解为黑盒子预测结果与样本中正确结果的误差。其中m代表样本数量。<br>$$<br>J(θ_0,θ_1)&#x3D;{1\over2m}\Sigma_{i&#x3D;1}^{m}(h_\theta(x^{(i)})-y^{(i)})^2<br>$$<br>我们需要根据代价函数，了解到黑盒子完成任务的情况，代价函数(理想的与现实的差距)越大，这个黑盒子执行任务的效果就越差，它需要改变自己的内部结构，以缩小误差。在上述单输入单输出线性模型中，可以看出，改变内部结构，实际上就是改变线性方程的两个参数。那么如何改变呢？<strong>梯度下降与正规方程法</strong>。梯度下降的公式如下所示。其中alpha是梯度下降中的一个参数，也称它为学习速率，它太小，会导致收敛慢，太大则可能导致不收敛。<br>$$<br>\theta_0&#x3D;\theta_0-\alpha{d\over{d\theta_0}}J(\theta_0)\qquad\<br>\theta_1&#x3D;\theta_1-\alpha{d\over{d\theta_1}}J(\theta_1)\qquad<br>$$<br>正规方程法则直接计算出最优的theta，当然，它只适用于线性回归和小变量情况，其公式如下<br>$$<br>\theta&#x3D;(X^TX)^{-1}X^Ty<br>$$<br>关于梯度下降法和正规方程法的优劣如下表所示</p>
+<table>
+<thead>
+<tr>
+<th align="center">梯度下降</th>
+<th align="center">正规方程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">要选择参数alpha</td>
+<td align="center">不用选择参数</td>
+</tr>
+<tr>
+<td align="center">需要多次迭代</td>
+<td align="center">不需要迭代</td>
+</tr>
+<tr>
+<td align="center">时间复杂度为k的n次方</td>
+<td align="center">要计算矩阵转置</td>
+</tr>
+<tr>
+<td align="center">当n很大时效果很好</td>
+<td align="center">n很大时算的就很慢</td>
+</tr>
+</tbody></table>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>Matlab中求矩阵的逆是inv(A)，pinv(A)是取伪逆矩阵，该函数在矩阵不可逆时仍然可以运行</li>
+<li>Matlab中矩阵转置是A’</li>
+<li>Matlab中矩阵各元素对应相乘为.*，对应相除为.&#x2F;</li>
+<li>将多项式乘法转换为矩阵相乘</li>
+<li>对变量进行<strong>放缩</strong>有利于梯度下降的计算，减去样本点，除以标准差</li>
+<li>可以通过改变特征量来更好地拟合样本数据</li>
+</ul>
+<blockquote>
+<p>本文为吴恩达Machine learning课程的学习笔记</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="prev" title="从零搭建hexo博客">
+                  <i class="fa fa-chevron-left"></i> 从零搭建hexo博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/06/Machine-Learning-Summary-2/" rel="next" title="ML Summary 2-Classification">
+                  ML Summary 2-Classification <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

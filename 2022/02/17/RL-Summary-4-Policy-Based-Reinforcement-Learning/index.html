@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="策略函数: π(a|s)策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足$$\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1$$其中theta代表神">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL Summary 4 - Policy-Based Reinforcement Learning">
+<meta property="og:url" content="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/index.html">
+<meta property="og:site_name" content="冰阳的博客">
+<meta property="og:description" content="策略函数: π(a|s)策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足$$\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1$$其中theta代表神">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-17T01:11:06.000Z">
+<meta property="article:modified_time" content="2022-03-04T01:31:02.945Z">
+<meta property="article:author" content="冰阳">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/","path":"2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/","title":"RL Summary 4 - Policy-Based Reinforcement Learning"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RL Summary 4 - Policy-Based Reinforcement Learning | 冰阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">冰阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E5%87%BD%E6%95%B0-%CF%80-a-s"><span class="nav-number">1.</span> <span class="nav-text">策略函数: π(a|s)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">策略学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">算法流程总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">冰阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="冰阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RL Summary 4 - Policy-Based Reinforcement Learning | 冰阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RL Summary 4 - Policy-Based Reinforcement Learning
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-17 09:11:06" itemprop="dateCreated datePublished" datetime="2022-02-17T09:11:06+08:00">2022-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-04 09:31:02" itemprop="dateModified" datetime="2022-03-04T09:31:02+08:00">2022-03-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="策略函数-π-a-s"><a href="#策略函数-π-a-s" class="headerlink" title="策略函数: π(a|s)"></a>策略函数: π(a|s)</h1><p>策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足<br>$$<br>\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1<br>$$<br>其中theta代表神经网络的参数。</p>
+<h1 id="策略学习"><a href="#策略学习" class="headerlink" title="策略学习"></a>策略学习</h1><p>对动作价值函数求A的期望，即得到状态价值函数<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]&#x3D;\Sigma_a\pi(a|s_t)*Q_\pi(s_t,a)<br>$$<br>接下来，就要用神经网络近似状态价值函数，即用策略函数替换为神经网络。此时状态价值函数应该是关于s和theta的函数，那么在状态价值函数中，对状态求期望，就能得到一个只和theta有关的函数：<br>$$<br>J(\theta)&#x3D;E_s[V(S;\theta)]<br>$$<br>那么我们的目标很明确了，通过改变theta，使函数J得到最大值。那么如何优化theta呢？使用策略梯度算法梯度上升优化theta。策略梯度算法分为两步：</p>
+<ul>
+<li><p>观察状态S</p>
+</li>
+<li><p>更新theta值：<br>$$<br>\theta&#x3D;\theta+\beta*{\partial V(s;\theta) \over \partial \theta}<br>$$</p>
+</li>
+</ul>
+<h1 id="算法流程总结"><a href="#算法流程总结" class="headerlink" title="算法流程总结"></a>算法流程总结</h1><ul>
+<li><p>获取状态S</p>
+</li>
+<li><p>由神经网络近似的π函数计算出a</p>
+</li>
+<li><p>计算行动价值函数，记为：<br>$$<br>q_t\approx Q_\pi(s_t,a_t)<br>$$</p>
+</li>
+<li><p>对策略网络π求导, tensorflow和pytorch都将这个函数封装好，可以直接调用：<br>$$<br>d_{\theta,t}&#x3D;{\partial log\pi(a_t|s_t,\theta) \over \partial\theta}|_{\theta&#x3D;\theta_t}<br>$$</p>
+</li>
+<li><p>近似地算策略梯度<br>$$<br>g(a_t,\theta_t)&#x3D;q_t*d_{\theta,t}<br>$$</p>
+</li>
+<li><p>更新策略网络<br>$$<br>\Theta_{t+1}&#x3D;\Theta_t+\beta*g(a_t,\Theta_t)<br>$$</p>
+</li>
+</ul>
+<p>在上述流程中，如何近似地计算行动价值函数qt呢，有两种算法：</p>
+<ol>
+<li>REINFORCE算法<br>在一次完整的训练结束后，即在围棋中，一局完整的棋局结束后，计算所有的折扣汇报之和ut，并使用ut作为行动价值函数qt的近似值</li>
+<li>用神经网络做近似<br>原本已经用了神经网络近似函数π，现在用另一个神经网络近似qt。这两个神经网络一个被称为actor，一个被称为critic，这种方法被称为actor-critic方法。</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a target="_blank" rel="noopener" href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a target="_blank" rel="noopener" href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reinforcement-Learning/" rel="tag"># Reinforcement Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/" rel="prev" title="RL Summary 3 - Value-Based Reinforcement Learning">
+                  <i class="fa fa-chevron-left"></i> RL Summary 3 - Value-Based Reinforcement Learning
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/" rel="next" title="The install of Commonroad-rl">
+                  The install of Commonroad-rl <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
