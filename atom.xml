@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>炳阳的博客</title>
+  <icon>http://example.com/icon.png</icon>
+  <subtitle>What&#39;s past is prologue</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-02-09T04:02:13.075Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>炳阳</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>虚函数</title>
+    <link href="http://example.com/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/"/>
+    <id>http://example.com/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</id>
+    <published>2023-02-07T12:51:44.000Z</published>
+    <updated>2023-02-09T04:02:13.075Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是&lt;strong&gt;非静态&lt;/strong&gt;的成员函数，且由于要实现动态绑定，虚函数一般&lt;strong&gt;不声明为内联函数&lt;/strong&gt;，因为编译器对内联函数的处理</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to use tensorboard in Commonroad-RL</title>
+    <link href="http://example.com/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/"/>
+    <id>http://example.com/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</id>
+    <published>2022-06-29T11:55:47.000Z</published>
+    <updated>2022-06-29T14:39:35.423Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Commonroad-RL软件包中，只有在整个模型训练&lt;strong&gt;完成后&lt;/strong&gt;，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Commonroad" scheme="http://example.com/tags/Commonroad/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>This指针</title>
+    <link href="http://example.com/2022/03/23/This%E6%8C%87%E9%92%88/"/>
+    <id>http://example.com/2022/03/23/This%E6%8C%87%E9%92%88/</id>
+    <published>2022-03-23T01:13:04.000Z</published>
+    <updated>2022-03-23T02:04:27.245Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>指针与引用</title>
+    <link href="http://example.com/2022/03/22/%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8/"/>
+    <id>http://example.com/2022/03/22/%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8/</id>
+    <published>2022-03-22T08:54:41.000Z</published>
+    <updated>2022-03-22T09:49:37.060Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基础概念&quot;&gt;&lt;a href=&quot;#基础概念&quot; class=&quot;headerlink&quot; title=&quot;基础概念&quot;&gt;&lt;/a&gt;基础概念&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;引用&lt;/strong&gt;是对&lt;strong&gt;指针&lt;/strong&gt;进行了包装的高层机制，是C++</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深浅复制</title>
+    <link href="http://example.com/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/"/>
+    <id>http://example.com/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</id>
+    <published>2022-03-22T01:28:19.000Z</published>
+    <updated>2022-03-22T09:53:19.814Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;浅复制&quot;&gt;&lt;a href=&quot;#浅复制&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AlphaGo</title>
+    <link href="http://example.com/2022/03/10/Alphago/"/>
+    <id>http://example.com/2022/03/10/Alphago/</id>
+    <published>2022-03-10T06:03:04.000Z</published>
+    <updated>2022-03-10T07:48:26.845Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;AlphaGo有两个版本，与李世石对战的是旧版本，改进版的&lt;strong&gt;AlphaGo Zero&lt;/strong&gt;比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Basic Component of Commonroad</title>
+    <link href="http://example.com/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://example.com/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2022-02-22T02:01:00.000Z</published>
+    <updated>2022-06-29T11:57:42.670Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Commonroad基础组件简介&quot;&gt;&lt;a href=&quot;#Commonroad基础组件简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+    <category term="Commonroad" scheme="http://example.com/tags/Commonroad/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The install of Docker</title>
+    <link href="http://example.com/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <id>http://example.com/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</id>
+    <published>2022-02-19T05:02:01.000Z</published>
+    <updated>2022-02-24T15:30:26.356Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Windows系统下Docker的安装&quot;&gt;&lt;a href=&quot;#Windows系统下Docker的安装&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+    <category term="Docker" scheme="http://example.com/tags/Docker/"/>
+    
+    <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The install of Commonroad-rl</title>
+    <link href="http://example.com/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/"/>
+    <id>http://example.com/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</id>
+    <published>2022-02-17T04:00:02.000Z</published>
+    <updated>2022-06-29T11:57:32.538Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基础环境搭建&quot;&gt;&lt;a href=&quot;#基础环境搭建&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+    <category term="Commonroad" scheme="http://example.com/tags/Commonroad/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RL Summary 4 - Policy-Based Reinforcement Learning</title>
+    <link href="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/"/>
+    <id>http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/</id>
+    <published>2022-02-17T01:11:06.000Z</published>
+    <updated>2022-03-04T01:31:02.945Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;策略函数-π-a-s&quot;&gt;&lt;a href=&quot;#策略函数-π-a-s&quot; class=&quot;headerlink&quot; title=&quot;策略函数: π(a|s)&quot;&gt;&lt;/a&gt;策略函数:</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
+    <link href="http://example.com/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/"/>
+    <id>http://example.com/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</id>
+    <published>2022-02-15T05:01:18.000Z</published>
+    <updated>2022-04-19T07:54:52.656Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：&lt;br&gt;$$&lt;br&gt;Q^*(s_t,a_t)&amp;#x3D;max_\pi E[U_t|S_t&amp;#x3D;s_t,A_t&amp;#x3D;a_t]&lt;br&gt;$$&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RL Summary 2-Basic Concept</title>
+    <link href="http://example.com/2022/02/12/RL-Summary-2-Basic-Concept/"/>
+    <id>http://example.com/2022/02/12/RL-Summary-2-Basic-Concept/</id>
+    <published>2022-02-12T02:53:40.000Z</published>
+    <updated>2022-02-12T04:25:25.033Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;专业术语&quot;&gt;&lt;a href=&quot;#专业术语&quot; class=&quot;headerlink&quot; title=&quot;专业术语&quot;&gt;&lt;/a&gt;专业术语&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Flow vs CommonRoad-RL</title>
+    <link href="http://example.com/2022/02/10/FlOW-OR-CommonRoad/"/>
+    <id>http://example.com/2022/02/10/FlOW-OR-CommonRoad/</id>
+    <published>2022-02-10T06:11:58.000Z</published>
+    <updated>2022-02-25T08:46:25.984Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://flow-project.github.io/&quot;&gt;FLOW&lt;/a&gt;：A modular learning framework is presented, which leverages deep RL to address complex</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+    <category term="Flow" scheme="http://example.com/tags/Flow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RL Summary 1-Initial Contact</title>
+    <link href="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/"/>
+    <id>http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/</id>
+    <published>2022-02-08T02:26:00.000Z</published>
+    <updated>2022-02-08T05:50:12.197Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal.</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Flow--交通网络仿真框架的安装</title>
+    <link href="http://example.com/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+    <id>http://example.com/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</id>
+    <published>2022-01-28T00:58:32.000Z</published>
+    <updated>2022-02-08T02:24:36.093Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h1&gt;&lt;blockquote&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Flow" scheme="http://example.com/tags/Flow/"/>
+    
+    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
+    
+    <category term="Anaconda" scheme="http://example.com/tags/Anaconda/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <link href="http://example.com/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/"/>
+    <id>http://example.com/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</id>
+    <published>2022-01-22T10:54:18.000Z</published>
+    <updated>2022-01-22T12:16:51.808Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;异常检测&quot;&gt;&lt;a href=&quot;#异常检测&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 6-Clustering</title>
+    <link href="http://example.com/2022/01/20/ML-Summary-6-Clustering/"/>
+    <id>http://example.com/2022/01/20/ML-Summary-6-Clustering/</id>
+    <published>2022-01-20T03:08:09.000Z</published>
+    <updated>2022-01-20T03:38:17.206Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。&lt;/p&gt;
+&lt;h1 id=&quot;K-平均算法&quot;&gt;&lt;a href=&quot;#K-平均算法&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 5-How to use SVM</title>
+    <link href="http://example.com/2022/01/16/ML-Summary5-How-to-use-SVM/"/>
+    <id>http://example.com/2022/01/16/ML-Summary5-How-to-use-SVM/</id>
+    <published>2022-01-16T02:50:39.000Z</published>
+    <updated>2022-01-20T08:07:09.162Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基础概念&quot;&gt;&lt;a href=&quot;#基础概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 4-How to optimize the network</title>
+    <link href="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/"/>
+    <id>http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</id>
+    <published>2022-01-13T00:51:29.000Z</published>
+    <updated>2022-01-20T08:24:39.043Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;评判与优化&quot;&gt;&lt;a href=&quot;#评判与优化&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 3-Backpropagation</title>
+    <link href="http://example.com/2022/01/10/Machine-learning-Summary-3/"/>
+    <id>http://example.com/2022/01/10/Machine-learning-Summary-3/</id>
+    <published>2022-01-10T10:17:30.000Z</published>
+    <updated>2022-01-20T08:08:14.067Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;神经网络中的代价函数&quot;&gt;&lt;a href=&quot;#神经网络中的代价函数&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 2-Classification</title>
+    <link href="http://example.com/2022/01/06/Machine-Learning-Summary-2/"/>
+    <id>http://example.com/2022/01/06/Machine-Learning-Summary-2/</id>
+    <published>2022-01-06T03:38:30.000Z</published>
+    <updated>2022-01-10T13:05:43.438Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;分类问题&quot;&gt;&lt;a href=&quot;#分类问题&quot; class=&quot;headerlink&quot; title=&quot;分类问题&quot;&gt;&lt;/a&gt;分类问题&lt;/h1&gt;&lt;p&gt;有监督学习分为&lt;strong&gt;回归&lt;/strong&gt;和&lt;strong&gt;分类&lt;/strong&gt;两类问题，在Summary</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ML Summary 1-Initial contact</title>
+    <link href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/"/>
+    <id>http://example.com/2022/01/04/Machine%20Learning%20Summary%201/</id>
+    <published>2022-01-04T05:18:00.000Z</published>
+    <updated>2022-01-16T08:51:09.439Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;初步印象&quot;&gt;&lt;a href=&quot;#初步印象&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从零搭建hexo博客</title>
+    <link href="http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <id>http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
+    <published>2021-12-31T16:00:00.000Z</published>
+    <updated>2022-02-15T04:39:01.685Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;视频教程&quot;&gt;&lt;a href=&quot;#视频教程&quot; class=&quot;headerlink&quot; title=&quot;视频教程&quot;&gt;&lt;/a&gt;视频教程&lt;/h1&gt;&lt;p&gt;B站up主Codesheep教程，无坑。&lt;br&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>“OpenCV基础知识”</title>
+    <link href="http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
+    <published>2021-01-21T02:28:51.000Z</published>
+    <updated>2021-01-21T03:51:40.896Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、图像格式&quot;&gt;&lt;a href=&quot;#一、图像格式&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Python" scheme="http://example.com/tags/Python/"/>
+    
+    <category term="图像处理" scheme="http://example.com/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <link href="http://example.com/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/"/>
+    <id>http://example.com/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</id>
+    <published>2021-01-20T13:51:16.000Z</published>
+    <updated>2021-01-20T13:56:53.448Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;{ 变成了 &amp;amp;#123&lt;/p&gt;
+&lt;p&gt;} 变成了 &amp;amp;#125&lt;/p&gt;
+&lt;p&gt;即大括号不能正常渲染，而显示出原始编码的情况&lt;/p&gt;
+&lt;h3 id=&quot;首先在hexo配置文件中修改&quot;&gt;&lt;a href=&quot;#首先在hexo配置文件中修改&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="小技巧" scheme="http://example.com/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>步数检测--波峰检测算法</title>
+    <link href="http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/"/>
+    <id>http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</id>
+    <published>2020-10-17T15:23:18.000Z</published>
+    <updated>2021-01-20T13:59:18.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;一、研究背景&quot;&gt;&lt;a href=&quot;#一、研究背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ESP8266设置UDP透传</title>
+    <link href="http://example.com/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/"/>
+    <id>http://example.com/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</id>
+    <published>2020-10-17T04:47:58.000Z</published>
+    <updated>2020-10-17T04:49:26.935Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;ESP8266UDP模式配置&quot;&gt;&lt;a href=&quot;#ESP8266UDP模式配置&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="小技巧" scheme="http://example.com/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FreeRTOS中断管理</title>
+    <link href="http://example.com/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/"/>
+    <id>http://example.com/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</id>
+    <published>2020-08-26T07:01:58.000Z</published>
+    <updated>2020-08-26T07:22:46.079Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、FreeRTOS基本知识点&quot;&gt;&lt;a href=&quot;#一、FreeRTOS基本知识点&quot; class=&quot;headerlink&quot; title=&quot;一、FreeRTOS基本知识点&quot;&gt;&lt;/a&gt;一、FreeRTOS基本知识点&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;哪些FreeRTOS</summary>
+        
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FreeRTOS任务间通信方式——队列</title>
+    <link href="http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/"/>
+    <id>http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</id>
+    <published>2020-08-26T01:58:47.000Z</published>
+    <updated>2020-08-26T03:13:00.654Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、三种任务调度方式&quot;&gt;&lt;a href=&quot;#一、三种任务调度方式&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FreeRTOS基础概念</title>
+    <link href="http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"/>
+    <id>http://example.com/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</id>
+    <published>2020-08-25T03:46:39.000Z</published>
+    <updated>2020-08-25T03:50:33.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;一些有意思的专用名词解释：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务</summary>
+        
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>行百里者半九十</title>
+    <link href="http://example.com/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/"/>
+    <id>http://example.com/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</id>
+    <published>2020-08-21T02:51:30.000Z</published>
+    <updated>2020-08-21T03:03:03.519Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又</summary>
+        
+      
+    
+    
+    
+    
+    <category term="成长感悟" scheme="http://example.com/tags/%E6%88%90%E9%95%BF%E6%84%9F%E6%82%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:44:28.652Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;芯片型号为STM32F427，在Options for Target—&amp;gt;C&amp;#x2F;C++—&amp;gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;warning:  #47-D: incompatible</summary>
+        
+      
+    
+    
+    
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AD基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:52.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能PDF导出</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:37.282Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-文件——智能PDF&quot;&gt;&lt;a href=&quot;#1-文件——智能PDF&quot; class=&quot;headerlink&quot; title=&quot;1. 文件——智能PDF&quot;&gt;&lt;/a&gt;1. 文件——智能PDF&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AD输出Gerber文件</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:47.645Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件&lt;/p&gt;
+&lt;h1 id=&quot;1-文件——制造输出——Gerber-Files&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AD输出坐标文件及网表</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:41.233Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
+&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog语法</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T14:37:04.791Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、逻辑值&quot;&gt;&lt;a href=&quot;#一、逻辑值&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog程序框架</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:25.895Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog语句</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:21.795Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>状态机</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:17.707Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>系统任务和系统函数</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:09.619Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、显示函数&quot;&gt;&lt;a href=&quot;#一、显示函数&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STM32前期学习的一些知识点总结</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:04.108Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RT-Thread基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T02:49:43.263Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;RT-Thread是一个集实时操作系统（RTOS）内核、中间件组件和开发者社区于一体的技术平台，由熊谱翔先生带领并集合开源社区力量开发而成，RT-Thread也是一个组件完整丰富、高度可伸缩、简易开发、超低功耗、高安全性的物联网操作系统。RT-Th</summary>
+        
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+  </entry>
+  
+</feed>
