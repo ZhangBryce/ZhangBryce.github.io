@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png">
 <meta property="og:image" content="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png">
 <meta property="article:published_time" content="2022-03-22T01:28:19.000Z">
-<meta property="article:modified_time" content="2022-03-22T09:53:19.814Z">
+<meta property="article:modified_time" content="2023-03-01T08:42:24.945Z">
 <meta property="article:author" content="炳阳">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -158,7 +158,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -227,9 +227,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-03-22 09:28:19 / 修改时间：17:53:19" itemprop="dateCreated datePublished" datetime="2022-03-22T09:28:19+08:00">2022-03-22</time>
+      <time title="创建时间：2022-03-22 09:28:19" itemprop="dateCreated datePublished" datetime="2022-03-22T09:28:19+08:00">2022-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-01 16:42:24" itemprop="dateModified" datetime="2023-03-01T16:42:24+08:00">2023-03-01</time>
     </span>
 
   
@@ -252,7 +258,7 @@
 <h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
 <p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
 <p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
 <thead>

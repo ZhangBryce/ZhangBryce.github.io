@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -191,7 +191,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +209,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">系统任务和系统函数</a>
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/" class="post-title-link" itemprop="url">状态机</a>
         </h2>
 
         <div class="post-meta-container">
@@ -227,7 +227,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:09" itemprop="dateModified" datetime="2020-08-05T11:01:09+08:00">2020-08-05</time>
+      <time title="修改时间：2020-08-05 11:01:17" itemprop="dateModified" datetime="2020-08-05T11:01:17+08:00">2020-08-05</time>
     </span>
 
   
@@ -240,42 +240,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
-<li>$display(“带格式字符串”,参数1,参数2,…);</li>
+          <h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
+<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
+</ul>
+<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
+<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
+</ul>
+<ol>
+<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
+<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
+<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
 </ol>
 <ul>
-<li>在文本后会加一个<strong>换行</strong></li>
+<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
+<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
+</ul>
+<ol>
+<li>状态空间</li>
+</ol>
+<ul>
+<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
-<li>$write(“带格式字符串”,参数1,参数2,…);</li>
+<li>状态跳转(时序逻辑)</li>
 </ol>
-<ul>
-<li>在文本后<strong>不会</strong>加换行</li>
-</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
-<li>$strobe和$monltor</li>
+<li>下一个状态的判断(组合逻辑)</li>
 </ol>
 <ul>
-<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
-<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
+<li>用case语句判断当前状态，使用阻塞赋值</li>
+<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
 </ul>
-<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
-<li>$finish表示停止仿真</li>
-<li>$stop表示暂停仿真</li>
+<ol start="4">
+<li>各个状态下的动作</li>
 </ol>
-<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
-<li>$time返回一个64位整数时间值</li>
-<li>$stime返回一个32位整数时间值</li>
-<li>$realtime返回一个实数时间值</li>
-<li>$timeformat控制时间的显示方式</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
+<ol>
+<li>可以有效滤去组合逻辑输出的毛刺</li>
+<li>进行时序计算和约束</li>
+<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
-
-
 
       
     </div>
@@ -392,6 +404,117 @@
 </ol>
 <p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
 <p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">系统任务和系统函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:09" itemprop="dateModified" datetime="2020-08-05T11:01:09+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
+<li>$display(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后会加一个<strong>换行</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>$write(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后<strong>不会</strong>加换行</li>
+</ul>
+<ol start="3">
+<li>$strobe和$monltor</li>
+</ol>
+<ul>
+<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
+<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
+</ul>
+<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
+<li>$finish表示停止仿真</li>
+<li>$stop表示暂停仿真</li>
+</ol>
+<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
+<li>$time返回一个64位整数时间值</li>
+<li>$stime返回一个32位整数时间值</li>
+<li>$realtime返回一个实数时间值</li>
+<li>$timeformat控制时间的显示方式</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
+
+
 
       
     </div>
