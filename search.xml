@@ -37,6 +37,28 @@
       </tags>
   </entry>
   <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Basic Component of Commonroad</title>
     <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
@@ -62,25 +84,65 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+    <title>The install of Commonroad-rl</title>
+    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
+<ul>
+<li>操作系统：Ubuntu18.4.6</li>
+<li>是否使用虚拟机：是</li>
+</ul>
+<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
+<li>Anaconda</li>
+<li>git</li>
+</ul>
+<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
+<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
+</li>
+<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
+</li>
+<li><p>commonroad-scenario-designer开启命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
 </ul>
 ]]></content>
       <tags>
-        <tag>Machine Learning</tag>
+        <tag>Reinforcement Learning</tag>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS任务间通信方式——队列</title>
+    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
+<li>优先级抢占式调度<ul>
+<li>每个任务都赋予了一个优先级</li>
+<li>每个任务都可以存在于一个或多个状态</li>
+<li>在任何时候都只有一个任务可以处于运行状态</li>
+<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+</ul>
+</li>
+<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
+<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
+</ol>
+<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
+<ol>
+<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
+</li>
+<li><p>如何创建一个队列</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
+</li>
+<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -118,79 +180,6 @@
         <tag>Reinforcement Learning</tag>
         <tag>Docker</tag>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>The install of Commonroad-rl</title>
-    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
-<ul>
-<li>操作系统：Ubuntu18.4.6</li>
-<li>是否使用虚拟机：是</li>
-</ul>
-<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
-<li>Anaconda</li>
-<li>git</li>
-</ul>
-<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
-<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
-</li>
-<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
-</li>
-<li><p>commonroad-scenario-designer开启命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Commonroad</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Flow--交通网络仿真框架的安装</title>
-    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
-<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
-<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
-<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
-<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
-<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
-<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
-<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
-<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
-</ol>
-<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
-<h2 id="使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
-<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
-<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
-<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
-<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
-
-<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
-<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
-<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
-<li>ps afx|grep apt ：列出所有apt进程</li>
-<li>sudo kill -9 进程号：沙掉进程</li>
-<li>ls -l ：列出文件夹权限</li>
-<li>source activate：conda切换环境</li>
-<li>chmod 766 .&#x2F;*：赋予执行权限</li>
-<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
-<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
-<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
-<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Flow</tag>
-        <tag>Anaconda</tag>
       </tags>
   </entry>
   <entry>
@@ -250,9 +239,9 @@
 </ol>
 ]]></content>
       <tags>
-        <tag>小技巧</tag>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
+        <tag>小技巧</tag>
       </tags>
   </entry>
   <entry>
@@ -268,90 +257,53 @@
 </ol>
 ]]></content>
       <tags>
+        <tag>操作系统</tag>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
-        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
-    <title>FreeRTOS任务间通信方式——队列</title>
-    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
-    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
-<li>优先级抢占式调度<ul>
-<li>每个任务都赋予了一个优先级</li>
-<li>每个任务都可以存在于一个或多个状态</li>
-<li>在任何时候都只有一个任务可以处于运行状态</li>
-<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+    <title>Flow--交通网络仿真框架的安装</title>
+    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
+<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
+<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
+<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
+<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
+<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
+<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
+<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
+<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
+</ol>
+<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
+<h2 id="使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
+<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
+<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
+<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
+<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
+
+<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
+<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
+<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
+<li>ps afx|grep apt ：列出所有apt进程</li>
+<li>sudo kill -9 进程号：沙掉进程</li>
+<li>ls -l ：列出文件夹权限</li>
+<li>source activate：conda切换环境</li>
+<li>chmod 766 .&#x2F;*：赋予执行权限</li>
+<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
+<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
+<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
 </ul>
-</li>
-<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
-<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
-</ol>
-<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
-<ol>
-<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
-</li>
-<li><p>如何创建一个队列</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
-</li>
-<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
-</li>
-</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
+<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FreeRTOS基础概念</title>
-    <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>一些有意思的专用名词解释：</p>
-<ul>
-<li>饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。</li>
-</ul>
-<h4 id="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"><a href="#一、在应用程序中，FreeRTOS如何为各任务分配处理时间" class="headerlink" title="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"></a>一、在应用程序中，FreeRTOS如何为各任务分配处理时间</h4><p>​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入<strong>心跳中断函数</strong>，来决定下一个时间片应该运行什么函数。而心跳中断频率由FreeRTOSConfig.h 中的编译时配置常量 configTICK_RATE_HZ 进行配置。比如说，如果 configTICK_RATE_HZ 设为 100(HZ)，则时间片长度为 10ms<br><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png" alt="任务切换基本原理"></p>
-<h4 id="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"><a href="#二、在任意给定时刻，FreeRTOS如何选择任务投入运行" class="headerlink" title="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"></a>二、在任意给定时刻，FreeRTOS如何选择任务投入运行</h4><p>​		在任意给定时刻，FreeRTOS执行处于就绪状态的任务，如果有多个就绪状态任务，则根据任务优先级来判断执行哪一个。如果此时没有就绪状态的任务，则执行定义好的<strong>空任务函数</strong>。</p>
-<h4 id="三、任务优先级如何影响系统行为"><a href="#三、任务优先级如何影响系统行为" class="headerlink" title="三、任务优先级如何影响系统行为"></a>三、任务优先级如何影响系统行为</h4><p>​		低优先级号表示任务的优先级低，优先级号0表示最低优先级。有效的优先级号范围从0到(configMAX_PRIORITES – 1) ，<strong>当两个任务都可以被执行(ready)时，高优先级的任务会被执行</strong>。FreeRTOS也可以设置同优先级任务。</p>
-<h4 id="四、任务存在哪些状态"><a href="#四、任务存在哪些状态" class="headerlink" title="四、任务存在哪些状态"></a>四、任务存在哪些状态</h4><p>​		由于只有一个处理器来执行程序，则任意时刻只有一个程序在运行。所有的任务都有基本的两个状态：<strong>运行状态</strong>和<strong>非运行状态</strong>(休眠)。为了使不同优先级的任务都能运行，不至于出现谁饿死谁的情况，将“非运行状态”扩充为不同状态，如阻塞、挂起等，以便于实现任务调度。下面来逐一解释各个状态</p>
-<ul>
-<li>阻塞状态(blocked)：任务可以进入阻塞以等待以下另种不同类型的时间<ol>
-<li>定时（时间相关）事件——这类事件可以是延迟到期或是绝对时间到点。比如说某个任务可以进入阻塞态以延迟10ms，可以程序设定等待超时时间。</li>
-<li>同步事件——源于其他任务或中断的事件。比如说，某个任务可以进入阻塞态以等待队列中有数据到来。同步事件囊括了所有板级范围内的事件类型。</li>
-</ol>
-</li>
-<li>挂起状态(suspended)：进入挂起状态的唯一办法是调用vTaskSuspend()API函数；唤醒任务的唯一途径是调用vTaskResume()或vTaskResumeFromlSR()API函数。<strong>大多数应用程序不会用到挂起状态</strong></li>
-<li>就绪状态(ready)：任务处于非运行态，但是既没有阻塞也没有挂起。<strong>处于就绪态的任务能够被运行</strong></li>
-</ul>
-<p>完整的状态转移图：</p>
-<p><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png" alt="状态转换图"></p>
-<h4 id="五、基础使用与配置"><a href="#五、基础使用与配置" class="headerlink" title="五、基础使用与配置"></a>五、基础使用与配置</h4><ol>
-<li><p>如何实现一个任务<br>1）调用xTaskCreate()创建任务，主要是对任务的各项属性进行配置</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">portBASE_TYPE <span class="title function_">xTaskCreate</span><span class="params">( pdTASK_CODE pvTaskCode,</span></span><br><span class="line"><span class="params">						<span class="type">const</span> <span class="type">signed</span> portCHAR * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portSHORT usStackDepth,</span></span><br><span class="line"><span class="params">						<span class="type">void</span> *pvParameters,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portBASE_TYPE uxPriority,</span></span><br><span class="line"><span class="params">						xTaskHandle *pxCreatedTask )</span>;</span><br></pre></td></tr></table></figure>
-
-<p>2）创建任务函数实体，这是代码实际执行的函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTask1</span><span class="params">( <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pcTaskName = <span class="string">&quot;Task 1 is running\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">unsigned</span> <span class="type">long</span> ul;</span><br><span class="line">    <span class="comment">/* 和大多数任务一样，该任务处于一个死循环中。 */</span></span><br><span class="line">    <span class="keyword">for</span>( ;; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Print out the name of this task. */</span></span><br><span class="line">        vPrintString( pcTaskName );</span><br><span class="line">        <span class="comment">/* 延迟，以产生一个周期 */</span></span><br><span class="line">        <span class="keyword">for</span>( ul = <span class="number">0</span>; ul &lt; mainDELAY_LOOP_COUNT; ul++ )</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">/* 这个空循环是最原始的延迟实现方式。在循环中不做任何事情。后面的示例程序将采用</span></span><br><span class="line"><span class="comment">        delay/sleep函数代替这个原始空循环。 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>如何创建一个或多个任务的实例<br>通过void *pvParameters的参数传递，来使功能相同的函数，通过不同参数的传入来实现不同的用户需求</p>
-</li>
-<li><p>如何改变一个已创建任务的优先级<br>xTaskCreate() API 函数的参数 uxPriority 为创建的任务赋予了一个初始优先级。这<br>个优先级可以在调度器启动后调用 vTaskPrioritySet() API 函数进行修改。  </p>
-</li>
-<li><p>如何删除任务</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">( xTaskHandle pxTaskToDelete )</span>;  </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>空闲任务何时运行，可以用来干什么<br>空闲任务拥有最低优先级，以保证其不会妨碍具有更高优先级的应用任务进入运行态。空闲任务通常为延时很小的循环。用来在CPU没有代码运行时，让CPU有事可干</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
+        <tag>Flow</tag>
+        <tag>Linux</tag>
+        <tag>Anaconda</tag>
       </tags>
   </entry>
   <entry>
@@ -400,6 +352,54 @@
 ]]></content>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS基础概念</title>
+    <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>一些有意思的专用名词解释：</p>
+<ul>
+<li>饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。</li>
+</ul>
+<h4 id="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"><a href="#一、在应用程序中，FreeRTOS如何为各任务分配处理时间" class="headerlink" title="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"></a>一、在应用程序中，FreeRTOS如何为各任务分配处理时间</h4><p>​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入<strong>心跳中断函数</strong>，来决定下一个时间片应该运行什么函数。而心跳中断频率由FreeRTOSConfig.h 中的编译时配置常量 configTICK_RATE_HZ 进行配置。比如说，如果 configTICK_RATE_HZ 设为 100(HZ)，则时间片长度为 10ms<br><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png" alt="任务切换基本原理"></p>
+<h4 id="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"><a href="#二、在任意给定时刻，FreeRTOS如何选择任务投入运行" class="headerlink" title="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"></a>二、在任意给定时刻，FreeRTOS如何选择任务投入运行</h4><p>​		在任意给定时刻，FreeRTOS执行处于就绪状态的任务，如果有多个就绪状态任务，则根据任务优先级来判断执行哪一个。如果此时没有就绪状态的任务，则执行定义好的<strong>空任务函数</strong>。</p>
+<h4 id="三、任务优先级如何影响系统行为"><a href="#三、任务优先级如何影响系统行为" class="headerlink" title="三、任务优先级如何影响系统行为"></a>三、任务优先级如何影响系统行为</h4><p>​		低优先级号表示任务的优先级低，优先级号0表示最低优先级。有效的优先级号范围从0到(configMAX_PRIORITES – 1) ，<strong>当两个任务都可以被执行(ready)时，高优先级的任务会被执行</strong>。FreeRTOS也可以设置同优先级任务。</p>
+<h4 id="四、任务存在哪些状态"><a href="#四、任务存在哪些状态" class="headerlink" title="四、任务存在哪些状态"></a>四、任务存在哪些状态</h4><p>​		由于只有一个处理器来执行程序，则任意时刻只有一个程序在运行。所有的任务都有基本的两个状态：<strong>运行状态</strong>和<strong>非运行状态</strong>(休眠)。为了使不同优先级的任务都能运行，不至于出现谁饿死谁的情况，将“非运行状态”扩充为不同状态，如阻塞、挂起等，以便于实现任务调度。下面来逐一解释各个状态</p>
+<ul>
+<li>阻塞状态(blocked)：任务可以进入阻塞以等待以下另种不同类型的时间<ol>
+<li>定时（时间相关）事件——这类事件可以是延迟到期或是绝对时间到点。比如说某个任务可以进入阻塞态以延迟10ms，可以程序设定等待超时时间。</li>
+<li>同步事件——源于其他任务或中断的事件。比如说，某个任务可以进入阻塞态以等待队列中有数据到来。同步事件囊括了所有板级范围内的事件类型。</li>
+</ol>
+</li>
+<li>挂起状态(suspended)：进入挂起状态的唯一办法是调用vTaskSuspend()API函数；唤醒任务的唯一途径是调用vTaskResume()或vTaskResumeFromlSR()API函数。<strong>大多数应用程序不会用到挂起状态</strong></li>
+<li>就绪状态(ready)：任务处于非运行态，但是既没有阻塞也没有挂起。<strong>处于就绪态的任务能够被运行</strong></li>
+</ul>
+<p>完整的状态转移图：</p>
+<p><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png" alt="状态转换图"></p>
+<h4 id="五、基础使用与配置"><a href="#五、基础使用与配置" class="headerlink" title="五、基础使用与配置"></a>五、基础使用与配置</h4><ol>
+<li><p>如何实现一个任务<br>1）调用xTaskCreate()创建任务，主要是对任务的各项属性进行配置</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">portBASE_TYPE <span class="title function_">xTaskCreate</span><span class="params">( pdTASK_CODE pvTaskCode,</span></span><br><span class="line"><span class="params">						<span class="type">const</span> <span class="type">signed</span> portCHAR * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portSHORT usStackDepth,</span></span><br><span class="line"><span class="params">						<span class="type">void</span> *pvParameters,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portBASE_TYPE uxPriority,</span></span><br><span class="line"><span class="params">						xTaskHandle *pxCreatedTask )</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2）创建任务函数实体，这是代码实际执行的函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTask1</span><span class="params">( <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pcTaskName = <span class="string">&quot;Task 1 is running\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">unsigned</span> <span class="type">long</span> ul;</span><br><span class="line">    <span class="comment">/* 和大多数任务一样，该任务处于一个死循环中。 */</span></span><br><span class="line">    <span class="keyword">for</span>( ;; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Print out the name of this task. */</span></span><br><span class="line">        vPrintString( pcTaskName );</span><br><span class="line">        <span class="comment">/* 延迟，以产生一个周期 */</span></span><br><span class="line">        <span class="keyword">for</span>( ul = <span class="number">0</span>; ul &lt; mainDELAY_LOOP_COUNT; ul++ )</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">/* 这个空循环是最原始的延迟实现方式。在循环中不做任何事情。后面的示例程序将采用</span></span><br><span class="line"><span class="comment">        delay/sleep函数代替这个原始空循环。 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>如何创建一个或多个任务的实例<br>通过void *pvParameters的参数传递，来使功能相同的函数，通过不同参数的传入来实现不同的用户需求</p>
+</li>
+<li><p>如何改变一个已创建任务的优先级<br>xTaskCreate() API 函数的参数 uxPriority 为创建的任务赋予了一个初始优先级。这<br>个优先级可以在调度器启动后调用 vTaskPrioritySet() API 函数进行修改。  </p>
+</li>
+<li><p>如何删除任务</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">( xTaskHandle pxTaskToDelete )</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>空闲任务何时运行，可以用来干什么<br>空闲任务拥有最低优先级，以保证其不会妨碍具有更高优先级的应用任务进入运行态。空闲任务通常为延时很小的循环。用来在CPU没有代码运行时，让CPU有事可干</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -464,6 +464,32 @@
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
 <li>PCA和线性拟合是完全不同的两种算法</li>
 <li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 5-How to use SVM</title>
+    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
+<ol>
+<li>参数C</li>
+<li>核函数</li>
+</ol>
+<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
+<h1 id="逻辑回归-amp-SVM-amp-神经网络"><a href="#逻辑回归-amp-SVM-amp-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
+<ul>
+<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
+<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
+<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
+</ul>
+<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
+<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
 </ul>
 ]]></content>
       <tags>
@@ -585,54 +611,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 5-How to use SVM</title>
-    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
-    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
-<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
-<ol>
-<li>参数C</li>
-<li>核函数</li>
-</ol>
-<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
-<h1 id="逻辑回归-amp-SVM-amp-神经网络"><a href="#逻辑回归-amp-SVM-amp-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
-<ul>
-<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
-<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
-<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
-</ul>
-<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
-<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 3-Backpropagation</title>
     <url>/2022/01/10/Machine-learning-Summary-3/</url>
     <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
@@ -673,6 +651,85 @@
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RL Summary 2-Basic Concept</title>
+    <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
+    <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
+<thead>
+<tr>
+<th align="center"><strong>名词</strong></th>
+<th align="center">Agent</th>
+<th align="center">Environment</th>
+<th align="center">State</th>
+<th align="center">Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>解释</strong></td>
+<td align="center">行动的主体</td>
+<td align="center">主体所在的环境</td>
+<td align="center">主体与所处环境的状态 s</td>
+<td align="center">主体做出的行为 a</td>
+</tr>
+<tr>
+<td align="center"><strong>名词</strong></td>
+<td align="center"><strong>Reward</strong></td>
+<td align="center"><strong>Policy</strong></td>
+<td align="center"><strong>State transition</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><strong>解释</strong></td>
+<td align="center">回报 r</td>
+<td align="center">主体根据回报做出动作所遵循的规则  π(a|s)</td>
+<td align="center">状态转换，知道当前状态和行为，预测下一个状态 p(s^|s,a)</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Policy的作用是从包含所有action的集合中抽样，取出Agent要做的action。</li>
+<li>状态转移是随机的，因为环境是随机的，而玩家对环境并无全面了解。</li>
+<li>强化学习的随机性来自于<strong>行为</strong>和<strong>状态转移</strong>。<strong>行为</strong>是由policy抽样得到的，具有随机性。状态转移随机性见上一条。</li>
+</ul>
+<h1 id="Return-and-Value"><a href="#Return-and-Value" class="headerlink" title="Return and Value"></a>Return and Value</h1><ul>
+<li><p>Return是回报，是所有的奖励之和，它的随机性来自于对未来的不确定。回报用U表示：<br>$$<br>U_t&#x3D;R_t+\gamma R_{t+1}+\gamma^2R_{t+2}+…<br>$$</p>
+</li>
+<li><p>Action-value function是行动价值函数，它是针对Ut求期望，它能在知道当前状态和行为时，根据policy函数告诉我们当前动作是好是坏。它用Q表示：<br>$$<br>Q_\pi(s_t,a_t)&#x3D;E[U_t|s_t,a_t]<br>$$</p>
+</li>
+<li><p>Optimal action-value function是最大行动价值函数，它把行动价值函数中的policy函数消掉了。它告诉我们，不管你使用怎样的policy，根据t时刻的状态和行为，你最多能得到多少回报。它的表示如下<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi Q_\pi(s_t,a_t)<br>$$</p>
+</li>
+<li><p>State-value function是状态价值函数，它针对行动价值函数求期望，把A消掉了。它能根据当前状态告诉你场上的局势，例如在围棋中，它能告诉你，你是快赢了还是快输了。它的表示如下<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]<br>$$</p>
+</li>
+</ul>
+<h1 id="强化学习在干什么"><a href="#强化学习在干什么" class="headerlink" title="强化学习在干什么"></a>强化学习在干什么</h1><p>一个简单的循环为：第t个状态下—-&gt;Agent做动作—-&gt;环境更新为第t+1个状态，给Agent第t个奖励，直到游戏结束。</p>
+<p>强化学习就是学习policy或者Optimal action-value function，有两者中的一个，就能控制agent。</p>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -749,6 +806,33 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
+    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
+    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
+<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
+<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
+<li><p>获取t时刻的状态值St和行为At</p>
+</li>
+<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
+</li>
+<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
+</li>
+<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
+</li>
+<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
+</li>
+<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
+</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RL Summary 1-Initial Contact</title>
     <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
     <content><![CDATA[<blockquote>
@@ -788,87 +872,31 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
-    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
-    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
-<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
-<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
-<li><p>获取t时刻的状态值St和行为At</p>
-</li>
-<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
-</li>
-<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
-</li>
-<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
-</li>
-<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
-</li>
-<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
-</li>
-</ol>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RL Summary 2-Basic Concept</title>
-    <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
-    <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
-<thead>
-<tr>
-<th align="center"><strong>名词</strong></th>
-<th align="center">Agent</th>
-<th align="center">Environment</th>
-<th align="center">State</th>
-<th align="center">Action</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">行动的主体</td>
-<td align="center">主体所在的环境</td>
-<td align="center">主体与所处环境的状态 s</td>
-<td align="center">主体做出的行为 a</td>
-</tr>
-<tr>
-<td align="center"><strong>名词</strong></td>
-<td align="center"><strong>Reward</strong></td>
-<td align="center"><strong>Policy</strong></td>
-<td align="center"><strong>State transition</strong></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">回报 r</td>
-<td align="center">主体根据回报做出动作所遵循的规则  π(a|s)</td>
-<td align="center">状态转换，知道当前状态和行为，预测下一个状态 p(s^|s,a)</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
+    <title>This指针</title>
+    <url>/2022/03/23/This%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<p>先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">string <span class="title">say_hello</span><span class="params">()</span></span>;	</span><br><span class="line">&#125;;</span><br><span class="line">string Hello :: <span class="built_in">say_hello</span>()&#123;</span><br><span class="line">    <span class="comment">//this指针在函数内部被隐含使用</span></span><br><span class="line">	string a = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Hello H1,H2;</span><br><span class="line">	cout&lt;&lt;H1.<span class="built_in">say_hello</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+
+<p>接下来回答两个问题：This指针是什么呢？它在什么时候起作用呢？</p>
 <ul>
-<li>Policy的作用是从包含所有action的集合中抽样，取出Agent要做的action。</li>
-<li>状态转移是随机的，因为环境是随机的，而玩家对环境并无全面了解。</li>
-<li>强化学习的随机性来自于<strong>行为</strong>和<strong>状态转移</strong>。<strong>行为</strong>是由policy抽样得到的，具有随机性。状态转移随机性见上一条。</li>
+<li>This指针是一个隐含于每一个类的<strong>非静态成员函数</strong>中的特殊指针。</li>
+<li>每次对成员函数的调用都存在一个<strong>目的对象</strong>，this指针用于指向正在被<strong>成员函数</strong>操作的<strong>对象</strong>。</li>
 </ul>
-<h1 id="Return-and-Value"><a href="#Return-and-Value" class="headerlink" title="Return and Value"></a>Return and Value</h1><ul>
-<li><p>Return是回报，是所有的奖励之和，它的随机性来自于对未来的不确定。回报用U表示：<br>$$<br>U_t&#x3D;R_t+\gamma R_{t+1}+\gamma^2R_{t+2}+…<br>$$</p>
-</li>
-<li><p>Action-value function是行动价值函数，它是针对Ut求期望，它能在知道当前状态和行为时，根据policy函数告诉我们当前动作是好是坏。它用Q表示：<br>$$<br>Q_\pi(s_t,a_t)&#x3D;E[U_t|s_t,a_t]<br>$$</p>
-</li>
-<li><p>Optimal action-value function是最大行动价值函数，它把行动价值函数中的policy函数消掉了。它告诉我们，不管你使用怎样的policy，根据t时刻的状态和行为，你最多能得到多少回报。它的表示如下<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi Q_\pi(s_t,a_t)<br>$$</p>
-</li>
-<li><p>State-value function是状态价值函数，它针对行动价值函数求期望，把A消掉了。它能根据当前状态告诉你场上的局势，例如在围棋中，它能告诉你，你是快赢了还是快输了。它的表示如下<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]<br>$$</p>
-</li>
-</ul>
-<h1 id="强化学习在干什么"><a href="#强化学习在干什么" class="headerlink" title="强化学习在干什么"></a>强化学习在干什么</h1><p>一个简单的循环为：第t个状态下—-&gt;Agent做动作—-&gt;环境更新为第t+1个状态，给Agent第t个奖励，直到游戏结束。</p>
-<p>强化学习就是学习policy或者Optimal action-value function，有两者中的一个，就能控制agent。</p>
+<p><strong>非静态成员函数</strong>：由static修饰的函数是静态成员函数，那么没有static关键字修饰的函数，都称为非静态函数。</p>
+<p><strong>目的对象</strong>：由类声明对象，然后<strong>不同的对象</strong>都可调用类中的成员函数。对类中的成员函数来说，对象有多个，因此要搞清楚哪个对象在调用自己，正在调用自己的那个对象就称为目的对象。</p>
+<p>回看上述的代码，当使用H1.say_hello()调用say_hello函数时，H1即为目的对象，成员函数中this指针即指向H1。在say_hello函数执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return a;</span><br></pre></td></tr></table></figure>
+
+<p>时，本质上是在执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return this-&gt;a;</span><br></pre></td></tr></table></figure>
+
+<p>即对<strong>对象</strong>H1返回字符串a。</p>
 ]]></content>
       <tags>
-        <tag>Reinforcement Learning</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -907,68 +935,6 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>This指针</title>
-    <url>/2022/03/23/This%E6%8C%87%E9%92%88/</url>
-    <content><![CDATA[<p>先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">string <span class="title">say_hello</span><span class="params">()</span></span>;	</span><br><span class="line">&#125;;</span><br><span class="line">string Hello :: <span class="built_in">say_hello</span>()&#123;</span><br><span class="line">    <span class="comment">//this指针在函数内部被隐含使用</span></span><br><span class="line">	string a = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Hello H1,H2;</span><br><span class="line">	cout&lt;&lt;H1.<span class="built_in">say_hello</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码输出如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hello world</span><br></pre></td></tr></table></figure>
-
-<p>接下来回答两个问题：This指针是什么呢？它在什么时候起作用呢？</p>
-<ul>
-<li>This指针是一个隐含于每一个类的<strong>非静态成员函数</strong>中的特殊指针。</li>
-<li>每次对成员函数的调用都存在一个<strong>目的对象</strong>，this指针用于指向正在被<strong>成员函数</strong>操作的<strong>对象</strong>。</li>
-</ul>
-<p><strong>非静态成员函数</strong>：由static修饰的函数是静态成员函数，那么没有static关键字修饰的函数，都称为非静态函数。</p>
-<p><strong>目的对象</strong>：由类声明对象，然后<strong>不同的对象</strong>都可调用类中的成员函数。对类中的成员函数来说，对象有多个，因此要搞清楚哪个对象在调用自己，正在调用自己的那个对象就称为目的对象。</p>
-<p>回看上述的代码，当使用H1.say_hello()调用say_hello函数时，H1即为目的对象，成员函数中this指针即指向H1。在say_hello函数执行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return a;</span><br></pre></td></tr></table></figure>
-
-<p>时，本质上是在执行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return this-&gt;a;</span><br></pre></td></tr></table></figure>
-
-<p>即对<strong>对象</strong>H1返回字符串a。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
-    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
       </tags>
   </entry>
   <entry>
@@ -1071,6 +1037,40 @@
       </tags>
   </entry>
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
+    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1087,23 +1087,6 @@
 <li>直接点确定<br><img src="https://img-blog.csdnimg.cn/20200407121625333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/20200407121707780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
 </ul>
 <h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
-]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AD输出坐标文件及网表</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
-    <content><![CDATA[<p>【名词解释及其功能】</p>
-<ul>
-<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
-<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
-</ul>
-<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
 ]]></content>
       <tags>
         <tag>Altinum Designer</tag>
@@ -1198,6 +1181,23 @@
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AD输出坐标文件及网表</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
+    <content><![CDATA[<p>【名词解释及其功能】</p>
+<ul>
+<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
+<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
+</ul>
+<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
+]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
       </tags>
   </entry>
   <entry>
@@ -1422,19 +1422,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
-    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
-<p>} 变成了 &amp;#125</p>
-<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
-<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>小技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RT-Thread基础操作</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<blockquote>
@@ -1564,9 +1551,48 @@
 </ul>
 ]]></content>
       <tags>
+        <tag>操作系统</tag>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
-        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
+<p>} 变成了 &amp;#125</p>
+<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
+<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>小技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>复制构造函数</title>
+    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
+<li><p>用类的一个对象去初始化该类的另一个对象时</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
+</li>
+<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
+</li>
+<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1619,29 +1645,118 @@
       </tags>
   </entry>
   <entry>
-    <title>复制构造函数</title>
-    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>排序算法总结</title>
+    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
-<li><p>用类的一个对象去初始化该类的另一个对象时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
-</li>
-<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
-</li>
-<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数模板与类模板</title>
+    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
+<ul>
+<li>函数模板在编译时不会生成</li>
+<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
+<li>函数指针指向模板的实例，并不指向模板本身</li>
+</ul>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深浅复制</title>
+    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
+
+<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
+<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
+<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
+<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">浅复制</th>
+<th align="center">深复制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">定义</td>
+<td align="center">复制对象时，不开辟新内存空间的过程</td>
+<td align="center">复制对象时，开辟新内存空间的过程</td>
+</tr>
+<tr>
+<td align="center">优点</td>
+<td align="center">操作简单</td>
+<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">实现方式</td>
+<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
+<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行百里者半九十</title>
+    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
+    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
+<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
+<li><strong>心高气傲，轻敌大意</strong></li>
+</ul>
+<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
+<ul>
+<li><strong>优柔寡断，心生退意</strong></li>
+</ul>
+<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
+<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
+<li><strong>志同道合</strong></li>
+</ul>
+<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
+<ul>
+<li><strong>沟通交流</strong></li>
+</ul>
+<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
+<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
+<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
+]]></content>
+      <tags>
+        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -1700,85 +1815,6 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行百里者半九十</title>
-    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
-    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
-<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
-<li><strong>心高气傲，轻敌大意</strong></li>
-</ul>
-<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
-<ul>
-<li><strong>优柔寡断，心生退意</strong></li>
-</ul>
-<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
-<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
-<li><strong>志同道合</strong></li>
-</ul>
-<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
-<ul>
-<li><strong>沟通交流</strong></li>
-</ul>
-<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
-<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
-<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
-]]></content>
-      <tags>
-        <tag>成长感悟</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深浅复制</title>
-    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
-
-<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
-<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
-<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
-<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
-<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">浅复制</th>
-<th align="center">深复制</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">定义</td>
-<td align="center">复制对象时，不开辟新内存空间的过程</td>
-<td align="center">复制对象时，开辟新内存空间的过程</td>
-</tr>
-<tr>
-<td align="center">优点</td>
-<td align="center">操作简单</td>
-<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">实现方式</td>
-<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
-<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
 </search>
