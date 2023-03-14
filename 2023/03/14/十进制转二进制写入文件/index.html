@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="需求：输入n个十进制正数，将其转化为二进制，写到文件。 分析：涉及的知识点有  字符输入 十进制正整数转化为二进制字符串 写入文件  字符输入方案一：使用cin输入 12int n;cin&gt;&gt;n;  方案二：使用getline输入，该函数需要包含头文件 12&#x2F;&#x2F;istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十进制转二进制写入文件">
+<meta property="og:url" content="http://example.com/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="炳阳的博客">
+<meta property="og:description" content="需求：输入n个十进制正数，将其转化为二进制，写到文件。 分析：涉及的知识点有  字符输入 十进制正整数转化为二进制字符串 写入文件  字符输入方案一：使用cin输入 12int n;cin&gt;&gt;n;  方案二：使用getline输入，该函数需要包含头文件 12&#x2F;&#x2F;istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-14T01:44:45.000Z">
+<meta property="article:modified_time" content="2023-03-14T02:48:12.457Z">
+<meta property="article:author" content="炳阳">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/","path":"2023/03/14/十进制转二进制写入文件/","title":"十进制转二进制写入文件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>十进制转二进制写入文件 | 炳阳的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="炳阳的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">炳阳的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">What's past is prologue</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E8%BE%93%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">字符输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E6%AD%A3%E6%95%B4%E6%95%B0%E8%BD%AC%E5%8C%96%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.</span> <span class="nav-text">十进制正整数转化为二进制字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">写入文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E9%A2%98%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="nav-number">4.</span> <span class="nav-text">本题完整代码如下</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="炳阳"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">炳阳</p>
+  <div class="site-description" itemprop="description">技术宅改变世界</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhangbeyonder" title="Github → https:&#x2F;&#x2F;github.com&#x2F;zhangbeyonder" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangbingyang0@qq.com" title="E-Mail → mailto:zhangbingyang0@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="十进制转二进制写入文件 | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          十进制转二进制写入文件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-14 09:44:45 / 修改时间：10:48:12" itemprop="dateCreated datePublished" datetime="2023-03-14T09:44:45+08:00">2023-03-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>需求：输入n个十进制正数，将其转化为二进制，写到文件。</strong></p>
+<p>分析：涉及的知识点有</p>
+<ul>
+<li>字符输入</li>
+<li>十进制正整数转化为二进制字符串</li>
+<li>写入文件</li>
+</ul>
+<h1 id="字符输入"><a href="#字符输入" class="headerlink" title="字符输入"></a>字符输入</h1><p><strong>方案一</strong>：使用cin输入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">cin&gt;&gt;n;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字符，默认参数为&#x27;\n&#x27;</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span> <span class="params">( istream &amp;is , string &amp;str , <span class="type">char</span> delim )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案比较</strong>：需要进行进制转换，使用<strong>方案一</strong>读取数据至整形变量，再转换为二进制数据，最后将二进制数据转换为字符串。</p>
+<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</p>
+<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>使用输入输出流<code>fstream</code>完成文件写入操作，它的子集<code>ofstream</code>为输出流，<code>ifstream</code>为输入流。需要注意的是，<code>fstream::open</code>的函数原型如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其打开模式的默认参数为<code>ios_base::in | ios_base::out</code>。这意味着，对于输入输出流<code>fstream</code>，如果使用默认参数打开一个并不存在的文件，将会打开失败。当我们想要实现<strong>当文件不存在，自动创建该文件</strong>并写入的功能时，需要指定打开模式为<code>ios_base::out</code>。当然，可以直接定义<code>ofstream</code>对象，并使用<code>open</code>函数即可实现相同的功能。</p>
+<p>为了判断文件是否成功打开，可以使用<code>file.is_open</code>。若打开失败，使用标准错误输出流<code>cerr</code>输出错误。代码框架如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fstream file;</span><br><span class="line">file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line"><span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">	cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">/*Your Code Here*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="本题完整代码如下"><a href="#本题完整代码如下" class="headerlink" title="本题完整代码如下"></a>本题完整代码如下</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Dec2Binary</span><span class="params">(<span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">if</span> (d == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (d)</span><br><span class="line">    &#123;</span><br><span class="line">        s += <span class="built_in">to_string</span>(d % <span class="number">2</span>);</span><br><span class="line">        d = d / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    fstream file;</span><br><span class="line">    file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Please input a positive number&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a;</span><br><span class="line">            file &lt;&lt; <span class="built_in">Dec2Binary</span>(a) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="prev" title="一些C++知识点">
+                  <i class="fa fa-chevron-left"></i> 一些C++知识点
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">炳阳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

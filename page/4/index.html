@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,177 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">步数检测--波峰检测算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-17 23:23:18" itemprop="dateCreated datePublished" datetime="2020-10-17T23:23:18+08:00">2020-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-01-20 21:59:18" itemprop="dateModified" datetime="2021-01-20T21:59:18+08:00">2021-01-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
+<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
+<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
+<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
+<ol>
+<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
+</li>
+<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
+</li>
+<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
+</li>
+</ol>
+<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
+<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
+<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/" class="post-title-link" itemprop="url">ESP8266设置UDP透传</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-17 12:47:58 / 修改时间：12:49:26" itemprop="dateCreated datePublished" datetime="2020-10-17T12:47:58+08:00">2020-10-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
+<li>+++不加换行退出透传</li>
+<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
+<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
+<li>查询端口IP：AT+CIFSR</li>
+<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
+<li>开启透传模式：AT+CIPSEND</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -555,6 +726,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/" class="post-title-link" itemprop="url">__FPU_PRESENT重定义出现大量警告</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:44:28" itemprop="dateModified" datetime="2020-08-05T11:44:28+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -721,173 +973,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/" class="post-title-link" itemprop="url">__FPU_PRESENT重定义出现大量警告</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:44:28" itemprop="dateModified" datetime="2020-08-05T11:44:28+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/" class="post-title-link" itemprop="url">智能PDF导出</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:37" itemprop="dateModified" datetime="2020-08-05T11:01:37+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -977,7 +1062,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -995,7 +1080,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">Verilog程序框架</a>
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/" class="post-title-link" itemprop="url">智能PDF导出</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1013,7 +1098,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:25" itemprop="dateModified" datetime="2020-08-05T11:01:25+08:00">2020-08-05</time>
+      <time title="修改时间：2020-08-05 11:01:37" itemprop="dateModified" datetime="2020-08-05T11:01:37+08:00">2020-08-05</time>
     </span>
 
   
@@ -1026,157 +1111,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
-<blockquote>
-<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
-</blockquote>
-<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
-<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
-<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
-<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+          <h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
 </ul>
-<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
-<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
 </ul>
-<ol>
-<li>assign语句(描述组合逻辑)</li>
-<li>always语句(组合&#x2F;时许逻辑)</li>
-<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
-<li>在模块调用时，信号通过模块端口在模块之间传递</li>
-<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
-<li>模块调用位宽必须保持一致</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Verilog语法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 22:37:04" itemprop="dateModified" datetime="2020-08-05T22:37:04+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、逻辑值"><a href="#一、逻辑值" class="headerlink" title="一、逻辑值"></a>一、逻辑值</h2><p>Verilog中变量只有四种状态</p>
-<ol>
-<li>0低电平</li>
-<li>1高电平</li>
-<li>X表示未知(但存在)</li>
-<li>Z表示悬空状态(未知就真的是未知)</li>
-</ol>
-<h2 id="二、数字进制格式"><a href="#二、数字进制格式" class="headerlink" title="二、数字进制格式"></a>二、数字进制格式</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4&#x27;b0101</span></span><br><span class="line"><span class="number">4&#x27;d2</span>			<span class="comment">//4表示2进制数的位宽</span></span><br><span class="line"><span class="number">4&#x27;ha</span>			<span class="comment">//若没有指定位宽，则默认为32位(2进制)数据</span></span><br><span class="line"><span class="number">16&#x27;b1001_1010_1010_1001</span>=<span class="number">16&#x27;h9aa9</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="三、标识符-类似C语言变量名"><a href="#三、标识符-类似C语言变量名" class="headerlink" title="三、标识符(类似C语言变量名)"></a>三、标识符(类似C语言变量名)</h2><ol>
-<li>标识符可以是任意一组字母、数字、$符号和下划线的组合</li>
-<li>标识符第一个字符必须是字母或者下划线</li>
-<li>标识符是区分大小写的</li>
-<li>建议普通内部信号全部小写</li>
-</ol>
-<h2 id="四、数据类型"><a href="#四、数据类型" class="headerlink" title="四、数据类型"></a>四、数据类型</h2><p>Verilog中数据类型有：<em>寄存器类型、线网类型、参数类型</em>。真正在数字电路中起作用的数据类型应该是<strong>寄存器数据类型</strong>和<strong>线网数据类型</strong>，因为这两个数据类型可以直接映射在电路中</p>
-<h4 id="寄存器类型"><a href="#寄存器类型" class="headerlink" title="寄存器类型"></a>寄存器类型</h4><ol>
-<li>表示一个抽象的数据存储单元，关键字为reg，初始值为不确定值X<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg [31:0] delay_cnt;	// [31:0] 为位宽，不表明则默认为位宽1，不可赋初值。</span><br></pre></td></tr></table></figure></li>
-<li>reg类型的数据只能在always语句和initial语句中被赋值</li>
-<li>如果always中带有时钟信号，则该寄存器变量对应为触发器，如果always中没有时钟信号，则该寄存器为硬件连线</li>
-</ol>
-<h4 id="线网类型"><a href="#线网类型" class="headerlink" title="线网类型"></a>线网类型</h4><blockquote>
-<p>线网类型包括wire和tri型，他们有什么区别呢？ 	<br>线网数据类型包括wire和tri等，wire最常见，不必多说，很多情况下直接声明为wire即可。<br>至于tri其实和wire在用法上是一模一样的，不过有时候，我们需要定义一些会被三态门驱动的硬件连线，用tri来命名会让代码更具有可读性，让人一看就知道这根连线上会出现Z状态，仅此而已！<br>回答来自：<a target="_blank" rel="noopener" href="http://www.openedv.com/forum.php?mod=viewthread&tid=286442&extra=page=1">正点原子开源电子论坛</a></p>
-</blockquote>
-<ol>
-<li>表示结构实体(例如门)之间的物力连线</li>
-<li>变量不能存储值，它的值是由驱动它的元件所决定的，驱动线网变量的元件有：门、连续赋值语句、assign等</li>
-<li>若无驱动原件连在线网类型，则为高阻态</li>
-<li>位宽和reg定义一样</li>
-</ol>
-<h4 id="参数类型-类似于C语言的define"><a href="#参数类型-类似于C语言的define" class="headerlink" title="参数类型(类似于C语言的define)"></a>参数类型(类似于C语言的define)</h4><ol>
-<li>实际就是一个常量，用parameter定义<br><code>parameter H_SYNC = 11&#39;d41</code></li>
-<li>参数类型数据定义状态机的状态、数据位宽、延时大小。可通过参数传递改变被调用模块已定义的函数，类似C语言的调用函数对模块赋值</li>
-</ol>
-<h2 id="五、运算符"><a href="#五、运算符" class="headerlink" title="五、运算符"></a>五、运算符</h2><ol>
-<li><p>算数运算符<br>加减乘除法只能实现整数运算（+、-、*、&#x2F;）<br>%(a%b即取模)</p>
-</li>
-<li><p>关系运算符<br><code>&lt;=    &gt;=    等C语言中的比较运算符</code></p>
-</li>
-<li><p>逻辑运算符<br><code>! &amp;&amp; ||逻辑与或操作</code></p>
-</li>
-<li><p>条件运算符<br>Verilog中条件运算符就一个</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?  :</span><br><span class="line">a?b:c</span><br></pre></td></tr></table></figure></li>
-<li><p>位运算符<br>对每一位进行操作<br>不同位宽，小位宽变量高位补零再运算<br><code> ~、&amp;、|、^</code></p>
-</li>
-<li><p>移位运算符<br>空位补零</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4&#x27;b1001&lt;&lt; 2 = 6&#x27;b100100;	//左移位宽增加</span><br><span class="line">4&#x27;b1001&gt;&gt; 1 = 4&#x27;b0100;		//右移位宽不变</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>拼接运算符</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; , &#125;:</span><br><span class="line">&#123;a,b&#125;				//将a和b拼接起来作为一个新信号</span><br><span class="line">c=&#123;a,b[3:0]&#125;;		//a、b均为8位，则是将8位a和b的第3到第0位拼在一起，结果是c[11:0]</span><br></pre></td></tr></table></figure>
-<p>学习视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV194411f7GD?p=12">正点原子FPGA系列教程Verilog语法篇</a></p>
-</li>
-</ol>
-
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>
       
     </div>
 
