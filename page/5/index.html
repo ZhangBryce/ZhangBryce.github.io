@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,428 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/" class="post-title-link" itemprop="url">__FPU_PRESENT重定义出现大量警告</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:44:28" itemprop="dateModified" datetime="2020-08-05T11:44:28+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">AD基础操作</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:52" itemprop="dateModified" datetime="2020-08-05T11:01:52+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="AD"><a href="#AD" class="headerlink" title="AD"></a>AD</h1><h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><ol>
+<li><p>创建PCB文件</p>
+</li>
+<li><p>创建原理图文件</p>
+</li>
+<li><p>PCB及原理图库</p>
+</li>
+<li><p>保存文件，文件命名自定义</p>
+</li>
+</ol>
+<h2 id="元器件绘制"><a href="#元器件绘制" class="headerlink" title="元器件绘制"></a>元器件绘制</h2><ol>
+<li><p>原理图绘制：designator是代号，header是标头，comment是注解</p>
+</li>
+<li><p>封装绘制</p>
+</li>
+</ol>
+<ul>
+<li><p>注意事项</p>
+<ul>
+<li>和实物1：1</li>
+<li>根据市面上厂家生产的元器件型号及参数绘制</li>
+</ul>
+</li>
+<li><p>参考点的标注</p>
+</li>
+<li><p>IPC自动绘制封装</p>
+</li>
+</ul>
+<h2 id="PCB规则"><a href="#PCB规则" class="headerlink" title="PCB规则"></a>PCB规则</h2><ol>
+<li><p>电气规则（间距）：7mil常用，嘉立创能做到6mil</p>
+</li>
+<li><p>布线规则（宽度）：信号线10-15mil，3.3V用的25mil，5V用的30mil</p>
+</li>
+<li><p>焊盘规则：焊盘到拐角、焊盘到过孔</p>
+</li>
+<li><p>过孔规则：一般过孔Hole size为12mil，孔径为24mil（即内径0.3mm,外径0.6mm)。一块板所有过孔的大小最好。</p>
+</li>
+<li><p>屏蔽规则：和自己焊板子有关系，要用到。</p>
+</li>
+<li><p>制板规则：投板加工有关，需要用到。钻孔、自己画封装的孔径、最小阻焊层的大小、丝印和焊盘能不能重叠、丝印间距</p>
+</li>
+<li><p>敷铜规则（plane）、测试点规则、高频规则</p>
+</li>
+</ol>
+<h2 id="板框绘制及网络表同步"><a href="#板框绘制及网络表同步" class="headerlink" title="板框绘制及网络表同步"></a>板框绘制及网络表同步</h2><ol>
+<li>mechanical层放置线条，全选，d,s,d之后完成板框绘制</li>
+</ol>
+<h2 id="输出文件"><a href="#输出文件" class="headerlink" title="输出文件"></a>输出文件</h2><ol>
+<li>光绘文件</li>
+</ol>
+<ul>
+<li><p>gerber file</p>
+<ul>
+<li>钻孔图层：输出所有的钻孔对</li>
+<li>层：绘制层选择使用的，镜像层全部去掉，包括未连接的中间焊盘</li>
+<li>光圈和高级默认</li>
+<li>通用：常用的2：4</li>
+</ul>
+</li>
+<li><p>NCdrill</p>
+<ul>
+<li>全部默认</li>
+</ul>
+</li>
+<li><p>report</p>
+</li>
+<li><p>装配输出</p>
+<ul>
+<li>坐标输出</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>位号图导出在智能导出PDF</li>
+</ol>
+<ul>
+<li>选择板框和位号图的输出，选择过孔和底层镜像</li>
+</ul>
+<h2 id="4层板层叠管理器"><a href="#4层板层叠管理器" class="headerlink" title="4层板层叠管理器"></a>4层板层叠管理器</h2><ol>
+<li>右键添加plane层</li>
+</ol>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ol>
+<li><p>拖动状态下按X可进行镜像</p>
+</li>
+<li><p>阵列式粘贴前，先复制你需要阵列式的部件，否则会出现标号累增</p>
+</li>
+<li><p>原理图中高亮网络：alt加鼠标左键</p>
+</li>
+<li><p>shift+alt+鼠标左键让焊盘及其网络连接高亮</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">AD输出Gerber文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:47" itemprop="dateModified" datetime="2020-08-05T11:01:47+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
+<h1 id="1-文件——制造输出——Gerber-Files"><a href="#1-文件——制造输出——Gerber-Files" class="headerlink" title="1.文件——制造输出——Gerber Files"></a>1.文件——制造输出——Gerber Files</h1><p><img src="https://img-blog.csdnimg.cn/20200407121052800.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-Gerber设置"><a href="#2-Gerber设置" class="headerlink" title="2.Gerber设置"></a>2.Gerber设置</h1><h2 id="层设置"><a href="#层设置" class="headerlink" title="层设置"></a>层设置</h2><ul>
+<li>绘制层：选择使用的   	</li>
+<li>镜像层：全部去掉<br><img src="https://img-blog.csdnimg.cn/20200407121202767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"><br><img src="https://img-blog.csdnimg.cn/20200407121221693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></li>
+</ul>
+<h2 id="钻孔图层"><a href="#钻孔图层" class="headerlink" title="钻孔图层"></a>钻孔图层</h2><ul>
+<li>钻孔图：输出所有使用的钻孔对</li>
+<li>钻孔向导图：输出所有使用的钻孔对<br><img src="https://img-blog.csdnimg.cn/20200407121425392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="3-文件——制造输出——NC-Drill-Files"><a href="#3-文件——制造输出——NC-Drill-Files" class="headerlink" title="3. 	文件——制造输出——NC Drill Files"></a>3. 	文件——制造输出——NC Drill Files</h1><ul>
+<li>直接点确定<br><img src="https://img-blog.csdnimg.cn/20200407121625333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/20200407121707780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/" class="post-title-link" itemprop="url">智能PDF导出</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:37" itemprop="dateModified" datetime="2020-08-05T11:01:37+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -864,324 +1286,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">STM32前期学习的一些知识点总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:04" itemprop="dateModified" datetime="2020-08-05T11:01:04+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
-<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
-<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
-<blockquote>
-<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
-</blockquote>
-<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
-<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
-<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
-<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
-<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
-<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
-<ol>
-<li>栈区存放函数的参数值、局部变量的值。</li>
-<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
-<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
-</ol>
-<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
-<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
-<ol>
-<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
-<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
-</ol>
-<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
-<ol>
-<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
-<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
-<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
-<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
-</ol>
-<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
-<ol>
-<li><p>共模信号是幅度相等、相位相同的信号。</p>
-</li>
-<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
-</li>
-<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
-</li>
-</ol>
-<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
-<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">RT-Thread基础操作</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 10:49:43" itemprop="dateModified" datetime="2020-08-05T10:49:43+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>RT-Thread是一个集实时操作系统（RTOS）内核、中间件组件和开发者社区于一体的技术平台，由熊谱翔先生带领并集合开源社区力量开发而成，RT-Thread也是一个组件完整丰富、高度可伸缩、简易开发、超低功耗、高安全性的物联网操作系统。RT-Thread 具备一个 IoT OS平台所需的所有关键组件，例如GUI、网络协议栈、安全传输、低功耗组件等等。经过11年的累积发展，RT-Thread 已经拥有一个国内最大的嵌入式开源社区，同时被广泛应用于能源、车载、医疗、消费电子等多个行业，累积装机量超过4亿台，成为国人自主开发、国内最成熟稳定和装机量最大的开源RTOS。</p>
-<p>RT-Thread 拥有良好的软件生态，支持市面上所有主流的编译工具如 GCC、Keil、IAR 等，工具链完善、友好，支持各类标准接口，如:POSIX、CMSIS、C++应用环境、Javascript 执行环境等，方便开发者移植各类应用程序。商用支持所有主流MCU架构，如 ARM,Cortex-M&#x2F;R&#x2F;A, MIPS, X86, Xtensa, C-Sky, RISC-V，几乎支持市场上所有主流的 MCU 和Wi-Fi 芯片。</p>
-</blockquote>
-<p>最近初步了解了RT-Thread操作系统，在此记录下其基础操作。下面附上RT-Thread相关网址：<br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/">RT-Thread官网</a><br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/document/site/">RT-Thread文档中心</a><br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/page/video.html">RT-Thread教学视频中心</a></p>
-<h2 id="初步认识"><a href="#初步认识" class="headerlink" title="初步认识"></a>初步认识</h2><ol>
-<li><p>嵌入式操作系统是用来和上位机与硬件层对接的软件操作系统</p>
-</li>
-<li><p>RT-Thread 不仅是一个内核，还包含了众多组件，管理系统等</p>
-</li>
-</ol>
-<h2 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h2><ol>
-<li><p>systrmInit()</p>
-</li>
-<li><p>$Sub$$main()</p>
-</li>
-<li><p><strong>rtthreadread_startup</strong></p>
-</li>
-</ol>
-<ul>
-<li>board初始化即硬件初始化</li>
-<li>rt_application_init();是用户任务创建函数</li>
-<li>rt_system_scheduler_start();让rtthread跑起来</li>
-<li>使用$Super $ $ test（）来替代原函数fun（），然后在$Sub $$ test（）函数中调用它，便可以在函数前后添加自定义代码了，这样便能够达到在完全对原函数不做修改的情况下，在前后添加自己的代码。</li>
-</ul>
-<ol start="4">
-<li><p>rt_application_init()</p>
-</li>
-<li><p>main_thread_entry</p>
-</li>
-<li><p>$Super$$main(用户主函数)</p>
-</li>
-</ol>
-<h2 id="动态内存堆的使用"><a href="#动态内存堆的使用" class="headerlink" title="动态内存堆的使用"></a>动态内存堆的使用</h2><ol>
-<li><p>rt_system_heap_init()中，起始地址一般为ZI结束段，结束地址为片内地址的最后一段。将这一段分配出来的空间作为动态内存空间</p>
-</li>
-<li><p>RT-Thread中内存的使用和裸机状态下的区别不大，只需要换掉对应的API就可以</p>
-</li>
-<li><p>内存复位：申请到新的内存空间后，将内存空间清零，内存在之前可能是其他程序的数据存储区</p>
-</li>
-</ol>
-<ul>
-<li>P&#x3D;rt_malloc(10);<br>  如果申请成功<br>  rt_memset(p,0,10)</li>
-</ul>
-<ol start="4">
-<li>内存泄漏：未释放已分配的动态内存</li>
-</ol>
-<ul>
-<li>用rt_malloc申请后，用rt_free释放</li>
-</ul>
-<ol start="5">
-<li><p>rt_realoc在已分配的内存块基础上重新分配内存块大小，变大就扩展，变小就会将后面的数据截断</p>
-</li>
-<li><p>rt——calloc(rt_size_t count,rt_size_t size)从内存堆中分配连续内存地址的多个内存块</p>
-</li>
-</ol>
-<h2 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h2><h3 id="1-相关概念"><a href="#1-相关概念" class="headerlink" title="1.相关概念"></a>1.相关概念</h3><ul>
-<li><p>线程代码（入口参数）</p>
-<ul>
-<li>无限循环，需要有让出内存的动作</li>
-<li>顺序执行</li>
-</ul>
-</li>
-<li><p>线程控制块</p>
-<ul>
-<li>用于管理线程的一个数据结构，会存放线程的一些信息</li>
-</ul>
-</li>
-<li><p>线程堆栈</p>
-<ul>
-<li>每个线程有独立的栈空间，线程切换时会将线程的上下文（线程执行时的环境）保存在线程栈中</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-线程创建"><a href="#2-线程创建" class="headerlink" title="2.线程创建"></a>2.线程创建</h3><ul>
-<li><p>创建线程</p>
-<ul>
-<li><p>rt_thread_init（创建的是静态线程，需要你告诉堆栈起始地址）</p>
-<ul>
-<li>const char  *name为线程名字</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>void *parameter为线程代码<br>*parameter为线程（入口）参数</p>
-<pre><code>- rt_thread_create（创建的是动态线程，系统自动为你分配运行空间）
-</code></pre>
-<ul>
-<li><p>启动线程</p>
-<ul>
-<li>tr_thread_startup之后线程才受调度</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-静态线程和动态线程"><a href="#3-静态线程和动态线程" class="headerlink" title="3.静态线程和动态线程"></a>3.静态线程和动态线程</h3><ul>
-<li><p>相关资源分配形式</p>
-</li>
-<li><p>运行效率</p>
-<ul>
-<li>没有外扩RAM，效率相同</li>
-<li>有外扩RAM，如果动态线程是在外扩RAM中被分配的话，那它的运行速度就会下降，因为片内RAM运行速度大于片外RAM</li>
-</ul>
-</li>
-</ul>
-<h2 id="创建LED流水灯线程"><a href="#创建LED流水灯线程" class="headerlink" title="创建LED流水灯线程"></a>创建LED流水灯线程</h2><ol>
-<li><p>在thread_sample中创建线程函数</p>
-</li>
-<li><p>创建入口函数，必须要有让出CPU的操作，比如流水灯中的延时</p>
-</li>
-<li><p>将创建的线程函数放入main中</p>
-</li>
-<li><p>怎样分配栈空间大小</p>
-</li>
-</ol>
-<ul>
-<li>在调试界面下，用list_thread命令，查看当前所有线程状态，max used百分比为线程最大使用了你分配的栈空间，可以通过修改栈空间大小，一般将线程栈最大使用量设置为70%</li>
-</ul>
-<ol start="5">
-<li><strong>RT-Thread移植后与裸机 LED 闪烁应用代码的不同</strong></li>
-</ol>
-<ul>
-<li>延时函数不同： RT-Thread 提供的 rt_thread_mdelay() 函数可以引起操作系统进行调度，当调用该函数进行延时时，本线程将不占用 CPU，调度器切换到系统的其他线程开始运行。而裸机的 delay 函数是一直占用 CPU 运行的。</li>
-<li>初始化系统时钟的位置不同：移植好 RT-Thread Nano 之后，不需要再在 main() 中做相应的系统配置（如 hal 初始化、时钟初始化等），这是因为 RT-Thread 在系统启动时，已经做好了系统时钟初始化等的配置，这在上一小节 “系统时钟配置” 中有讲解</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
