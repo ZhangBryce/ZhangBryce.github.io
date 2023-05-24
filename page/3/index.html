@@ -151,13 +151,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -182,6 +182,205 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/" class="post-title-link" itemprop="url">RL Summary 4 - Policy-Based Reinforcement Learning</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-17 09:11:06" itemprop="dateCreated datePublished" datetime="2022-02-17T09:11:06+08:00">2022-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-04 09:31:02" itemprop="dateModified" datetime="2022-03-04T09:31:02+08:00">2022-03-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="策略函数-π-a-s"><a href="#策略函数-π-a-s" class="headerlink" title="策略函数: π(a|s)"></a>策略函数: π(a|s)</h1><p>策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足<br>$$<br>\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1<br>$$<br>其中theta代表神经网络的参数。</p>
+<h1 id="策略学习"><a href="#策略学习" class="headerlink" title="策略学习"></a>策略学习</h1><p>对动作价值函数求A的期望，即得到状态价值函数<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]&#x3D;\Sigma_a\pi(a|s_t)*Q_\pi(s_t,a)<br>$$<br>接下来，就要用神经网络近似状态价值函数，即用策略函数替换为神经网络。此时状态价值函数应该是关于s和theta的函数，那么在状态价值函数中，对状态求期望，就能得到一个只和theta有关的函数：<br>$$<br>J(\theta)&#x3D;E_s[V(S;\theta)]<br>$$<br>那么我们的目标很明确了，通过改变theta，使函数J得到最大值。那么如何优化theta呢？使用策略梯度算法梯度上升优化theta。策略梯度算法分为两步：</p>
+<ul>
+<li><p>观察状态S</p>
+</li>
+<li><p>更新theta值：<br>$$<br>\theta&#x3D;\theta+\beta*{\partial V(s;\theta) \over \partial \theta}<br>$$</p>
+</li>
+</ul>
+<h1 id="算法流程总结"><a href="#算法流程总结" class="headerlink" title="算法流程总结"></a>算法流程总结</h1><ul>
+<li><p>获取状态S</p>
+</li>
+<li><p>由神经网络近似的π函数计算出a</p>
+</li>
+<li><p>计算行动价值函数，记为：<br>$$<br>q_t\approx Q_\pi(s_t,a_t)<br>$$</p>
+</li>
+<li><p>对策略网络π求导, tensorflow和pytorch都将这个函数封装好，可以直接调用：<br>$$<br>d_{\theta,t}&#x3D;{\partial log\pi(a_t|s_t,\theta) \over \partial\theta}|_{\theta&#x3D;\theta_t}<br>$$</p>
+</li>
+<li><p>近似地算策略梯度<br>$$<br>g(a_t,\theta_t)&#x3D;q_t*d_{\theta,t}<br>$$</p>
+</li>
+<li><p>更新策略网络<br>$$<br>\Theta_{t+1}&#x3D;\Theta_t+\beta*g(a_t,\Theta_t)<br>$$</p>
+</li>
+</ul>
+<p>在上述流程中，如何近似地计算行动价值函数qt呢，有两种算法：</p>
+<ol>
+<li>REINFORCE算法<br>在一次完整的训练结束后，即在围棋中，一局完整的棋局结束后，计算所有的折扣汇报之和ut，并使用ut作为行动价值函数qt的近似值</li>
+<li>用神经网络做近似<br>原本已经用了神经网络近似函数π，现在用另一个神经网络近似qt。这两个神经网络一个被称为actor，一个被称为critic，这种方法被称为actor-critic方法。</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a target="_blank" rel="noopener" href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a target="_blank" rel="noopener" href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/" class="post-title-link" itemprop="url">RL Summary 3 - Value-Based Reinforcement Learning</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-15 13:01:18" itemprop="dateCreated datePublished" datetime="2022-02-15T13:01:18+08:00">2022-02-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-19 15:54:52" itemprop="dateModified" datetime="2022-04-19T15:54:52+08:00">2022-04-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
+<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
+<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
+<li><p>获取t时刻的状态值St和行为At</p>
+</li>
+<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
+</li>
+<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
+</li>
+<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
+</li>
+<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
+</li>
+<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
+</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a target="_blank" rel="noopener" href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a target="_blank" rel="noopener" href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1004,205 +1203,6 @@
 <li>输入参数中包含足够的信息(人类可以预测出结果)</li>
 </ul>
 </li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/10/Machine-learning-Summary-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/10/Machine-learning-Summary-3/" class="post-title-link" itemprop="url">ML Summary 3-Backpropagation</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-10 18:17:30" itemprop="dateCreated datePublished" datetime="2022-01-10T18:17:30+08:00">2022-01-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-20 16:08:14" itemprop="dateModified" datetime="2022-01-20T16:08:14+08:00">2022-01-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
-<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>首先明确，反向传播算法是用来算神经网络成本函数的偏导数的，目的是改变θ大小，以最快的速度找到最小的成本函数。只要求出了成本函数和成本函数的偏导数，就能使用各种优化算法求出最优的参数θ。</p>
-<p>这里直接给出反向传播算法的计算过程（伪代码）。</p>
-<ol>
-<li><p>前向传播计算出期望函数</p>
-</li>
-<li><p>引入误差函数δ的概念，其中L代表第L层，即输出层，a为神经元的激励值，可以理解为神经元按照θ算出的期望值。<br>$$<br>\delta^{(L)}&#x3D;a^{(L)}-y^{(t)}<br>$$<br>对于第(L-1)层到第2层，其误差函数矩阵化后的计算公式如下<br>$$<br>\delta^{(l)}&#x3D;((\Theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})<br>$$<br>其中Sigmoid函数的倒数就是下列公式计算的<br>$$<br>g^{‘}(z^{(l)})&#x3D;a^{(l)}.*(1-a^{(l)})<br>$$</p>
-</li>
-<li><p>以下列公式求出总的误差函数<br>$$<br>\Delta_{i,j}^{(l)}:&#x3D;\Delta_{i,j}^{(l)}+a^{(l)}_j\delta_i^{(l+1)}&#x3D;&#x3D;&gt;\Delta^{(l)}:&#x3D;\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T<br>$$</p>
-</li>
-<li><p>以此求出成本函数的偏导数，D即为偏导数</p>
-<ul>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}(\Delta^{(l)}<em>{i,j}+\lambda\Theta^{(l)}</em>{i,j}) \qquad j\not&#x3D;0<br>$$</p>
-</li>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}\Delta^{(l)}_{i,j}\qquad j&#x3D;0<br>$$</p>
-</li>
-</ul>
-</li>
-</ol>
-<h1 id="梯度检查算法"><a href="#梯度检查算法" class="headerlink" title="梯度检查算法"></a>梯度检查算法</h1><p>为了检验反向传播函数是否计算正确，可以使用如下算法，计算出来的结果应该与反向传播函数相差无几。<br>$$<br>{\partial \over \partial\Theta_j}J(\Theta)\approx{J(\Theta_1,…,\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,\Theta_j-\epsilon,…,\Theta_n) \over 2\epsilon}<br>$$</p>
-<h1 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h1><p>在有监督神经网络中，训练神经网络即为找到合适的θ值，使样本输出最大限度的接近样本正确值。其过程如下</p>
-<ol>
-<li><strong>随机</strong>初始化权重，之所以随机，是为了打破相同初始参数时神经网络的对称性。</li>
-<li>实现前项传播得到样本的期望值</li>
-<li>计算代价函数（成本函数）</li>
-<li>使用后向传播算法计算成本函数对不同θ的偏导数</li>
-<li>使用梯度检查来确认您的反向传播是否有效。然后禁用梯度检查。</li>
-<li>使用梯度下降或内置优化函数来最小化具有 theta 权重的成本函数。</li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>i*n 阶矩阵与 n*j 阶矩阵相乘，最后的维度为i*j</li>
-</ul>
-<blockquote>
-<p>本文为吴恩达Machine learning课程的学习笔记</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/06/Machine-Learning-Summary-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/06/Machine-Learning-Summary-2/" class="post-title-link" itemprop="url">ML Summary 2-Classification</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-06 11:38:30" itemprop="dateCreated datePublished" datetime="2022-01-06T11:38:30+08:00">2022-01-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-10 21:05:43" itemprop="dateModified" datetime="2022-01-10T21:05:43+08:00">2022-01-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
 </ul>
 
       

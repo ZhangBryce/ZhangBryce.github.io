@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>The install of Commonroad-rl</title>
-    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
-<ul>
-<li>操作系统：Ubuntu18.4.6</li>
-<li>是否使用虚拟机：是</li>
-</ul>
-<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
-<li>Anaconda</li>
-<li>git</li>
-</ul>
-<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
-<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
-</li>
-<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
-</li>
-<li><p>commonroad-scenario-designer开启命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
-</ul>
+    <title>Basic Component of Commonroad</title>
+    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
+<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
+<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
+
+<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
+<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
+<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
+
+<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
+<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
+<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
+
+<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
@@ -66,43 +62,6 @@
       </tags>
   </entry>
   <entry>
-    <title>The install of Docker</title>
-    <url>/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Windows系统下Docker的安装"><a href="#Windows系统下Docker的安装" class="headerlink" title="Windows系统下Docker的安装"></a>Windows系统下Docker的安装</h1><ul>
-<li><p>安装WSL2：docker需要运行在Linux系统下，Windows10已支持WSL2，所以需要先安装WSL2。<br>安装WSL2微软官方的网址为：<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-manual">旧版 WSL 的手动安装步骤 | Microsoft Docs</a></p>
-</li>
-<li><p>下载Docker安装包，按照步骤完成安装</p>
-</li>
-</ul>
-<h1 id="Docker镜像获取"><a href="#Docker镜像获取" class="headerlink" title="Docker镜像获取"></a>Docker镜像获取</h1><p>从docker的官方网站中，可以获取其他开发者上传的docker镜像，用来创建自己的开发环境。网站链接如下：<a href="https://hub.docker.com/">Docker Hub</a></p>
-<h1 id="Docker中开启jupyter"><a href="#Docker中开启jupyter" class="headerlink" title="Docker中开启jupyter"></a>Docker中开启jupyter</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jupyter notebook --ip=127.0.0.1</span><br></pre></td></tr></table></figure>
-
-<h1 id="从镜像运行容器"><a href="#从镜像运行容器" class="headerlink" title="从镜像运行容器"></a>从镜像运行容器</h1><p>将容器内部端口映射到外部端口，如命令-p 5901:5901表示将内部5901端口映射到外部5901端口</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 5901:5901 -p 6901:6901 --name Flow beyond/flow</span><br></pre></td></tr></table></figure>
-
-<h1 id="进入docker的shell"><a href="#进入docker的shell" class="headerlink" title="进入docker的shell"></a>进入docker的shell</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it &lt;container-id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
-
-<p>例如，进入名为FLOW的容器shell，使用如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker exec -it FLOW /bin/bash</span><br></pre></td></tr></table></figure>
-
-<h1 id="Python换源"><a href="#Python换源" class="headerlink" title="Python换源"></a>Python换源</h1><p>Python永久换源命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
-
-<p>国内源：</p>
-<p>清华：<a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>阿里云：<a href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a></p>
-<p>中国科技大学 <a href="https://pypi.mirrors.ustc.edu.cn/simple/">https://pypi.mirrors.ustc.edu.cn/simple/</a></p>
-<p>华中理工大学：<a href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a></p>
-<p>山东理工大学：<a href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a> </p>
-<p>豆瓣：<a href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a></p>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Docker</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
     <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
     <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
@@ -143,28 +102,69 @@
       </tags>
   </entry>
   <entry>
-    <title>Basic Component of Commonroad</title>
-    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
-<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
-<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
-
-<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
-<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
-<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
-
-<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
-<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
-<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
-
-<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
+    <title>The install of Commonroad-rl</title>
+    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
+<ul>
+<li>操作系统：Ubuntu18.4.6</li>
+<li>是否使用虚拟机：是</li>
+</ul>
+<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
+<li>Anaconda</li>
+<li>git</li>
+</ul>
+<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
+<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
+</li>
+<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
+</li>
+<li><p>commonroad-scenario-designer开启命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
+</ul>
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
         <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The install of Docker</title>
+    <url>/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Windows系统下Docker的安装"><a href="#Windows系统下Docker的安装" class="headerlink" title="Windows系统下Docker的安装"></a>Windows系统下Docker的安装</h1><ul>
+<li><p>安装WSL2：docker需要运行在Linux系统下，Windows10已支持WSL2，所以需要先安装WSL2。<br>安装WSL2微软官方的网址为：<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-manual">旧版 WSL 的手动安装步骤 | Microsoft Docs</a></p>
+</li>
+<li><p>下载Docker安装包，按照步骤完成安装</p>
+</li>
+</ul>
+<h1 id="Docker镜像获取"><a href="#Docker镜像获取" class="headerlink" title="Docker镜像获取"></a>Docker镜像获取</h1><p>从docker的官方网站中，可以获取其他开发者上传的docker镜像，用来创建自己的开发环境。网站链接如下：<a href="https://hub.docker.com/">Docker Hub</a></p>
+<h1 id="Docker中开启jupyter"><a href="#Docker中开启jupyter" class="headerlink" title="Docker中开启jupyter"></a>Docker中开启jupyter</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jupyter notebook --ip=127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h1 id="从镜像运行容器"><a href="#从镜像运行容器" class="headerlink" title="从镜像运行容器"></a>从镜像运行容器</h1><p>将容器内部端口映射到外部端口，如命令-p 5901:5901表示将内部5901端口映射到外部5901端口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d -p 5901:5901 -p 6901:6901 --name Flow beyond/flow</span><br></pre></td></tr></table></figure>
+
+<h1 id="进入docker的shell"><a href="#进入docker的shell" class="headerlink" title="进入docker的shell"></a>进入docker的shell</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it &lt;container-id&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>例如，进入名为FLOW的容器shell，使用如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker exec -it FLOW /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h1 id="Python换源"><a href="#Python换源" class="headerlink" title="Python换源"></a>Python换源</h1><p>Python永久换源命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>国内源：</p>
+<p>清华：<a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>阿里云：<a href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a></p>
+<p>中国科技大学 <a href="https://pypi.mirrors.ustc.edu.cn/simple/">https://pypi.mirrors.ustc.edu.cn/simple/</a></p>
+<p>华中理工大学：<a href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a></p>
+<p>山东理工大学：<a href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a> </p>
+<p>豆瓣：<a href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a></p>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+        <tag>Docker</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -355,42 +355,32 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 6-Clustering</title>
-    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
-    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
-<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
-<ol>
-<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
-<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
-<li>将“数值中心点”确定为下一次循环的中心点</li>
-</ol>
-<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>数据压缩</li>
-<li>数据可视化</li>
-<li>减少存储空间</li>
-<li>加速算法</li>
-</ul>
-<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
-<ol>
-<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
-</li>
-<li><p>对数据进行归一化处理</p>
-</li>
-<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
-</li>
-<li><p>计算特征向量，使用svd库函数</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用特征向量对样本数据降维</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>PCA和线性拟合是完全不同的两种算法</li>
-<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
 ]]></content>
       <tags>
-        <tag>Machine Learning</tag>
+        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -442,32 +432,68 @@
       </tags>
   </entry>
   <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+    <title>ML Summary 6-Clustering</title>
+    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
+    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
+<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
+<ol>
+<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
+<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
+<li>将“数值中心点”确定为下一次循环的中心点</li>
+</ol>
+<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>数据压缩</li>
+<li>数据可视化</li>
+<li>减少存储空间</li>
+<li>加速算法</li>
+</ul>
+<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
+<ol>
+<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
+</li>
+<li><p>对数据进行归一化处理</p>
+</li>
+<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
+</li>
+<li><p>计算特征向量，使用svd库函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用特征向量对样本数据降维</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>PCA和线性拟合是完全不同的两种算法</li>
+<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>Commonroad</tag>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 5-How to use SVM</title>
+    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
+<ol>
+<li>参数C</li>
+<li>核函数</li>
+</ol>
+<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
+<h1 id="逻辑回归-amp-SVM-amp-神经网络"><a href="#逻辑回归-amp-SVM-amp-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
+<ul>
+<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
+<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
+<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
+</ul>
+<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
+<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -579,32 +605,6 @@
 <blockquote>
 <p>本文为吴恩达Machine learning课程的学习笔记</p>
 </blockquote>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 5-How to use SVM</title>
-    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
-    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
-<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
-<ol>
-<li>参数C</li>
-<li>核函数</li>
-</ol>
-<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
-<h1 id="逻辑回归-amp-SVM-amp-神经网络"><a href="#逻辑回归-amp-SVM-amp-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
-<ul>
-<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
-<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
-<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
-</ul>
-<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
-<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
-</ul>
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
@@ -938,6 +938,24 @@
       </tags>
   </entry>
   <entry>
+    <title>string总结</title>
+    <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<ul>
+<li><p>使用<code>find</code>找到字符串在主串中的位置，示例代码如下，返回值为7</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Have a happy day.&quot;</span>;</span><br><span class="line">string b = <span class="string">&quot;happy&quot;</span>;</span><br><span class="line">cout &lt;&lt; a.<span class="built_in">find</span>(b) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>erase</code>擦除字符串中部分字符，第一个参数为擦除起始位置(含该位置)，第二个参数为擦除结束位置</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string m = <span class="string">&quot;HaHaa233&quot;</span>;</span><br><span class="line">m.<span class="built_in">erase</span>(<span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">cout &lt;&lt; m &lt;&lt; endl;	<span class="comment">//此时m应为&quot;HaH&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>substr</code>分割字符串。其返回值即为分割出的字符串，第一个参数为<strong>子字符串起始位置</strong>，第二个参数为<strong>子字符串长度</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Happy&quot;</span>;</span><br><span class="line">string b = a.<span class="built_in">substr</span>(<span class="number">0</span>,<span class="number">2</span>);	<span class="comment">//此时b应该为&quot;Ha&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>__FPU_PRESENT重定义出现大量警告</title>
     <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
     <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
@@ -1052,6 +1070,25 @@
       </tags>
   </entry>
   <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1074,25 +1111,6 @@
       </tags>
   </entry>
   <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AD输出坐标文件及网表</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
     <content><![CDATA[<p>【名词解释及其功能】</p>
@@ -1107,36 +1125,6 @@
 ]]></content>
       <tags>
         <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Verilog程序框架</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
-<blockquote>
-<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
-</blockquote>
-<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
-<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
-<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
-<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
-<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
-</ul>
-<ol>
-<li>assign语句(描述组合逻辑)</li>
-<li>always语句(组合&#x2F;时许逻辑)</li>
-<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
-<li>在模块调用时，信号通过模块端口在模块之间传递</li>
-<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
-<li>模块调用位宽必须保持一致</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>FPGA基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1195,6 +1183,36 @@
 <p>学习视频：<a href="https://www.bilibili.com/video/BV194411f7GD?p=12">正点原子FPGA系列教程Verilog语法篇</a></p>
 </li>
 </ol>
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Verilog程序框架</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+</ul>
+<ol>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
+</ul>
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
@@ -1369,43 +1387,6 @@
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些C++知识点</title>
-    <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
-    <content><![CDATA[<ul>
-<li><p>数组名称为<strong>指针常量</strong>。设<code>a</code>为数组名，则<code>a++</code>为非法表达式，报错为<code>++需要左值</code>。</p>
-</li>
-<li><p>指针变量在32位系统中占<strong>4个字节</strong>，在64位系统中占<strong>8个字节</strong>。</p>
-</li>
-<li><p><strong>内存对齐</strong>。<code>#pragma pack(n)</code>可改变对齐系数。<strong>有效对其值</strong>是给定值<code>#pragma pack(n)</code>和结构体中最长数据类型长度中较小的那个。有效对齐值也叫<strong>对齐单位</strong>。</p>
-</li>
-<li><p>字的大小：字的大小取决于处理器的位数，如果是16位机器，则是2字节。如果是32位机器，则是4字节。</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>函数模板与类模板</title>
-    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
-<ul>
-<li>函数模板在编译时不会生成</li>
-<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
-<li>函数指针指向模板的实例，并不指向模板本身</li>
-</ul>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1594,6 +1575,58 @@
       </tags>
   </entry>
   <entry>
+    <title>一些C++知识点</title>
+    <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<ul>
+<li><p>数组名称为<strong>指针常量</strong>。设<code>a</code>为数组名，则<code>a++</code>为非法表达式，报错为<code>++需要左值</code>。</p>
+</li>
+<li><p>指针变量在32位系统中占<strong>4个字节</strong>，在64位系统中占<strong>8个字节</strong>。</p>
+</li>
+<li><p><strong>内存对齐</strong>。<code>#pragma pack(n)</code>可改变对齐系数。<strong>有效对其值</strong>是给定值<code>#pragma pack(n)</code>和结构体中最长数据类型长度中较小的那个。有效对齐值也叫<strong>对齐单位</strong>。</p>
+</li>
+<li><p>字的大小：字的大小取决于处理器的位数，如果是16位机器，则是2字节。如果是32位机器，则是4字节。</p>
+</li>
+<li><p><strong>赋值兼容规则</strong>是指派生类对象可以当做基类对象来使用，只要存在继承关系即可。</p>
+</li>
+<li><p><strong>数据封装</strong>是将一组数据和与这组数据有关的操作组装在一起。</p>
+</li>
+<li><p><strong>this指针</strong>保证每个对象有自己的数据成员，但共享处理这些数据成员的代码。</p>
+</li>
+<li><p>使用<strong>地址</strong>作为实参传给形参，则实参和形参是同一对象。使用<strong>数值</strong>作为实参，形参则是实参的备份。</p>
+</li>
+<li><p>结构体中可以定义操作函数，如</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">output</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义类的动态对象数组时，系统只能够自动调用该类的<strong>无参</strong>构造函数对其初始化。</p>
+</li>
+<li><p>对赋值运算符重载时，应申明为<strong>类成员函数</strong>。</p>
+</li>
+<li><p>A中声明B是它的友元函数，则B可访问A内的成员变量。</p>
+</li>
+<li><p>new和delete的使用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//申请与删除数组</span><br><span class="line">int* arr = new int[10];</span><br><span class="line">delete[] arr;</span><br><span class="line">//申请并初始化变量为1与删除单个变量</span><br><span class="line">int * a = new int(1);</span><br><span class="line">delete a;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>=</code>赋值运算符返回值为等号右边的值，如以下代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=(b=c)+(c=d);</span><br></pre></td></tr></table></figure>
+
+<p>结果a应为c+d的值。</p>
+</li>
+<li><p>C++中静态多态性为编译时的多态性，动态多态性为运行时的多态性。静态多态性可以由函数重载等实现，动态多态性可以由虚函数实现。</p>
+</li>
+<li><p><strong>在类内部不能对数据成员直接赋值。</strong>但在C++11中已经支持这么写了。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Student</span>();</span><br><span class="line">	~<span class="built_in">Student</span>();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">getname</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string name = <span class="string">&quot;Superman&quot;</span>;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>带有纯虚函数的类是抽象类，不能被实例化</strong>。详见：<a href="https://beyond886.gitee.io/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/?highlight=%E6%8A%BD%E8%B1%A1">虚函数</a></p>
+</li>
+<li><p>类的静态成员变量的生命周期为程序运行的整个周期，该类的所有对象共用这个静态成员变量。</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
     <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
     <content><![CDATA[<p>{ 变成了 &amp;#123</p>
@@ -1604,6 +1637,121 @@
 <h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>小技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数模板与类模板</title>
+    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
+<ul>
+<li>函数模板在编译时不会生成</li>
+<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
+<li>函数指针指向模板的实例，并不指向模板本身</li>
+</ul>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十进制转二进制写入文件</title>
+    <url>/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
+<p><strong>思路</strong>：涉及的知识点有</p>
+<ul>
+<li>字符输入</li>
+<li>十进制正整数转化为二进制字符串</li>
+<li>写入文件</li>
+</ul>
+<h1 id="字符输入"><a href="#字符输入" class="headerlink" title="字符输入"></a>字符输入</h1><p><strong>方案一</strong>：使用cin输入</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">cin&gt;&gt;n;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字符，默认参数为&#x27;\n&#x27;</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span> <span class="params">( istream &amp;is , string &amp;str , <span class="type">char</span> delim )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案比较</strong>：需要进行进制转换，使用<strong>方案一</strong>读取数据至整形变量，再转换为二进制数据，最后将二进制数据转换为字符串。</p>
+<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</p>
+<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>使用输入输出流<code>fstream</code>完成文件写入操作，它的子集<code>ofstream</code>为输出流，<code>ifstream</code>为输入流。需要注意的是，<code>fstream::open</code>的函数原型如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其打开模式的默认参数为<code>ios_base::in | ios_base::out</code>。这意味着，对于输入输出流<code>fstream</code>，如果使用默认参数打开一个并不存在的文件，将会打开失败。当我们想要实现<strong>当文件不存在，自动创建该文件</strong>并写入的功能时，需要指定打开模式为<code>ios_base::out</code>。当然，可以直接定义<code>ofstream</code>对象，并使用<code>open</code>函数即可实现相同的功能。</p>
+<p>为了判断文件是否成功打开，可以使用<code>file.is_open</code>。若打开失败，使用标准错误输出流<code>cerr</code>输出错误。代码框架如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">fstream file;</span><br><span class="line">file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line"><span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">	cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">/*Your Code Here*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="本题完整代码如下"><a href="#本题完整代码如下" class="headerlink" title="本题完整代码如下"></a>本题完整代码如下</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Dec2Binary</span><span class="params">(<span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">if</span> (d == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (d)</span><br><span class="line">    &#123;</span><br><span class="line">        s += <span class="built_in">to_string</span>(d % <span class="number">2</span>);</span><br><span class="line">        d = d / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    fstream file;</span><br><span class="line">    file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Please input a positive number&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a;</span><br><span class="line">            file &lt;&lt; <span class="built_in">Dec2Binary</span>(a) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>卡尔曼滤波器</title>
+    <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
+    <content><![CDATA[<p>C++代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KalmanFilter</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">KalmanFilter</span>(<span class="type">double</span> Q, <span class="type">double</span> R) : <span class="built_in">Q</span>(Q), <span class="built_in">R</span>(R), <span class="built_in">x_hat</span>(<span class="number">0</span>), <span class="built_in">P</span>(<span class="number">1</span>), <span class="built_in">K</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新卡尔曼滤波器状态</span></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">update</span><span class="params">(<span class="type">double</span> z, <span class="type">double</span> u)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 预测状态</span></span><br><span class="line">        <span class="type">double</span> x_pred = x_hat + u;</span><br><span class="line">        <span class="type">double</span> P_pred = P + Q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算卡尔曼增益</span></span><br><span class="line">        K = P_pred / (P_pred + R);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新状态估计和协方差</span></span><br><span class="line">        x_hat = x_pred + K * (z - x_pred);</span><br><span class="line">        P = (<span class="number">1</span> - K) * P_pred;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x_hat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 过程噪声和观测噪声的方差</span></span><br><span class="line">    <span class="type">double</span> Q, R;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态估计和协方差</span></span><br><span class="line">    <span class="type">double</span> x_hat, P;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卡尔曼增益</span></span><br><span class="line">    <span class="type">double</span> K;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个卡尔曼滤波器对象</span></span><br><span class="line">    <span class="function">KalmanFilter <span class="title">kf</span><span class="params">(<span class="number">0.01</span>, <span class="number">0.1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成测试数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> num_samples = <span class="number">100</span>;</span><br><span class="line">    <span class="type">double</span> x_true[num_samples], z[num_samples], u[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        <span class="comment">// 真实状态是一个匀速运动的物体</span></span><br><span class="line">        x_true[i] = i * <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观测数据是带有高斯噪声的真实状态</span></span><br><span class="line">        z[i] = x_true[i] + <span class="number">0.1</span> * <span class="built_in">rand</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 控制输入是一个匀加速度</span></span><br><span class="line">        u[i] = <span class="number">0.1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用卡尔曼滤波器估计状态</span></span><br><span class="line">    <span class="type">double</span> x_est[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        x_est[i] = kf.<span class="built_in">update</span>(z[i], u[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;True: &quot;</span> &lt;&lt; x_true[i] &lt;&lt; <span class="string">&quot;, Measured: &quot;</span> &lt;&lt; z[i] &lt;&lt; <span class="string">&quot;, Estimated: &quot;</span> &lt;&lt; x_est[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：该代码由ChatGPT生成，使用Visual Studio2022编译运行。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>可变参数模板</title>
+    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>复制构造函数</title>
+    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
+<li><p>用类的一个对象去初始化该类的另一个对象时</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
+</li>
+<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
+</li>
+<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串中分离出数字</title>
+    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
+<blockquote>
+<p>8532</p>
+</blockquote>
+<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1656,64 +1804,6 @@
       </tags>
   </entry>
   <entry>
-    <title>复制构造函数</title>
-    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
-<li><p>用类的一个对象去初始化该类的另一个对象时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
-</li>
-<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
-</li>
-<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>十进制转二进制写入文件</title>
-    <url>/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
-<p><strong>思路</strong>：涉及的知识点有</p>
-<ul>
-<li>字符输入</li>
-<li>十进制正整数转化为二进制字符串</li>
-<li>写入文件</li>
-</ul>
-<h1 id="字符输入"><a href="#字符输入" class="headerlink" title="字符输入"></a>字符输入</h1><p><strong>方案一</strong>：使用cin输入</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">cin&gt;&gt;n;</span><br></pre></td></tr></table></figure>
-
-<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字符，默认参数为&#x27;\n&#x27;</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span> <span class="params">( istream &amp;is , string &amp;str , <span class="type">char</span> delim )</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><strong>方案比较</strong>：需要进行进制转换，使用<strong>方案一</strong>读取数据至整形变量，再转换为二进制数据，最后将二进制数据转换为字符串。</p>
-<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</p>
-<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>使用输入输出流<code>fstream</code>完成文件写入操作，它的子集<code>ofstream</code>为输出流，<code>ifstream</code>为输入流。需要注意的是，<code>fstream::open</code>的函数原型如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>其打开模式的默认参数为<code>ios_base::in | ios_base::out</code>。这意味着，对于输入输出流<code>fstream</code>，如果使用默认参数打开一个并不存在的文件，将会打开失败。当我们想要实现<strong>当文件不存在，自动创建该文件</strong>并写入的功能时，需要指定打开模式为<code>ios_base::out</code>。当然，可以直接定义<code>ofstream</code>对象，并使用<code>open</code>函数即可实现相同的功能。</p>
-<p>为了判断文件是否成功打开，可以使用<code>file.is_open</code>。若打开失败，使用标准错误输出流<code>cerr</code>输出错误。代码框架如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">fstream file;</span><br><span class="line">file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line"><span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">	cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">/*Your Code Here*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="本题完整代码如下"><a href="#本题完整代码如下" class="headerlink" title="本题完整代码如下"></a>本题完整代码如下</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Dec2Binary</span><span class="params">(<span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">if</span> (d == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (d)</span><br><span class="line">    &#123;</span><br><span class="line">        s += <span class="built_in">to_string</span>(d % <span class="number">2</span>);</span><br><span class="line">        d = d / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    fstream file;</span><br><span class="line">    file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Please input a positive number&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a;</span><br><span class="line">            file &lt;&lt; <span class="built_in">Dec2Binary</span>(a) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>排序算法总结</title>
     <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
@@ -1731,37 +1821,6 @@
 <h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚函数</title>
-    <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
-<h1 id="一般虚函数"><a href="#一般虚函数" class="headerlink" title="一般虚函数"></a>一般虚函数</h1><p>虚函数声明在基类中，派生类可以继承该虚函数，也可以覆写该虚函数，实现本类的特定功能。虚函数的声明方式如下，需要注意的是，<strong>虚函数声明只能出现在类定义的函数原型声明中，而不能在成员函数实现的时候</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(形参表);</span><br></pre></td></tr></table></figure>
-
-<p>基类通过继承虚函数，除了可实现自身独特功能外，在外部调用时，可以通过基类对象指针调用派生类的函数。</p>
-<p>例如：基类Base中有虚函数display，Base类派生出A类和B类，A类和B类均重写了display函数。此时可通过Base类指针调用A类和B类的函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义功能函数</span><br><span class="line">void fun(Base *ptr)&#123;		//形参为指向基类对象的指针</span><br><span class="line">	ptr-&gt;display();</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Base base1;</span><br><span class="line">	A a;</span><br><span class="line">	B b;</span><br><span class="line">	//函数调用，实现动态绑定</span><br><span class="line">	fun(&amp;base1);		//调用Base类中的display函数</span><br><span class="line">	fun(&amp;a);			//调用A类中的display函数</span><br><span class="line">	fun(&amp;b);			//调用B类中的display函数</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h1><p>虚析构函数的声明语法为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual ~类名();</span><br></pre></td></tr></table></figure>
-
-<p>为什么要使用虚析构函数呢？设有基类Base，基类的派生类A，如果通过Base的指针来删除A的对象：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(Base *b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">delete</span> b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *b = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">	<span class="built_in">fun</span>(b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>会出现只调用Base类的析构函数，却不调用A的析构函数的情况。这将导致派生类对象中动态分配的内存空间没有得到释放，造成<strong>内存泄漏</strong>。避免上述错误的有效方法是将Base类中的析构函数声明为虚函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Base&#123;</span><br><span class="line">public:</span><br><span class="line">	virtual ~Base();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>此时再执行上述代码，派生类对象中动态申请的内存空间将被正确地释放。</p>
-<h1 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h1><p>纯虚函数的声明格式为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(参数表)=0;</span><br></pre></td></tr></table></figure>
-
-<p>声明为纯虚函数后，基类中就可以不再给出函数的实现部分(即使给出也无法实例化)，纯虚函数的函数体由派生类给出。</p>
-<p>带有虚函数的类是<strong>抽象类</strong>。抽象类不能实例化，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用，通过指针和引用，就能指向并访问派生类的对象，其操作方法与一般虚函数相同。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -1847,6 +1906,37 @@
       </tags>
   </entry>
   <entry>
+    <title>虚函数</title>
+    <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
+<h1 id="一般虚函数"><a href="#一般虚函数" class="headerlink" title="一般虚函数"></a>一般虚函数</h1><p>虚函数声明在基类中，派生类可以继承该虚函数，也可以覆写该虚函数，实现本类的特定功能。虚函数的声明方式如下，需要注意的是，<strong>虚函数声明只能出现在类定义的函数原型声明中，而不能在成员函数实现的时候</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(形参表);</span><br></pre></td></tr></table></figure>
+
+<p>基类通过继承虚函数，除了可实现自身独特功能外，在外部调用时，可以通过基类对象指针调用派生类的函数。</p>
+<p>例如：基类Base中有虚函数display，Base类派生出A类和B类，A类和B类均重写了display函数。此时可通过Base类指针调用A类和B类的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义功能函数</span><br><span class="line">void fun(Base *ptr)&#123;		//形参为指向基类对象的指针</span><br><span class="line">	ptr-&gt;display();</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Base base1;</span><br><span class="line">	A a;</span><br><span class="line">	B b;</span><br><span class="line">	//函数调用，实现动态绑定</span><br><span class="line">	fun(&amp;base1);		//调用Base类中的display函数</span><br><span class="line">	fun(&amp;a);			//调用A类中的display函数</span><br><span class="line">	fun(&amp;b);			//调用B类中的display函数</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h1><p>虚析构函数的声明语法为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual ~类名();</span><br></pre></td></tr></table></figure>
+
+<p>为什么要使用虚析构函数呢？设有基类Base，基类的派生类A，如果通过Base的指针来删除A的对象：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(Base *b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">delete</span> b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *b = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">	<span class="built_in">fun</span>(b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>会出现只调用Base类的析构函数，却不调用A的析构函数的情况。这将导致派生类对象中动态分配的内存空间没有得到释放，造成<strong>内存泄漏</strong>。避免上述错误的有效方法是将Base类中的析构函数声明为虚函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Base&#123;</span><br><span class="line">public:</span><br><span class="line">	virtual ~Base();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时再执行上述代码，派生类对象中动态申请的内存空间将被正确地释放。</p>
+<h1 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h1><p>纯虚函数的声明格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(参数表)=0;</span><br></pre></td></tr></table></figure>
+
+<p>声明为纯虚函数后，基类中就可以不再给出函数的实现部分(即使给出也无法实例化)，纯虚函数的函数体由派生类给出。</p>
+<p>带有虚函数的类是<strong>抽象类</strong>。抽象类不能实例化，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用，通过指针和引用，就能指向并访问派生类的对象，其操作方法与一般虚函数相同。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>行百里者半九十</title>
     <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
     <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
@@ -1874,44 +1964,6 @@
       </tags>
   </entry>
   <entry>
-    <title>可变参数模板</title>
-    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>卡尔曼滤波器</title>
-    <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
-    <content><![CDATA[<p>C++代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KalmanFilter</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">KalmanFilter</span>(<span class="type">double</span> Q, <span class="type">double</span> R) : <span class="built_in">Q</span>(Q), <span class="built_in">R</span>(R), <span class="built_in">x_hat</span>(<span class="number">0</span>), <span class="built_in">P</span>(<span class="number">1</span>), <span class="built_in">K</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新卡尔曼滤波器状态</span></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">update</span><span class="params">(<span class="type">double</span> z, <span class="type">double</span> u)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 预测状态</span></span><br><span class="line">        <span class="type">double</span> x_pred = x_hat + u;</span><br><span class="line">        <span class="type">double</span> P_pred = P + Q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算卡尔曼增益</span></span><br><span class="line">        K = P_pred / (P_pred + R);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新状态估计和协方差</span></span><br><span class="line">        x_hat = x_pred + K * (z - x_pred);</span><br><span class="line">        P = (<span class="number">1</span> - K) * P_pred;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x_hat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 过程噪声和观测噪声的方差</span></span><br><span class="line">    <span class="type">double</span> Q, R;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态估计和协方差</span></span><br><span class="line">    <span class="type">double</span> x_hat, P;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卡尔曼增益</span></span><br><span class="line">    <span class="type">double</span> K;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个卡尔曼滤波器对象</span></span><br><span class="line">    <span class="function">KalmanFilter <span class="title">kf</span><span class="params">(<span class="number">0.01</span>, <span class="number">0.1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成测试数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> num_samples = <span class="number">100</span>;</span><br><span class="line">    <span class="type">double</span> x_true[num_samples], z[num_samples], u[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        <span class="comment">// 真实状态是一个匀速运动的物体</span></span><br><span class="line">        x_true[i] = i * <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观测数据是带有高斯噪声的真实状态</span></span><br><span class="line">        z[i] = x_true[i] + <span class="number">0.1</span> * <span class="built_in">rand</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 控制输入是一个匀加速度</span></span><br><span class="line">        u[i] = <span class="number">0.1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用卡尔曼滤波器估计状态</span></span><br><span class="line">    <span class="type">double</span> x_est[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        x_est[i] = kf.<span class="built_in">update</span>(z[i], u[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;True: &quot;</span> &lt;&lt; x_true[i] &lt;&lt; <span class="string">&quot;, Measured: &quot;</span> &lt;&lt; z[i] &lt;&lt; <span class="string">&quot;, Estimated: &quot;</span> &lt;&lt; x_est[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注：该代码由ChatGPT生成，使用Visual Studio2022编译运行。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符串中分离出数字</title>
-    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
-<blockquote>
-<p>8532</p>
-</blockquote>
-<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>运算符重载</title>
     <url>/2023/03/16/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
     <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1919,6 +1971,39 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>物联网手势控制小车所遇问题与解决方案</title>
+    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
+<p><strong>分析过程与解决方案</strong>：</p>
+<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
+<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://img-blog.csdnimg.cn/67da2c9eeabf4fdabd8e5238255cf374.png" alt="陀螺仪数据"></p>
+<p>这不利于设置阈值判定手势。</p>
+<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
+<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
+<p><strong>解决方案</strong>：</p>
+<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/%E3%80%82%E8%AF%A5%E6%96%B9%E6%B3%95%E9%80%9A%E8%BF%87ESP%E7%A7%81%E6%9C%89%E5%8D%8F%E8%AE%AE**ESP-NOW**%E5%AE%8C%E6%88%90%E9%80%9A%E4%BF%A1%EF%BC%8C%E4%BC%A0%E8%BE%93%E6%97%B6%E5%8F%AA%E9%9C%80%E8%A6%81%E7%9F%A5%E6%99%93%E4%B8%80%E6%96%B9%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E5%8D%B3%E5%8F%AF%E5%AE%8C%E6%88%90%E5%8F%8C%E5%90%91%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%BF%99%E6%84%8F%E5%91%B3%E7%9D%80%E8%AF%A5%E5%8D%8F%E8%AE%AE%E5%A4%84%E4%BA%8E%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E5%87%8F%E5%B0%91%E4%BA%86%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B%EF%BC%8C%E5%9B%A0%E6%AD%A4%E9%80%9A%E8%AE%AF%E9%80%9F%E7%8E%87%E6%9C%89%E6%89%80%E6%8F%90%E5%8D%87%E3%80%82%E7%BB%8F%E6%B5%8B%E8%AF%95%EF%BC%8C%E4%BB%8EUDP%E6%9B%B4%E6%8D%A2%E4%B8%BAESP-NOW%E9%80%9A%E4%BF%A1%E5%90%8E%EF%BC%8C%E9%80%9A%E4%BF%A1%E5%BB%B6%E6%97%B6%E5%87%8F%E5%B0%91%E4%BA%86%E4%B8%80%E7%A7%92%E3%80%82">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/。该方法通过ESP私有协议**ESP-NOW**完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</a></p>
+<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
+<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
+<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
+<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
+<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
+<p>最终Arduino的数据发送代码段如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
+<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>Arduino</tag>
       </tags>
   </entry>
 </search>
