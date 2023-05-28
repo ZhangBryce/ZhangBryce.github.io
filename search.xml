@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Basic Component of Commonroad</title>
-    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
-<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
-<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
-
-<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
-<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
-<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
-
-<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
-<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
-<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
-
-<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Commonroad</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -59,75 +34,6 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ESP8266设置UDP透传</title>
-    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
-    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
-<li>+++不加换行退出透传</li>
-<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
-<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
-<li>查询端口IP：AT+CIFSR</li>
-<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
-<li>开启透传模式：AT+CIPSEND</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>小技巧</tag>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>The install of Commonroad-rl</title>
-    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
-<ul>
-<li>操作系统：Ubuntu18.4.6</li>
-<li>是否使用虚拟机：是</li>
-</ul>
-<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
-<li>Anaconda</li>
-<li>git</li>
-</ul>
-<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
-<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
-</li>
-<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
-</li>
-<li><p>commonroad-scenario-designer开启命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -165,6 +71,100 @@
         <tag>Reinforcement Learning</tag>
         <tag>Docker</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The install of Commonroad-rl</title>
+    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
+<ul>
+<li>操作系统：Ubuntu18.4.6</li>
+<li>是否使用虚拟机：是</li>
+</ul>
+<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
+<li>Anaconda</li>
+<li>git</li>
+</ul>
+<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
+<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
+</li>
+<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
+</li>
+<li><p>commonroad-scenario-designer开启命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Basic Component of Commonroad</title>
+    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
+<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
+<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
+
+<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
+<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
+<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
+
+<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
+<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
+<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
+
+<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP8266设置UDP透传</title>
+    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
+    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
+<li>+++不加换行退出透传</li>
+<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
+<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
+<li>查询端口IP：AT+CIFSR</li>
+<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
+<li>开启透传模式：AT+CIPSEND</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>小技巧</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -209,50 +209,6 @@
       <tags>
         <tag>Python</tag>
         <tag>Flow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Flow--交通网络仿真框架的安装</title>
-    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
-<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
-<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
-<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
-<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
-<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
-<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
-<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
-<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
-</ol>
-<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
-<h2 id="使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
-<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
-<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
-<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
-<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
-
-<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
-<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
-<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
-<li>ps afx|grep apt ：列出所有apt进程</li>
-<li>sudo kill -9 进程号：沙掉进程</li>
-<li>ls -l ：列出文件夹权限</li>
-<li>source activate：conda切换环境</li>
-<li>chmod 766 .&#x2F;*：赋予执行权限</li>
-<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
-<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
-<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
-<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Flow</tag>
-        <tag>Linux</tag>
-        <tag>Anaconda</tag>
       </tags>
   </entry>
   <entry>
@@ -307,6 +263,79 @@
       </tags>
   </entry>
   <entry>
+    <title>Flow--交通网络仿真框架的安装</title>
+    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
+<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
+<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
+<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
+<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
+<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
+<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
+<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
+<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
+</ol>
+<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
+<h2 id="使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-x2F-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
+<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
+<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
+<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
+<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
+
+<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
+<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
+<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
+<li>ps afx|grep apt ：列出所有apt进程</li>
+<li>sudo kill -9 进程号：沙掉进程</li>
+<li>ls -l ：列出文件夹权限</li>
+<li>source activate：conda切换环境</li>
+<li>chmod 766 .&#x2F;*：赋予执行权限</li>
+<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
+<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
+<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
+</ul>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
+<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Flow</tag>
+        <tag>Linux</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+]]></content>
+      <tags>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FreeRTOS基础概念</title>
     <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>一些有意思的专用名词解释：</p>
@@ -355,35 +384,6 @@
       </tags>
   </entry>
   <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
-]]></content>
-      <tags>
-        <tag>Commonroad</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从零搭建hexo博客</title>
     <url>/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>B站up主Codesheep教程，无坑。<br><a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a></p>
@@ -429,6 +429,66 @@
 ]]></content>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 4-How to optimize the network</title>
+    <url>/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</url>
+    <content><![CDATA[<h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
+<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
+<ol>
+<li>获取更多样本</li>
+<li>尝试较小的特征集</li>
+<li>增加正则化系数lambda</li>
+</ol>
+<p>修复高偏差(欠拟合)可采取如下措施</p>
+<ol>
+<li>增加额外的特征</li>
+<li>尝试更多多项式特征</li>
+<li>减少正则化系数lambda</li>
+</ol>
+<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
+<p>同理，可画出关于lambda的误差图像并进行分析</p>
+<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
+<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
+<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
+<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">P</th>
+<th align="center">R</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Algorithm1</td>
+<td align="center">0.5</td>
+<td align="center">0.4</td>
+</tr>
+<tr>
+<td align="center">Algorithm2</td>
+<td align="center">0.7</td>
+<td align="center">0.1</td>
+</tr>
+<tr>
+<td align="center">Algorithm3</td>
+<td align="center">0.02</td>
+<td align="center">1.0</td>
+</tr>
+</tbody></table>
+<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
+<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
+<li>使用一个有很多参数的学习算法</li>
+<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -497,66 +557,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 4-How to optimize the network</title>
-    <url>/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</url>
-    <content><![CDATA[<h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
-<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
-<ol>
-<li>获取更多样本</li>
-<li>尝试较小的特征集</li>
-<li>增加正则化系数lambda</li>
-</ol>
-<p>修复高偏差(欠拟合)可采取如下措施</p>
-<ol>
-<li>增加额外的特征</li>
-<li>尝试更多多项式特征</li>
-<li>减少正则化系数lambda</li>
-</ol>
-<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
-<p>同理，可画出关于lambda的误差图像并进行分析</p>
-<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
-<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
-<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
-<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">P</th>
-<th align="center">R</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Algorithm1</td>
-<td align="center">0.5</td>
-<td align="center">0.4</td>
-</tr>
-<tr>
-<td align="center">Algorithm2</td>
-<td align="center">0.7</td>
-<td align="center">0.1</td>
-</tr>
-<tr>
-<td align="center">Algorithm3</td>
-<td align="center">0.02</td>
-<td align="center">1.0</td>
-</tr>
-</tbody></table>
-<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
-<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
-<li>使用一个有很多参数的学习算法</li>
-<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 1-Initial contact</title>
     <url>/2022/01/04/Machine%20Learning%20Summary%201/</url>
     <content><![CDATA[<h1 id="初步印象"><a href="#初步印象" class="headerlink" title="初步印象"></a>初步印象</h1><p>机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)</p>
@@ -611,28 +611,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 3-Backpropagation</title>
     <url>/2022/01/10/Machine-learning-Summary-3/</url>
     <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
@@ -670,6 +648,28 @@
 <blockquote>
 <p>本文为吴恩达Machine learning课程的学习笔记</p>
 </blockquote>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+</ul>
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
@@ -749,45 +749,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 1-Initial Contact</title>
-    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
-    <content><![CDATA[<blockquote>
-<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-</blockquote>
-<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
-<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
-<blockquote>
-<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
-</blockquote>
-<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
-<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
-<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
-<p>Agent干了什么呢？</p>
-<ul>
-<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
-<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
-</ul>
-<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
-<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
-<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
-<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
-</blockquote>
-<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
-<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
-<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
-<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
-<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
-<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RL Summary 2-Basic Concept</title>
     <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
     <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
@@ -845,6 +806,45 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 1-Initial Contact</title>
+    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
+    <content><![CDATA[<blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+</blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
     <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
     <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
@@ -869,6 +869,19 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows中的实用软件</title>
+    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
+<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
+<p>快捷键如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -938,6 +951,21 @@
       </tags>
   </entry>
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
+    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>string总结</title>
     <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<ul>
@@ -953,21 +981,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
-    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1070,25 +1083,6 @@
       </tags>
   </entry>
   <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1111,6 +1105,25 @@
       </tags>
   </entry>
   <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出坐标文件及网表</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
     <content><![CDATA[<p>【名词解释及其功能】</p>
@@ -1125,6 +1138,36 @@
 ]]></content>
       <tags>
         <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Verilog程序框架</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+</ul>
+<ol>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1189,104 +1232,53 @@
       </tags>
   </entry>
   <entry>
-    <title>Verilog程序框架</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+    <title>STM32前期学习的一些知识点总结</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
+<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
+<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
 <blockquote>
-<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
 </blockquote>
-<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
-<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
-<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
-<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
-<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
-</ul>
+<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
+<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
+<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
+<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
+<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
+<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
 <ol>
-<li>assign语句(描述组合逻辑)</li>
-<li>always语句(组合&#x2F;时许逻辑)</li>
-<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+<li>栈区存放函数的参数值、局部变量的值。</li>
+<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
+<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
 </ol>
-<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
-<li>在模块调用时，信号通过模块端口在模块之间传递</li>
-<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
-<li>模块调用位宽必须保持一致</li>
-</ul>
+<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
+<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
+<ol>
+<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
+<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
+</ol>
+<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
+<ol>
+<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
+<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
+<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
+<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
+</ol>
+<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
+<ol>
+<li><p>共模信号是幅度相等、相位相同的信号。</p>
+</li>
+<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
+</li>
+<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
+</li>
+</ol>
+<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
+<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
 ]]></content>
       <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Verilog语句</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</url>
-    <content><![CDATA[<h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
-<li>两语句后紧跟的都是过程块(顺序块)语句</li>
-</ul>
-<ol>
-<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
-</ol>
-<ul>
-<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
-</blockquote>
-<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
-<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
-</ul>
-<ol>
-<li>阻塞赋值(可看作一个步骤)</li>
-</ol>
-<ul>
-<li>计算RHS并更新LHS</li>
-<li>一条语句执行完再执行下一条语句</li>
-</ul>
-<ol start="2">
-<li>非阻塞赋值</li>
-</ol>
-<ul>
-<li>赋值开始，计算RHS</li>
-<li>赋值结束，更新LHS</li>
-<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
-</ul>
-<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
-<li>if_else语句(与C语言相同)</li>
-</ol>
-<ul>
-<li>条件语句必须在过程块中使用</li>
-<li>允许一定形式的简写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>允许嵌套</li>
-</ul>
-<ol start="2">
-<li>case语句</li>
-</ol>
-<ul>
-<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
-<li>casex不考虑高阻值z 和 不定值x</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>FPGA基础</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1343,100 +1335,6 @@
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>系统任务和系统函数</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
-<li>$display(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后会加一个<strong>换行</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>$write(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后<strong>不会</strong>加换行</li>
-</ul>
-<ol start="3">
-<li>$strobe和$monltor</li>
-</ol>
-<ul>
-<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
-<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
-</ul>
-<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
-<li>$finish表示停止仿真</li>
-<li>$stop表示暂停仿真</li>
-</ol>
-<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
-<li>$time返回一个64位整数时间值</li>
-<li>$stime返回一个32位整数时间值</li>
-<li>$realtime返回一个实数时间值</li>
-<li>$timeformat控制时间的显示方式</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32前期学习的一些知识点总结</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
-<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
-<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
-<blockquote>
-<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
-</blockquote>
-<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
-<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
-<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
-<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
-<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
-<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
-<ol>
-<li>栈区存放函数的参数值、局部变量的值。</li>
-<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
-<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
-</ol>
-<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
-<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
-<ol>
-<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
-<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
-</ol>
-<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
-<ol>
-<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
-<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
-<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
-<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
-</ol>
-<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
-<ol>
-<li><p>共模信号是幅度相等、相位相同的信号。</p>
-</li>
-<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
-</li>
-<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
-</li>
-</ol>
-<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
-<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1575,6 +1473,121 @@
       </tags>
   </entry>
   <entry>
+    <title>系统任务和系统函数</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
+<li>$display(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后会加一个<strong>换行</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>$write(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后<strong>不会</strong>加换行</li>
+</ul>
+<ol start="3">
+<li>$strobe和$monltor</li>
+</ol>
+<ul>
+<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
+<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
+</ul>
+<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
+<li>$finish表示停止仿真</li>
+<li>$stop表示暂停仿真</li>
+</ol>
+<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
+<li>$time返回一个64位整数时间值</li>
+<li>$stime返回一个32位整数时间值</li>
+<li>$realtime返回一个实数时间值</li>
+<li>$timeformat控制时间的显示方式</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Verilog语句</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
+<li>两语句后紧跟的都是过程块(顺序块)语句</li>
+</ul>
+<ol>
+<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
+</ol>
+<ul>
+<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
+</blockquote>
+<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
+<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
+</ul>
+<ol>
+<li>阻塞赋值(可看作一个步骤)</li>
+</ol>
+<ul>
+<li>计算RHS并更新LHS</li>
+<li>一条语句执行完再执行下一条语句</li>
+</ul>
+<ol start="2">
+<li>非阻塞赋值</li>
+</ol>
+<ul>
+<li>赋值开始，计算RHS</li>
+<li>赋值结束，更新LHS</li>
+<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
+</ul>
+<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
+<li>if_else语句(与C语言相同)</li>
+</ol>
+<ul>
+<li>条件语句必须在过程块中使用</li>
+<li>允许一定形式的简写</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>允许嵌套</li>
+</ul>
+<ol start="2">
+<li>case语句</li>
+</ol>
+<ul>
+<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
+<li>casex不考虑高阻值z 和 不定值x</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一些C++知识点</title>
     <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
     <content><![CDATA[<ul>
@@ -1691,6 +1704,32 @@
       </tags>
   </entry>
   <entry>
+    <title>复制构造函数</title>
+    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
+<li><p>用类的一个对象去初始化该类的另一个对象时</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
+</li>
+<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
+</li>
+<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>卡尔曼滤波器</title>
     <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
     <content><![CDATA[<p>C++代码如下：</p>
@@ -1714,26 +1753,23 @@
       </tags>
   </entry>
   <entry>
-    <title>复制构造函数</title>
-    <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>排序算法总结</title>
+    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
+<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
-<li><p>用类的一个对象去初始化该类的另一个对象时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
+<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
-</li>
-<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
-</li>
-<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
+
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -1804,56 +1840,6 @@
       </tags>
   </entry>
   <entry>
-    <title>排序算法总结</title>
-    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
-<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
-<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>步数检测--波峰检测算法</title>
-    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
-<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
-<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
-<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
-<ol>
-<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
-</li>
-<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
-</li>
-<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
-<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
-</li>
-</ol>
-<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
-<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
-<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
-<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深浅复制</title>
     <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
     <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
@@ -1903,6 +1889,66 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>物联网手势控制小车所遇问题与解决方案</title>
+    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
+<p><strong>分析过程与解决方案</strong>：</p>
+<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
+<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
+<p>这不利于设置阈值判定手势。</p>
+<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
+<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
+<p><strong>解决方案</strong>：</p>
+<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/%E3%80%82%E8%AF%A5%E6%96%B9%E6%B3%95%E9%80%9A%E8%BF%87ESP%E7%A7%81%E6%9C%89%E5%8D%8F%E8%AE%AE**ESP-NOW**%E5%AE%8C%E6%88%90%E9%80%9A%E4%BF%A1%EF%BC%8C%E4%BC%A0%E8%BE%93%E6%97%B6%E5%8F%AA%E9%9C%80%E8%A6%81%E7%9F%A5%E6%99%93%E4%B8%80%E6%96%B9%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E5%8D%B3%E5%8F%AF%E5%AE%8C%E6%88%90%E5%8F%8C%E5%90%91%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%BF%99%E6%84%8F%E5%91%B3%E7%9D%80%E8%AF%A5%E5%8D%8F%E8%AE%AE%E5%A4%84%E4%BA%8E%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E5%87%8F%E5%B0%91%E4%BA%86%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B%EF%BC%8C%E5%9B%A0%E6%AD%A4%E9%80%9A%E8%AE%AF%E9%80%9F%E7%8E%87%E6%9C%89%E6%89%80%E6%8F%90%E5%8D%87%E3%80%82%E7%BB%8F%E6%B5%8B%E8%AF%95%EF%BC%8C%E4%BB%8EUDP%E6%9B%B4%E6%8D%A2%E4%B8%BAESP-NOW%E9%80%9A%E4%BF%A1%E5%90%8E%EF%BC%8C%E9%80%9A%E4%BF%A1%E5%BB%B6%E6%97%B6%E5%87%8F%E5%B0%91%E4%BA%86%E4%B8%80%E7%A7%92%E3%80%82">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/。该方法通过ESP私有协议**ESP-NOW**完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</a></p>
+<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
+<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
+<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
+<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
+<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
+<p>最终Arduino的数据发送代码段如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
+<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>Arduino</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>步数检测--波峰检测算法</title>
+    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
+<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
+<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
+<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
+<ol>
+<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
+</li>
+<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
+</li>
+<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
+</li>
+</ol>
+<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
+<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
+<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1971,39 +2017,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>物联网手势控制小车所遇问题与解决方案</title>
-    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
-<p><strong>分析过程与解决方案</strong>：</p>
-<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
-<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://img-blog.csdnimg.cn/67da2c9eeabf4fdabd8e5238255cf374.png" alt="陀螺仪数据"></p>
-<p>这不利于设置阈值判定手势。</p>
-<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
-<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
-<p><strong>解决方案</strong>：</p>
-<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/%E3%80%82%E8%AF%A5%E6%96%B9%E6%B3%95%E9%80%9A%E8%BF%87ESP%E7%A7%81%E6%9C%89%E5%8D%8F%E8%AE%AE**ESP-NOW**%E5%AE%8C%E6%88%90%E9%80%9A%E4%BF%A1%EF%BC%8C%E4%BC%A0%E8%BE%93%E6%97%B6%E5%8F%AA%E9%9C%80%E8%A6%81%E7%9F%A5%E6%99%93%E4%B8%80%E6%96%B9%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E5%8D%B3%E5%8F%AF%E5%AE%8C%E6%88%90%E5%8F%8C%E5%90%91%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%BF%99%E6%84%8F%E5%91%B3%E7%9D%80%E8%AF%A5%E5%8D%8F%E8%AE%AE%E5%A4%84%E4%BA%8E%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%EF%BC%8C%E5%87%8F%E5%B0%91%E4%BA%86%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B%EF%BC%8C%E5%9B%A0%E6%AD%A4%E9%80%9A%E8%AE%AF%E9%80%9F%E7%8E%87%E6%9C%89%E6%89%80%E6%8F%90%E5%8D%87%E3%80%82%E7%BB%8F%E6%B5%8B%E8%AF%95%EF%BC%8C%E4%BB%8EUDP%E6%9B%B4%E6%8D%A2%E4%B8%BAESP-NOW%E9%80%9A%E4%BF%A1%E5%90%8E%EF%BC%8C%E9%80%9A%E4%BF%A1%E5%BB%B6%E6%97%B6%E5%87%8F%E5%B0%91%E4%BA%86%E4%B8%80%E7%A7%92%E3%80%82">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/。该方法通过ESP私有协议**ESP-NOW**完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</a></p>
-<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
-<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
-<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
-<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
-<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
-<p>最终Arduino的数据发送代码段如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
-<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>Arduino</tag>
       </tags>
   </entry>
 </search>
