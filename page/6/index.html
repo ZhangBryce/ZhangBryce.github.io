@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -191,7 +191,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +209,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">Verilog语句</a>
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Verilog语法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -227,7 +227,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:21" itemprop="dateModified" datetime="2020-08-05T11:01:21+08:00">2020-08-05</time>
+      <time title="修改时间：2020-08-05 22:37:04" itemprop="dateModified" datetime="2020-08-05T22:37:04+08:00">2020-08-05</time>
     </span>
 
   
@@ -240,69 +240,272 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
-<li>两语句后紧跟的都是过程块(顺序块)语句</li>
-</ul>
+          <h2 id="一、逻辑值"><a href="#一、逻辑值" class="headerlink" title="一、逻辑值"></a>一、逻辑值</h2><p>Verilog中变量只有四种状态</p>
 <ol>
-<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
+<li>0低电平</li>
+<li>1高电平</li>
+<li>X表示未知(但存在)</li>
+<li>Z表示悬空状态(未知就真的是未知)</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h2 id="二、数字进制格式"><a href="#二、数字进制格式" class="headerlink" title="二、数字进制格式"></a>二、数字进制格式</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4&#x27;b0101</span></span><br><span class="line"><span class="number">4&#x27;d2</span>			<span class="comment">//4表示2进制数的位宽</span></span><br><span class="line"><span class="number">4&#x27;ha</span>			<span class="comment">//若没有指定位宽，则默认为32位(2进制)数据</span></span><br><span class="line"><span class="number">16&#x27;b1001_1010_1010_1001</span>=<span class="number">16&#x27;h9aa9</span></span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
+<h2 id="三、标识符-类似C语言变量名"><a href="#三、标识符-类似C语言变量名" class="headerlink" title="三、标识符(类似C语言变量名)"></a>三、标识符(类似C语言变量名)</h2><ol>
+<li>标识符可以是任意一组字母、数字、$符号和下划线的组合</li>
+<li>标识符第一个字符必须是字母或者下划线</li>
+<li>标识符是区分大小写的</li>
+<li>建议普通内部信号全部小写</li>
 </ol>
-<ul>
-<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
+<h2 id="四、数据类型"><a href="#四、数据类型" class="headerlink" title="四、数据类型"></a>四、数据类型</h2><p>Verilog中数据类型有：<em>寄存器类型、线网类型、参数类型</em>。真正在数字电路中起作用的数据类型应该是<strong>寄存器数据类型</strong>和<strong>线网数据类型</strong>，因为这两个数据类型可以直接映射在电路中</p>
+<h4 id="寄存器类型"><a href="#寄存器类型" class="headerlink" title="寄存器类型"></a>寄存器类型</h4><ol>
+<li>表示一个抽象的数据存储单元，关键字为reg，初始值为不确定值X<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg [31:0] delay_cnt;	// [31:0] 为位宽，不表明则默认为位宽1，不可赋初值。</span><br></pre></td></tr></table></figure></li>
+<li>reg类型的数据只能在always语句和initial语句中被赋值</li>
+<li>如果always中带有时钟信号，则该寄存器变量对应为触发器，如果always中没有时钟信号，则该寄存器为硬件连线</li>
+</ol>
+<h4 id="线网类型"><a href="#线网类型" class="headerlink" title="线网类型"></a>线网类型</h4><blockquote>
+<p>线网类型包括wire和tri型，他们有什么区别呢？ 	<br>线网数据类型包括wire和tri等，wire最常见，不必多说，很多情况下直接声明为wire即可。<br>至于tri其实和wire在用法上是一模一样的，不过有时候，我们需要定义一些会被三态门驱动的硬件连线，用tri来命名会让代码更具有可读性，让人一看就知道这根连线上会出现Z状态，仅此而已！<br>回答来自：<a target="_blank" rel="noopener" href="http://www.openedv.com/forum.php?mod=viewthread&tid=286442&extra=page=1">正点原子开源电子论坛</a></p>
 </blockquote>
-<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
-<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
+<ol>
+<li>表示结构实体(例如门)之间的物力连线</li>
+<li>变量不能存储值，它的值是由驱动它的元件所决定的，驱动线网变量的元件有：门、连续赋值语句、assign等</li>
+<li>若无驱动原件连在线网类型，则为高阻态</li>
+<li>位宽和reg定义一样</li>
+</ol>
+<h4 id="参数类型-类似于C语言的define"><a href="#参数类型-类似于C语言的define" class="headerlink" title="参数类型(类似于C语言的define)"></a>参数类型(类似于C语言的define)</h4><ol>
+<li>实际就是一个常量，用parameter定义<br><code>parameter H_SYNC = 11&#39;d41</code></li>
+<li>参数类型数据定义状态机的状态、数据位宽、延时大小。可通过参数传递改变被调用模块已定义的函数，类似C语言的调用函数对模块赋值</li>
+</ol>
+<h2 id="五、运算符"><a href="#五、运算符" class="headerlink" title="五、运算符"></a>五、运算符</h2><ol>
+<li><p>算数运算符<br>加减乘除法只能实现整数运算（+、-、*、&#x2F;）<br>%(a%b即取模)</p>
+</li>
+<li><p>关系运算符<br><code>&lt;=    &gt;=    等C语言中的比较运算符</code></p>
+</li>
+<li><p>逻辑运算符<br><code>! &amp;&amp; ||逻辑与或操作</code></p>
+</li>
+<li><p>条件运算符<br>Verilog中条件运算符就一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?  :</span><br><span class="line">a?b:c</span><br></pre></td></tr></table></figure></li>
+<li><p>位运算符<br>对每一位进行操作<br>不同位宽，小位宽变量高位补零再运算<br><code> ~、&amp;、|、^</code></p>
+</li>
+<li><p>移位运算符<br>空位补零</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4&#x27;b1001&lt;&lt; 2 = 6&#x27;b100100;	//左移位宽增加</span><br><span class="line">4&#x27;b1001&gt;&gt; 1 = 4&#x27;b0100;		//右移位宽不变</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拼接运算符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; , &#125;:</span><br><span class="line">&#123;a,b&#125;				//将a和b拼接起来作为一个新信号</span><br><span class="line">c=&#123;a,b[3:0]&#125;;		//a、b均为8位，则是将8位a和b的第3到第0位拼在一起，结果是c[11:0]</span><br></pre></td></tr></table></figure>
+<p>学习视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV194411f7GD?p=12">正点原子FPGA系列教程Verilog语法篇</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">Verilog程序框架</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:25" itemprop="dateModified" datetime="2020-08-05T11:01:25+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
 </ul>
 <ol>
-<li>阻塞赋值(可看作一个步骤)</li>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
 </ol>
-<ul>
-<li>计算RHS并更新LHS</li>
-<li>一条语句执行完再执行下一条语句</li>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
 </ul>
-<ol start="2">
-<li>非阻塞赋值</li>
-</ol>
-<ul>
-<li>赋值开始，计算RHS</li>
-<li>赋值结束，更新LHS</li>
-<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
-</ul>
-<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
-<li>if_else语句(与C语言相同)</li>
-</ol>
-<ul>
-<li>条件语句必须在过程块中使用</li>
-<li>允许一定形式的简写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>允许嵌套</li>
-</ul>
-<ol start="2">
-<li>case语句</li>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">STM32前期学习的一些知识点总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:04" itemprop="dateModified" datetime="2020-08-05T11:01:04+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
+<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
+<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
+<blockquote>
+<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
+</blockquote>
+<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
+<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
+<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
+<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
+<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
+<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
+<ol>
+<li>栈区存放函数的参数值、局部变量的值。</li>
+<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
+<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
 </ol>
-<ul>
-<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
-<li>casex不考虑高阻值z 和 不定值x</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
-
+<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
+<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
+<ol>
+<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
+<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
+</ol>
+<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
+<ol>
+<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
+<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
+<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
+<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
+</ol>
+<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
+<ol>
+<li><p>共模信号是幅度相等、相位相同的信号。</p>
+</li>
+<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
+</li>
+<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
+</li>
+</ol>
+<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
+<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
 
       
     </div>
@@ -426,122 +629,6 @@
 <li>进行时序计算和约束</li>
 <li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">STM32前期学习的一些知识点总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:04" itemprop="dateModified" datetime="2020-08-05T11:01:04+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
-<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
-<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
-<blockquote>
-<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
-</blockquote>
-<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
-<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
-<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
-<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
-<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
-<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
-<ol>
-<li>栈区存放函数的参数值、局部变量的值。</li>
-<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
-<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
-</ol>
-<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
-<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
-<ol>
-<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
-<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
-</ol>
-<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
-<ol>
-<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
-<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
-<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
-<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
-</ol>
-<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
-<ol>
-<li><p>共模信号是幅度相等、相位相同的信号。</p>
-</li>
-<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
-</li>
-<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
-</li>
-</ol>
-<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
-<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
 
       
     </div>
