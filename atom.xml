@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-06-25T07:51:25.204Z</updated>
+  <updated>2023-06-28T07:11:09.754Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ESP32 PWM输入捕获</title>
+    <link href="http://example.com/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/"/>
+    <id>http://example.com/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</id>
+    <published>2023-06-28T06:37:31.000Z</published>
+    <updated>2023-06-28T07:11:09.754Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;项目背景&quot;&gt;&lt;a href=&quot;#项目背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="ESP32" scheme="http://example.com/tags/ESP32/"/>
+    
+  </entry>
   
   <entry>
     <title>Arduino基础功能例程</title>

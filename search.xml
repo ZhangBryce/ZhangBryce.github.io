@@ -2051,4 +2051,33 @@
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ESP32 PWM输入捕获</title>
+    <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
+    <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
+<p>方案一为直接修改飞控内部代码，方案二为通过外部设备模拟遥控器信号控制飞控。方案一需要对内部代码较为熟悉，而飞控代码较为复杂，修改代码难度较高。方案二则需要读取遥控器信号，经过自定义控制逻辑后，再输出遥控器信号控制无人机。方案二相对简单易行，本文使用ESP32作为遥控器与飞控的”中间人“，主要讲解使用ESP32读取遥控器信号。</p>
+<p>硬件开发板：LolinLite ESP32</p>
+<p>编程环境：PlatformIO</p>
+<h1 id="脉宽读取"><a href="#脉宽读取" class="headerlink" title="脉宽读取"></a>脉宽读取</h1><p>ESP32内部有脉冲宽度计数器(Pulse Counter)，通过计算高低电平的持续时间来实现脉冲宽度读取。在PlatformIO编程环境中，使用ESP32 for Arduino库进行开发时，没有对应的库<a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/libraries.html#supported-peripherals">^1</a>，因此需要自己编写库函数。搜索后移植某项目<a href="https://blog.csdn.net/jasper_JA/article/details/103366988">^2</a>后成功实现脉宽读取。在移植过程中遇到如下问题：</p>
+<ol>
+<li><p>原项目中代码报错：<code>error: invalid conversion from &#39;int&#39; to &#39;gpio_num_t&#39; [-fpermissive]</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN 25   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://www.esp32.com/viewtopic.php?t=1591">^3</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN GPIO_NUM_15   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原项目中第108行代码报错：<code>[invalid conversion from void* to void(*)(void*)[-fpermissive\]](https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive)</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive">^4</a>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, (<span class="built_in">void</span> (*)(<span class="type">void</span> *))isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>修改后成功上传编译，能从串口输出高电平的持续时间。于是可以判断出遥控器拨杆在哪个档位，以此实现自定义控制功能。若想实现占空比检测，可设置脉宽计数器在上升沿和下降沿都可触发，触发后进入回调函数时判断引脚的当前电平，即可实现占空比计算。</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>C++</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
 </search>
