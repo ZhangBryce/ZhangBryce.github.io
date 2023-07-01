@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,89 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/" class="post-title-link" itemprop="url">ML Summary 7-Anomaly Detection and Recommendation Systems</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-01-22 18:54:18 / 修改时间：20:16:51" itemprop="dateCreated datePublished" datetime="2022-01-22T18:54:18+08:00">2022-01-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1128,100 +1211,6 @@
 <h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">步数检测--波峰检测算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-17 23:23:18" itemprop="dateCreated datePublished" datetime="2020-10-17T23:23:18+08:00">2020-10-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-01-20 21:59:18" itemprop="dateModified" datetime="2021-01-20T21:59:18+08:00">2021-01-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
-<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
-<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
-<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
-<ol>
-<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
-</li>
-<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
-</li>
-<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
-<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
-</li>
-</ol>
-<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
-<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
-<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
-<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
-
       
     </div>
 

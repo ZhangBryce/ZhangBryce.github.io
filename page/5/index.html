@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,100 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">步数检测--波峰检测算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-17 23:23:18" itemprop="dateCreated datePublished" datetime="2020-10-17T23:23:18+08:00">2020-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-01-20 21:59:18" itemprop="dateModified" datetime="2021-01-20T21:59:18+08:00">2021-01-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
+<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
+<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
+<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
+<ol>
+<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
+</li>
+<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
+</li>
+<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
+</li>
+</ol>
+<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
+<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
+<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1029,144 +1123,6 @@
 </ul>
 <h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
 <h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">Verilog语句</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:21" itemprop="dateModified" datetime="2020-08-05T11:01:21+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
-<li>两语句后紧跟的都是过程块(顺序块)语句</li>
-</ul>
-<ol>
-<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
-</ol>
-<ul>
-<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
-</blockquote>
-<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
-<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
-</ul>
-<ol>
-<li>阻塞赋值(可看作一个步骤)</li>
-</ol>
-<ul>
-<li>计算RHS并更新LHS</li>
-<li>一条语句执行完再执行下一条语句</li>
-</ul>
-<ol start="2">
-<li>非阻塞赋值</li>
-</ol>
-<ul>
-<li>赋值开始，计算RHS</li>
-<li>赋值结束，更新LHS</li>
-<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
-</ul>
-<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
-<li>if_else语句(与C语言相同)</li>
-</ol>
-<ul>
-<li>条件语句必须在过程块中使用</li>
-<li>允许一定形式的简写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>允许嵌套</li>
-</ul>
-<ol start="2">
-<li>case语句</li>
-</ol>
-<ul>
-<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
-<li>casex不考虑高阻值z 和 不定值x</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-06-28T07:12:10.745Z</updated>
+  <updated>2023-07-01T07:30:50.733Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>&lt;代码美学&gt;观后感</title>
+    <link href="http://example.com/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/"/>
+    <id>http://example.com/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</id>
+    <published>2023-07-01T06:54:24.000Z</published>
+    <updated>2023-07-01T07:30:50.733Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;在代码中取名&quot;&gt;&lt;a href=&quot;#在代码中取名&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="成长感悟" scheme="http://example.com/tags/%E6%88%90%E9%95%BF%E6%84%9F%E6%82%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>ESP32 PWM输入捕获</title>
@@ -48,7 +73,7 @@
     <link href="http://example.com/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/"/>
     <id>http://example.com/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/</id>
     <published>2023-06-05T02:46:43.000Z</published>
-    <updated>2023-06-25T07:51:25.204Z</updated>
+    <updated>2023-06-29T06:45:51.984Z</updated>
     
     
       
