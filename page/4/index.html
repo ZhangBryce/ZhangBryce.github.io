@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,106 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/08/RL-Summary-1-Initial-Contact/" class="post-title-link" itemprop="url">RL Summary 1-Initial Contact</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-02-08 10:26:00 / 修改时间：13:50:12" itemprop="dateCreated datePublished" datetime="2022-02-08T10:26:00+08:00">2022-02-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+</blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1112,139 +1212,6 @@
 <li>最新版本Nodejs的依赖包可能无法兼容，编译(生成)博客出错时可以尝试降低Nodejs版本。</li>
 <li>如果安装包安装完成，但是检查版本时显示无该命令，则需要把安装路径加入到环境变量。</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">“OpenCV基础知识”</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-21 10:28:51 / 修改时间：11:51:40" itemprop="dateCreated datePublished" datetime="2021-01-21T10:28:51+08:00">2021-01-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一、图像格式"><a href="#一、图像格式" class="headerlink" title="一、图像格式"></a>一、图像格式</h3><ol>
-<li><p>BMP格式<br>BMP是英文Bitmap的缩写，是Windows系统中的标准图像文件格式，特点如下：</p>
-<ul>
-<li>包含图像信息丰富</li>
-<li>几乎不压缩</li>
-<li>占用磁盘空间过大</li>
-</ul>
-</li>
-<li><p>JPEG格式<br>由联合照片专家组(Joint Photographic Experts Group)开发并命名为ISO10918-1</p>
-<ul>
-<li>压缩技术十分先进，用<strong>最少</strong>的磁盘空间得到较好的图像质量</li>
-<li>具有调节图像质量的功能，允许你对文件进行压缩</li>
-</ul>
-</li>
-<li><p>JPEG2000格式<br>由JPEG组织负责制定</p>
-<ul>
-<li>与JPEG相比，具备更高的压缩率以及更多功能的新一代镜像压缩技术</li>
-<li>同时支持有损和无损压缩</li>
-<li>能实现渐进传输，即可以让图像由朦胧到清晰显示</li>
-<li>可以指定影像上你感兴趣区域的压缩质量，还可以选择指定的部分先解压缩</li>
-</ul>
-</li>
-<li><p>GIF格式</p>
-<p>GIF是Graohics Interchange format的缩写</p>
-<ul>
-<li>压缩比高，磁盘占用少</li>
-<li>目前大量彩色动画采用的GIF89a格式文件，是由GIF87a发展而来的图像格式</li>
-<li>采用渐显方式</li>
-<li>不能存储超过256色的图像</li>
-</ul>
-</li>
-<li><p>PNG格式<br>新兴的网络图像格式，结合了GIF与JPG两家之长</p>
-<ul>
-<li>采用无损压缩来减少文件的大小</li>
-<li>不支持动画应用效果</li>
-</ul>
-</li>
-<li><p>TIFF格式</p>
-<p>TIFF(Tag Image File Format)是Mac中广泛使用的图像格式</p>
-<ul>
-<li>图像格式复杂、存储信息多、图像质量高</li>
-<li>压缩与非压缩两种形式，其中压缩可采用LZW无损压缩方案存储</li>
-<li>兼容性较差</li>
-</ul>
-</li>
-<li><p>SVG格式</p>
-<p>Scalable Vector Graphics，可缩放的矢量图形</p>
-<ul>
-<li>开放标准的矢量图形语言</li>
-<li>可以任意放大图形显示，但绝不会以牺牲图像质量为代价</li>
-<li>SVG文件比JPEG和GIF格式的文件</li>
-</ul>
-</li>
-</ol>
-<h3 id="二、imread-与imwrite"><a href="#二、imread-与imwrite" class="headerlink" title="二、imread()与imwrite()"></a>二、imread()与imwrite()</h3><p>通过下列代码可以将png文件转换为jpg文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">image = cv2.imread(<span class="string">&#x27;shan.png&#x27;</span>)</span><br><span class="line">cv2.imwrite(<span class="string">&#x27;shan.jpg&#x27;</span>,image)</span><br></pre></td></tr></table></figure>
-
-<p>运行程序时报错</p>
-<blockquote>
-<p>cv2.error: OpenCV(4.5.1) C:\Users\appveyor\AppData\Local\Temp\1\pip-req-build-oduouqig\opencv\modules\imgcodecs\src\loadsave.cpp:753: error: (-215:Assertion failed) !_img.empty() in function ‘cv::imwrite’</p>
-</blockquote>
-<p>解决方案</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">image = cv2.imread(<span class="string">&#x27;shan.png&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(image)</span><br><span class="line">cv2.imwrite(<span class="string">&#x27;shan.jpg&#x27;</span>,image)</span><br><span class="line"><span class="comment">#将image打出来之后发现，是NONE，则并未正确读取到图像</span></span><br><span class="line"><span class="comment">#后将图片移至与python文件同目录下执行后，成功读取</span></span><br><span class="line"><span class="comment">#搜索过程中发现：中文路径是python程序常出错的问题之一，所以将工程文件移至全英文目录下</span></span><br></pre></td></tr></table></figure>
-
 
       
     </div>
