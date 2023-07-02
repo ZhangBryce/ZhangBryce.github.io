@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,79 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/" class="post-title-link" itemprop="url">ESP32常用例程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-02 14:26:40 / 修改时间：16:32:05" itemprop="dateCreated datePublished" datetime="2023-07-02T14:26:40+08:00">2023-07-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line"></span><br><span class="line">int freq=50,out_chanel = 8;</span><br><span class="line">int Pout_pin = 13;</span><br><span class="line"></span><br><span class="line">int calculatePWM_Speed(float Speed_ms)&#123;</span><br><span class="line">  return (int)(Speed_ms/20*256);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setup()&#123;</span><br><span class="line">  Serial.begin(115200);</span><br><span class="line"></span><br><span class="line">  ledcSetup(out_chanel,freq,8);</span><br><span class="line">  ledcAttachPin(Pout_pin,out_chanel);</span><br><span class="line">  ledcWrite(out_chanel,calculatePWM_Speed(1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码器代码"><a href="#编码器代码" class="headerlink" title="编码器代码"></a>编码器代码</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">#define ENCODER_L 	13  //编码器采集引脚 每路2个 共4个</span><br><span class="line">#define DIRECTION_L 15</span><br><span class="line">#define ENCODER_R   4</span><br><span class="line">#define DIRECTION_R 19</span><br><span class="line">#define interrupt_time 50 // 中断时间</span><br><span class="line"></span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">#include&lt;Ticker.h&gt;</span><br><span class="line">int32_t Velocity_L, Velocity_R;   //左右轮编码器数据</span><br><span class="line">int16_t Velocity_Left, Velocity_Right;     //左右轮速度</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void READ_ENCODER_L(void);</span><br><span class="line">void READ_ENCODER_R(void);</span><br><span class="line">void read(void);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**************************************************************************</span><br><span class="line">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span><br><span class="line">入口参数：无</span><br><span class="line">返回  值：无</span><br><span class="line">**************************************************************************/</span><br><span class="line">void READ_ENCODER_L(void) &#123;</span><br><span class="line">  if (digitalRead(ENCODER_L) == LOW) &#123;     //如果是下降沿触发的中断</span><br><span class="line">    if (digitalRead(DIRECTION_L) == LOW)      Velocity_L--;  //根据另外一相电平判定方向</span><br><span class="line">    else      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  else &#123;     //如果是上升沿触发的中断</span><br><span class="line">    if (digitalRead(DIRECTION_L) == LOW)      Velocity_L++; //根据另外一相电平判定方向</span><br><span class="line">    else     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**************************************************************************</span><br><span class="line">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span><br><span class="line">入口参数：无</span><br><span class="line">返回  值：无</span><br><span class="line">**************************************************************************/</span><br><span class="line">void READ_ENCODER_R(void) &#123;</span><br><span class="line">  if (digitalRead(ENCODER_R) == LOW) &#123; //如果是下降沿触发的中断</span><br><span class="line">    if (digitalRead(DIRECTION_R) == LOW)      Velocity_R--;//根据另外一相电平判定方向</span><br><span class="line">    else      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  else &#123;   //如果是上升沿触发的中断</span><br><span class="line">    if (digitalRead(DIRECTION_R) == LOW)      Velocity_R++; //根据另外一相电平判定方向</span><br><span class="line">    else     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">void read(void)</span><br><span class="line">&#123;</span><br><span class="line">/**************************************************************************</span><br><span class="line">计算为转速:c/s</span><br><span class="line"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span><br><span class="line">**************************************************************************/</span><br><span class="line">  Velocity_Left = Velocity_L*1000/interrupt_time/16;    Velocity_L = 0;  //读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span><br><span class="line">  Velocity_Right = Velocity_R*1000/interrupt_time/16;    Velocity_R = 0; //读取右轮编码器数据，并清零</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  // 中断函数定时器定义</span><br><span class="line"></span><br><span class="line">void setup()</span><br><span class="line">&#123;</span><br><span class="line">  Serial.begin(115200);</span><br><span class="line"></span><br><span class="line">	pinMode(ENCODER_L, INPUT);       //编码器引脚 输入模式</span><br><span class="line">	pinMode(ENCODER_R, INPUT);       //编码器引脚 输入模式</span><br><span class="line">	pinMode(DIRECTION_L, INPUT);     //编码器引脚 输入模式</span><br><span class="line">	pinMode(DIRECTION_R, INPUT);     //编码器引脚 输入模式</span><br><span class="line">	</span><br><span class="line">	//编码器接口1 开启外部跳边沿中断 </span><br><span class="line">	attachInterrupt(ENCODER_L, READ_ENCODER_L, CHANGE);  //中断函数READ_ENCODER_L</span><br><span class="line">	//编码器接口2 开启外部跳边沿中断 </span><br><span class="line">	attachInterrupt(ENCODER_R, READ_ENCODER_R, CHANGE);  //中断函数READ_ENCODER_R</span><br><span class="line">	</span><br><span class="line">	interrupts();                      //打开外部中断</span><br><span class="line">  timer_read_encoder.attach_ms(interrupt_time, read);  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -927,77 +1000,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">可变参数模板</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-16 08:42:48 / 修改时间：08:43:15" itemprop="dateCreated datePublished" datetime="2023-03-16T08:42:48+08:00">2023-03-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
       

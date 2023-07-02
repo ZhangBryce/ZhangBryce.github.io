@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-01T07:30:50.733Z</updated>
+  <updated>2023-07-02T08:32:05.988Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ESP32常用例程</title>
+    <link href="http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/"/>
+    <id>http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</id>
+    <published>2023-07-02T06:26:40.000Z</published>
+    <updated>2023-07-02T08:32:05.988Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;PWM输出&quot;&gt;&lt;a href=&quot;#PWM输出&quot; class=&quot;headerlink&quot; title=&quot;PWM输出&quot;&gt;&lt;/a&gt;PWM输出&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="ESP32" scheme="http://example.com/tags/ESP32/"/>
+    
+  </entry>
   
   <entry>
     <title>&lt;代码美学&gt;观后感</title>
