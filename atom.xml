@@ -47,7 +47,7 @@
     <link href="http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/"/>
     <id>http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</id>
     <published>2023-07-02T06:26:40.000Z</published>
-    <updated>2023-07-02T09:18:54.732Z</updated>
+    <updated>2023-07-03T05:45:10.237Z</updated>
     
     
       
@@ -124,7 +124,7 @@
     <link href="http://example.com/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/"/>
     <id>http://example.com/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/</id>
     <published>2023-06-05T02:46:43.000Z</published>
-    <updated>2023-06-29T06:45:51.984Z</updated>
+    <updated>2023-07-03T05:51:02.019Z</updated>
     
     
       
@@ -800,9 +800,9 @@
     
     
     
-    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
-    
     <category term="Flow" scheme="http://example.com/tags/Flow/"/>
+    
+    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
     
     <category term="Anaconda" scheme="http://example.com/tags/Anaconda/"/>
     
@@ -1202,33 +1202,6 @@
   </entry>
   
   <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:44:28.652Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;芯片型号为STM32F427，在Options for Target—&amp;gt;C&amp;#x2F;C++—&amp;gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;warning:  #47-D: incompatible</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
-    
-  </entry>
-  
-  <entry>
     <title>AD基础操作</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
@@ -1275,6 +1248,33 @@
   </entry>
   
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:44:28.652Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;芯片型号为STM32F427，在Options for Target—&amp;gt;C&amp;#x2F;C++—&amp;gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;warning:  #47-D: incompatible</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+  </entry>
+  
+  <entry>
     <title>AD输出Gerber文件</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
@@ -1288,34 +1288,6 @@
         
     <summary type="html">&lt;p&gt;我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件&lt;/p&gt;
 &lt;h1 id=&quot;1-文件——制造输出——Gerber-Files&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AD输出坐标文件及网表</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:41.233Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
-&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1</summary>
         
       
     
@@ -1350,25 +1322,30 @@
   </entry>
   
   <entry>
-    <title>Verilog程序框架</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
+    <title>AD输出坐标文件及网表</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:25.895Z</updated>
+    <updated>2020-08-05T03:01:41.233Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
+&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1</summary>
         
       
     
     
     
     
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
     
   </entry>
   
@@ -1385,6 +1362,29 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog程序框架</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:25.895Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -1442,31 +1442,6 @@
   </entry>
   
   <entry>
-    <title>STM32前期学习的一些知识点总结</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:04.108Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
-    
-  </entry>
-  
-  <entry>
     <title>RT-Thread基础操作</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
@@ -1491,6 +1466,31 @@
     <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
     <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STM32前期学习的一些知识点总结</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:04.108Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
   </entry>
   
