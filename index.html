@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,188 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/" class="post-title-link" itemprop="url">代码随想录-数组1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-03 14:18:45 / 修改时间：15:15:38" itemprop="dateCreated datePublished" datetime="2023-09-03T14:18:45+08:00">2023-09-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>数组下标都是从0开始的</li>
+<li>数组内存空间的地址都是连续的，<strong>所以在增删元素的时候，就会移动其他元素的地址</strong></li>
+</ul>
+<p>C++中，vector的底层实现是array，vector是容器，不是数组。<strong>数组的元素不能删，只能覆盖</strong></p>
+<p>**Q:**二维数组在内存的空间地址是连续的吗</p>
+<p><strong>A：</strong>不同编程语言的内存管理不一样。C++中二维数组是连续分布的。JAVA是没有指针的，也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机，所以其暂不可知。</p>
+<h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">力扣链接</a></p>
+<p>比较当前有序数组中间位置与查找目标的值，若当前值比目标值小，则把比较范围缩小至当前数组右侧。大，缩小至左侧。相等，即可返回。</p>
+<p>算法中最重要的是<strong>边界问题</strong>。在区间中，需要选择左闭右开还是左闭右闭区间，这决定：</p>
+<ul>
+<li>何时跳出搜索循环</li>
+<li>如何计算middle值</li>
+<li>如何更新边界</li>
+</ul>
+<p><strong>TIPS：</strong>可以通过<code>A&gt;&gt;1</code>来实现除以2的操作。</p>
+<p>区间的定义就是<strong>不变量</strong>，那么在循环中坚持根据查找区间的定义来做边界处理，就是<strong>循环不变量规则</strong>。</p>
+<h1 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/">力扣链接</a></p>
+<h2 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h2><p>两层for循环，第一层遍历数组元素，第二层更新数组。</p>
+<h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><ol>
+<li><p>两个指针初始都指向数组<strong>第一个元素</strong><br>一号指针用来遍历，如果碰到新数组元素(与目标值不同的元素)，就把该元素赋值给二号指针所指的位置。二号指针只有被赋值时才会向前移动。</p>
+</li>
+<li><p>一号指针指向头(左边)，二号指针指向尾(右边)</p>
+<ul>
+<li>找左边等于val的元素</li>
+<li>找右边不等于val的元素</li>
+<li>将右边不等于val的元素覆盖左边等于val的元素</li>
+</ul>
+<p>最终，左边指针指向了最终数组末尾的下一个元素。</p>
+</li>
+</ol>
+<p>快慢指针的正确打开方式是两个指针在<strong>何时</strong>需要向前移动，以达到想要的效果。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/21/Clash%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/21/Clash%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Clash配置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-21 09:53:25 / 修改时间：09:53:59" itemprop="dateCreated datePublished" datetime="2023-07-21T09:53:25+08:00">2023-07-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
+
+<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
+<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>重启clash程序</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
+<ul>
+<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
+<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -311,7 +493,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-03 13:45:10" itemprop="dateModified" datetime="2023-07-03T13:45:10+08:00">2023-07-03</time>
+      <time title="修改时间：2023-07-26 10:32:49" itemprop="dateModified" datetime="2023-07-26T10:32:49+08:00">2023-07-26</time>
     </span>
 
   
@@ -326,9 +508,10 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="编码器代码"><a href="#编码器代码" class="headerlink" title="编码器代码"></a>编码器代码</h1><p>推荐一个非常好的编码器原理讲解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
+<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
 
       
     </div>
@@ -894,157 +1077,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">字符串中分离出数字</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-21 19:12:34 / 修改时间：19:24:40" itemprop="dateCreated datePublished" datetime="2023-03-21T19:12:34+08:00">2023-03-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
-<blockquote>
-<p>8532</p>
-</blockquote>
-<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="post-title-link" itemprop="url">卡尔曼滤波器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-21 19:07:01 / 修改时间：19:08:49" itemprop="dateCreated datePublished" datetime="2023-03-21T19:07:01+08:00">2023-03-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>C++代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KalmanFilter</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">KalmanFilter</span>(<span class="type">double</span> Q, <span class="type">double</span> R) : <span class="built_in">Q</span>(Q), <span class="built_in">R</span>(R), <span class="built_in">x_hat</span>(<span class="number">0</span>), <span class="built_in">P</span>(<span class="number">1</span>), <span class="built_in">K</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新卡尔曼滤波器状态</span></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">update</span><span class="params">(<span class="type">double</span> z, <span class="type">double</span> u)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 预测状态</span></span><br><span class="line">        <span class="type">double</span> x_pred = x_hat + u;</span><br><span class="line">        <span class="type">double</span> P_pred = P + Q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算卡尔曼增益</span></span><br><span class="line">        K = P_pred / (P_pred + R);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新状态估计和协方差</span></span><br><span class="line">        x_hat = x_pred + K * (z - x_pred);</span><br><span class="line">        P = (<span class="number">1</span> - K) * P_pred;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x_hat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 过程噪声和观测噪声的方差</span></span><br><span class="line">    <span class="type">double</span> Q, R;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态估计和协方差</span></span><br><span class="line">    <span class="type">double</span> x_hat, P;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卡尔曼增益</span></span><br><span class="line">    <span class="type">double</span> K;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个卡尔曼滤波器对象</span></span><br><span class="line">    <span class="function">KalmanFilter <span class="title">kf</span><span class="params">(<span class="number">0.01</span>, <span class="number">0.1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成测试数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> num_samples = <span class="number">100</span>;</span><br><span class="line">    <span class="type">double</span> x_true[num_samples], z[num_samples], u[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        <span class="comment">// 真实状态是一个匀速运动的物体</span></span><br><span class="line">        x_true[i] = i * <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观测数据是带有高斯噪声的真实状态</span></span><br><span class="line">        z[i] = x_true[i] + <span class="number">0.1</span> * <span class="built_in">rand</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 控制输入是一个匀加速度</span></span><br><span class="line">        u[i] = <span class="number">0.1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用卡尔曼滤波器估计状态</span></span><br><span class="line">    <span class="type">double</span> x_est[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        x_est[i] = kf.<span class="built_in">update</span>(z[i], u[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;True: &quot;</span> &lt;&lt; x_true[i] &lt;&lt; <span class="string">&quot;, Measured: &quot;</span> &lt;&lt; z[i] &lt;&lt; <span class="string">&quot;, Estimated: &quot;</span> &lt;&lt; x_est[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注：该代码由ChatGPT生成，使用Visual Studio2022编译运行。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,242 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/04/Machine%20Learning%20Summary%201/" class="post-title-link" itemprop="url">ML Summary 1-Initial contact</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-04 13:18:00" itemprop="dateCreated datePublished" datetime="2022-01-04T13:18:00+08:00">2022-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-16 16:51:09" itemprop="dateModified" datetime="2022-01-16T16:51:09+08:00">2022-01-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="初步印象"><a href="#初步印象" class="headerlink" title="初步印象"></a>初步印象</h1><p>机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)</p>
+<blockquote>
+<p>亚瑟·塞缪尔（Arthur Samuel）将其描述为：“让计算机无需明确编程即可学习的研究领域。” 这是一个较旧的非正式定义。</p>
+<p>Tom Mitchell 提供了一个更现代的定义：“如果计算机程序在 T 中的任务上的性能（以 P 衡量）随着经验 E 提高，则称其从经验 E 中学习关于某类任务 T 和性能度量 P。“</p>
+</blockquote>
+<p>我把机器学习看做一个<strong>黑盒子</strong>的<strong>训练过程</strong>。黑盒子的内部结构是可变，当然，盒子的初步结构和变化规则由编程者确定。黑盒子内部结构的变化过程就是黑盒子的训练过程，训练的目的当然是为了更好地执行我们给它布置的任务。有时候人类能很好地推测出盒子里的结构，更多时候，即当机器在处理大量数据、复杂问题时，我们很难再准确地描述出这个黑盒子的内部结构。</p>
+<p>机器学习分为有监督学习和无监督学习两大类。</p>
+<h2 id="有监督学习"><a href="#有监督学习" class="headerlink" title="有监督学习"></a>有监督学习</h2><p>有监督学习指我们知道正确的输出应该是什么样子，给出样本的输入，机器应该得到样本的输出。机器从没有正确得到样本输出，到得到了样本输出或逐渐接近样本输出的过程，就是有监督学习的过程。有监督指的是<strong>样本中有正确答案</strong>。</p>
+<p>有监督学习问题中分为回归问题和分类问题。回归是构建数学模型，对已有数据进行拟合，并以此模型预测未知数据的问题。分类的关键是找到不同类型的边界线，并对未知数据进行分类。</p>
+<h2 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h2><p>无监督学习指没有基于预测结果的反馈，我们从数据中无法获知正确答案。然而，无监督学习可以通过基于数据中变量之间的关系对数据进行聚类来推导出数据的结构。例如可以将许多人的基因通过某种方法以不同的特征<strong>分类</strong>，年龄、身高、体重等。著名的“鸡尾酒会”算法可以分辨出两个人的声音，也可以从人声与音乐声的混合音频中<strong>分辨</strong>出人声和音乐声。     </p>
+<h1 id="模型和代价函数"><a href="#模型和代价函数" class="headerlink" title="模型和代价函数"></a>模型和代价函数</h1><p>模型即可以理解为黑盒子里的结构。下面以单参数输入，单参数输出的线性”黑盒子“为例写出模型函数。其中x为输入参数，h为输出结果。<br>$$<br>h_θ(x)&#x3D;θ_0+θ_1x  \qquad假设函数(模型的表示)<br>$$<br>代价函数可以理解为黑盒子预测结果与样本中正确结果的误差。其中m代表样本数量。<br>$$<br>J(θ_0,θ_1)&#x3D;{1\over2m}\Sigma_{i&#x3D;1}^{m}(h_\theta(x^{(i)})-y^{(i)})^2<br>$$<br>我们需要根据代价函数，了解到黑盒子完成任务的情况，代价函数(理想的与现实的差距)越大，这个黑盒子执行任务的效果就越差，它需要改变自己的内部结构，以缩小误差。在上述单输入单输出线性模型中，可以看出，改变内部结构，实际上就是改变线性方程的两个参数。那么如何改变呢？<strong>梯度下降与正规方程法</strong>。梯度下降的公式如下所示。其中alpha是梯度下降中的一个参数，也称它为学习速率，它太小，会导致收敛慢，太大则可能导致不收敛。<br>$$<br>\theta_0&#x3D;\theta_0-\alpha{d\over{d\theta_0}}J(\theta_0)\qquad\<br>\theta_1&#x3D;\theta_1-\alpha{d\over{d\theta_1}}J(\theta_1)\qquad<br>$$<br>正规方程法则直接计算出最优的theta，当然，它只适用于线性回归和小变量情况，其公式如下<br>$$<br>\theta&#x3D;(X^TX)^{-1}X^Ty<br>$$<br>关于梯度下降法和正规方程法的优劣如下表所示</p>
+<table>
+<thead>
+<tr>
+<th align="center">梯度下降</th>
+<th align="center">正规方程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">要选择参数alpha</td>
+<td align="center">不用选择参数</td>
+</tr>
+<tr>
+<td align="center">需要多次迭代</td>
+<td align="center">不需要迭代</td>
+</tr>
+<tr>
+<td align="center">时间复杂度为k的n次方</td>
+<td align="center">要计算矩阵转置</td>
+</tr>
+<tr>
+<td align="center">当n很大时效果很好</td>
+<td align="center">n很大时算的就很慢</td>
+</tr>
+</tbody></table>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>Matlab中求矩阵的逆是inv(A)，pinv(A)是取伪逆矩阵，该函数在矩阵不可逆时仍然可以运行</li>
+<li>Matlab中矩阵转置是A’</li>
+<li>Matlab中矩阵各元素对应相乘为.*，对应相除为.&#x2F;</li>
+<li>将多项式乘法转换为矩阵相乘</li>
+<li>对变量进行<strong>放缩</strong>有利于梯度下降的计算，减去样本点，除以标准差</li>
+<li>可以通过改变特征量来更好地拟合样本数据</li>
+</ul>
+<blockquote>
+<p>本文为吴恩达Machine learning课程的学习笔记</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">从零搭建hexo博客</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-01T00:00:00+08:00">2022-01-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-15 12:39:01" itemprop="dateModified" datetime="2022-02-15T12:39:01+08:00">2022-02-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>B站up主Codesheep教程，无坑。<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a></p>
+<h1 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h1><ul>
+<li><p>git安装，从官网下载安装包并安装</p>
+</li>
+<li><p>Nodejs安装，从官网下载安装包并安装。在命令行中用node -v和npm -v来检查是否安装成功</p>
+</li>
+<li><p>换npm源为国内源大幅提高下载速度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用cnpm安装hexo博客框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>使用hexo -v检测是否安装成功</p>
+</li>
+</ul>
+<h1 id="生成博客"><a href="#生成博客" class="headerlink" title="生成博客"></a>生成博客</h1><ul>
+<li><p>创建一个空文件夹</p>
+</li>
+<li><p>进入空文件夹，打开命令行。推荐使用Git bash</p>
+</li>
+<li><p>在命令行中初始化一个hexo博客仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成hexo初始博客</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启hexo本地服务，可用来查看或调试页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置好远程服务器地址或者Git仓库地址(github或者gitee)，使用下列命令将博客推送到服务器上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入服务器或者Git仓库页面，开启page服务。</p>
+</li>
+</ul>
+<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><ul>
+<li>博客路径中不能包含**#**号，否则渲染页面时没有样式，或者出现其他错误。</li>
+<li>最新版本Nodejs的依赖包可能无法兼容，编译(生成)博客出错时可以尝试降低Nodejs版本。</li>
+<li>如果安装包安装完成，但是检查版本时显示无该命令，则需要把安装路径加入到环境变量。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -925,260 +1161,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">AD基础操作</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:52" itemprop="dateModified" datetime="2020-08-05T11:01:52+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="AD"><a href="#AD" class="headerlink" title="AD"></a>AD</h1><h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><ol>
-<li><p>创建PCB文件</p>
-</li>
-<li><p>创建原理图文件</p>
-</li>
-<li><p>PCB及原理图库</p>
-</li>
-<li><p>保存文件，文件命名自定义</p>
-</li>
-</ol>
-<h2 id="元器件绘制"><a href="#元器件绘制" class="headerlink" title="元器件绘制"></a>元器件绘制</h2><ol>
-<li><p>原理图绘制：designator是代号，header是标头，comment是注解</p>
-</li>
-<li><p>封装绘制</p>
-</li>
-</ol>
-<ul>
-<li><p>注意事项</p>
-<ul>
-<li>和实物1：1</li>
-<li>根据市面上厂家生产的元器件型号及参数绘制</li>
-</ul>
-</li>
-<li><p>参考点的标注</p>
-</li>
-<li><p>IPC自动绘制封装</p>
-</li>
-</ul>
-<h2 id="PCB规则"><a href="#PCB规则" class="headerlink" title="PCB规则"></a>PCB规则</h2><ol>
-<li><p>电气规则（间距）：7mil常用，嘉立创能做到6mil</p>
-</li>
-<li><p>布线规则（宽度）：信号线10-15mil，3.3V用的25mil，5V用的30mil</p>
-</li>
-<li><p>焊盘规则：焊盘到拐角、焊盘到过孔</p>
-</li>
-<li><p>过孔规则：一般过孔Hole size为12mil，孔径为24mil（即内径0.3mm,外径0.6mm)。一块板所有过孔的大小最好。</p>
-</li>
-<li><p>屏蔽规则：和自己焊板子有关系，要用到。</p>
-</li>
-<li><p>制板规则：投板加工有关，需要用到。钻孔、自己画封装的孔径、最小阻焊层的大小、丝印和焊盘能不能重叠、丝印间距</p>
-</li>
-<li><p>敷铜规则（plane）、测试点规则、高频规则</p>
-</li>
-</ol>
-<h2 id="板框绘制及网络表同步"><a href="#板框绘制及网络表同步" class="headerlink" title="板框绘制及网络表同步"></a>板框绘制及网络表同步</h2><ol>
-<li>mechanical层放置线条，全选，d,s,d之后完成板框绘制</li>
-</ol>
-<h2 id="输出文件"><a href="#输出文件" class="headerlink" title="输出文件"></a>输出文件</h2><ol>
-<li>光绘文件</li>
-</ol>
-<ul>
-<li><p>gerber file</p>
-<ul>
-<li>钻孔图层：输出所有的钻孔对</li>
-<li>层：绘制层选择使用的，镜像层全部去掉，包括未连接的中间焊盘</li>
-<li>光圈和高级默认</li>
-<li>通用：常用的2：4</li>
-</ul>
-</li>
-<li><p>NCdrill</p>
-<ul>
-<li>全部默认</li>
-</ul>
-</li>
-<li><p>report</p>
-</li>
-<li><p>装配输出</p>
-<ul>
-<li>坐标输出</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>位号图导出在智能导出PDF</li>
-</ol>
-<ul>
-<li>选择板框和位号图的输出，选择过孔和底层镜像</li>
-</ul>
-<h2 id="4层板层叠管理器"><a href="#4层板层叠管理器" class="headerlink" title="4层板层叠管理器"></a>4层板层叠管理器</h2><ol>
-<li>右键添加plane层</li>
-</ol>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ol>
-<li><p>拖动状态下按X可进行镜像</p>
-</li>
-<li><p>阵列式粘贴前，先复制你需要阵列式的部件，否则会出现标号累增</p>
-</li>
-<li><p>原理图中高亮网络：alt加鼠标左键</p>
-</li>
-<li><p>shift+alt+鼠标左键让焊盘及其网络连接高亮</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/" class="post-title-link" itemprop="url">智能PDF导出</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:37" itemprop="dateModified" datetime="2020-08-05T11:01:37+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -1231,7 +1215,7 @@
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-03T01:46:19.693Z</updated>
+  <updated>2023-09-03T07:15:38.432Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>代码随想录-数组1</title>
+    <link href="http://example.com/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/"/>
+    <id>http://example.com/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/</id>
+    <published>2023-09-03T06:18:45.000Z</published>
+    <updated>2023-09-03T07:15:38.432Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;数组下标都是从0开始的&lt;/li&gt;
+&lt;li&gt;数组内存空间的地址都是连续的，&lt;strong&gt;所以在增删元素的时候，就会移动其他元素的地址&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C++中，vector的底层实现是array，vector是容器，不是数组。&lt;st</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Clash配置</title>
+    <link href="http://example.com/2023/07/21/Clash%E9%85%8D%E7%BD%AE/"/>
+    <id>http://example.com/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</id>
+    <published>2023-07-21T01:53:25.000Z</published>
+    <updated>2023-07-21T01:53:59.242Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;安装包下载&quot;&gt;&lt;a href=&quot;#安装包下载&quot; class=&quot;headerlink&quot; title=&quot;安装包下载&quot;&gt;&lt;/a&gt;安装包下载&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>常用控制算法</title>
@@ -47,7 +99,7 @@
     <link href="http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/"/>
     <id>http://example.com/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</id>
     <published>2023-07-02T06:26:40.000Z</published>
-    <updated>2023-07-03T05:45:10.237Z</updated>
+    <updated>2023-07-26T02:32:49.550Z</updated>
     
     
       
@@ -1354,7 +1406,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:21.795Z</updated>
+    <updated>2023-08-16T11:57:27.978Z</updated>
     
     
       

@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,191 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/" class="post-title-link" itemprop="url">How to use tensorboard in Commonroad-RL(or any other environment)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-29 19:55:47" itemprop="dateCreated datePublished" datetime="2022-06-29T19:55:47+08:00">2022-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-12 17:42:39" itemprop="dateModified" datetime="2023-02-12T17:42:39+08:00">2023-02-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a target="_blank" rel="noopener" href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/23/This%E6%8C%87%E9%92%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/03/23/This%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">This指针</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-03-23 09:13:04 / 修改时间：10:04:27" itemprop="dateCreated datePublished" datetime="2022-03-23T09:13:04+08:00">2022-03-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Hello</span>&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">string <span class="title">say_hello</span><span class="params">()</span></span>;	</span><br><span class="line">&#125;;</span><br><span class="line">string Hello :: <span class="built_in">say_hello</span>()&#123;</span><br><span class="line">    <span class="comment">//this指针在函数内部被隐含使用</span></span><br><span class="line">	string a = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Hello H1,H2;</span><br><span class="line">	cout&lt;&lt;H1.<span class="built_in">say_hello</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+
+<p>接下来回答两个问题：This指针是什么呢？它在什么时候起作用呢？</p>
+<ul>
+<li>This指针是一个隐含于每一个类的<strong>非静态成员函数</strong>中的特殊指针。</li>
+<li>每次对成员函数的调用都存在一个<strong>目的对象</strong>，this指针用于指向正在被<strong>成员函数</strong>操作的<strong>对象</strong>。</li>
+</ul>
+<p><strong>非静态成员函数</strong>：由static修饰的函数是静态成员函数，那么没有static关键字修饰的函数，都称为非静态函数。</p>
+<p><strong>目的对象</strong>：由类声明对象，然后<strong>不同的对象</strong>都可调用类中的成员函数。对类中的成员函数来说，对象有多个，因此要搞清楚哪个对象在调用自己，正在调用自己的那个对象就称为目的对象。</p>
+<p>回看上述的代码，当使用H1.say_hello()调用say_hello函数时，H1即为目的对象，成员函数中this指针即指向H1。在say_hello函数执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return a;</span><br></pre></td></tr></table></figure>
+
+<p>时，本质上是在执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return this-&gt;a;</span><br></pre></td></tr></table></figure>
+
+<p>即对<strong>对象</strong>H1返回字符串a。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -996,236 +1181,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/12/RL-Summary-2-Basic-Concept/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/12/RL-Summary-2-Basic-Concept/" class="post-title-link" itemprop="url">RL Summary 2-Basic Concept</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-02-12 10:53:40 / 修改时间：12:25:25" itemprop="dateCreated datePublished" datetime="2022-02-12T10:53:40+08:00">2022-02-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
-<thead>
-<tr>
-<th align="center"><strong>名词</strong></th>
-<th align="center">Agent</th>
-<th align="center">Environment</th>
-<th align="center">State</th>
-<th align="center">Action</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">行动的主体</td>
-<td align="center">主体所在的环境</td>
-<td align="center">主体与所处环境的状态 s</td>
-<td align="center">主体做出的行为 a</td>
-</tr>
-<tr>
-<td align="center"><strong>名词</strong></td>
-<td align="center"><strong>Reward</strong></td>
-<td align="center"><strong>Policy</strong></td>
-<td align="center"><strong>State transition</strong></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">回报 r</td>
-<td align="center">主体根据回报做出动作所遵循的规则  π(a|s)</td>
-<td align="center">状态转换，知道当前状态和行为，预测下一个状态 p(s^|s,a)</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<ul>
-<li>Policy的作用是从包含所有action的集合中抽样，取出Agent要做的action。</li>
-<li>状态转移是随机的，因为环境是随机的，而玩家对环境并无全面了解。</li>
-<li>强化学习的随机性来自于<strong>行为</strong>和<strong>状态转移</strong>。<strong>行为</strong>是由policy抽样得到的，具有随机性。状态转移随机性见上一条。</li>
-</ul>
-<h1 id="Return-and-Value"><a href="#Return-and-Value" class="headerlink" title="Return and Value"></a>Return and Value</h1><ul>
-<li><p>Return是回报，是所有的奖励之和，它的随机性来自于对未来的不确定。回报用U表示：<br>$$<br>U_t&#x3D;R_t+\gamma R_{t+1}+\gamma^2R_{t+2}+…<br>$$</p>
-</li>
-<li><p>Action-value function是行动价值函数，它是针对Ut求期望，它能在知道当前状态和行为时，根据policy函数告诉我们当前动作是好是坏。它用Q表示：<br>$$<br>Q_\pi(s_t,a_t)&#x3D;E[U_t|s_t,a_t]<br>$$</p>
-</li>
-<li><p>Optimal action-value function是最大行动价值函数，它把行动价值函数中的policy函数消掉了。它告诉我们，不管你使用怎样的policy，根据t时刻的状态和行为，你最多能得到多少回报。它的表示如下<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi Q_\pi(s_t,a_t)<br>$$</p>
-</li>
-<li><p>State-value function是状态价值函数，它针对行动价值函数求期望，把A消掉了。它能根据当前状态告诉你场上的局势，例如在围棋中，它能告诉你，你是快赢了还是快输了。它的表示如下<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]<br>$$</p>
-</li>
-</ul>
-<h1 id="强化学习在干什么"><a href="#强化学习在干什么" class="headerlink" title="强化学习在干什么"></a>强化学习在干什么</h1><p>一个简单的循环为：第t个状态下—-&gt;Agent做动作—-&gt;环境更新为第t+1个状态，给Agent第t个奖励，直到游戏结束。</p>
-<p>强化学习就是学习policy或者Optimal action-value function，有两者中的一个，就能控制agent。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/10/FlOW-OR-CommonRoad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/10/FlOW-OR-CommonRoad/" class="post-title-link" itemprop="url">Flow vs CommonRoad-RL</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-10 14:11:58" itemprop="dateCreated datePublished" datetime="2022-02-10T14:11:58+08:00">2022-02-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-25 16:46:25" itemprop="dateModified" datetime="2022-02-25T16:46:25+08:00">2022-02-25</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://flow-project.github.io/">FLOW</a>：A modular learning framework is presented, which leverages deep RL to address complex traffic dynamics.<br><a target="_blank" rel="noopener" href="https://commonroad.in.tum.de/">CommonRoad-rl</a>：An open-source toolbox to train and evaluate RL-based motion planners for autonomous vehicles.</p>
-<p>FLOW和CommonRoad-RL都是可以使强化学习应用在交通控制仿真的开源框架，最近搭建了两个框架的开发环境，本文将从两个框架的入门教程与官方文档入手，对比功能差异。先讲结论：FLOW是专为强化学习在交通流量控制问题中的应用而设计的框架，CommonRoad则侧重于路线规划问题，这两个框架适用于不同问题的解决方案。Commonroad与Flow框架对比表如下：</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">侧重</th>
-<th align="center">可视化方案</th>
-<th align="center">支持的强化学习框架</th>
-<th align="center">运行的基础环境</th>
-<th>是否支持multiple agent</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Flow</td>
-<td align="center">交通流量管理，例如走走停停波</td>
-<td align="center">调用SUMO-GUI可视化流量</td>
-<td align="center">RLlib库，支持Tensorflow，Tensorflow Eager，以及PyTorch。</td>
-<td align="center">mac、linux</td>
-<td>支持</td>
-</tr>
-<tr>
-<td align="center">Commonroad</td>
-<td align="center">路线规划问题，例如自动驾驶车辆的换道</td>
-<td align="center">基于commonroad-senario实现动画仿真</td>
-<td align="center">基于TensorFlow的gym库</td>
-<td align="center">所有组件均可在mac或linux系统下运行。其中commonroad-io与commonroad-scenario-designer可运行于Windows，其他组件则不行。</td>
-<td>[开发中][1]</td>
-</tr>
-</tbody></table>
-<p>FLOW是专为强化学习应用于<strong>交通流量控制</strong>设计的，它更专注于强化学习框架与交通仿真环境(SUMO和Aimsun)的连接。虽然Commonroad-rl是一个强化学习框架，但它并不能独立运行，它必须依赖Commonroad大家族中的其他组件。如果想完整运行Commonroad-rl，这些组件都是必要的：Commonroad-IO，Commonroad-Scenario-Designer、CommonRoad-Drivability-Checker和CommonRoad-Route-Planner。</p>
-<p>在场景可视化的方案上，FLow支持SUMO和Aimsun，Commonroad使用commonroad-senario进行动画仿真。特别的，虽然Commonroad提供了与SUMO的交互接口，但并不支持SUMO可视化，只能映射SUMO界面到commonroad-senario[界面中][ 2 ]。</p>
-<p>开发环境的搭建上，更推荐使用mac或linux系统，两个框架对Windows系统的支持并不友好。不过，得益于Windows系统已经支持WSL，这意味着可以在Windows系统上运行docker，如果你可以熟练配置docker环境，那么docker也是一个好的选择。</p>
-<p>如果你有兴趣尝试这两个框架，去按照官方文档安装下载吧。如果安装或者运行中遇到了问题，可以参考我的这些博客：<a target="_blank" rel="noopener" href="https://beyond886.gitee.io/beyond886/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/">Flow–交通网络仿真框架的安装 | 冰阳の博客 (gitee.io)</a>、<a target="_blank" rel="noopener" href="https://beyond886.gitee.io/beyond886/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/">The install of Commonroad-rl | 冰阳の博客 (gitee.io)</a>、[The install of Docker | 冰阳の博客 (gitee.io)](<a target="_blank" rel="noopener" href="https://beyond886.gitee.io/beyond886/2022/02/19/Docker">https://beyond886.gitee.io/beyond886/2022/02/19/Docker</a> 的安装与使用&#x2F;)</p>
-<p>[1]: <a target="_blank" rel="noopener" href="https://commonroad.in.tum.de/forum/t/how-are-the-planning-problems-used-in-the-learning-process/675">https://commonroad.in.tum.de/forum/t/how-are-the-planning-problems-used-in-the-learning-process/675</a>	“How are the planning problems used in the learning process?”<br>[ 2 ]: <a target="_blank" rel="noopener" href="https://commonroad.in.tum.de/forum/t/tutorial-interactive-scenario-simulation/607/5">https://commonroad.in.tum.de/forum/t/tutorial-interactive-scenario-simulation/607/5</a>	“Tutorial: Interactive Scenario Simulation”</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
