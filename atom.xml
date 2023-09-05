@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-09-03T07:15:38.432Z</updated>
+  <updated>2023-09-05T02:57:40.525Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>代码随想录-数组2</title>
+    <link href="http://example.com/2023/09/05/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%842/"/>
+    <id>http://example.com/2023/09/05/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%842/</id>
+    <published>2023-09-05T01:41:46.000Z</published>
+    <updated>2023-09-05T02:57:40.525Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;有序数组的平方&quot;&gt;&lt;a href=&quot;#有序数组的平方&quot; class=&quot;headerlink&quot; title=&quot;有序数组的平方&quot;&gt;&lt;/a&gt;有序数组的平方&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>代码随想录-数组1</title>
     <link href="http://example.com/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/"/>
     <id>http://example.com/2023/09/03/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%841/</id>
     <published>2023-09-03T06:18:45.000Z</published>
-    <updated>2023-09-03T07:15:38.432Z</updated>
+    <updated>2023-09-05T02:59:41.873Z</updated>
     
     
       
@@ -1254,6 +1279,33 @@
   </entry>
   
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:44:28.652Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;芯片型号为STM32F427，在Options for Target—&amp;gt;C&amp;#x2F;C++—&amp;gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;warning:  #47-D: incompatible</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    
+  </entry>
+  
+  <entry>
     <title>AD基础操作</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
@@ -1300,33 +1352,6 @@
   </entry>
   
   <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:44:28.652Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;芯片型号为STM32F427，在Options for Target—&amp;gt;C&amp;#x2F;C++—&amp;gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;warning:  #47-D: incompatible</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
-    
-  </entry>
-  
-  <entry>
     <title>AD输出Gerber文件</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
@@ -1347,29 +1372,6 @@
     
     
     <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Verilog语法</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T14:37:04.791Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、逻辑值&quot;&gt;&lt;a href=&quot;#一、逻辑值&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -1402,18 +1404,18 @@
   </entry>
   
   <entry>
-    <title>Verilog语句</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
+    <title>Verilog语法</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2023-08-16T11:57:27.978Z</updated>
+    <updated>2020-08-05T14:37:04.791Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;一、逻辑值&quot;&gt;&lt;a href=&quot;#一、逻辑值&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -1471,6 +1473,29 @@
   </entry>
   
   <entry>
+    <title>Verilog语句</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2023-08-16T11:57:27.978Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
     <title>系统任务和系统函数</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</id>
@@ -1490,6 +1515,31 @@
     
     
     <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STM32前期学习的一些知识点总结</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:04.108Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
   </entry>
   
@@ -1518,31 +1568,6 @@
     <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
     <category term="操作系统" scheme="http://example.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>STM32前期学习的一些知识点总结</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:04.108Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
   </entry>
   
