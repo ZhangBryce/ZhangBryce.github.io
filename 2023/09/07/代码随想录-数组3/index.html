@@ -18,28 +18,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。 K-平均算法要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：  对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。 划分完成后，每个中心点都有一些数据点围绕">
+    <meta name="description" content="螺旋矩阵力扣链接 该题目模拟旋转过程，要坚持循环不变量原则。模拟顺时针画矩阵的过程：  填充上行从左到右 填充右列从上到下 填充下行从右到左 填充左列从下到上  坚持左闭右开原则画圈。 1234567891011121314151617181920212223242526272829303132333435363738394041class Solution&amp;#123;public:	vector">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ML Summary 6-Clustering">
-<meta property="og:url" content="http://example.com/2022/01/20/ML-Summary-6-Clustering/index.html">
+<meta property="og:title" content="代码随想录-数组3">
+<meta property="og:url" content="http://example.com/2023/09/07/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%843/index.html">
 <meta property="og:site_name" content="炳阳的博客">
-<meta property="og:description" content="无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。 K-平均算法要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：  对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。 划分完成后，每个中心点都有一些数据点围绕">
+<meta property="og:description" content="螺旋矩阵力扣链接 该题目模拟旋转过程，要坚持循环不变量原则。模拟顺时针画矩阵的过程：  填充上行从左到右 填充右列从上到下 填充下行从右到左 填充左列从下到上  坚持左闭右开原则画圈。 1234567891011121314151617181920212223242526272829303132333435363738394041class Solution&amp;#123;public:	vector">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-20T03:08:09.000Z">
-<meta property="article:modified_time" content="2022-01-20T03:38:17.206Z">
+<meta property="article:published_time" content="2023-09-07T02:29:19.000Z">
+<meta property="article:modified_time" content="2023-09-07T02:54:17.663Z">
 <meta property="article:author" content="炳阳">
-<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2022/01/20/ML-Summary-6-Clustering/">
+<link rel="canonical" href="http://example.com/2023/09/07/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%843/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/01/20/ML-Summary-6-Clustering/","path":"2022/01/20/ML-Summary-6-Clustering/","title":"ML Summary 6-Clustering"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/09/07/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%843/","path":"2023/09/07/代码随想录-数组3/","title":"代码随想录-数组3"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>ML Summary 6-Clustering | 炳阳的博客</title>
+<title>代码随想录-数组3 | 炳阳的博客</title>
   
 
 
@@ -140,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">K-平均算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%8D%E7%BB%B4"><span class="nav-number">2.</span> <span class="nav-text">降维</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84"><span class="nav-number">2.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA%EF%BC%88Principle-Component-Analys%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">PCA（Principle Component Analys）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tips"><span class="nav-number">3.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">螺旋矩阵</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -196,7 +197,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/20/ML-Summary-6-Clustering/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/07/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%843/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,12 +210,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="ML Summary 6-Clustering | 炳阳的博客">
+      <meta itemprop="name" content="代码随想录-数组3 | 炳阳的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ML Summary 6-Clustering
+          代码随想录-数组3
         </h1>
 
         <div class="post-meta-container">
@@ -226,7 +227,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-01-20 11:08:09 / 修改时间：11:38:17" itemprop="dateCreated datePublished" datetime="2022-01-20T11:08:09+08:00">2022-01-20</time>
+      <time title="创建时间：2023-09-07 10:29:19 / 修改时间：10:54:17" itemprop="dateCreated datePublished" datetime="2023-09-07T10:29:19+08:00">2023-09-07</time>
     </span>
 
   
@@ -239,37 +240,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
-<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
-<ol>
-<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
-<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
-<li>将“数值中心点”确定为下一次循环的中心点</li>
-</ol>
-<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>数据压缩</li>
-<li>数据可视化</li>
-<li>减少存储空间</li>
-<li>加速算法</li>
+        <h1 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/spiral-matrix-ii/">力扣链接</a></p>
+<p>该题目模拟旋转过程，要坚持<strong>循环不变量原则</strong>。模拟顺时针画矩阵的过程：</p>
+<ul>
+<li>填充上行从左到右</li>
+<li>填充右列从上到下</li>
+<li>填充下行从右到左</li>
+<li>填充左列从下到上</li>
 </ul>
-<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
-<ol>
-<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
-</li>
-<li><p>对数据进行归一化处理</p>
-</li>
-<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
-</li>
-<li><p>计算特征向量，使用svd库函数</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用特征向量对样本数据降维</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>PCA和线性拟合是完全不同的两种算法</li>
-<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
+<p>坚持<strong>左闭右开</strong>原则画圈。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">class Solution&#123;</span><br><span class="line">public:</span><br><span class="line">	vector&lt;vector&lt;int&gt;&gt; generateMatrix(int n)&#123;</span><br><span class="line">		vector&lt;vector&lt;int&gt;&gt; res(n, vector&lt;int&gt;(n, 0));//定义二维数组</span><br><span class="line">		int startx = 0, starty = 0;</span><br><span class="line">		int loop = n/2;</span><br><span class="line">		int mid = n/2;</span><br><span class="line">		int count = 1;</span><br><span class="line">		int offset = 1;</span><br><span class="line">		int i,j;</span><br><span class="line">		while(loop--)&#123;</span><br><span class="line">			i = startx;</span><br><span class="line">			j = starty;</span><br><span class="line">			</span><br><span class="line">			for(j = starty; j &lt; n - offset; j++)&#123;</span><br><span class="line">				res[startx][j] = count++;</span><br><span class="line">			&#125;</span><br><span class="line">			for (i = startx; i &lt; n - offset; i++) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 模拟填充下行从右到左(左闭右开)</span><br><span class="line">            for (; j &gt; starty; j--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 模拟填充左列从下到上(左闭右开)</span><br><span class="line">            for (; i &gt; startx; i--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            startx++;</span><br><span class="line">            starty++;</span><br><span class="line">            </span><br><span class="line">            offset +=1;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(n%2)&#123;</span><br><span class="line">			res[mid][mid] = count;</span><br><span class="line">		&#125;</span><br><span class="line">		return res;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -279,21 +260,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/01/16/ML-Summary5-How-to-use-SVM/" rel="prev" title="ML Summary 5-How to use SVM">
-                  <i class="fa fa-chevron-left"></i> ML Summary 5-How to use SVM
+                <a href="/2023/09/05/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%842/" rel="prev" title="代码随想录-数组2">
+                  <i class="fa fa-chevron-left"></i> 代码随想录-数组2
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/" rel="next" title="ML Summary 7-Anomaly Detection and Recommendation Systems">
-                  ML Summary 7-Anomaly Detection and Recommendation Systems <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

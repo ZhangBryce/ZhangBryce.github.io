@@ -1790,7 +1790,7 @@
 <li>数组下标都是从0开始的</li>
 <li>数组内存空间的地址都是连续的，<strong>所以在增删元素的时候，就会移动其他元素的地址</strong></li>
 </ul>
-<p>C++中，vector的底层实现是array，vector是容器，不是数组。<strong>数组的元素不能删，只能覆盖</strong></p>
+<p>C++中，vector的底层实现是array，vector是容器，不是数组。<strong>数组的元素不能删，只能覆盖</strong>。</p>
 <p>**Q:**二维数组在内存的空间地址是连续的吗</p>
 <p><strong>A：</strong>不同编程语言的内存管理不一样。C++中二维数组是连续分布的。JAVA是没有指针的，也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机，所以其暂不可知。</p>
 <h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><p><a href="https://leetcode.cn/problems/binary-search/">力扣链接</a></p>
@@ -2246,6 +2246,26 @@
 ]]></content>
       <tags>
         <tag>成长感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码随想录-数组3</title>
+    <url>/2023/09/07/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E6%95%B0%E7%BB%843/</url>
+    <content><![CDATA[<h1 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h1><p><a href="https://leetcode.cn/problems/spiral-matrix-ii/">力扣链接</a></p>
+<p>该题目模拟旋转过程，要坚持<strong>循环不变量原则</strong>。模拟顺时针画矩阵的过程：</p>
+<ul>
+<li>填充上行从左到右</li>
+<li>填充右列从上到下</li>
+<li>填充下行从右到左</li>
+<li>填充左列从下到上</li>
+</ul>
+<p>坚持<strong>左闭右开</strong>原则画圈。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution&#123;</span><br><span class="line">public:</span><br><span class="line">	vector&lt;vector&lt;int&gt;&gt; generateMatrix(int n)&#123;</span><br><span class="line">		vector&lt;vector&lt;int&gt;&gt; res(n, vector&lt;int&gt;(n, 0));//定义二维数组</span><br><span class="line">		int startx = 0, starty = 0;</span><br><span class="line">		int loop = n/2;</span><br><span class="line">		int mid = n/2;</span><br><span class="line">		int count = 1;</span><br><span class="line">		int offset = 1;</span><br><span class="line">		int i,j;</span><br><span class="line">		while(loop--)&#123;</span><br><span class="line">			i = startx;</span><br><span class="line">			j = starty;</span><br><span class="line">			</span><br><span class="line">			for(j = starty; j &lt; n - offset; j++)&#123;</span><br><span class="line">				res[startx][j] = count++;</span><br><span class="line">			&#125;</span><br><span class="line">			for (i = startx; i &lt; n - offset; i++) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 模拟填充下行从右到左(左闭右开)</span><br><span class="line">            for (; j &gt; starty; j--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 模拟填充左列从下到上(左闭右开)</span><br><span class="line">            for (; i &gt; startx; i--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            startx++;</span><br><span class="line">            starty++;</span><br><span class="line">            </span><br><span class="line">            offset +=1;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(n%2)&#123;</span><br><span class="line">			res[mid][mid] = count;</span><br><span class="line">		&#125;</span><br><span class="line">		return res;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>
