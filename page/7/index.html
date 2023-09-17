@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,134 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Verilog语法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 22:37:04" itemprop="dateModified" datetime="2020-08-05T22:37:04+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、逻辑值"><a href="#一、逻辑值" class="headerlink" title="一、逻辑值"></a>一、逻辑值</h2><p>Verilog中变量只有四种状态</p>
+<ol>
+<li>0低电平</li>
+<li>1高电平</li>
+<li>X表示未知(但存在)</li>
+<li>Z表示悬空状态(未知就真的是未知)</li>
+</ol>
+<h2 id="二、数字进制格式"><a href="#二、数字进制格式" class="headerlink" title="二、数字进制格式"></a>二、数字进制格式</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4&#x27;b0101</span></span><br><span class="line"><span class="number">4&#x27;d2</span>			<span class="comment">//4表示2进制数的位宽</span></span><br><span class="line"><span class="number">4&#x27;ha</span>			<span class="comment">//若没有指定位宽，则默认为32位(2进制)数据</span></span><br><span class="line"><span class="number">16&#x27;b1001_1010_1010_1001</span>=<span class="number">16&#x27;h9aa9</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、标识符-类似C语言变量名"><a href="#三、标识符-类似C语言变量名" class="headerlink" title="三、标识符(类似C语言变量名)"></a>三、标识符(类似C语言变量名)</h2><ol>
+<li>标识符可以是任意一组字母、数字、$符号和下划线的组合</li>
+<li>标识符第一个字符必须是字母或者下划线</li>
+<li>标识符是区分大小写的</li>
+<li>建议普通内部信号全部小写</li>
+</ol>
+<h2 id="四、数据类型"><a href="#四、数据类型" class="headerlink" title="四、数据类型"></a>四、数据类型</h2><p>Verilog中数据类型有：<em>寄存器类型、线网类型、参数类型</em>。真正在数字电路中起作用的数据类型应该是<strong>寄存器数据类型</strong>和<strong>线网数据类型</strong>，因为这两个数据类型可以直接映射在电路中</p>
+<h4 id="寄存器类型"><a href="#寄存器类型" class="headerlink" title="寄存器类型"></a>寄存器类型</h4><ol>
+<li>表示一个抽象的数据存储单元，关键字为reg，初始值为不确定值X<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg [31:0] delay_cnt;	// [31:0] 为位宽，不表明则默认为位宽1，不可赋初值。</span><br></pre></td></tr></table></figure></li>
+<li>reg类型的数据只能在always语句和initial语句中被赋值</li>
+<li>如果always中带有时钟信号，则该寄存器变量对应为触发器，如果always中没有时钟信号，则该寄存器为硬件连线</li>
+</ol>
+<h4 id="线网类型"><a href="#线网类型" class="headerlink" title="线网类型"></a>线网类型</h4><blockquote>
+<p>线网类型包括wire和tri型，他们有什么区别呢？ 	<br>线网数据类型包括wire和tri等，wire最常见，不必多说，很多情况下直接声明为wire即可。<br>至于tri其实和wire在用法上是一模一样的，不过有时候，我们需要定义一些会被三态门驱动的硬件连线，用tri来命名会让代码更具有可读性，让人一看就知道这根连线上会出现Z状态，仅此而已！<br>回答来自：<a target="_blank" rel="noopener" href="http://www.openedv.com/forum.php?mod=viewthread&tid=286442&extra=page=1">正点原子开源电子论坛</a></p>
+</blockquote>
+<ol>
+<li>表示结构实体(例如门)之间的物力连线</li>
+<li>变量不能存储值，它的值是由驱动它的元件所决定的，驱动线网变量的元件有：门、连续赋值语句、assign等</li>
+<li>若无驱动原件连在线网类型，则为高阻态</li>
+<li>位宽和reg定义一样</li>
+</ol>
+<h4 id="参数类型-类似于C语言的define"><a href="#参数类型-类似于C语言的define" class="headerlink" title="参数类型(类似于C语言的define)"></a>参数类型(类似于C语言的define)</h4><ol>
+<li>实际就是一个常量，用parameter定义<br><code>parameter H_SYNC = 11&#39;d41</code></li>
+<li>参数类型数据定义状态机的状态、数据位宽、延时大小。可通过参数传递改变被调用模块已定义的函数，类似C语言的调用函数对模块赋值</li>
+</ol>
+<h2 id="五、运算符"><a href="#五、运算符" class="headerlink" title="五、运算符"></a>五、运算符</h2><ol>
+<li><p>算数运算符<br>加减乘除法只能实现整数运算（+、-、*、&#x2F;）<br>%(a%b即取模)</p>
+</li>
+<li><p>关系运算符<br><code>&lt;=    &gt;=    等C语言中的比较运算符</code></p>
+</li>
+<li><p>逻辑运算符<br><code>! &amp;&amp; ||逻辑与或操作</code></p>
+</li>
+<li><p>条件运算符<br>Verilog中条件运算符就一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?  :</span><br><span class="line">a?b:c</span><br></pre></td></tr></table></figure></li>
+<li><p>位运算符<br>对每一位进行操作<br>不同位宽，小位宽变量高位补零再运算<br><code> ~、&amp;、|、^</code></p>
+</li>
+<li><p>移位运算符<br>空位补零</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4&#x27;b1001&lt;&lt; 2 = 6&#x27;b100100;	//左移位宽增加</span><br><span class="line">4&#x27;b1001&gt;&gt; 1 = 4&#x27;b0100;		//右移位宽不变</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拼接运算符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; , &#125;:</span><br><span class="line">&#123;a,b&#125;				//将a和b拼接起来作为一个新信号</span><br><span class="line">c=&#123;a,b[3:0]&#125;;		//a、b均为8位，则是将8位a和b的第3到第0位拼在一起，结果是c[11:0]</span><br></pre></td></tr></table></figure>
+<p>学习视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV194411f7GD?p=12">正点原子FPGA系列教程Verilog语法篇</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -303,6 +431,226 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
 
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">Verilog程序框架</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:25" itemprop="dateModified" datetime="2020-08-05T11:01:25+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+</ul>
+<ol>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/" class="post-title-link" itemprop="url">状态机</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:17" itemprop="dateModified" datetime="2020-08-05T11:01:17+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
+<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
+</ul>
+<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
+<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
+</ul>
+<ol>
+<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
+<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
+<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
+</ol>
+<ul>
+<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
+</ul>
+<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
+<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
+</ul>
+<ol>
+<li>状态空间</li>
+</ol>
+<ul>
+<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>状态跳转(时序逻辑)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下一个状态的判断(组合逻辑)</li>
+</ol>
+<ul>
+<li>用case语句判断当前状态，使用阻塞赋值</li>
+<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
+</ul>
+<ol start="4">
+<li>各个状态下的动作</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
+<ol>
+<li>可以有效滤去组合逻辑输出的毛刺</li>
+<li>进行时序计算和约束</li>
+<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
+</ol>
 
       
     </div>

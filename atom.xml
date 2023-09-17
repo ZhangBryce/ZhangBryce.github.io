@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-09-07T02:54:17.663Z</updated>
+  <updated>2023-09-17T01:49:53.006Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,82 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>代码随想录-链表3</title>
+    <link href="http://example.com/2023/09/17/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A83/"/>
+    <id>http://example.com/2023/09/17/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A83/</id>
+    <published>2023-09-17T01:21:47.000Z</published>
+    <updated>2023-09-17T01:49:53.006Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;链表相交&quot;&gt;&lt;a href=&quot;#链表相交&quot; class=&quot;headerlink&quot; title=&quot;链表相交&quot;&gt;&lt;/a&gt;链表相交&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代码随想录-链表2</title>
+    <link href="http://example.com/2023/09/15/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A82/"/>
+    <id>http://example.com/2023/09/15/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A82/</id>
+    <published>2023-09-15T01:46:41.000Z</published>
+    <updated>2023-09-16T03:33:52.085Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;反转链表&quot;&gt;&lt;a href=&quot;#反转链表&quot; class=&quot;headerlink&quot; title=&quot;反转链表&quot;&gt;&lt;/a&gt;反转链表&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代码随想录-链表1</title>
+    <link href="http://example.com/2023/09/12/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A81/"/>
+    <id>http://example.com/2023/09/12/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A81/</id>
+    <published>2023-09-12T00:31:43.000Z</published>
+    <updated>2023-09-15T00:45:59.577Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;链表节点的定义&lt;/p&gt;
+&lt;figure class=&quot;highlight c++&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>代码随想录-数组3</title>
@@ -1304,6 +1380,29 @@
   </entry>
   
   <entry>
+    <title>AD基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2020-08-05T03:01:52.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>__FPU_PRESENT重定义出现大量警告</title>
     <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
     <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
@@ -1327,29 +1426,6 @@
     <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
     <category term="STM32" scheme="http://example.com/tags/STM32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AD基础操作</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:52.995Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
     
   </entry>
   
@@ -1452,6 +1528,29 @@
   </entry>
   
   <entry>
+    <title>Verilog语句</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2023-08-16T11:57:27.978Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Verilog程序框架</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
@@ -1487,29 +1586,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
-        
-      
-    
-    
-    
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Verilog语句</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2023-08-16T11:57:27.978Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
         
       
     
