@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -182,6 +182,105 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">十进制转二进制写入文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-14 09:44:45" itemprop="dateCreated datePublished" datetime="2023-03-14T09:44:45+08:00">2023-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-21 19:25:23" itemprop="dateModified" datetime="2023-03-21T19:25:23+08:00">2023-03-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
+<p><strong>思路</strong>：涉及的知识点有</p>
+<ul>
+<li>字符输入</li>
+<li>十进制正整数转化为二进制字符串</li>
+<li>写入文件</li>
+</ul>
+<h1 id="字符输入"><a href="#字符输入" class="headerlink" title="字符输入"></a>字符输入</h1><p><strong>方案一</strong>：使用cin输入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">cin&gt;&gt;n;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字符，默认参数为&#x27;\n&#x27;</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span> <span class="params">( istream &amp;is , string &amp;str , <span class="type">char</span> delim )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案比较</strong>：需要进行进制转换，使用<strong>方案一</strong>读取数据至整形变量，再转换为二进制数据，最后将二进制数据转换为字符串。</p>
+<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</p>
+<h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>使用输入输出流<code>fstream</code>完成文件写入操作，它的子集<code>ofstream</code>为输出流，<code>ifstream</code>为输入流。需要注意的是，<code>fstream::open</code>的函数原型如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其打开模式的默认参数为<code>ios_base::in | ios_base::out</code>。这意味着，对于输入输出流<code>fstream</code>，如果使用默认参数打开一个并不存在的文件，将会打开失败。当我们想要实现<strong>当文件不存在，自动创建该文件</strong>并写入的功能时，需要指定打开模式为<code>ios_base::out</code>。当然，可以直接定义<code>ofstream</code>对象，并使用<code>open</code>函数即可实现相同的功能。</p>
+<p>为了判断文件是否成功打开，可以使用<code>file.is_open</code>。若打开失败，使用标准错误输出流<code>cerr</code>输出错误。代码框架如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fstream file;</span><br><span class="line">file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line"><span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">	cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">/*Your Code Here*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="本题完整代码如下"><a href="#本题完整代码如下" class="headerlink" title="本题完整代码如下"></a>本题完整代码如下</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Dec2Binary</span><span class="params">(<span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">if</span> (d == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (d)</span><br><span class="line">    &#123;</span><br><span class="line">        s += <span class="built_in">to_string</span>(d % <span class="number">2</span>);</span><br><span class="line">        d = d / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    fstream file;</span><br><span class="line">    file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Please input a positive number&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a;</span><br><span class="line">            file &lt;&lt; <span class="built_in">Dec2Binary</span>(a) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1052,103 +1151,6 @@
 </tbody></table>
 <blockquote>
 <p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/10/Alphago/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/03/10/Alphago/" class="post-title-link" itemprop="url">AlphaGo</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-03-10 14:03:04 / 修改时间：15:48:26" itemprop="dateCreated datePublished" datetime="2022-03-10T14:03:04+08:00">2022-03-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
-<p><strong>此博客为Wang Shusen老师课程的笔记，且更侧重基础框架的理解，并无公式推导。详细的公式表示可以在老师的课程中找到，链接放在文章最后。</strong></p>
-<h1 id="1-训练方法"><a href="#1-训练方法" class="headerlink" title="1.训练方法"></a>1.训练方法</h1><p>在围棋中，棋盘是19*19的大小，一共361个点位。AlphaGo通过17个19*19的矩阵表示状态，为什么是17个矩阵呢？17个矩阵的构成如下：</p>
-<p><strong>8个白棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果白棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>8个黑棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果黑棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>1个该谁走的矩阵</strong>：如果该黑子走，则矩阵全1，如果该白子走，矩阵全0。</p>
-<p>在真实对战中，AlphaGo借助策略网络和价值网络筛选胜率不大的落子，使用<strong>蒙特卡洛树搜索</strong>(Monte Carlo Tree Search)从可能赢的落子中选取最佳落子。AlphaGo训练的正是策略网络和价值网络。训练分为以下三步。</p>
-<ul>
-<li>通过模仿人类下棋(behavior cloning)训练最初的策略网络。<br>行为模仿<strong>不是强化学习</strong>，它是监督学习的一种，行为模仿是没有奖励(reword)的。开始时，随机生成策略网络的参数。用人类棋局的数据集对策略网络进行训练，让它模仿人类下棋。在经过行为模仿后，策略网络已经可以击败优秀的业余选手。</li>
-<li>使用策略梯度算法(强化学习)训练策略网络(polict network)。<br>此时不再使用人类对局的数据，而是通过两个策略网络来自我博弈。被训练的Agent使用最新的参数，而它的对手，使用的是Agent之前的旧参数。</li>
-<li>用上述训练出来的策略网络(polict network)去训练价值网络(value network)。<br>通过对弈的胜负，训练价值网络对每步棋的价值评估准确度，以便在真实对局中过滤出胜率较大的落子。</li>
-</ul>
-<h1 id="2-选取落子"><a href="#2-选取落子" class="headerlink" title="2.选取落子"></a>2.选取落子</h1><p>AlphaGo先通过策略函数选取出几个好的落子(价值较大的落子)，策略网络的训练在之前已经讲过。现在，根据棋局，策略网络已经计算出几步价值较大的棋子，接下来需要使用蒙特卡洛树搜索(Monte Carlo Tree Search)决定最终落子。那么，蒙特卡洛树搜索的具体过程是怎样的呢？</p>
-<h2 id="蒙特卡洛树搜索-Monte-Carlo-Tree-Search"><a href="#蒙特卡洛树搜索-Monte-Carlo-Tree-Search" class="headerlink" title="蒙特卡洛树搜索(Monte Carlo Tree Search)"></a>蒙特卡洛树搜索(Monte Carlo Tree Search)</h2><ul>
-<li>随机选取一个落子(从策略网络计算出的落子集合中选取)。</li>
-<li>让<strong>策略网络</strong>自我博弈直到下完这局棋得到胜负。根据胜负和<strong>价值网络</strong>给选取的落子打分。</li>
-<li>重复自我博弈的过程多次，这样一个动作就有很多分数</li>
-<li>把好的落子集合中所有落子都根据上述三个过程打分，AlphaGo会执行总分最高的落子。</li>
-</ul>
-<h1 id="3-AlphaGo-Zero与AlphaGo"><a href="#3-AlphaGo-Zero与AlphaGo" class="headerlink" title="3.AlphaGo Zero与AlphaGo"></a>3.AlphaGo Zero与AlphaGo</h1><p>AlphaGo Zero是AlphaGo的改良版，在AlphaGo Zero与AlphaGo的对局中，AlphaGo Zero以100-0赢得胜利。两者的区别在哪呢？</p>
-<ul>
-<li>AlphaGo Zero没有使用人类棋局的经验，即没有进行行为模仿</li>
-<li>MCTS被用来训练策略网络了</li>
-</ul>
-<p>那么，没有使用人类棋局经验的AlphaGo Zero是不是说明人类的经验对于AlphaGo来说是有害的呢？答案是肯定的，起码在围棋领域，答案是肯定的。但是，行为模仿就一定是无用的吗？并不是。例如，对于手术机器人来说，它如果想要获得优化，就需要训练，即做手术。但是，并不可能让它做真实的手术，毕竟人的性命可不是玩笑。那么，它就可以模仿优秀医生手术时的数据，这样起码可以确保在真实环境中，并不会对病人产生生命威胁。在经过模仿人类医生后，再考虑后续的优化。</p>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a target="_blank" rel="noopener" href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a target="_blank" rel="noopener" href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
 </blockquote>
 
       

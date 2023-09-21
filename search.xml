@@ -1927,9 +1927,11 @@
 <li>在长链表搜索的指针，从头往前移动这个差值，这是为了让两个链表<strong>尾部对齐</strong></li>
 <li>在短链表搜索的指针和长链表指针同时后移，比较节点是否相同。</li>
 </ul>
+<p><strong>PS：</strong>链表遍历时，使用<code>while(Acur!=NULL)</code>为判定条件。</p>
 <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><p><a href="https://leetcode.cn/problems/linked-list-cycle-ii/">力扣链接</a></p>
 <p>使用快慢指针，快指针一次走两格，慢指针一次走一格。如果他们最终相遇了，那就是有环。</p>
 <p>找环入口：从链表头和相遇点同时向前移动，两个指针相遇的地方就是环入口。</p>
+<p><strong>PS：</strong>快指针搜寻时(一次前进两格)，需要确定后续节点是否有效。用<code>while(fastptr!=NULL &amp;&amp; fastptr-&gt;next!=NULL)</code>进行判断。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2332,6 +2334,22 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码随想录-哈希表1</title>
+    <url>/2023/09/21/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A81/</url>
+    <content><![CDATA[<p>哈希碰撞使用拉链法，或者线性探测法。</p>
+<h1 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h1><p><a href="https://leetcode.cn/problems/valid-anagram/">力扣链接</a></p>
+<p>两个字符串中，字符出现的次数相同，就称这两个字符串互为字母异位词。</p>
+<p>把两个字符串中字母出现的次数计算一下，再比较两个记录次数的数组。如果有一个数据不一样，则不满足条件，返回false，否则，返回true。</p>
+<h1 id="两个函数的交集"><a href="#两个函数的交集" class="headerlink" title="两个函数的交集"></a>两个函数的交集</h1><p><a href="https://leetcode.cn/problems/intersection-of-two-arrays/">力扣链接</a></p>
+<p>给定两个数组，编写一个函数来计算它们的交集。</p>
+<p>学习unordered_set，看一下视频吧。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
 </search>

@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -191,6 +191,82 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/21/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="炳阳">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="炳阳的博客">
+      <meta itemprop="description" content="技术宅改变世界">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 炳阳的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/09/21/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A81/" class="post-title-link" itemprop="url">代码随想录-哈希表1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-21 11:23:19 / 修改时间：11:42:34" itemprop="dateCreated datePublished" datetime="2023-09-21T11:23:19+08:00">2023-09-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>哈希碰撞使用拉链法，或者线性探测法。</p>
+<h1 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-anagram/">力扣链接</a></p>
+<p>两个字符串中，字符出现的次数相同，就称这两个字符串互为字母异位词。</p>
+<p>把两个字符串中字母出现的次数计算一下，再比较两个记录次数的数组。如果有一个数据不一样，则不满足条件，返回false，否则，返回true。</p>
+<h1 id="两个函数的交集"><a href="#两个函数的交集" class="headerlink" title="两个函数的交集"></a>两个函数的交集</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/intersection-of-two-arrays/">力扣链接</a></p>
+<p>给定两个数组，编写一个函数来计算它们的交集。</p>
+<p>学习unordered_set，看一下视频吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/17/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E9%93%BE%E8%A1%A83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,9 +295,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-09-17 09:21:47 / 修改时间：09:49:53" itemprop="dateCreated datePublished" datetime="2023-09-17T09:21:47+08:00">2023-09-17</time>
+      <time title="创建时间：2023-09-17 09:21:47" itemprop="dateCreated datePublished" datetime="2023-09-17T09:21:47+08:00">2023-09-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-21 11:20:49" itemprop="dateModified" datetime="2023-09-21T11:20:49+08:00">2023-09-21</time>
     </span>
 
   
@@ -240,9 +322,11 @@
 <li>在长链表搜索的指针，从头往前移动这个差值，这是为了让两个链表<strong>尾部对齐</strong></li>
 <li>在短链表搜索的指针和长链表指针同时后移，比较节点是否相同。</li>
 </ul>
+<p><strong>PS：</strong>链表遍历时，使用<code>while(Acur!=NULL)</code>为判定条件。</p>
 <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">力扣链接</a></p>
 <p>使用快慢指针，快指针一次走两格，慢指针一次走一格。如果他们最终相遇了，那就是有环。</p>
 <p>找环入口：从链表头和相遇点同时向前移动，两个指针相遇的地方就是环入口。</p>
+<p><strong>PS：</strong>快指针搜寻时(一次前进两格)，需要确定后续节点是否有效。用<code>while(fastptr!=NULL &amp;&amp; fastptr-&gt;next!=NULL)</code>进行判断。</p>
 
       
     </div>
@@ -942,110 +1026,6 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="炳阳">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="炳阳的博客">
-      <meta itemprop="description" content="技术宅改变世界">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 炳阳的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/" class="post-title-link" itemprop="url"><代码美学>观后感</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-07-01 14:54:24 / 修改时间：15:30:50" itemprop="dateCreated datePublished" datetime="2023-07-01T14:54:24+08:00">2023-07-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
-<li>不要缩写名字。在有代码补全功能以及大屏幕的当下，缩写名字是没必要的</li>
-<li>不要在变量名前添加类型缩写</li>
-<li>在入口参数中添加变量单位，像<code>int delay_ms</code></li>
-<li>不要在自己定义的类型名后加上变量的类型名称，像<code>AbstractX</code></li>
-<li>避免定义“实用类”，这个类里包含了各种你觉得用起来方便的函数，你应该把这些函数分门别类地放到<strong>名字更有意义的类</strong>里。<br>例如：你的“实用类”里有洗水果，买酱油，洗衣服三个函数，应该把他们分门别类地放在<strong>采购类</strong>与<strong>家务类</strong>中，而不用一个<strong>实用类</strong>来包含这些函数。</li>
-</ul>
-<h1 id="组合优于继承"><a href="#组合优于继承" class="headerlink" title="组合优于继承"></a>组合优于继承</h1><p>继承，即通过一个基类派生出各种类。</p>
-<p>组合，把每个类独立开，如果需要其他类的参数，可以把函数的入口参数设置为某类的对象。</p>
-<h1 id="抽象并非百利而无一害"><a href="#抽象并非百利而无一害" class="headerlink" title="抽象并非百利而无一害"></a>抽象并非百利而无一害</h1><p>当你在调用不同代码，并使用抽象特性时，会导致一些不可控的行为发生。</p>
-<h1 id="不要写注释"><a href="#不要写注释" class="headerlink" title="不要写注释"></a>不要写注释</h1><p>通过变量命名，让代码更易读，这样就不需要注释了。强迫自己不写注释，而注重代码可读性，可以大大提升自己的代码编写能力。</p>
-<p>例如，以下为原代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5代表信息接收成功</span></span><br><span class="line"><span class="keyword">if</span>(STATE == <span class="number">5</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以修改成</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> MessagereceiveSuccess = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">if</span>(STATE == MessagereceiveSuccess)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码中的嵌套不要超过3层"><a href="#代码中的嵌套不要超过3层" class="headerlink" title="代码中的嵌套不要超过3层"></a>代码中的嵌套不要超过3层</h1><ol>
-<li><p>抽象出功能，用函数包装。</p>
-</li>
-<li><p>结构反转，减少嵌套。<br>例如，原代码是这样</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &gt; bottom)&#123;</span><br><span class="line">		<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">			sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过反转结构，把负面条件写在前面，遇到负面条件可以提前返回，同时，可以在函数中留下大量的主体代码。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &lt; bottom)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">    	sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="不要过早优化代码"><a href="#不要过早优化代码" class="headerlink" title="不要过早优化代码"></a>不要过早优化代码</h1><ol>
-<li>当你真的遇到性能问题时，再优化代码。</li>
-<li>先测试它（PS.通常是一颗老鼠shit坏了一锅粥）。</li>
-<li>尝试更换数据结构，采用公认最快的算法获得80%的优化。测试它</li>
-<li>通过性能分析找到最拖后腿的点。测试它</li>
-<li>底层分析(存储空间)。测试它</li>
-</ol>
-<p>视频中提到的代码优化的逻辑和平常做项目的逻辑非常相似，选择最简单的方案完成它，实现目标后再考虑性能优化，<strong>而不要求自己一开始就做到尽善尽美</strong>。大道至简。</p>
-<p>附上视频链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gP411B7CT?p=1&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">Code Aesthetic</a></p>
 
       
     </div>
