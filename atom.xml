@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-09-21T03:42:34.618Z</updated>
+  <updated>2024-01-10T08:58:48.645Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>机械臂调试方法</title>
+    <link href="http://example.com/2024/01/10/%E6%9C%BA%E6%A2%B0%E8%87%82%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/"/>
+    <id>http://example.com/2024/01/10/%E6%9C%BA%E6%A2%B0%E8%87%82%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</id>
+    <published>2024-01-10T07:44:19.000Z</published>
+    <updated>2024-01-10T08:58:48.645Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;控制一台机械臂从给定目标点1运动到给定目标点2，通常分为&lt;strong&gt;机械臂逆解计算与选取&lt;/strong&gt;，&lt;strong&gt;机械臂运动规划&lt;/strong&gt;，&lt;strong&gt;机械臂路径规划&lt;/strong&gt;3个步骤。&lt;/p&gt;
+&lt;h1 id=&quot;逆解&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="机器人" scheme="http://example.com/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代码随想录-哈希表2</title>
+    <link href="http://example.com/2023/10/19/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A82/"/>
+    <id>http://example.com/2023/10/19/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A82/</id>
+    <published>2023-10-19T01:07:24.000Z</published>
+    <updated>2023-10-19T02:10:28.751Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;快乐数&quot;&gt;&lt;a href=&quot;#快乐数&quot; class=&quot;headerlink&quot; title=&quot;快乐数&quot;&gt;&lt;/a&gt;快乐数&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>代码随想录-哈希表1</title>
     <link href="http://example.com/2023/09/21/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A81/"/>
     <id>http://example.com/2023/09/21/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A81/</id>
     <published>2023-09-21T03:23:19.000Z</published>
-    <updated>2023-09-21T03:42:34.618Z</updated>
+    <updated>2023-10-17T13:49:55.084Z</updated>
     
     
       

@@ -2343,6 +2343,11 @@
 <h1 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h1><p><a href="https://leetcode.cn/problems/valid-anagram/">力扣链接</a></p>
 <p>两个字符串中，字符出现的次数相同，就称这两个字符串互为字母异位词。</p>
 <p>把两个字符串中字母出现的次数计算一下，再比较两个记录次数的数组。如果有一个数据不一样，则不满足条件，返回false，否则，返回true。</p>
+<p><strong>TIPS</strong>：需要比较两个数组的哈希值，为了节约空间，对第一个字符串遍历时，对<strong>记录数组</strong>采用加操作，对第二个字符串遍历时，对<strong>记录数组</strong>采用减操作。若最后记录数组中有不为0的数，则说明两个字符串不为字母异味词。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isAnagram</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> record[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;s.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">    	record[s[i]-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;t.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">    	record[t[i]-<span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(record[i]!=<span class="number">0</span>)&#123;</span><br><span class="line">        	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="两个函数的交集"><a href="#两个函数的交集" class="headerlink" title="两个函数的交集"></a>两个函数的交集</h1><p><a href="https://leetcode.cn/problems/intersection-of-two-arrays/">力扣链接</a></p>
 <p>给定两个数组，编写一个函数来计算它们的交集。</p>
 <p>学习unordered_set，看一下视频吧。</p>
@@ -2350,6 +2355,50 @@
       <tags>
         <tag>C++</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码随想录-哈希表2</title>
+    <url>/2023/10/19/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%93%88%E5%B8%8C%E8%A1%A82/</url>
+    <content><![CDATA[<h1 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h1><p><a href="https://leetcode.cn/problems/happy-number/">力扣链接</a></p>
+<p>「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为 1，那么这个数就是快乐数。</p>
+<p>写一个算法判断数n是不是快乐数。</p>
+<h2 id="对数的每个位置上的数进行相加"><a href="#对数的每个位置上的数进行相加" class="headerlink" title="对数的每个位置上的数进行相加"></a>对数的每个位置上的数进行相加</h2><p>对n取10的余数可得到<strong>个位</strong>上的数。再将n&#x2F;10，即可实现数据整体右移。</p>
+<p><strong>扩展思考</strong>：对于m进制数n，将n&#x2F;m即可实现n的右移。</p>
+<h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p><a href="https://leetcode.cn/problems/two-sum/">力扣链接</a></p>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机械臂调试方法</title>
+    <url>/2024/01/10/%E6%9C%BA%E6%A2%B0%E8%87%82%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>控制一台机械臂从给定目标点1运动到给定目标点2，通常分为<strong>机械臂逆解计算与选取</strong>，<strong>机械臂运动规划</strong>，<strong>机械臂路径规划</strong>3个步骤。</p>
+<h1 id="逆解"><a href="#逆解" class="headerlink" title="逆解"></a>逆解</h1><p>机械臂逆解是根据给定世界中的坐标点，求出机械臂各关节角度的过程。逆解的计算通常分为<strong>几何法</strong>和<strong>代数法</strong>。几何法需要通过分析空间立体几何求解出到达目标点的<strong>所有情况</strong>，这为求解带来了困难，因为个人无法保证自己是否穷尽了所有可能的情况。</p>
+<h2 id="逆解求解"><a href="#逆解求解" class="headerlink" title="逆解求解"></a>逆解求解</h2><p>代数法则借助<strong>正运动学矩阵</strong>与<strong>逆运动学矩阵</strong>相等这一思想来求解。例如，以0关节坐标系为基坐标系，第5关节在该基坐标系中的位姿矩阵可表示为$T_0^{5}$ ，那么$T_0^5$有两种表示形式：<br>$$<br>T_0^5&#x3D;T_0^1 \times T_1^2\times T_2^3 \times T_3^4\times T_4^5<br>$$</p>
+<p>$$<br>T_0^5&#x3D;T_0^6 \times T_6^5<br>$$</p>
+<p>通过比对两种方法求解出的位姿矩阵，就可以得到联立方程组。这样的方法可以得到许多方程组，我们需要找到容易求解的方程组（有相同元素，可快速消除冗余项）以便自己求解。</p>
+<p>当解出第一个角度值后，该角度可以作为已知量代入方程中逐个解出其他角度，由于后解出角度依赖先解出的角度，那么做逆解选取时，就需要注意他们的依赖关系。</p>
+<h2 id="逆解选取"><a href="#逆解选取" class="headerlink" title="逆解选取"></a>逆解选取</h2><p>由依赖关系组成的逆解，可以由树形结构表示。在代码中可以用数组实现树形结构。基础思想为每个关节都有一个<strong>备选解</strong>数组，通过遍历所有可能组合，求其正向运动学位姿矩阵，若正向运动学位姿矩阵与指定位姿<strong>相同</strong>或<strong>相差不大</strong>，则为可行解。判断是否相同或相似，通常分为以下2个步骤，步骤中的”差值”可人为设定，这是一个可调阈值：</p>
+<ul>
+<li>旋转矩阵各元素<strong>符号相同</strong>，且差值不大。</li>
+<li>偏移矩阵各元素<strong>符号相同</strong>，且差值不大。</li>
+</ul>
+<p>经过上述方法，可得到包含所有可能得可行解的矩阵，接下来需要做最优解选取。通常以移动距离最小为条件选取最优解。</p>
+<h1 id="运动规划"><a href="#运动规划" class="headerlink" title="运动规划"></a>运动规划</h1><p>从点$A$运动到点$B$，以怎样的方式运行呢？用多长时间运行到点$B$？能设定到达点$B$的加速度吗，这样就可以知道它有多大力了。答案是，可以的。这就是本文所讲的运动规划要干的事情。</p>
+<p>最近的项目用的是5次多项式法来解决上述问题。实际控制中需要注意以下几点：</p>
+<ul>
+<li>应对每个关节单独进行规划，初始位置，初始速度，初始加速度，终止位置，终止速度，终止加速度，还有最重要的，<strong>步长</strong>。在教科书或者视频中，五次多项式中自变量常常为$t$(时间)，即你期望多久之后达到目标点。但我更愿意称呼它为<strong>拟合步长</strong>或者<strong>拟合分辨率</strong>。这个参数意味着你想要把每个关节的运动分为多少段。而多长时间执行多少段，是可以人为设定的。</li>
+<li>每个关节进行单独规划后，可以对每个关节设定不同的拟合步长，只要执行时让其同步运动到最终位置即可。</li>
+</ul>
+<h1 id="路径规划"><a href="#路径规划" class="headerlink" title="路径规划"></a>路径规划</h1><p>下次再更。</p>
+]]></content>
+      <tags>
+        <tag>机器人</tag>
       </tags>
   </entry>
 </search>
