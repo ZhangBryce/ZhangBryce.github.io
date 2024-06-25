@@ -277,87 +277,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/" class="post-title-link" itemprop="url">__FPU_PRESENT重定义出现大量警告</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:44:28" itemprop="dateModified" datetime="2020-08-05T11:44:28+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -610,6 +529,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/" class="post-title-link" itemprop="url">__FPU_PRESENT重定义出现大量警告</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:44:28" itemprop="dateModified" datetime="2020-08-05T11:44:28+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -673,90 +673,6 @@
 <li>直接点确定<br><img src="https://img-blog.csdnimg.cn/20200407121625333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/20200407121707780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
 </ul>
 <h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/" class="post-title-link" itemprop="url">AD输出坐标文件及网表</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:41" itemprop="dateModified" datetime="2020-08-05T11:01:41+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>【名词解释及其功能】</p>
-<ul>
-<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
-<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
-</ul>
-<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
 
       
     </div>
@@ -911,6 +827,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/" class="post-title-link" itemprop="url">AD输出坐标文件及网表</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:41" itemprop="dateModified" datetime="2020-08-05T11:01:41+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>【名词解释及其功能】</p>
+<ul>
+<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
+<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
+</ul>
+<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -982,6 +982,129 @@
 <li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
 <li>模块调用位宽必须保持一致</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/" class="post-title-link" itemprop="url">状态机</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:17" itemprop="dateModified" datetime="2020-08-05T11:01:17+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
+<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
+</ul>
+<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
+<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
+</ul>
+<ol>
+<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
+<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
+<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
+</ol>
+<ul>
+<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
+</ul>
+<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
+<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
+</ul>
+<ol>
+<li>状态空间</li>
+</ol>
+<ul>
+<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>状态跳转(时序逻辑)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下一个状态的判断(组合逻辑)</li>
+</ol>
+<ul>
+<li>用case语句判断当前状态，使用阻塞赋值</li>
+<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
+</ul>
+<ol start="4">
+<li>各个状态下的动作</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
+<ol>
+<li>可以有效滤去组合逻辑输出的毛刺</li>
+<li>进行时序计算和约束</li>
+<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
+</ol>
 
       
     </div>
@@ -1120,129 +1243,6 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/" class="post-title-link" itemprop="url">状态机</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-08-05 11:01:17" itemprop="dateModified" datetime="2020-08-05T11:01:17+08:00">2020-08-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
-<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
-</ul>
-<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
-<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
-</ul>
-<ol>
-<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
-<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
-<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
-</ol>
-<ul>
-<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
-</ul>
-<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
-<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
-</ul>
-<ol>
-<li>状态空间</li>
-</ol>
-<ul>
-<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>状态跳转(时序逻辑)</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>下一个状态的判断(组合逻辑)</li>
-</ol>
-<ul>
-<li>用case语句判断当前状态，使用阻塞赋值</li>
-<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
-</ul>
-<ol start="4">
-<li>各个状态下的动作</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
-<ol>
-<li>可以有效滤去组合逻辑输出的毛刺</li>
-<li>进行时序计算和约束</li>
-<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
-</ol>
 
       
     </div>

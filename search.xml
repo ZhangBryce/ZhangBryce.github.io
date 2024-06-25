@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -56,6 +34,57 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The install of Commonroad-rl</title>
+    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
+<ul>
+<li>操作系统：Ubuntu18.4.6</li>
+<li>是否使用虚拟机：是</li>
+</ul>
+<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
+<li>Anaconda</li>
+<li>git</li>
+</ul>
+<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
+<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
+</li>
+<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
+</li>
+<li><p>commonroad-scenario-designer开启命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -140,32 +169,32 @@
       </tags>
   </entry>
   <entry>
-    <title>The install of Commonroad-rl</title>
-    <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
-<ul>
-<li>操作系统：Ubuntu18.4.6</li>
-<li>是否使用虚拟机：是</li>
-</ul>
-<h1 id="基础软件的安装"><a href="#基础软件的安装" class="headerlink" title="基础软件的安装"></a>基础软件的安装</h1><ul>
-<li>Anaconda</li>
-<li>git</li>
-</ul>
-<h1 id="各组件安装注意事项"><a href="#各组件安装注意事项" class="headerlink" title="各组件安装注意事项"></a>各组件安装注意事项</h1><ul>
-<li><p>commonroad-rl需要CommonRoad Drivability Checker和commonroad-interactive-scenarios。<br>官方文档链接：<a href="https://commonroad-rl.readthedocs.io/en/latest/">CommonRoad-RL — CommonRoad_rl 2020.4 文档</a></p>
+    <title>ESP32 PWM输入捕获</title>
+    <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
+    <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
+<p>方案一为直接修改飞控内部代码，方案二为通过外部设备模拟遥控器信号控制飞控。方案一需要对内部代码较为熟悉，而飞控代码较为复杂，修改代码难度较高。方案二则需要读取遥控器信号，经过自定义控制逻辑后，再输出遥控器信号控制无人机。方案二相对简单易行，本文使用ESP32作为遥控器与飞控的”中间人“，主要讲解使用ESP32读取遥控器信号。</p>
+<p>硬件开发板：LolinLite ESP32</p>
+<p>编程环境：PlatformIO</p>
+<h1 id="脉宽读取"><a href="#脉宽读取" class="headerlink" title="脉宽读取"></a>脉宽读取</h1><p>ESP32内部有脉冲宽度计数器(Pulse Counter)，通过计算高低电平的持续时间来实现脉冲宽度读取。在PlatformIO编程环境中，使用ESP32 for Arduino库进行开发时，没有对应的库<a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/libraries.html#supported-peripherals">^1</a>，因此需要自己编写库函数。搜索后移植某项目<a href="https://blog.csdn.net/jasper_JA/article/details/103366988">^2</a>后成功实现脉宽读取。在移植过程中遇到如下问题：</p>
+<ol>
+<li><p>原项目中代码报错：<code>error: invalid conversion from &#39;int&#39; to &#39;gpio_num_t&#39; [-fpermissive]</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN 25   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://www.esp32.com/viewtopic.php?t=1591">^3</a>:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN GPIO_NUM_15   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>commonroad-dc执行bash自动安装命令后，出现了缺少文件的问题。应按照官方文档选择手动安装构建程序：<a href="https://commonroad.in.tum.de/docs/commonroad-drivability-checker/sphinx/">CommonRoad Drivability Checker — CommonRoad Drivability Checker 2021.4 documentation (tum.de)</a></p>
-</li>
-<li><p>commonroad-scenario-designer开启命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在使用Commonroad过程中遇到问题，最好的解决方式是去Commonroad论坛内搜索解决方案。<a href="https://commonroad.in.tum.de/forum/">CommonRoad (tum.de)</a></li>
-</ul>
+<li><p>原项目中第108行代码报错：<code>[invalid conversion from void* to void(*)(void*)[-fpermissive\]](https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive)</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive">^4</a>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, (<span class="built_in">void</span> (*)(<span class="type">void</span> *))isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>修改后成功上传编译，能从串口输出高电平的持续时间。于是可以判断出遥控器拨杆在哪个档位，以此实现自定义控制功能。若想实现占空比检测，可设置脉宽计数器在上升沿和下降沿都可触发，触发后进入回调函数时判断引脚的当前电平，即可实现占空比计算。</p>
 ]]></content>
       <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Commonroad</tag>
+        <tag>嵌入式</tag>
+        <tag>C++</tag>
+        <tag>ESP32</tag>
       </tags>
   </entry>
   <entry>
@@ -206,35 +235,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP32 PWM输入捕获</title>
-    <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
-    <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
-<p>方案一为直接修改飞控内部代码，方案二为通过外部设备模拟遥控器信号控制飞控。方案一需要对内部代码较为熟悉，而飞控代码较为复杂，修改代码难度较高。方案二则需要读取遥控器信号，经过自定义控制逻辑后，再输出遥控器信号控制无人机。方案二相对简单易行，本文使用ESP32作为遥控器与飞控的”中间人“，主要讲解使用ESP32读取遥控器信号。</p>
-<p>硬件开发板：LolinLite ESP32</p>
-<p>编程环境：PlatformIO</p>
-<h1 id="脉宽读取"><a href="#脉宽读取" class="headerlink" title="脉宽读取"></a>脉宽读取</h1><p>ESP32内部有脉冲宽度计数器(Pulse Counter)，通过计算高低电平的持续时间来实现脉冲宽度读取。在PlatformIO编程环境中，使用ESP32 for Arduino库进行开发时，没有对应的库<a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/libraries.html#supported-peripherals">^1</a>，因此需要自己编写库函数。搜索后移植某项目<a href="https://blog.csdn.net/jasper_JA/article/details/103366988">^2</a>后成功实现脉宽读取。在移植过程中遇到如下问题：</p>
-<ol>
-<li><p>原项目中代码报错：<code>error: invalid conversion from &#39;int&#39; to &#39;gpio_num_t&#39; [-fpermissive]</code><br>原代码为：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN 25   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
-
-<p>修改为<a href="https://www.esp32.com/viewtopic.php?t=1591">^3</a>:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN GPIO_NUM_15   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原项目中第108行代码报错：<code>[invalid conversion from void* to void(*)(void*)[-fpermissive\]](https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive)</code><br>原代码为：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure>
-
-<p>修改为<a href="https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive">^4</a>：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, (<span class="built_in">void</span> (*)(<span class="type">void</span> *))isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>修改后成功上传编译，能从串口输出高电平的持续时间。于是可以判断出遥控器拨杆在哪个档位，以此实现自定义控制功能。若想实现占空比检测，可设置脉宽计数器在上升沿和下降沿都可触发，触发后进入回调函数时判断引脚的当前电平，即可实现占空比计算。</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>C++</tag>
-        <tag>ESP32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ESP32常用例程</title>
     <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -265,24 +265,6 @@
         <tag>嵌入式</tag>
         <tag>小技巧</tag>
         <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FreeRTOS中断管理</title>
-    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
-<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
-<li>延迟中断方案是处何实现的  </li>
-<li>如何创建和使用二值信号量以及计数信号量  </li>
-<li>二值信号量和计数信号量之间的区别  </li>
-<li>如何利用队利在中断服务例程中把数据传入传出  </li>
-<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -374,6 +356,24 @@
       </tags>
   </entry>
   <entry>
+    <title>FreeRTOS中断管理</title>
+    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
+<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
+<li>延迟中断方案是处何实现的  </li>
+<li>如何创建和使用二值信号量以及计数信号量  </li>
+<li>二值信号量和计数信号量之间的区别  </li>
+<li>如何利用队利在中断服务例程中把数据传入传出  </li>
+<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FreeRTOS任务间通信方式——队列</title>
     <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
     <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
@@ -404,83 +404,6 @@
         <tag>嵌入式</tag>
         <tag>STM32</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FreeRTOS基础概念</title>
-    <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>一些有意思的专用名词解释：</p>
-<ul>
-<li>饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。</li>
-</ul>
-<h4 id="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"><a href="#一、在应用程序中，FreeRTOS如何为各任务分配处理时间" class="headerlink" title="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"></a>一、在应用程序中，FreeRTOS如何为各任务分配处理时间</h4><p>​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入<strong>心跳中断函数</strong>，来决定下一个时间片应该运行什么函数。而心跳中断频率由FreeRTOSConfig.h 中的编译时配置常量 configTICK_RATE_HZ 进行配置。比如说，如果 configTICK_RATE_HZ 设为 100(HZ)，则时间片长度为 10ms<br><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png" alt="任务切换基本原理"></p>
-<h4 id="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"><a href="#二、在任意给定时刻，FreeRTOS如何选择任务投入运行" class="headerlink" title="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"></a>二、在任意给定时刻，FreeRTOS如何选择任务投入运行</h4><p>​		在任意给定时刻，FreeRTOS执行处于就绪状态的任务，如果有多个就绪状态任务，则根据任务优先级来判断执行哪一个。如果此时没有就绪状态的任务，则执行定义好的<strong>空任务函数</strong>。</p>
-<h4 id="三、任务优先级如何影响系统行为"><a href="#三、任务优先级如何影响系统行为" class="headerlink" title="三、任务优先级如何影响系统行为"></a>三、任务优先级如何影响系统行为</h4><p>​		低优先级号表示任务的优先级低，优先级号0表示最低优先级。有效的优先级号范围从0到(configMAX_PRIORITES – 1) ，<strong>当两个任务都可以被执行(ready)时，高优先级的任务会被执行</strong>。FreeRTOS也可以设置同优先级任务。</p>
-<h4 id="四、任务存在哪些状态"><a href="#四、任务存在哪些状态" class="headerlink" title="四、任务存在哪些状态"></a>四、任务存在哪些状态</h4><p>​		由于只有一个处理器来执行程序，则任意时刻只有一个程序在运行。所有的任务都有基本的两个状态：<strong>运行状态</strong>和<strong>非运行状态</strong>(休眠)。为了使不同优先级的任务都能运行，不至于出现谁饿死谁的情况，将“非运行状态”扩充为不同状态，如阻塞、挂起等，以便于实现任务调度。下面来逐一解释各个状态</p>
-<ul>
-<li>阻塞状态(blocked)：任务可以进入阻塞以等待以下另种不同类型的时间<ol>
-<li>定时（时间相关）事件——这类事件可以是延迟到期或是绝对时间到点。比如说某个任务可以进入阻塞态以延迟10ms，可以程序设定等待超时时间。</li>
-<li>同步事件——源于其他任务或中断的事件。比如说，某个任务可以进入阻塞态以等待队列中有数据到来。同步事件囊括了所有板级范围内的事件类型。</li>
-</ol>
-</li>
-<li>挂起状态(suspended)：进入挂起状态的唯一办法是调用vTaskSuspend()API函数；唤醒任务的唯一途径是调用vTaskResume()或vTaskResumeFromlSR()API函数。<strong>大多数应用程序不会用到挂起状态</strong></li>
-<li>就绪状态(ready)：任务处于非运行态，但是既没有阻塞也没有挂起。<strong>处于就绪态的任务能够被运行</strong></li>
-</ul>
-<p>完整的状态转移图：</p>
-<p><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png" alt="状态转换图"></p>
-<h4 id="五、基础使用与配置"><a href="#五、基础使用与配置" class="headerlink" title="五、基础使用与配置"></a>五、基础使用与配置</h4><ol>
-<li><p>如何实现一个任务<br>1）调用xTaskCreate()创建任务，主要是对任务的各项属性进行配置</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">portBASE_TYPE <span class="title function_">xTaskCreate</span><span class="params">( pdTASK_CODE pvTaskCode,</span></span><br><span class="line"><span class="params">						<span class="type">const</span> <span class="type">signed</span> portCHAR * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portSHORT usStackDepth,</span></span><br><span class="line"><span class="params">						<span class="type">void</span> *pvParameters,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portBASE_TYPE uxPriority,</span></span><br><span class="line"><span class="params">						xTaskHandle *pxCreatedTask )</span>;</span><br></pre></td></tr></table></figure>
-
-<p>2）创建任务函数实体，这是代码实际执行的函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTask1</span><span class="params">( <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pcTaskName = <span class="string">&quot;Task 1 is running\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">unsigned</span> <span class="type">long</span> ul;</span><br><span class="line">    <span class="comment">/* 和大多数任务一样，该任务处于一个死循环中。 */</span></span><br><span class="line">    <span class="keyword">for</span>( ;; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Print out the name of this task. */</span></span><br><span class="line">        vPrintString( pcTaskName );</span><br><span class="line">        <span class="comment">/* 延迟，以产生一个周期 */</span></span><br><span class="line">        <span class="keyword">for</span>( ul = <span class="number">0</span>; ul &lt; mainDELAY_LOOP_COUNT; ul++ )</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">/* 这个空循环是最原始的延迟实现方式。在循环中不做任何事情。后面的示例程序将采用</span></span><br><span class="line"><span class="comment">        delay/sleep函数代替这个原始空循环。 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>如何创建一个或多个任务的实例<br>通过void *pvParameters的参数传递，来使功能相同的函数，通过不同参数的传入来实现不同的用户需求</p>
-</li>
-<li><p>如何改变一个已创建任务的优先级<br>xTaskCreate() API 函数的参数 uxPriority 为创建的任务赋予了一个初始优先级。这<br>个优先级可以在调度器启动后调用 vTaskPrioritySet() API 函数进行修改。  </p>
-</li>
-<li><p>如何删除任务</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">( xTaskHandle pxTaskToDelete )</span>;  </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>空闲任务何时运行，可以用来干什么<br>空闲任务拥有最低优先级，以保证其不会妨碍具有更高优先级的应用任务进入运行态。空闲任务通常为延时很小的循环。用来在CPU没有代码运行时，让CPU有事可干</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
-]]></content>
-      <tags>
-        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -571,6 +494,83 @@
       </tags>
   </entry>
   <entry>
+    <title>FreeRTOS基础概念</title>
+    <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>一些有意思的专用名词解释：</p>
+<ul>
+<li>饿死(starved)：饿死常常出现在多任务执行的情况，一个最简单的例子就是。任务2的优先级比任务1的优先级高，并且总是可运行，因此任务2是唯一一个一直处于运行态的任务。而任务1不可能进入运行态。这种情况就是任务1被任务2饿死了。</li>
+</ul>
+<h4 id="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"><a href="#一、在应用程序中，FreeRTOS如何为各任务分配处理时间" class="headerlink" title="一、在应用程序中，FreeRTOS如何为各任务分配处理时间"></a>一、在应用程序中，FreeRTOS如何为各任务分配处理时间</h4><p>​		每个任务的运行时间都以时间片为单位。调度器需要在每个时间片的结束时刻进入<strong>心跳中断函数</strong>，来决定下一个时间片应该运行什么函数。而心跳中断频率由FreeRTOSConfig.h 中的编译时配置常量 configTICK_RATE_HZ 进行配置。比如说，如果 configTICK_RATE_HZ 设为 100(HZ)，则时间片长度为 10ms<br><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5C%E4%BB%BB%E5%8A%A1%E5%88%87%E6%8D%A2.png" alt="任务切换基本原理"></p>
+<h4 id="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"><a href="#二、在任意给定时刻，FreeRTOS如何选择任务投入运行" class="headerlink" title="二、在任意给定时刻，FreeRTOS如何选择任务投入运行"></a>二、在任意给定时刻，FreeRTOS如何选择任务投入运行</h4><p>​		在任意给定时刻，FreeRTOS执行处于就绪状态的任务，如果有多个就绪状态任务，则根据任务优先级来判断执行哪一个。如果此时没有就绪状态的任务，则执行定义好的<strong>空任务函数</strong>。</p>
+<h4 id="三、任务优先级如何影响系统行为"><a href="#三、任务优先级如何影响系统行为" class="headerlink" title="三、任务优先级如何影响系统行为"></a>三、任务优先级如何影响系统行为</h4><p>​		低优先级号表示任务的优先级低，优先级号0表示最低优先级。有效的优先级号范围从0到(configMAX_PRIORITES – 1) ，<strong>当两个任务都可以被执行(ready)时，高优先级的任务会被执行</strong>。FreeRTOS也可以设置同优先级任务。</p>
+<h4 id="四、任务存在哪些状态"><a href="#四、任务存在哪些状态" class="headerlink" title="四、任务存在哪些状态"></a>四、任务存在哪些状态</h4><p>​		由于只有一个处理器来执行程序，则任意时刻只有一个程序在运行。所有的任务都有基本的两个状态：<strong>运行状态</strong>和<strong>非运行状态</strong>(休眠)。为了使不同优先级的任务都能运行，不至于出现谁饿死谁的情况，将“非运行状态”扩充为不同状态，如阻塞、挂起等，以便于实现任务调度。下面来逐一解释各个状态</p>
+<ul>
+<li>阻塞状态(blocked)：任务可以进入阻塞以等待以下另种不同类型的时间<ol>
+<li>定时（时间相关）事件——这类事件可以是延迟到期或是绝对时间到点。比如说某个任务可以进入阻塞态以延迟10ms，可以程序设定等待超时时间。</li>
+<li>同步事件——源于其他任务或中断的事件。比如说，某个任务可以进入阻塞态以等待队列中有数据到来。同步事件囊括了所有板级范围内的事件类型。</li>
+</ol>
+</li>
+<li>挂起状态(suspended)：进入挂起状态的唯一办法是调用vTaskSuspend()API函数；唤醒任务的唯一途径是调用vTaskResume()或vTaskResumeFromlSR()API函数。<strong>大多数应用程序不会用到挂起状态</strong></li>
+<li>就绪状态(ready)：任务处于非运行态，但是既没有阻塞也没有挂起。<strong>处于就绪态的任务能够被运行</strong></li>
+</ul>
+<p>完整的状态转移图：</p>
+<p><img src="/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%5CFreeRTOS%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E5%9B%BE.png" alt="状态转换图"></p>
+<h4 id="五、基础使用与配置"><a href="#五、基础使用与配置" class="headerlink" title="五、基础使用与配置"></a>五、基础使用与配置</h4><ol>
+<li><p>如何实现一个任务<br>1）调用xTaskCreate()创建任务，主要是对任务的各项属性进行配置</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">portBASE_TYPE <span class="title function_">xTaskCreate</span><span class="params">( pdTASK_CODE pvTaskCode,</span></span><br><span class="line"><span class="params">						<span class="type">const</span> <span class="type">signed</span> portCHAR * <span class="type">const</span> pcName,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portSHORT usStackDepth,</span></span><br><span class="line"><span class="params">						<span class="type">void</span> *pvParameters,</span></span><br><span class="line"><span class="params">						<span class="type">unsigned</span> portBASE_TYPE uxPriority,</span></span><br><span class="line"><span class="params">						xTaskHandle *pxCreatedTask )</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2）创建任务函数实体，这是代码实际执行的函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTask1</span><span class="params">( <span class="type">void</span> *pvParameters )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *pcTaskName = <span class="string">&quot;Task 1 is running\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">unsigned</span> <span class="type">long</span> ul;</span><br><span class="line">    <span class="comment">/* 和大多数任务一样，该任务处于一个死循环中。 */</span></span><br><span class="line">    <span class="keyword">for</span>( ;; )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Print out the name of this task. */</span></span><br><span class="line">        vPrintString( pcTaskName );</span><br><span class="line">        <span class="comment">/* 延迟，以产生一个周期 */</span></span><br><span class="line">        <span class="keyword">for</span>( ul = <span class="number">0</span>; ul &lt; mainDELAY_LOOP_COUNT; ul++ )</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="comment">/* 这个空循环是最原始的延迟实现方式。在循环中不做任何事情。后面的示例程序将采用</span></span><br><span class="line"><span class="comment">        delay/sleep函数代替这个原始空循环。 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>如何创建一个或多个任务的实例<br>通过void *pvParameters的参数传递，来使功能相同的函数，通过不同参数的传入来实现不同的用户需求</p>
+</li>
+<li><p>如何改变一个已创建任务的优先级<br>xTaskCreate() API 函数的参数 uxPriority 为创建的任务赋予了一个初始优先级。这<br>个优先级可以在调度器启动后调用 vTaskPrioritySet() API 函数进行修改。  </p>
+</li>
+<li><p>如何删除任务</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">( xTaskHandle pxTaskToDelete )</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>空闲任务何时运行，可以用来干什么<br>空闲任务拥有最低优先级，以保证其不会妨碍具有更高优先级的应用任务进入运行态。空闲任务通常为延时很小的循环。用来在CPU没有代码运行时，让CPU有事可干</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+]]></content>
+      <tags>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ML Summary 5-How to use SVM</title>
     <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
     <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
@@ -657,22 +657,43 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+    <title>ML Summary 3-Backpropagation</title>
+    <url>/2022/01/10/Machine-learning-Summary-3/</url>
+    <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
+<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>首先明确，反向传播算法是用来算神经网络成本函数的偏导数的，目的是改变θ大小，以最快的速度找到最小的成本函数。只要求出了成本函数和成本函数的偏导数，就能使用各种优化算法求出最优的参数θ。</p>
+<p>这里直接给出反向传播算法的计算过程（伪代码）。</p>
+<ol>
+<li><p>前向传播计算出期望函数</p>
+</li>
+<li><p>引入误差函数δ的概念，其中L代表第L层，即输出层，a为神经元的激励值，可以理解为神经元按照θ算出的期望值。<br>$$<br>\delta^{(L)}&#x3D;a^{(L)}-y^{(t)}<br>$$<br>对于第(L-1)层到第2层，其误差函数矩阵化后的计算公式如下<br>$$<br>\delta^{(l)}&#x3D;((\Theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})<br>$$<br>其中Sigmoid函数的倒数就是下列公式计算的<br>$$<br>g^{‘}(z^{(l)})&#x3D;a^{(l)}.*(1-a^{(l)})<br>$$</p>
+</li>
+<li><p>以下列公式求出总的误差函数<br>$$<br>\Delta_{i,j}^{(l)}:&#x3D;\Delta_{i,j}^{(l)}+a^{(l)}_j\delta_i^{(l+1)}&#x3D;&#x3D;&gt;\Delta^{(l)}:&#x3D;\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T<br>$$</p>
+</li>
+<li><p>以此求出成本函数的偏导数，D即为偏导数</p>
+<ul>
+<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}(\Delta^{(l)}<em>{i,j}+\lambda\Theta^{(l)}</em>{i,j}) \qquad j\not&#x3D;0<br>$$</p>
+</li>
+<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}\Delta^{(l)}_{i,j}\qquad j&#x3D;0<br>$$</p>
+</li>
 </ul>
+</li>
+</ol>
+<h1 id="梯度检查算法"><a href="#梯度检查算法" class="headerlink" title="梯度检查算法"></a>梯度检查算法</h1><p>为了检验反向传播函数是否计算正确，可以使用如下算法，计算出来的结果应该与反向传播函数相差无几。<br>$$<br>{\partial \over \partial\Theta_j}J(\Theta)\approx{J(\Theta_1,…,\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,\Theta_j-\epsilon,…,\Theta_n) \over 2\epsilon}<br>$$</p>
+<h1 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h1><p>在有监督神经网络中，训练神经网络即为找到合适的θ值，使样本输出最大限度的接近样本正确值。其过程如下</p>
+<ol>
+<li><strong>随机</strong>初始化权重，之所以随机，是为了打破相同初始参数时神经网络的对称性。</li>
+<li>实现前项传播得到样本的期望值</li>
+<li>计算代价函数（成本函数）</li>
+<li>使用后向传播算法计算成本函数对不同θ的偏导数</li>
+<li>使用梯度检查来确认您的反向传播是否有效。然后禁用梯度检查。</li>
+<li>使用梯度下降或内置优化函数来最小化具有 theta 权重的成本函数。</li>
+</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>i*n 阶矩阵与 n*j 阶矩阵相乘，最后的维度为i*j</li>
+</ul>
+<blockquote>
+<p>本文为吴恩达Machine learning课程的学习笔记</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
@@ -733,43 +754,22 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 3-Backpropagation</title>
-    <url>/2022/01/10/Machine-learning-Summary-3/</url>
-    <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
-<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>首先明确，反向传播算法是用来算神经网络成本函数的偏导数的，目的是改变θ大小，以最快的速度找到最小的成本函数。只要求出了成本函数和成本函数的偏导数，就能使用各种优化算法求出最优的参数θ。</p>
-<p>这里直接给出反向传播算法的计算过程（伪代码）。</p>
-<ol>
-<li><p>前向传播计算出期望函数</p>
-</li>
-<li><p>引入误差函数δ的概念，其中L代表第L层，即输出层，a为神经元的激励值，可以理解为神经元按照θ算出的期望值。<br>$$<br>\delta^{(L)}&#x3D;a^{(L)}-y^{(t)}<br>$$<br>对于第(L-1)层到第2层，其误差函数矩阵化后的计算公式如下<br>$$<br>\delta^{(l)}&#x3D;((\Theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})<br>$$<br>其中Sigmoid函数的倒数就是下列公式计算的<br>$$<br>g^{‘}(z^{(l)})&#x3D;a^{(l)}.*(1-a^{(l)})<br>$$</p>
-</li>
-<li><p>以下列公式求出总的误差函数<br>$$<br>\Delta_{i,j}^{(l)}:&#x3D;\Delta_{i,j}^{(l)}+a^{(l)}_j\delta_i^{(l+1)}&#x3D;&#x3D;&gt;\Delta^{(l)}:&#x3D;\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T<br>$$</p>
-</li>
-<li><p>以此求出成本函数的偏导数，D即为偏导数</p>
-<ul>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}(\Delta^{(l)}<em>{i,j}+\lambda\Theta^{(l)}</em>{i,j}) \qquad j\not&#x3D;0<br>$$</p>
-</li>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}\Delta^{(l)}_{i,j}\qquad j&#x3D;0<br>$$</p>
-</li>
-</ul>
-</li>
-</ol>
-<h1 id="梯度检查算法"><a href="#梯度检查算法" class="headerlink" title="梯度检查算法"></a>梯度检查算法</h1><p>为了检验反向传播函数是否计算正确，可以使用如下算法，计算出来的结果应该与反向传播函数相差无几。<br>$$<br>{\partial \over \partial\Theta_j}J(\Theta)\approx{J(\Theta_1,…,\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,\Theta_j-\epsilon,…,\Theta_n) \over 2\epsilon}<br>$$</p>
-<h1 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h1><p>在有监督神经网络中，训练神经网络即为找到合适的θ值，使样本输出最大限度的接近样本正确值。其过程如下</p>
-<ol>
-<li><strong>随机</strong>初始化权重，之所以随机，是为了打破相同初始参数时神经网络的对称性。</li>
-<li>实现前项传播得到样本的期望值</li>
-<li>计算代价函数（成本函数）</li>
-<li>使用后向传播算法计算成本函数对不同θ的偏导数</li>
-<li>使用梯度检查来确认您的反向传播是否有效。然后禁用梯度检查。</li>
-<li>使用梯度下降或内置优化函数来最小化具有 theta 权重的成本函数。</li>
-</ol>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>i*n 阶矩阵与 n*j 阶矩阵相乘，最后的维度为i*j</li>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
 </ul>
-<blockquote>
-<p>本文为吴恩达Machine learning课程的学习笔记</p>
-</blockquote>
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
@@ -1051,21 +1051,6 @@
       </tags>
   </entry>
   <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
-    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>string总结</title>
     <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<ul>
@@ -1202,6 +1187,21 @@
       </tags>
   </entry>
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
+    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1218,23 +1218,6 @@
 <li>直接点确定<br><img src="https://img-blog.csdnimg.cn/20200407121625333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/20200407121707780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
 </ul>
 <h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
-]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AD输出坐标文件及网表</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
-    <content><![CDATA[<p>【名词解释及其功能】</p>
-<ul>
-<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
-<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
-</ul>
-<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
 ]]></content>
       <tags>
         <tag>Altinum Designer</tag>
@@ -1302,6 +1285,23 @@
       </tags>
   </entry>
   <entry>
+    <title>AD输出坐标文件及网表</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
+    <content><![CDATA[<p>【名词解释及其功能】</p>
+<ul>
+<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
+<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
+</ul>
+<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
+]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Verilog程序框架</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
@@ -1326,6 +1326,62 @@
 <li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
 <li>模块调用位宽必须保持一致</li>
 </ul>
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>状态机</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</url>
+    <content><![CDATA[<h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
+<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
+</ul>
+<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
+<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
+</ul>
+<ol>
+<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
+<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
+<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
+</ol>
+<ul>
+<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
+</ul>
+<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
+<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
+</ul>
+<ol>
+<li>状态空间</li>
+</ol>
+<ul>
+<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>状态跳转(时序逻辑)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下一个状态的判断(组合逻辑)</li>
+</ol>
+<ul>
+<li>用case语句判断当前状态，使用阻塞赋值</li>
+<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
+</ul>
+<ol start="4">
+<li>各个状态下的动作</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
+<ol>
+<li>可以有效滤去组合逻辑输出的毛刺</li>
+<li>进行时序计算和约束</li>
+<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
+</ol>
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
@@ -1397,62 +1453,6 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>状态机</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</url>
-    <content><![CDATA[<h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
-<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
-</ul>
-<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
-<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
-</ul>
-<ol>
-<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
-<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
-<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
-</ol>
-<ul>
-<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
-</ul>
-<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
-<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
-</ul>
-<ol>
-<li>状态空间</li>
-</ol>
-<ul>
-<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>状态跳转(时序逻辑)</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>下一个状态的判断(组合逻辑)</li>
-</ol>
-<ul>
-<li>用case语句判断当前状态，使用阻塞赋值</li>
-<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
-</ul>
-<ol start="4">
-<li>各个状态下的动作</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
-<ol>
-<li>可以有效滤去组合逻辑输出的毛刺</li>
-<li>进行时序计算和约束</li>
-<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
-</ol>
 ]]></content>
       <tags>
         <tag>FPGA基础</tag>
@@ -1553,6 +1553,58 @@
       </tags>
   </entry>
   <entry>
+    <title>一些C++知识点</title>
+    <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<ul>
+<li><p>数组名称为<strong>指针常量</strong>。设<code>a</code>为数组名，则<code>a++</code>为非法表达式，报错为<code>++需要左值</code>。</p>
+</li>
+<li><p>指针变量在32位系统中占<strong>4个字节</strong>，在64位系统中占<strong>8个字节</strong>。</p>
+</li>
+<li><p><strong>内存对齐</strong>。<code>#pragma pack(n)</code>可改变对齐系数。<strong>有效对其值</strong>是给定值<code>#pragma pack(n)</code>和结构体中最长数据类型长度中较小的那个。有效对齐值也叫<strong>对齐单位</strong>。</p>
+</li>
+<li><p>字的大小：字的大小取决于处理器的位数，如果是16位机器，则是2字节。如果是32位机器，则是4字节。</p>
+</li>
+<li><p><strong>赋值兼容规则</strong>是指派生类对象可以当做基类对象来使用，只要存在继承关系即可。</p>
+</li>
+<li><p><strong>数据封装</strong>是将一组数据和与这组数据有关的操作组装在一起。</p>
+</li>
+<li><p><strong>this指针</strong>保证每个对象有自己的数据成员，但共享处理这些数据成员的代码。</p>
+</li>
+<li><p>使用<strong>地址</strong>作为实参传给形参，则实参和形参是同一对象。使用<strong>数值</strong>作为实参，形参则是实参的备份。</p>
+</li>
+<li><p>结构体中可以定义操作函数，如</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">output</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义类的动态对象数组时，系统只能够自动调用该类的<strong>无参</strong>构造函数对其初始化。</p>
+</li>
+<li><p>对赋值运算符重载时，应申明为<strong>类成员函数</strong>。</p>
+</li>
+<li><p>A中声明B是它的友元函数，则B可访问A内的成员变量。</p>
+</li>
+<li><p>new和delete的使用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//申请与删除数组</span><br><span class="line">int* arr = new int[10];</span><br><span class="line">delete[] arr;</span><br><span class="line">//申请并初始化变量为1与删除单个变量</span><br><span class="line">int * a = new int(1);</span><br><span class="line">delete a;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>=</code>赋值运算符返回值为等号右边的值，如以下代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=(b=c)+(c=d);</span><br></pre></td></tr></table></figure>
+
+<p>结果a应为c+d的值。</p>
+</li>
+<li><p>C++中静态多态性为编译时的多态性，动态多态性为运行时的多态性。静态多态性可以由函数重载等实现，动态多态性可以由虚函数实现。</p>
+</li>
+<li><p><strong>在类内部不能对数据成员直接赋值。</strong>但在C++11中已经支持这么写了。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Student</span>();</span><br><span class="line">	~<span class="built_in">Student</span>();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">getname</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string name = <span class="string">&quot;Superman&quot;</span>;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>带有纯虚函数的类是抽象类，不能被实例化</strong>。详见：<a href="https://beyond886.gitee.io/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/?highlight=%E6%8A%BD%E8%B1%A1">虚函数</a></p>
+</li>
+<li><p>类的静态成员变量的生命周期为程序运行的整个周期，该类的所有对象共用这个静态成员变量。</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>&lt;代码美学&gt;观后感</title>
     <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
     <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
@@ -1594,6 +1646,38 @@
       <tags>
         <tag>C++</tag>
         <tag>成长感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
+<p>} 变成了 &amp;#125</p>
+<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
+<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>小技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数模板与类模板</title>
+    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
+<ul>
+<li>函数模板在编译时不会生成</li>
+<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
+<li>函数指针指向模板的实例，并不指向模板本身</li>
+</ul>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1732,113 +1816,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
-    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
-<p>} 变成了 &amp;#125</p>
-<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
-<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>小技巧</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>卡尔曼滤波器</title>
-    <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
-    <content><![CDATA[<p>C++代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KalmanFilter</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">KalmanFilter</span>(<span class="type">double</span> Q, <span class="type">double</span> R) : <span class="built_in">Q</span>(Q), <span class="built_in">R</span>(R), <span class="built_in">x_hat</span>(<span class="number">0</span>), <span class="built_in">P</span>(<span class="number">1</span>), <span class="built_in">K</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新卡尔曼滤波器状态</span></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">update</span><span class="params">(<span class="type">double</span> z, <span class="type">double</span> u)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 预测状态</span></span><br><span class="line">        <span class="type">double</span> x_pred = x_hat + u;</span><br><span class="line">        <span class="type">double</span> P_pred = P + Q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算卡尔曼增益</span></span><br><span class="line">        K = P_pred / (P_pred + R);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新状态估计和协方差</span></span><br><span class="line">        x_hat = x_pred + K * (z - x_pred);</span><br><span class="line">        P = (<span class="number">1</span> - K) * P_pred;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x_hat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 过程噪声和观测噪声的方差</span></span><br><span class="line">    <span class="type">double</span> Q, R;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态估计和协方差</span></span><br><span class="line">    <span class="type">double</span> x_hat, P;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卡尔曼增益</span></span><br><span class="line">    <span class="type">double</span> K;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个卡尔曼滤波器对象</span></span><br><span class="line">    <span class="function">KalmanFilter <span class="title">kf</span><span class="params">(<span class="number">0.01</span>, <span class="number">0.1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成测试数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> num_samples = <span class="number">100</span>;</span><br><span class="line">    <span class="type">double</span> x_true[num_samples], z[num_samples], u[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        <span class="comment">// 真实状态是一个匀速运动的物体</span></span><br><span class="line">        x_true[i] = i * <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观测数据是带有高斯噪声的真实状态</span></span><br><span class="line">        z[i] = x_true[i] + <span class="number">0.1</span> * <span class="built_in">rand</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 控制输入是一个匀加速度</span></span><br><span class="line">        u[i] = <span class="number">0.1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用卡尔曼滤波器估计状态</span></span><br><span class="line">    <span class="type">double</span> x_est[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        x_est[i] = kf.<span class="built_in">update</span>(z[i], u[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;True: &quot;</span> &lt;&lt; x_true[i] &lt;&lt; <span class="string">&quot;, Measured: &quot;</span> &lt;&lt; z[i] &lt;&lt; <span class="string">&quot;, Estimated: &quot;</span> &lt;&lt; x_est[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注：该代码由ChatGPT生成，使用Visual Studio2022编译运行。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些C++知识点</title>
-    <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
-    <content><![CDATA[<ul>
-<li><p>数组名称为<strong>指针常量</strong>。设<code>a</code>为数组名，则<code>a++</code>为非法表达式，报错为<code>++需要左值</code>。</p>
-</li>
-<li><p>指针变量在32位系统中占<strong>4个字节</strong>，在64位系统中占<strong>8个字节</strong>。</p>
-</li>
-<li><p><strong>内存对齐</strong>。<code>#pragma pack(n)</code>可改变对齐系数。<strong>有效对其值</strong>是给定值<code>#pragma pack(n)</code>和结构体中最长数据类型长度中较小的那个。有效对齐值也叫<strong>对齐单位</strong>。</p>
-</li>
-<li><p>字的大小：字的大小取决于处理器的位数，如果是16位机器，则是2字节。如果是32位机器，则是4字节。</p>
-</li>
-<li><p><strong>赋值兼容规则</strong>是指派生类对象可以当做基类对象来使用，只要存在继承关系即可。</p>
-</li>
-<li><p><strong>数据封装</strong>是将一组数据和与这组数据有关的操作组装在一起。</p>
-</li>
-<li><p><strong>this指针</strong>保证每个对象有自己的数据成员，但共享处理这些数据成员的代码。</p>
-</li>
-<li><p>使用<strong>地址</strong>作为实参传给形参，则实参和形参是同一对象。使用<strong>数值</strong>作为实参，形参则是实参的备份。</p>
-</li>
-<li><p>结构体中可以定义操作函数，如</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">output</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义类的动态对象数组时，系统只能够自动调用该类的<strong>无参</strong>构造函数对其初始化。</p>
-</li>
-<li><p>对赋值运算符重载时，应申明为<strong>类成员函数</strong>。</p>
-</li>
-<li><p>A中声明B是它的友元函数，则B可访问A内的成员变量。</p>
-</li>
-<li><p>new和delete的使用方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//申请与删除数组</span><br><span class="line">int* arr = new int[10];</span><br><span class="line">delete[] arr;</span><br><span class="line">//申请并初始化变量为1与删除单个变量</span><br><span class="line">int * a = new int(1);</span><br><span class="line">delete a;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>=</code>赋值运算符返回值为等号右边的值，如以下代码:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=(b=c)+(c=d);</span><br></pre></td></tr></table></figure>
-
-<p>结果a应为c+d的值。</p>
-</li>
-<li><p>C++中静态多态性为编译时的多态性，动态多态性为运行时的多态性。静态多态性可以由函数重载等实现，动态多态性可以由虚函数实现。</p>
-</li>
-<li><p><strong>在类内部不能对数据成员直接赋值。</strong>但在C++11中已经支持这么写了。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Student</span>();</span><br><span class="line">	~<span class="built_in">Student</span>();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">getname</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string name = <span class="string">&quot;Superman&quot;</span>;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>带有纯虚函数的类是抽象类，不能被实例化</strong>。详见：<a href="https://beyond886.gitee.io/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/?highlight=%E6%8A%BD%E8%B1%A1">虚函数</a></p>
-</li>
-<li><p>类的静态成员变量的生命周期为程序运行的整个周期，该类的所有对象共用这个静态成员变量。</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>函数模板与类模板</title>
-    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
-<ul>
-<li>函数模板在编译时不会生成</li>
-<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
-<li>函数指针指向模板的实例，并不指向模板本身</li>
-</ul>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变参数模板</title>
-    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>十进制转二进制写入文件</title>
     <url>/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
@@ -1871,6 +1848,62 @@
       </tags>
   </entry>
   <entry>
+    <title>可变参数模板</title>
+    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>卡尔曼滤波器</title>
+    <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
+    <content><![CDATA[<p>C++代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KalmanFilter</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">KalmanFilter</span>(<span class="type">double</span> Q, <span class="type">double</span> R) : <span class="built_in">Q</span>(Q), <span class="built_in">R</span>(R), <span class="built_in">x_hat</span>(<span class="number">0</span>), <span class="built_in">P</span>(<span class="number">1</span>), <span class="built_in">K</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新卡尔曼滤波器状态</span></span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">update</span><span class="params">(<span class="type">double</span> z, <span class="type">double</span> u)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 预测状态</span></span><br><span class="line">        <span class="type">double</span> x_pred = x_hat + u;</span><br><span class="line">        <span class="type">double</span> P_pred = P + Q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算卡尔曼增益</span></span><br><span class="line">        K = P_pred / (P_pred + R);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新状态估计和协方差</span></span><br><span class="line">        x_hat = x_pred + K * (z - x_pred);</span><br><span class="line">        P = (<span class="number">1</span> - K) * P_pred;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x_hat;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 过程噪声和观测噪声的方差</span></span><br><span class="line">    <span class="type">double</span> Q, R;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态估计和协方差</span></span><br><span class="line">    <span class="type">double</span> x_hat, P;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卡尔曼增益</span></span><br><span class="line">    <span class="type">double</span> K;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个卡尔曼滤波器对象</span></span><br><span class="line">    <span class="function">KalmanFilter <span class="title">kf</span><span class="params">(<span class="number">0.01</span>, <span class="number">0.1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成测试数据</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> num_samples = <span class="number">100</span>;</span><br><span class="line">    <span class="type">double</span> x_true[num_samples], z[num_samples], u[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        <span class="comment">// 真实状态是一个匀速运动的物体</span></span><br><span class="line">        x_true[i] = i * <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 观测数据是带有高斯噪声的真实状态</span></span><br><span class="line">        z[i] = x_true[i] + <span class="number">0.1</span> * <span class="built_in">rand</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 控制输入是一个匀加速度</span></span><br><span class="line">        u[i] = <span class="number">0.1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用卡尔曼滤波器估计状态</span></span><br><span class="line">    <span class="type">double</span> x_est[num_samples];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        x_est[i] = kf.<span class="built_in">update</span>(z[i], u[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_samples; ++i) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;True: &quot;</span> &lt;&lt; x_true[i] &lt;&lt; <span class="string">&quot;, Measured: &quot;</span> &lt;&lt; z[i] &lt;&lt; <span class="string">&quot;, Estimated: &quot;</span> &lt;&lt; x_est[i] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：该代码由ChatGPT生成，使用Visual Studio2022编译运行。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串中分离出数字</title>
+    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
+<blockquote>
+<p>8532</p>
+</blockquote>
+<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用控制算法</title>
+    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.c文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中调用方式</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>复制构造函数</title>
     <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
@@ -1894,48 +1927,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符串中分离出数字</title>
-    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
-<blockquote>
-<p>8532</p>
-</blockquote>
-<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>步数检测--波峰检测算法</title>
-    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
-<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
-<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
-<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
-<ol>
-<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
-</li>
-<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
-</li>
-<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
-<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
-</li>
-</ol>
-<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
-<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
-<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
-<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
-]]></content>
-      <tags>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1988,21 +1979,26 @@
       </tags>
   </entry>
   <entry>
-    <title>常用控制算法</title>
-    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>排序算法总结</title>
+    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
+<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>.c文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
+<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>主函数中调用方式</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <tags>
         <tag>C++</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2033,29 +2029,6 @@
       </tags>
   </entry>
   <entry>
-    <title>排序算法总结</title>
-    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
-<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
-<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深度学习的可解释性</title>
     <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
     <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
@@ -2083,6 +2056,33 @@
       <tags>
         <tag>算法</tag>
         <tag>可解释性</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>步数检测--波峰检测算法</title>
+    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
+<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
+<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
+<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
+<ol>
+<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
+</li>
+<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
+</li>
+<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
+</li>
+</ol>
+<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
+<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
+<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2138,6 +2138,37 @@
       </tags>
   </entry>
   <entry>
+    <title>虚函数</title>
+    <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
+<h1 id="一般虚函数"><a href="#一般虚函数" class="headerlink" title="一般虚函数"></a>一般虚函数</h1><p>虚函数声明在基类中，派生类可以继承该虚函数，也可以覆写该虚函数，实现本类的特定功能。虚函数的声明方式如下，需要注意的是，<strong>虚函数声明只能出现在类定义的函数原型声明中，而不能在成员函数实现的时候</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(形参表);</span><br></pre></td></tr></table></figure>
+
+<p>基类通过继承虚函数，除了可实现自身独特功能外，在外部调用时，可以通过基类对象指针调用派生类的函数。</p>
+<p>例如：基类Base中有虚函数display，Base类派生出A类和B类，A类和B类均重写了display函数。此时可通过Base类指针调用A类和B类的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义功能函数</span><br><span class="line">void fun(Base *ptr)&#123;		//形参为指向基类对象的指针</span><br><span class="line">	ptr-&gt;display();</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Base base1;</span><br><span class="line">	A a;</span><br><span class="line">	B b;</span><br><span class="line">	//函数调用，实现动态绑定</span><br><span class="line">	fun(&amp;base1);		//调用Base类中的display函数</span><br><span class="line">	fun(&amp;a);			//调用A类中的display函数</span><br><span class="line">	fun(&amp;b);			//调用B类中的display函数</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h1><p>虚析构函数的声明语法为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual ~类名();</span><br></pre></td></tr></table></figure>
+
+<p>为什么要使用虚析构函数呢？设有基类Base，基类的派生类A，如果通过Base的指针来删除A的对象：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(Base *b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">delete</span> b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *b = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">	<span class="built_in">fun</span>(b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>会出现只调用Base类的析构函数，却不调用A的析构函数的情况。这将导致派生类对象中动态分配的内存空间没有得到释放，造成<strong>内存泄漏</strong>。避免上述错误的有效方法是将Base类中的析构函数声明为虚函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Base&#123;</span><br><span class="line">public:</span><br><span class="line">	virtual ~Base();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时再执行上述代码，派生类对象中动态申请的内存空间将被正确地释放。</p>
+<h1 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h1><p>纯虚函数的声明格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(参数表)=0;</span><br></pre></td></tr></table></figure>
+
+<p>声明为纯虚函数后，基类中就可以不再给出函数的实现部分(即使给出也无法实例化)，纯虚函数的函数体由派生类给出。</p>
+<p>带有虚函数的类是<strong>抽象类</strong>。抽象类不能实例化，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用，通过指针和引用，就能指向并访问派生类的对象，其操作方法与一般虚函数相同。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>物联网手势控制小车所遇问题与解决方案</title>
     <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
@@ -2168,37 +2199,6 @@
       <tags>
         <tag>嵌入式</tag>
         <tag>Arduino</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚函数</title>
-    <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
-<h1 id="一般虚函数"><a href="#一般虚函数" class="headerlink" title="一般虚函数"></a>一般虚函数</h1><p>虚函数声明在基类中，派生类可以继承该虚函数，也可以覆写该虚函数，实现本类的特定功能。虚函数的声明方式如下，需要注意的是，<strong>虚函数声明只能出现在类定义的函数原型声明中，而不能在成员函数实现的时候</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(形参表);</span><br></pre></td></tr></table></figure>
-
-<p>基类通过继承虚函数，除了可实现自身独特功能外，在外部调用时，可以通过基类对象指针调用派生类的函数。</p>
-<p>例如：基类Base中有虚函数display，Base类派生出A类和B类，A类和B类均重写了display函数。此时可通过Base类指针调用A类和B类的函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义功能函数</span><br><span class="line">void fun(Base *ptr)&#123;		//形参为指向基类对象的指针</span><br><span class="line">	ptr-&gt;display();</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Base base1;</span><br><span class="line">	A a;</span><br><span class="line">	B b;</span><br><span class="line">	//函数调用，实现动态绑定</span><br><span class="line">	fun(&amp;base1);		//调用Base类中的display函数</span><br><span class="line">	fun(&amp;a);			//调用A类中的display函数</span><br><span class="line">	fun(&amp;b);			//调用B类中的display函数</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h1><p>虚析构函数的声明语法为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual ~类名();</span><br></pre></td></tr></table></figure>
-
-<p>为什么要使用虚析构函数呢？设有基类Base，基类的派生类A，如果通过Base的指针来删除A的对象：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(Base *b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">delete</span> b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *b = <span class="keyword">new</span> <span class="built_in">A</span>();</span><br><span class="line">	<span class="built_in">fun</span>(b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>会出现只调用Base类的析构函数，却不调用A的析构函数的情况。这将导致派生类对象中动态分配的内存空间没有得到释放，造成<strong>内存泄漏</strong>。避免上述错误的有效方法是将Base类中的析构函数声明为虚函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Base&#123;</span><br><span class="line">public:</span><br><span class="line">	virtual ~Base();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>此时再执行上述代码，派生类对象中动态申请的内存空间将被正确地释放。</p>
-<h1 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h1><p>纯虚函数的声明格式为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">virtual 函数类型 函数名(参数表)=0;</span><br></pre></td></tr></table></figure>
-
-<p>声明为纯虚函数后，基类中就可以不再给出函数的实现部分(即使给出也无法实例化)，纯虚函数的函数体由派生类给出。</p>
-<p>带有虚函数的类是<strong>抽象类</strong>。抽象类不能实例化，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用，通过指针和引用，就能指向并访问派生类的对象，其操作方法与一般虚函数相同。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
