@@ -149,7 +149,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -180,6 +180,105 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">物联网手势控制小车所遇问题与解决方案</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-24 21:30:00" itemprop="dateCreated datePublished" datetime="2023-05-24T21:30:00+08:00">2023-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-03 12:31:29" itemprop="dateModified" datetime="2024-02-03T12:31:29+08:00">2024-02-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
+<p><strong>分析过程与解决方案</strong>：</p>
+<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
+<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
+<p>这不利于设置阈值判定手势。</p>
+<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
+<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
+<p><strong>解决方案</strong>：</p>
+<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32">多ESP32通信</a>。 该方法通过ESP私有协议<strong>ESP-NOW</strong>完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</p>
+<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
+<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
+<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
+<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
+<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
+<p>最终Arduino的数据发送代码段如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
+<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -921,93 +1020,6 @@
 <h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a target="_blank" rel="noopener" href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">复制构造函数</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-01 16:43:27 / 修改时间：17:09:34" itemprop="dateCreated datePublished" datetime="2023-03-01T16:43:27+08:00">2023-03-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	类名(形参表);		 <span class="comment">//构造函数</span></span><br><span class="line">	类名(类名 &amp; 对象名);	<span class="comment">//复制构造函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">类名::类名(类名 &amp; 对象名);  <span class="comment">//复制构造函数的实现</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="复制构造函数被调用的三种情况"><a href="#复制构造函数被调用的三种情况" class="headerlink" title="复制构造函数被调用的三种情况"></a>复制构造函数被调用的三种情况</h1><ol>
-<li><p>用类的一个对象去初始化该类的另一个对象时</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	Point b(a);		//用对象a初始化对象b, 复制构造函数被调用</span><br><span class="line">	Point c=a;		//用对象a初始化对象c, 复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上对b和c的初始化都能够调用复制构造函数，两种写法只是形式上有所不同，执行的操作完全相同</p>
-</li>
-<li><p>如果函数的<strong>形参</strong>是类的对象，调用函数时，进行形参和实参结合时:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void f(Point p)&#123;</span><br><span class="line">	cout &lt;&lt; p.getX() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	f(a);			//函数的形参为类的对象，当调用函数时，复制构造函数被调用</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：只有把对象当作值传递时，才会调用复制构造函数，如果传递引用，则不会调用复制构造函数。因此，传递比较大的对象时，传递引用会比传值的效率高很多。</p>
-</li>
-<li><p>如果函数的返回值是类的对象，函数执行完成返回调用者时:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a target="_blank" rel="noopener" href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
 
       
     </div>
