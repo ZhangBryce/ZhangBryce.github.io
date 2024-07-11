@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -56,6 +34,28 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -95,26 +95,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Clash配置</title>
-    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
-
-<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
-<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>重启clash程序</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
-<ul>
-<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
-<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>The install of Commonroad-rl</title>
     <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
@@ -141,6 +121,26 @@
       <tags>
         <tag>Reinforcement Learning</tag>
         <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clash配置</title>
+    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
+
+<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
+<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>重启clash程序</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
+<ul>
+<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
+<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -312,6 +312,24 @@
       </tags>
   </entry>
   <entry>
+    <title>FreeRTOS中断管理</title>
+    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
+<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
+<li>延迟中断方案是处何实现的  </li>
+<li>如何创建和使用二值信号量以及计数信号量  </li>
+<li>二值信号量和计数信号量之间的区别  </li>
+<li>如何利用队利在中断服务例程中把数据传入传出  </li>
+<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Flow--交通网络仿真框架的安装</title>
     <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
@@ -353,24 +371,6 @@
         <tag>Flow</tag>
         <tag>Linux</tag>
         <tag>Anaconda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FreeRTOS中断管理</title>
-    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
-<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
-<li>延迟中断方案是处何实现的  </li>
-<li>如何创建和使用二值信号量以及计数信号量  </li>
-<li>二值信号量和计数信号量之间的区别  </li>
-<li>如何利用队利在中断服务例程中把数据传入传出  </li>
-<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -452,35 +452,6 @@
         <tag>嵌入式</tag>
         <tag>STM32</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
-]]></content>
-      <tags>
-        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -568,6 +539,35 @@
 ]]></content>
       <tags>
         <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+]]></content>
+      <tags>
+        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -1010,19 +1010,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows中的实用软件</title>
-    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
-<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
-<p>快捷键如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>This指针</title>
     <url>/2022/03/23/This%E6%8C%87%E9%92%88/</url>
     <content><![CDATA[<p>先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”</p>
@@ -1048,6 +1035,19 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows中的实用软件</title>
+    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
+<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
+<p>快捷键如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1078,9 +1078,34 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支 --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
 
 <p>如果合并过程中发生冲突，则先解决冲突，再<code>commit</code>，最后才可重新<code>push</code>。</p>
+<h2 id="代理端口设置"><a href="#代理端口设置" class="headerlink" title="代理端口设置"></a>代理端口设置</h2><p>推送过程中出现127.0.0.1:xxxx端口错误，这有可能是因为git中的代理端口设置不对导致的。</p>
+<p>重新设置你的端口号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br><span class="line">git config --global https.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看设置是否生效</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global -l</span><br></pre></td></tr></table></figure>
+
+<p>如果你不需要代码，可以取消代理设置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
+    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1099,21 +1124,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
-    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1721,6 +1731,50 @@
       </tags>
   </entry>
   <entry>
+    <title>&lt;代码美学&gt;观后感</title>
+    <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
+    <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
+<li>不要缩写名字。在有代码补全功能以及大屏幕的当下，缩写名字是没必要的</li>
+<li>不要在变量名前添加类型缩写</li>
+<li>在入口参数中添加变量单位，像<code>int delay_ms</code></li>
+<li>不要在自己定义的类型名后加上变量的类型名称，像<code>AbstractX</code></li>
+<li>避免定义“实用类”，这个类里包含了各种你觉得用起来方便的函数，你应该把这些函数分门别类地放到<strong>名字更有意义的类</strong>里。<br>例如：你的“实用类”里有洗水果，买酱油，洗衣服三个函数，应该把他们分门别类地放在<strong>采购类</strong>与<strong>家务类</strong>中，而不用一个<strong>实用类</strong>来包含这些函数。</li>
+</ul>
+<h1 id="组合优于继承"><a href="#组合优于继承" class="headerlink" title="组合优于继承"></a>组合优于继承</h1><p>继承，即通过一个基类派生出各种类。</p>
+<p>组合，把每个类独立开，如果需要其他类的参数，可以把函数的入口参数设置为某类的对象。</p>
+<h1 id="抽象并非百利而无一害"><a href="#抽象并非百利而无一害" class="headerlink" title="抽象并非百利而无一害"></a>抽象并非百利而无一害</h1><p>当你在调用不同代码，并使用抽象特性时，会导致一些不可控的行为发生。</p>
+<h1 id="不要写注释"><a href="#不要写注释" class="headerlink" title="不要写注释"></a>不要写注释</h1><p>通过变量命名，让代码更易读，这样就不需要注释了。强迫自己不写注释，而注重代码可读性，可以大大提升自己的代码编写能力。</p>
+<p>例如，以下为原代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//5代表信息接收成功</span></span><br><span class="line"><span class="keyword">if</span>(STATE == <span class="number">5</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以修改成</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> MessagereceiveSuccess = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">if</span>(STATE == MessagereceiveSuccess)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码中的嵌套不要超过3层"><a href="#代码中的嵌套不要超过3层" class="headerlink" title="代码中的嵌套不要超过3层"></a>代码中的嵌套不要超过3层</h1><ol>
+<li><p>抽象出功能，用函数包装。</p>
+</li>
+<li><p>结构反转，减少嵌套。<br>例如，原代码是这样</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &gt; bottom)&#123;</span><br><span class="line">		<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">			sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过反转结构，把负面条件写在前面，遇到负面条件可以提前返回，同时，可以在函数中留下大量的主体代码。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &lt; bottom)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">    	sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="不要过早优化代码"><a href="#不要过早优化代码" class="headerlink" title="不要过早优化代码"></a>不要过早优化代码</h1><ol>
+<li>当你真的遇到性能问题时，再优化代码。</li>
+<li>先测试它（PS.通常是一颗老鼠shit坏了一锅粥）。</li>
+<li>尝试更换数据结构，采用公认最快的算法获得80%的优化。测试它</li>
+<li>通过性能分析找到最拖后腿的点。测试它</li>
+<li>底层分析(存储空间)。测试它</li>
+</ol>
+<p>视频中提到的代码优化的逻辑和平常做项目的逻辑非常相似，选择最简单的方案完成它，实现目标后再考虑性能优化，<strong>而不要求自己一开始就做到尽善尽美</strong>。大道至简。</p>
+<p>附上视频链接：<a href="https://www.bilibili.com/video/BV1gP411B7CT?p=1&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">Code Aesthetic</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>成长感悟</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一些C++知识点</title>
     <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
     <content><![CDATA[<ul>
@@ -1773,63 +1827,6 @@
       </tags>
   </entry>
   <entry>
-    <title>&lt;代码美学&gt;观后感</title>
-    <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
-    <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
-<li>不要缩写名字。在有代码补全功能以及大屏幕的当下，缩写名字是没必要的</li>
-<li>不要在变量名前添加类型缩写</li>
-<li>在入口参数中添加变量单位，像<code>int delay_ms</code></li>
-<li>不要在自己定义的类型名后加上变量的类型名称，像<code>AbstractX</code></li>
-<li>避免定义“实用类”，这个类里包含了各种你觉得用起来方便的函数，你应该把这些函数分门别类地放到<strong>名字更有意义的类</strong>里。<br>例如：你的“实用类”里有洗水果，买酱油，洗衣服三个函数，应该把他们分门别类地放在<strong>采购类</strong>与<strong>家务类</strong>中，而不用一个<strong>实用类</strong>来包含这些函数。</li>
-</ul>
-<h1 id="组合优于继承"><a href="#组合优于继承" class="headerlink" title="组合优于继承"></a>组合优于继承</h1><p>继承，即通过一个基类派生出各种类。</p>
-<p>组合，把每个类独立开，如果需要其他类的参数，可以把函数的入口参数设置为某类的对象。</p>
-<h1 id="抽象并非百利而无一害"><a href="#抽象并非百利而无一害" class="headerlink" title="抽象并非百利而无一害"></a>抽象并非百利而无一害</h1><p>当你在调用不同代码，并使用抽象特性时，会导致一些不可控的行为发生。</p>
-<h1 id="不要写注释"><a href="#不要写注释" class="headerlink" title="不要写注释"></a>不要写注释</h1><p>通过变量命名，让代码更易读，这样就不需要注释了。强迫自己不写注释，而注重代码可读性，可以大大提升自己的代码编写能力。</p>
-<p>例如，以下为原代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//5代表信息接收成功</span></span><br><span class="line"><span class="keyword">if</span>(STATE == <span class="number">5</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以修改成</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> MessagereceiveSuccess = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">if</span>(STATE == MessagereceiveSuccess)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码中的嵌套不要超过3层"><a href="#代码中的嵌套不要超过3层" class="headerlink" title="代码中的嵌套不要超过3层"></a>代码中的嵌套不要超过3层</h1><ol>
-<li><p>抽象出功能，用函数包装。</p>
-</li>
-<li><p>结构反转，减少嵌套。<br>例如，原代码是这样</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &gt; bottom)&#123;</span><br><span class="line">		<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">			sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过反转结构，把负面条件写在前面，遇到负面条件可以提前返回，同时，可以在函数中留下大量的主体代码。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &lt; bottom)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">    	sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="不要过早优化代码"><a href="#不要过早优化代码" class="headerlink" title="不要过早优化代码"></a>不要过早优化代码</h1><ol>
-<li>当你真的遇到性能问题时，再优化代码。</li>
-<li>先测试它（PS.通常是一颗老鼠shit坏了一锅粥）。</li>
-<li>尝试更换数据结构，采用公认最快的算法获得80%的优化。测试它</li>
-<li>通过性能分析找到最拖后腿的点。测试它</li>
-<li>底层分析(存储空间)。测试它</li>
-</ol>
-<p>视频中提到的代码优化的逻辑和平常做项目的逻辑非常相似，选择最简单的方案完成它，实现目标后再考虑性能优化，<strong>而不要求自己一开始就做到尽善尽美</strong>。大道至简。</p>
-<p>附上视频链接：<a href="https://www.bilibili.com/video/BV1gP411B7CT?p=1&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">Code Aesthetic</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>成长感悟</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
-    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
-<p>} 变成了 &amp;#125</p>
-<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
-<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>小技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数模板与类模板</title>
     <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
     <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
@@ -1846,6 +1843,19 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
+<p>} 变成了 &amp;#125</p>
+<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
+<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>小技巧</tag>
       </tags>
   </entry>
   <entry>
@@ -1881,6 +1891,16 @@
       </tags>
   </entry>
   <entry>
+    <title>可变参数模板</title>
+    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>卡尔曼滤波器</title>
     <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
     <content><![CDATA[<p>C++代码如下：</p>
@@ -1891,16 +1911,6 @@
       <tags>
         <tag>C++</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变参数模板</title>
-    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1930,24 +1940,6 @@
       </tags>
   </entry>
   <entry>
-    <title>常用控制算法</title>
-    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>.c文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>主函数中调用方式</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>字符串中分离出数字</title>
     <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
@@ -1963,52 +1955,21 @@
       </tags>
   </entry>
   <entry>
-    <title>指针与引用</title>
-    <url>/2022/03/22/%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><strong>引用</strong>是对<strong>指针</strong>进行了包装的高层机制，是C++ 语法中特有的。指针是C语言和C++语言中都可以使用的底层机制。引用本质上还是使用指针进行操作。引用在<strong>数据参数传递</strong>、<strong>减少大对象的参数传递开销</strong>这两个用途上，引用比指针更加简洁、安全。但是在下列情况中，引用并不能替代指针。</p>
-<ul>
-<li>指针所指向的对象发生改变。因为引用只能在初始化时指定被引用的对象，且不可改变。</li>
-<li>需要空指针时。</li>
-<li>需要使用函数指针。因为没有“函数引用”。</li>
-<li>用new动态创建对象或数组时，需要指针来存储地址。</li>
-<li>以数组形式传递大批量数据时，需要用指针类型接收参数。</li>
-</ul>
-<h1 id="使用比较"><a href="#使用比较" class="headerlink" title="使用比较"></a>使用比较</h1><p>T指不同的数据类型，如int、float、char等</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">T类型的指针常量</th>
-<th align="center">T类型的引用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">定义并用变量a初始化</td>
-<td align="center">T * const p &#x3D; &a;</td>
-<td align="center">T &amp;r &#x3D; a;</td>
-</tr>
-<tr>
-<td align="center">取a的值</td>
-<td align="center">* p</td>
-<td align="center">r</td>
-</tr>
-<tr>
-<td align="center">访问a的成员m</td>
-<td align="center">p-&gt;m</td>
-<td align="center">r.m</td>
-</tr>
-<tr>
-<td align="center">读取a的地址</td>
-<td align="center">p</td>
-<td align="center">&amp;r</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
-</blockquote>
+    <title>常用控制算法</title>
+    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.c文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中调用方式</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>C++</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2062,6 +2023,55 @@
       </tags>
   </entry>
   <entry>
+    <title>指针与引用</title>
+    <url>/2022/03/22/%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><strong>引用</strong>是对<strong>指针</strong>进行了包装的高层机制，是C++ 语法中特有的。指针是C语言和C++语言中都可以使用的底层机制。引用本质上还是使用指针进行操作。引用在<strong>数据参数传递</strong>、<strong>减少大对象的参数传递开销</strong>这两个用途上，引用比指针更加简洁、安全。但是在下列情况中，引用并不能替代指针。</p>
+<ul>
+<li>指针所指向的对象发生改变。因为引用只能在初始化时指定被引用的对象，且不可改变。</li>
+<li>需要空指针时。</li>
+<li>需要使用函数指针。因为没有“函数引用”。</li>
+<li>用new动态创建对象或数组时，需要指针来存储地址。</li>
+<li>以数组形式传递大批量数据时，需要用指针类型接收参数。</li>
+</ul>
+<h1 id="使用比较"><a href="#使用比较" class="headerlink" title="使用比较"></a>使用比较</h1><p>T指不同的数据类型，如int、float、char等</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">T类型的指针常量</th>
+<th align="center">T类型的引用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">定义并用变量a初始化</td>
+<td align="center">T * const p &#x3D; &a;</td>
+<td align="center">T &amp;r &#x3D; a;</td>
+</tr>
+<tr>
+<td align="center">取a的值</td>
+<td align="center">* p</td>
+<td align="center">r</td>
+</tr>
+<tr>
+<td align="center">访问a的成员m</td>
+<td align="center">p-&gt;m</td>
+<td align="center">r.m</td>
+</tr>
+<tr>
+<td align="center">读取a的地址</td>
+<td align="center">p</td>
+<td align="center">&amp;r</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>步数检测--波峰检测算法</title>
     <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
@@ -2086,6 +2096,58 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深浅复制</title>
+    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
+
+<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
+<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
+<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
+<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">浅复制</th>
+<th align="center">深复制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">定义</td>
+<td align="center">复制对象时，不开辟新内存空间的过程</td>
+<td align="center">复制对象时，开辟新内存空间的过程</td>
+</tr>
+<tr>
+<td align="center">优点</td>
+<td align="center">操作简单</td>
+<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">实现方式</td>
+<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
+<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2152,58 +2214,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深浅复制</title>
-    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
-
-<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
-<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
-<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
-<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
-<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">浅复制</th>
-<th align="center">深复制</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">定义</td>
-<td align="center">复制对象时，不开辟新内存空间的过程</td>
-<td align="center">复制对象时，开辟新内存空间的过程</td>
-</tr>
-<tr>
-<td align="center">优点</td>
-<td align="center">操作简单</td>
-<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">实现方式</td>
-<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
-<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>虚函数</title>
     <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
@@ -2235,16 +2245,6 @@
       </tags>
   </entry>
   <entry>
-    <title>运算符重载</title>
-    <url>/2023/03/16/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>行百里者半九十</title>
     <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
     <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
@@ -2269,6 +2269,16 @@
 ]]></content>
       <tags>
         <tag>成长感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>运算符重载</title>
+    <url>/2023/03/16/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
 </search>
