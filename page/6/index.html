@@ -1018,144 +1018,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">Verilog语句</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-08-16 19:57:27" itemprop="dateModified" datetime="2023-08-16T19:57:27+08:00">2023-08-16</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
-<li>两语句后紧跟的都是过程块(顺序块)语句</li>
-</ul>
-<ol>
-<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
-</ol>
-<ul>
-<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
-</blockquote>
-<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
-<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
-</ul>
-<ol>
-<li>阻塞赋值(可看作一个步骤)</li>
-</ol>
-<ul>
-<li>计算RHS并更新LHS</li>
-<li>一条语句执行完再执行下一条语句</li>
-</ul>
-<ol start="2">
-<li>非阻塞赋值</li>
-</ol>
-<ul>
-<li>赋值开始，计算RHS</li>
-<li>赋值结束，更新LHS</li>
-<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
-</ul>
-<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
-<li>if_else语句(与C语言相同)</li>
-</ol>
-<ul>
-<li>条件语句必须在过程块中使用</li>
-<li>允许一定形式的简写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(!a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>允许嵌套</li>
-</ul>
-<ol start="2">
-<li>case语句</li>
-</ol>
-<ul>
-<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
-<li>casex不考虑高阻值z 和 不定值x</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1227,6 +1089,129 @@
 <li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
 <li>模块调用位宽必须保持一致</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/" class="post-title-link" itemprop="url">状态机</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-04 17:36:30" itemprop="dateCreated datePublished" datetime="2020-08-04T17:36:30+08:00">2020-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-05 11:01:17" itemprop="dateModified" datetime="2020-08-05T11:01:17+08:00">2020-08-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、状态机概念-State-Machine"><a href="#一、状态机概念-State-Machine" class="headerlink" title="一、状态机概念(State Machine)"></a>一、状态机概念(State Machine)</h2><ul>
+<li>有限状态机(Finite State Machine,简称FSM)：在有限个状态之间按一定规律转换的时序电路</li>
+</ul>
+<h2 id="二、状态机模型"><a href="#二、状态机模型" class="headerlink" title="二、状态机模型"></a>二、状态机模型</h2><ul>
+<li>模型由三个部分组成：产生下一状态的组合逻辑<strong>F</strong>、状态寄存器、产生输出的组合逻辑<strong>G</strong></li>
+</ul>
+<ol>
+<li><strong>状态寄存器</strong>由一组触发器组成，用来记忆状态机当前所处的状态，状态的改变只发生在时钟的跳变沿</li>
+<li>状态是否改变、如何改变，取决于组合逻辑F的输出，F是当前状态和输入信号的函数</li>
+<li>状态机的输出由组合逻辑G提供，G是当前状态和输入信号的函数</li>
+</ol>
+<ul>
+<li>Mealy状态机与Moore状态机，Moore状态机是Mealy状态机的一个特例。Moore状态机只与当前的状态有关，而与输入信号无关</li>
+</ul>
+<h2 id="三、状态机设计"><a href="#三、状态机设计" class="headerlink" title="三、状态机设计"></a>三、状态机设计</h2><h4 id="常规状态机"><a href="#常规状态机" class="headerlink" title="常规状态机"></a>常规状态机</h4><ul>
+<li>状态机四段论：状态空间定义、状态跳转、下一个状态判断、各个状态下的动作</li>
+</ul>
+<ol>
+<li>状态空间</li>
+</ol>
+<ul>
+<li><strong>所有状态的集合为状态空间</strong>，对每个状态编码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//独热码：每个状态只有一个寄存器置位，译码逻辑简单</span><br><span class="line">parameter APPLE    =   4&#x27;b1000;</span><br><span class="line">parameter ORANGE   =   4&#x27;b0100;</span><br><span class="line">parameter BANANA   =   4&#x27;b0010;</span><br><span class="line">parameter CHERRY   =   4&#x27;b0001;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>状态跳转(时序逻辑)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst_n)  begin</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下一个状态的判断(组合逻辑)</li>
+</ol>
+<ul>
+<li>用case语句判断当前状态，使用阻塞赋值</li>
+<li>if&#x2F;else要配对，避免latch(锁存器)的产生</li>
+</ul>
+<ol start="4">
+<li>各个状态下的动作</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//简单情况</span><br><span class="line">wire read_book;</span><br><span class="line">assign read_bool = (currentn_state == STUDY) ? 1&#x27;b1 : 1&#x27;b0</span><br><span class="line">//若状态描述较复杂</span><br><span class="line">always @ (currentn_state) begin</span><br><span class="line">    if(currentn_state == STUDY)</span><br><span class="line">        read_book = 1;</span><br><span class="line">    else</span><br><span class="line">        read_book = 0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="三段式状态机"><a href="#三段式状态机" class="headerlink" title="三段式状态机"></a>三段式状态机</h4><p>可以在组合逻辑后再增加一级寄存器来实现时序逻辑输出：</p>
+<ol>
+<li>可以有效滤去组合逻辑输出的毛刺</li>
+<li>进行时序计算和约束</li>
+<li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
+</ol>
 
       
     </div>
