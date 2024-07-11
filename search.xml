@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -34,28 +56,6 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -206,21 +206,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP32常用例程</title>
-    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>ESP32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ESP32 PWM输入捕获</title>
     <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
     <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
@@ -245,8 +230,41 @@
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
-        <tag>ESP32</tag>
         <tag>C++</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP32常用例程</title>
+    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP8266设置UDP透传</title>
+    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
+    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
+<li>+++不加换行退出透传</li>
+<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
+<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
+<li>查询端口IP：AT+CIFSR</li>
+<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
+<li>开启透传模式：AT+CIPSEND</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>小技巧</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -291,24 +309,6 @@
       <tags>
         <tag>Python</tag>
         <tag>Flow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ESP8266设置UDP透传</title>
-    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
-    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
-<li>+++不加换行退出透传</li>
-<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
-<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
-<li>查询端口IP：AT+CIFSR</li>
-<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
-<li>开启透传模式：AT+CIPSEND</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>小技巧</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -455,6 +455,35 @@
       </tags>
   </entry>
   <entry>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+]]></content>
+      <tags>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从零搭建hexo博客</title>
     <url>/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>B站up主Codesheep教程，无坑。<br><a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a></p>
@@ -500,35 +529,6 @@
 ]]></content>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
-]]></content>
-      <tags>
-        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -776,45 +776,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 1-Initial Contact</title>
-    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
-    <content><![CDATA[<blockquote>
-<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-</blockquote>
-<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
-<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
-<blockquote>
-<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
-</blockquote>
-<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
-<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
-<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
-<p>Agent干了什么呢？</p>
-<ul>
-<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
-<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
-</ul>
-<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
-<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
-<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
-<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
-</blockquote>
-<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
-<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
-<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
-<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
-<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
-<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>“OpenCV基础知识”</title>
     <url>/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h3 id="一、图像格式"><a href="#一、图像格式" class="headerlink" title="一、图像格式"></a>一、图像格式</h3><ol>
@@ -888,6 +849,45 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 1-Initial Contact</title>
+    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
+    <content><![CDATA[<blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+</blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RL Summary 2-Basic Concept</title>
     <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
     <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
@@ -945,6 +945,33 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
+    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
+    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
+<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
+<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
+<li><p>获取t时刻的状态值St和行为At</p>
+</li>
+<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
+</li>
+<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
+</li>
+<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
+</li>
+<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
+</li>
+<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
+</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RL Summary 4 - Policy-Based Reinforcement Learning</title>
     <url>/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/</url>
     <content><![CDATA[<h1 id="策略函数-π-a-s"><a href="#策略函数-π-a-s" class="headerlink" title="策略函数: π(a|s)"></a>策略函数: π(a|s)</h1><p>策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足<br>$$<br>\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1<br>$$<br>其中theta代表神经网络的参数。</p>
@@ -983,30 +1010,16 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
-    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
-    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
-<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
-<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
-<li><p>获取t时刻的状态值St和行为At</p>
-</li>
-<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
-</li>
-<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
-</li>
-<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
-</li>
-<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
-</li>
-<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
-</li>
-</ol>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
+    <title>Windows中的实用软件</title>
+    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
+<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
+<p>快捷键如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
-        <tag>Reinforcement Learning</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1035,19 +1048,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows中的实用软件</title>
-    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
-<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
-<p>快捷键如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1817,6 +1817,19 @@
       </tags>
   </entry>
   <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
+<p>} 变成了 &amp;#125</p>
+<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
+<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>小技巧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>函数模板与类模板</title>
     <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
     <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
@@ -1833,19 +1846,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
-    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
-<p>} 变成了 &amp;#125</p>
-<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
-<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>小技巧</tag>
       </tags>
   </entry>
   <entry>
@@ -2089,6 +2089,39 @@
       </tags>
   </entry>
   <entry>
+    <title>物联网手势控制小车所遇问题与解决方案</title>
+    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
+<p><strong>分析过程与解决方案</strong>：</p>
+<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
+<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
+<p>这不利于设置阈值判定手势。</p>
+<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
+<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
+<p><strong>解决方案</strong>：</p>
+<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32">多ESP32通信</a>。 该方法通过ESP私有协议<strong>ESP-NOW</strong>完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</p>
+<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
+<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
+<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
+<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
+<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
+<p>最终Arduino的数据发送代码段如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
+<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>Arduino</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习的可解释性</title>
     <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
     <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
@@ -2171,66 +2204,6 @@
       </tags>
   </entry>
   <entry>
-    <title>物联网手势控制小车所遇问题与解决方案</title>
-    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
-<p><strong>分析过程与解决方案</strong>：</p>
-<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
-<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
-<p>这不利于设置阈值判定手势。</p>
-<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
-<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
-<p><strong>解决方案</strong>：</p>
-<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32">多ESP32通信</a>。 该方法通过ESP私有协议<strong>ESP-NOW</strong>完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</p>
-<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
-<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
-<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
-<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
-<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
-<p>最终Arduino的数据发送代码段如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
-<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>Arduino</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行百里者半九十</title>
-    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
-    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
-<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
-<li><strong>心高气傲，轻敌大意</strong></li>
-</ul>
-<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
-<ul>
-<li><strong>优柔寡断，心生退意</strong></li>
-</ul>
-<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
-<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
-<li><strong>志同道合</strong></li>
-</ul>
-<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
-<ul>
-<li><strong>沟通交流</strong></li>
-</ul>
-<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
-<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
-<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
-]]></content>
-      <tags>
-        <tag>成长感悟</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>虚函数</title>
     <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
@@ -2269,6 +2242,33 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行百里者半九十</title>
+    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
+    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
+<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
+<li><strong>心高气傲，轻敌大意</strong></li>
+</ul>
+<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
+<ul>
+<li><strong>优柔寡断，心生退意</strong></li>
+</ul>
+<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
+<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
+<li><strong>志同道合</strong></li>
+</ul>
+<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
+<ul>
+<li><strong>沟通交流</strong></li>
+</ul>
+<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
+<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
+<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
+]]></content>
+      <tags>
+        <tag>成长感悟</tag>
       </tags>
   </entry>
 </search>

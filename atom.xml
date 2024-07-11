@@ -184,9 +184,9 @@
     
     <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-    <category term="ESP32" scheme="http://example.com/tags/ESP32/"/>
-    
     <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+    <category term="ESP32" scheme="http://example.com/tags/ESP32/"/>
     
   </entry>
   
