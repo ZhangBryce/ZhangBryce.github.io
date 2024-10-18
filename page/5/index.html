@@ -141,7 +141,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Bingyang"
-      src="/images/avatar.png">
+      src="/images/cat_badminton.png">
   <p class="site-author-name" itemprop="name">Bingyang</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -149,7 +149,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -189,137 +189,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Bingyang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Bingyang's Page">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/13/ML-Summary-HoW-to-optimize-the-network/" class="post-title-link" itemprop="url">ML Summary 4-How to optimize the network</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-13 08:51:29" itemprop="dateCreated datePublished" datetime="2022-01-13T08:51:29+08:00">2022-01-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-20 16:24:39" itemprop="dateModified" datetime="2022-01-20T16:24:39+08:00">2022-01-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
-<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
-<ol>
-<li>获取更多样本</li>
-<li>尝试较小的特征集</li>
-<li>增加正则化系数lambda</li>
-</ol>
-<p>修复高偏差(欠拟合)可采取如下措施</p>
-<ol>
-<li>增加额外的特征</li>
-<li>尝试更多多项式特征</li>
-<li>减少正则化系数lambda</li>
-</ol>
-<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
-<p>同理，可画出关于lambda的误差图像并进行分析</p>
-<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
-<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
-<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
-<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">P</th>
-<th align="center">R</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Algorithm1</td>
-<td align="center">0.5</td>
-<td align="center">0.4</td>
-</tr>
-<tr>
-<td align="center">Algorithm2</td>
-<td align="center">0.7</td>
-<td align="center">0.1</td>
-</tr>
-<tr>
-<td align="center">Algorithm3</td>
-<td align="center">0.02</td>
-<td align="center">1.0</td>
-</tr>
-</tbody></table>
-<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
-<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
-<li>使用一个有很多参数的学习算法</li>
-<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/10/Machine-learning-Summary-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -429,7 +302,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/06/Machine-Learning-Summary-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -518,7 +391,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -639,7 +512,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -754,7 +627,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -887,7 +760,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -961,7 +834,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -1055,7 +928,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -1132,7 +1005,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/cat_badminton.png">
       <meta itemprop="name" content="Bingyang">
     </span>
 
@@ -1179,6 +1052,98 @@
 <li>二值信号量和计数信号量之间的区别  </li>
 <li>如何利用队利在中断服务例程中把数据传入传出  </li>
 <li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat_badminton.png">
+      <meta itemprop="name" content="Bingyang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Bingyang's Page">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">FreeRTOS任务间通信方式——队列</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-08-26 09:58:47 / 修改时间：11:13:00" itemprop="dateCreated datePublished" datetime="2020-08-26T09:58:47+08:00">2020-08-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
+<li>优先级抢占式调度<ul>
+<li>每个任务都赋予了一个优先级</li>
+<li>每个任务都可以存在于一个或多个状态</li>
+<li>在任何时候都只有一个任务可以处于运行状态</li>
+<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+</ul>
+</li>
+<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
+<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
+</ol>
+<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
+<ol>
+<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
+</li>
+<li><p>如何创建一个队列</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
+</li>
+<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
+</li>
 </ol>
 
       
