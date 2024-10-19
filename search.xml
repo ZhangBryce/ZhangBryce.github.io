@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -34,28 +56,6 @@
 ]]></content>
       <tags>
         <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -144,31 +144,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Basic Component of Commonroad</title>
-    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
-<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
-<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
-
-<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
-<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
-<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
-
-<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
-<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
-<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
-
-<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-        <tag>Commonroad</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>The install of Docker</title>
     <url>/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="Windows系统下Docker的安装"><a href="#Windows系统下Docker的安装" class="headerlink" title="Windows系统下Docker的安装"></a>Windows系统下Docker的安装</h1><ul>
@@ -206,18 +181,28 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP32常用例程</title>
-    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Basic Component of Commonroad</title>
+    <url>/2022/02/22/Commonroad%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Commonroad基础组件简介"><a href="#Commonroad基础组件简介" class="headerlink" title="Commonroad基础组件简介"></a>Commonroad基础组件简介</h1><p>commonroad基础组件由Commonroad-IO和Commonroad-Scenario-Designer组成。Commonroad-IO为Commonroad所有组件的基石，通过IO函数可实现commonroad场景的读取，场景的修改，场景中车辆路径的写入。Commonroad-Scenario-Designer可以通过GUI界面设计Commonroad场景，Commonroad所有组件的均应用于Commonroad场景。Commonroad场景是一个xml文件，里面存储了车辆预设的路径。</p>
+<h1 id="Commonroad-IO"><a href="#Commonroad-IO" class="headerlink" title="Commonroad-IO"></a>Commonroad-IO</h1><p>Commonroad-IO官方教程链接为：<a href="https://commonroad.in.tum.de/commonroad-io">CommonRoad Input-Output (tum.de)</a>，</p>
+<p>在官方教程的可视化部分，只能逐帧输出图像。现利用plt.ion()函数修改教程中的绘图代码，实现连续绘图，将多帧图像在一个界面上连续显示，实现车辆在场景中运动的动态效果。绘图代码修改如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># plot the scenario</span></span><br><span class="line">plt.figure(figsize=(<span class="number">25</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># from block to interactive</span></span><br><span class="line">plt.ion()</span><br><span class="line"><span class="comment"># plot the scenario for 40 time step, here each time step corresponds to 0.1 second</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">40</span>):</span><br><span class="line">    rnd = MPRenderer()</span><br><span class="line">    <span class="comment"># plot the scenario at different time step</span></span><br><span class="line">    scenario.draw(rnd, draw_params=&#123;<span class="string">&#x27;time_begin&#x27;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># plot the planning problem set</span></span><br><span class="line">    planning_problem_set.draw(rnd)</span><br><span class="line">    rnd.render()</span><br><span class="line">    <span class="comment"># after 0.01 second, plot next scenario</span></span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line">    <span class="comment"># clear</span></span><br><span class="line">    plt.clf()</span><br></pre></td></tr></table></figure>
 
-<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>修改后运行效果图如下<br><img src="https://s2.loli.net/2022/02/22/Bwn3aeNfEruHMcK.gif"></p>
+<h1 id="Commonroad场景"><a href="#Commonroad场景" class="headerlink" title="Commonroad场景"></a>Commonroad场景</h1><p>Commonroad场景由一个地图，动态对象和静态对象组成。对于每一个动态对象，它在场景定义中都有一个轨迹（即在t时刻，坐标为(x, y)）。静态对象指定其坐标即可。</p>
+<p>安装commonroad_scenario_designer后，在terminal中运行以下两个命令中的一个即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crdesigner</span><br><span class="line">crdesigner gui</span><br></pre></td></tr></table></figure>
 
-<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
+<p>执行上述命令后，可以使用gui界面进行地图设计，GUI界面中可添加车道、交通灯等元素，并且可以对它们的属性进行修改。下图为我生成一个半径为10m的封闭圆环道路的场景。官方演示视频为：<a href="https://www.youtube.com/watch?v=qn0jBaMceAs&t=6s">CommonRoad Scenario Designer: GUI overview - YouTube</a><br><img src="https://s2.loli.net/2022/02/22/VhwoXflnuLmpz82.gif"></p>
+<p>可以看到，地图由坐标系组成。接下来需要向地图中添加动态对象与静态对象。官方教程为：<a href="https://commonroad.in.tum.de/tutorials/commonroad-interface">教程 - CommonRoad-IO - CommonRoad Interface (tum.de)</a></p>
+<p>对于静态对象和动态对象，用StaticObstacle函数和DynamicObstacle函数对对象进行生成。初始化代码中关键参数如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dynamic_obstacle = DynamicObstacle(dynamic_obstacle_id,</span><br><span class="line">                                   dynamic_obstacle_type,</span><br><span class="line">                                   dynamic_obstacle_shape,</span><br><span class="line">                                   dynamic_obstacle_initial_state,</span><br><span class="line">                                   dynamic_obstacle_prediction)</span><br><span class="line">                                   </span><br><span class="line">static_obstacle = StaticObstacle(static_obstacle_id,</span><br><span class="line">                                 static_obstacle_type,</span><br><span class="line">                                 static_obstacle_shape,</span><br><span class="line">                                 static_obstacle_initial_state)</span><br></pre></td></tr></table></figure>
+
+<p>对于每一个动态对象都要生成轨迹，轨迹参数存储在<strong>dynamic_obstacle_prediction</strong>对象中。</p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
-        <tag>ESP32</tag>
+        <tag>Reinforcement Learning</tag>
+        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -245,8 +230,23 @@
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
-        <tag>ESP32</tag>
         <tag>C++</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP32常用例程</title>
+    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>ESP32</tag>
       </tags>
   </entry>
   <entry>
@@ -407,6 +407,61 @@
       </tags>
   </entry>
   <entry>
+    <title>从零搭建hexo博客</title>
+    <url>/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>B站up主Codesheep教程，无坑。<br><a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a></p>
+<h1 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h1><ul>
+<li><p>git安装，从官网下载安装包并安装</p>
+</li>
+<li><p>Nodejs安装，从官网下载安装包并安装。在命令行中用node -v和npm -v来检查是否安装成功</p>
+</li>
+<li><p>换npm源为国内源大幅提高下载速度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用cnpm安装hexo博客框架</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>使用hexo -v检测是否安装成功</p>
+</li>
+</ul>
+<h1 id="生成博客"><a href="#生成博客" class="headerlink" title="生成博客"></a>生成博客</h1><ul>
+<li><p>创建一个空文件夹</p>
+</li>
+<li><p>进入空文件夹，打开命令行。推荐使用Git bash</p>
+</li>
+<li><p>在命令行中初始化一个hexo博客仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成hexo初始博客</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启hexo本地服务，可用来查看或调试页面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置好远程服务器地址或者Git仓库地址(github或者gitee)，使用下列命令将博客推送到服务器上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入服务器或者Git仓库页面，开启page服务。</p>
+</li>
+</ul>
+<h2 id="遇到的问题和解决方案"><a href="#遇到的问题和解决方案" class="headerlink" title="遇到的问题和解决方案"></a>遇到的问题和解决方案</h2><ul>
+<li><p>运行<code>hexo s</code>时，出现错误<code>Error: listen EACCES: permission denied 0.0.0.0:3000</code>。用<code>netstat -ano| findstr 3000</code>发现并没有其他程序占用该端口，转为管理员模式下启动命令行，依然不行，最终重启winnat服务解决，使用管理员权限运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">net stop winnat</span><br><span class="line">net start winnat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成categories页面后，categories总是空白页面。<br>这是因为，需要再categories目录下的index.md文件中正确添加<code>layout:配置文件名称</code>，这个配置文件名称是主题文件夹下，对应的els文件名称。</p>
+</li>
+</ul>
+<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><ul>
+<li>博客路径中不能包含**#**号，否则渲染页面时没有样式，或者出现其他错误。</li>
+<li>最新版本Nodejs的依赖包可能无法兼容，编译(生成)博客出错时可以尝试降低Nodejs版本。</li>
+<li>如果安装包安装完成，但是检查版本时显示无该命令，则需要把安装路径加入到环境变量。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FreeRTOS基础概念</title>
     <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>一些有意思的专用名词解释：</p>
@@ -516,87 +571,6 @@
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
 <li>PCA和线性拟合是完全不同的两种算法</li>
 <li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从零搭建hexo博客</title>
-    <url>/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>B站up主Codesheep教程，无坑。<br><a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩_bilibili</a></p>
-<h1 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h1><ul>
-<li><p>git安装，从官网下载安装包并安装</p>
-</li>
-<li><p>Nodejs安装，从官网下载安装包并安装。在命令行中用node -v和npm -v来检查是否安装成功</p>
-</li>
-<li><p>换npm源为国内源大幅提高下载速度</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用cnpm安装hexo博客框架</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>使用hexo -v检测是否安装成功</p>
-</li>
-</ul>
-<h1 id="生成博客"><a href="#生成博客" class="headerlink" title="生成博客"></a>生成博客</h1><ul>
-<li><p>创建一个空文件夹</p>
-</li>
-<li><p>进入空文件夹，打开命令行。推荐使用Git bash</p>
-</li>
-<li><p>在命令行中初始化一个hexo博客仓库</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成hexo初始博客</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启hexo本地服务，可用来查看或调试页面</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置好远程服务器地址或者Git仓库地址(github或者gitee)，使用下列命令将博客推送到服务器上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进入服务器或者Git仓库页面，开启page服务。</p>
-</li>
-</ul>
-<h2 id="遇到的问题和解决方案"><a href="#遇到的问题和解决方案" class="headerlink" title="遇到的问题和解决方案"></a>遇到的问题和解决方案</h2><ul>
-<li><p>运行<code>hexo s</code>时，出现错误<code>Error: listen EACCES: permission denied 0.0.0.0:3000</code>。用<code>netstat -ano| findstr 3000</code>发现并没有其他程序占用该端口，转为管理员模式下启动命令行，依然不行，最终重启winnat服务解决，使用管理员权限运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">net stop winnat</span><br><span class="line">net start winnat</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成categories页面后，categories总是空白页面。<br>这是因为，需要再categories目录下的index.md文件中正确添加<code>layout:配置文件名称</code>，这个配置文件名称是主题文件夹下，对应的els文件名称。</p>
-</li>
-</ul>
-<h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><ul>
-<li>博客路径中不能包含**#**号，否则渲染页面时没有样式，或者出现其他错误。</li>
-<li>最新版本Nodejs的依赖包可能无法兼容，编译(生成)博客出错时可以尝试降低Nodejs版本。</li>
-<li>如果安装包安装完成，但是检查版本时显示无该命令，则需要把安装路径加入到环境变量。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 5-How to use SVM</title>
-    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
-    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
-<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
-<ol>
-<li>参数C</li>
-<li>核函数</li>
-</ol>
-<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
-<h1 id="逻辑回归-SVM-神经网络"><a href="#逻辑回归-SVM-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
-<ul>
-<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
-<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
-<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
-</ul>
-<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
-<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
 </ul>
 ]]></content>
       <tags>
@@ -718,21 +692,25 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+    <title>ML Summary 5-How to use SVM</title>
+    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
+<ol>
+<li>参数C</li>
+<li>核函数</li>
+</ol>
+<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
+<h1 id="逻辑回归-SVM-神经网络"><a href="#逻辑回归-SVM-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
+<ul>
+<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
+<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
+<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
+</ul>
+<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
+<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
 </ul>
 ]]></content>
       <tags>
@@ -783,42 +761,25 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 1-Initial Contact</title>
-    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
-    <content><![CDATA[<blockquote>
-<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-</blockquote>
-<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
-<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
-<blockquote>
-<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
-</blockquote>
-<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
-<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
-<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
-<p>Agent干了什么呢？</p>
-<ul>
-<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
-<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
-</ul>
-<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
-<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
-<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
-<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
-</blockquote>
-<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
-<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
-<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
-<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
-<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
-<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
 </ul>
 ]]></content>
       <tags>
-        <tag>Reinforcement Learning</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -892,6 +853,45 @@
       <tags>
         <tag>Python</tag>
         <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RL Summary 1-Initial Contact</title>
+    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
+    <content><![CDATA[<blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+</blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -1017,19 +1017,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows中的实用软件</title>
-    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
-<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
-<p>快捷键如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>This指针</title>
     <url>/2022/03/23/This%E6%8C%87%E9%92%88/</url>
     <content><![CDATA[<p>先看这样一段代码。Hello类中声明了一个say_hello函数。say_hello函数返回字符串a，即“Hello_world”。主函数中定义Hello的对象H1和H2，并输出H1返回的“Hello world”</p>
@@ -1055,6 +1042,19 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows中的实用软件</title>
+    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
+<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
+<p>快捷键如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1233,6 +1233,25 @@
       </tags>
   </entry>
   <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1250,25 +1269,6 @@
 </ul>
 <h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
 ]]></content>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
       <tags>
         <tag>Altinum Designer</tag>
       </tags>
@@ -1512,50 +1512,6 @@
       </tags>
   </entry>
   <entry>
-    <title>系统任务和系统函数</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
-<li>$display(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后会加一个<strong>换行</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>$write(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后<strong>不会</strong>加换行</li>
-</ul>
-<ol start="3">
-<li>$strobe和$monltor</li>
-</ol>
-<ul>
-<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
-<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
-</ul>
-<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
-<li>$finish表示停止仿真</li>
-<li>$stop表示暂停仿真</li>
-</ol>
-<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
-<li>$time返回一个64位整数时间值</li>
-<li>$stime返回一个32位整数时间值</li>
-<li>$realtime返回一个实数时间值</li>
-<li>$timeformat控制时间的显示方式</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM32前期学习的一些知识点总结</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
@@ -1603,6 +1559,50 @@
       <tags>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>系统任务和系统函数</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
+<li>$display(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后会加一个<strong>换行</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>$write(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后<strong>不会</strong>加换行</li>
+</ul>
+<ol start="3">
+<li>$strobe和$monltor</li>
+</ol>
+<ul>
+<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
+<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
+</ul>
+<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
+<li>$finish表示停止仿真</li>
+<li>$stop表示暂停仿真</li>
+</ol>
+<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
+<li>$time返回一个64位整数时间值</li>
+<li>$stime返回一个32位整数时间值</li>
+<li>$realtime返回一个实数时间值</li>
+<li>$timeformat控制时间的显示方式</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <tags>
+        <tag>FPGA基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1850,6 +1850,25 @@
       </tags>
   </entry>
   <entry>
+    <title>函数模板与类模板</title>
+    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
+<ul>
+<li>函数模板在编译时不会生成</li>
+<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
+<li>函数指针指向模板的实例，并不指向模板本身</li>
+</ul>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>十进制转二进制写入文件</title>
     <url>/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
@@ -1882,35 +1901,6 @@
       </tags>
   </entry>
   <entry>
-    <title>函数模板与类模板</title>
-    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
-<ul>
-<li>函数模板在编译时不会生成</li>
-<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
-<li>函数指针指向模板的实例，并不指向模板本身</li>
-</ul>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变参数模板</title>
-    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>卡尔曼滤波器</title>
     <url>/2023/03/21/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
     <content><![CDATA[<p>C++代码如下：</p>
@@ -1921,6 +1911,16 @@
       <tags>
         <tag>C++</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>可变参数模板</title>
+    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1944,6 +1944,62 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串中分离出数字</title>
+    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
+<blockquote>
+<p>8532</p>
+</blockquote>
+<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用控制算法</title>
+    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.c文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中调用方式</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法总结</title>
+    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
+<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
+<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2026,59 +2082,30 @@
       </tags>
   </entry>
   <entry>
-    <title>常用控制算法</title>
-    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>步数检测--波峰检测算法</title>
+    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
+<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
+<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
+<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
+<ol>
+<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
+</li>
+<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
+</li>
+<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
+</li>
+</ol>
+<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
+<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
+<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>.c文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>主函数中调用方式</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
 ]]></content>
       <tags>
-        <tag>C++</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>排序算法总结</title>
-    <url>/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>每一步将一个待排序元素按其关键字值的大小插入到已排序序列的适当位置上，直到待排序元素插入完为止。</p>
-<h2 id="迭代实现"><a href="#迭代实现" class="headerlink" title="迭代实现"></a>迭代实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertionSort</span><span class="params">(T a[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="comment">//将下标1~n-1的元素依次插入到已排序序列的适当位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> j=i;</span><br><span class="line">		T temp = a[i];</span><br><span class="line">		<span class="keyword">while</span>(j&gt;<span class="number">0</span> &amp;&amp; temp&lt;a[j<span class="number">-1</span>])&#123;</span><br><span class="line">			a[j]=a[j<span class="number">-1</span>];</span><br><span class="line">			j--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[j]=temp;	<span class="comment">//插入位置已找到</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h2><p>递归程序性能并不一定最高效，但是易读性强。编写递归代码最关键的是找到<strong>基线条件</strong>和<strong>递归条件</strong>。基线条件是结束递归的条件，递归条件是继续递归调用的条件。</p>
-<p>对于插入排序，当只有只有一个元素，或者没有元素时，就可以不用排序了，这就是插入排序的<strong>基线条件</strong>。其他情况则递归。结合插入排序思想，代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：将a[n]插入到前面的数据中</span></span><br><span class="line">	T temp = a[n];</span><br><span class="line">	<span class="type">int</span> i = n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span> (i&gt;=<span class="number">0</span>&amp;&amp;temp&lt;a[i])</span><br><span class="line">	&#123;</span><br><span class="line">		a[i + <span class="number">1</span>] = a[i];</span><br><span class="line">		i--;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(T a[], <span class="type">int</span> n)</span> </span>&#123;		<span class="comment">//函数功能：选择排序，参数n为数组最后一个元素的下标</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1</span>) &#123;					<span class="comment">//递归条件，当下标大于等于1，即数组中有两个及两个以上数据时</span></span><br><span class="line">		<span class="built_in">InsertSort</span>(a, n - <span class="number">1</span>);		<span class="comment">//分解问题</span></span><br><span class="line">		<span class="built_in">Insert</span>(a, n);				<span class="comment">//把第n个数据插进去</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><p>从待排序序列中选择一个最小元素排在已排序序列的最后</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T &amp;a, T &amp;b)</span></span>&#123;</span><br><span class="line">	T temp=a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//选择排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">selectionSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> leastIndex=i;	<span class="comment">//初始化最小值下标</span></span><br><span class="line">        <span class="comment">//逐个比较</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[leastIndex])</span><br><span class="line">                leastIndex=j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">mySwap</span>(a[i], a[leastIndex]);<span class="comment">//将这一趟的最小值与a[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h1><p>两两比较待排序序列中的元素，并交换不满足顺序要求的<strong>各对</strong>元素</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//交换函数同上，此处略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//冒泡法交换排序</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">bubbleSort</span><span class="params">(T a[],<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> i=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="type">int</span> lastExchangeIndex=<span class="number">0</span>;	<span class="comment">//交换标志设置为0,表示未交换</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j+<span class="number">1</span>]&lt;a[j])&#123;</span><br><span class="line">                <span class="built_in">mySwap</span>(a[j], a[j+<span class="number">1</span>]);</span><br><span class="line">                lastExchangeIndex=j;</span><br><span class="line">            &#125;</span><br><span class="line">            i = lastExchangeIndex;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符串中分离出数字</title>
-    <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
-<blockquote>
-<p>8532</p>
-</blockquote>
-<p><strong>思路</strong>：递归的基线条件为<strong>字符串中没有元素了</strong>，递归条件为<strong>字符串中还有元素</strong>，每次递归擦除掉第一个数据，实现问题规模逐渐减小。使用引用作为形参，第一个参数为待处理字符串，第二个参数为承接处理结果的字符串。函数执行后，原字符串变为空字符串，结果字符串为数字，且为正序。在main函数中执行完提取操作后，使用reverse将数字字符串逆序，再输出。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Stringtonum</span><span class="params">(string&amp; a, string&amp; nums)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a.<span class="built_in">length</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[<span class="number">0</span>] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; a[<span class="number">0</span>] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">			nums += a[<span class="number">0</span>];</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			a.<span class="built_in">erase</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="built_in">Stringtonum</span>(a, nums);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string temp,nums;</span><br><span class="line">	<span class="built_in">getline</span>(cin, temp);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">Stringtonum</span>(temp, nums);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;result:&quot;</span> &lt;&lt; nums &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2112,30 +2139,36 @@
       </tags>
   </entry>
   <entry>
-    <title>步数检测--波峰检测算法</title>
-    <url>/2020/10/17/%E6%AD%A5%E6%95%B0%E6%A3%80%E6%B5%8B-%E6%B3%A2%E5%B3%B0%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="一、研究背景"><a href="#一、研究背景" class="headerlink" title="一、研究背景"></a>一、研究背景</h1><p>2020年全国大学生电子设计大赛中，A题中有一个小项目为步数检测，这让我开始了计步算法的探究。通过查阅文献，最后选择陈国良团队《一种基于自适应波峰检测的MEMS计步算法》一文中提及的波峰检测算法为基础思路，编写了基础的步数检测代码。</p>
-<h1 id="二、算法实现"><a href="#二、算法实现" class="headerlink" title="二、算法实现"></a>二、算法实现</h1><h3 id="1-基础思路"><a href="#1-基础思路" class="headerlink" title="1. 基础思路"></a>1. 基础思路</h3><p>通过对人体行走特征进行分析，人行走频率一般在1Hz到2.5Hz 范围内，跑步时频率不超过 5Hz，加速度在0.2g~2g之间。由于跑动时步频较大，15 Hz 和20 Hz 的加速度采样频率无法完整地记录步态信息，本算法选取 50 Hz 采样频率采集加速度数据 。由于人在行走时，空间加速度会有明显的波峰出现，则可以通过波峰检测来读取步数。</p>
-<p>首先选取一定范围的采样点，如20个采样点来取最大值，找出潜在波峰。</p>
-<p>而真实波峰检测上为避免伪波峰被误检测，需要经过3次滤波：</p>
-<ol>
-<li><p>行走时，总加速度值会大于某个数值。大于该数值则有可能为真实波峰。当然，考虑到算法可移植性，不同的加速度传感器的加速度值可能不同，则移植到新的硬件平台上需要重新标定阈值。</p>
-</li>
-<li><p>人正常行走的时间是在一定频率范围内的，论文中指出时间差满足时间阈值[0.3 s, 0.8 s]为正常态。则将潜在峰值与前一波峰比较，如果时间在该范围内，则为正常行走时间间隔。</p>
-</li>
-<li><p>将潜在波峰与前后相邻10个数据点进行比较，若潜在波峰仍为最大值，则该波峰为真实波峰，否则，退出检测。</p>
-<p><img src="https://img-blog.csdnimg.cn/20201018165416280.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70#pic_center" alt="算法流程图"></p>
-</li>
-</ol>
-<h3 id="2-算法难点及注意事项"><a href="#2-算法难点及注意事项" class="headerlink" title="2. 算法难点及注意事项"></a>2. 算法难点及注意事项</h3><p>（1）不同传感器因为自身性能原因，需要解决陀螺仪传感器的数据漂移。<br><strong>解决方案</strong>：将传感器传回来的x，y，z轴加速度数据平方求和，减小单个方向加速度数据产生的误差。</p>
-<p>（2）要进行波峰检测，需要确保数据实时传入且存储，需要用<strong>队列</strong>这一数据结构来存储数据，确保数据的时间顺序不出差错。<br><strong>解决方案</strong>：构建队列存储、读取数据，实现FIFO(先进先出)功能。</p>
-<h3 id="3-总体代码思路"><a href="#3-总体代码思路" class="headerlink" title="3.总体代码思路"></a>3.总体代码思路</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">uint16_t</span> WALK_COUNT=<span class="number">0</span>;<span class="comment">//初始步数记为0</span></span><br><span class="line"><span class="comment">//uint16_t Real_Peak_position=0;//真实波峰的时间节点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">max_info</span> <span class="title">maxvalue</span>[2];</span><span class="comment">//至少要3个最大值，最大值均需与前后两个波峰比较,人为设置0为前一值，1为现在值，2为后一值</span></span><br><span class="line"><span class="type">uint8_t</span> value_right=<span class="number">0</span>,time_right=<span class="number">0</span>,before_after_right=<span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> walk_distance=<span class="number">0</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">walk_step</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    data_get_once();</span><br><span class="line"></span><br><span class="line">    maxvalue[<span class="number">1</span>]=find_max(a,<span class="number">20</span>);<span class="comment">//找到20个历元的滑动窗口中的潜在峰值</span></span><br><span class="line">    <span class="keyword">if</span>((maxvalue[<span class="number">1</span>].value&gt;MIN_G_SPEED)&amp;&amp;(maxvalue[<span class="number">1</span>].value&lt;MAX_G_SPEED))</span><br><span class="line">    &#123;</span><br><span class="line">         value_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(time_judge(maxvalue[<span class="number">1</span>].position,maxvalue[<span class="number">0</span>].position))</span><br><span class="line">    &#123;</span><br><span class="line">        time_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(before_after_judge(maxvalue[<span class="number">1</span>].value,before,after))</span><br><span class="line">    &#123;</span><br><span class="line">        before_after_right=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	time_right=<span class="number">1</span>;<span class="comment">//我的算法中未采用时间间隔滤波，因为实际测量可能会出现丢步的情况</span></span><br><span class="line">    <span class="keyword">if</span>(value_right&amp;&amp;time_right&amp;&amp;before_after_right)</span><br><span class="line">    &#123;</span><br><span class="line">        WALK_COUNT++;</span><br><span class="line">        maxvalue[<span class="number">0</span>].value=maxvalue[<span class="number">1</span>].value;<span class="comment">//更新上一波峰值，为下一次波峰比对做准备</span></span><br><span class="line">        maxvalue[<span class="number">0</span>].position=maxvalue[<span class="number">1</span>].position; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//如果不符合要求</span></span><br><span class="line">    &#123;</span><br><span class="line">        maxvalue[<span class="number">1</span>].position+=<span class="number">20</span>;<span class="comment">//上一个波峰位置加20</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">		value_right=<span class="number">0</span>;</span><br><span class="line">		time_right=<span class="number">0</span>;</span><br><span class="line">		before_after_right=<span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		walk_distance=WALK_COUNT*<span class="number">0.60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>物联网手势控制小车所遇问题与解决方案</title>
+    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
+<p><strong>分析过程与解决方案</strong>：</p>
+<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-硬件传感器"><a href="#4-硬件传感器" class="headerlink" title="4. 硬件传感器"></a>4. 硬件传感器</h3><p>加速度传感器选用正点原子ATK-IMU901模块，设置采样频率为50hz。</p>
-<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>算法总体思路清晰简介，能实际应用再测算步数的最主要原因是，硬件结构即陀螺仪的数据稳定。若使用噪声大，数据易漂移传感器，如MPU6050，应进行数据滤波使数据保持稳定再来考虑算法实现。如采用进行DMP结算或者原始数据读取卡尔曼滤波等。</p>
+<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
+<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
+<p>这不利于设置阈值判定手势。</p>
+<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
+<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
+<p><strong>解决方案</strong>：</p>
+<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32">多ESP32通信</a>。 该方法通过ESP私有协议<strong>ESP-NOW</strong>完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</p>
+<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
+<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
+<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
+<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
+<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
+<p>最终Arduino的数据发送代码段如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
+<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
-        <tag>算法</tag>
+        <tag>嵌入式</tag>
+        <tag>Arduino</tag>
       </tags>
   </entry>
   <entry>
@@ -2191,36 +2224,30 @@
       </tags>
   </entry>
   <entry>
-    <title>物联网手势控制小车所遇问题与解决方案</title>
-    <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
-<p><strong>分析过程与解决方案</strong>：</p>
-<h4 id="1-是否IIC地址不对"><a href="#1-是否IIC地址不对" class="headerlink" title="1.是否IIC地址不对"></a>1.是否IIC地址不对</h4><p>使用以下代码扫描IIC总线上的设备，发现LCD1602的IIC地址并没有配置错误</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">#include &lt;Arduino.h&gt;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  Wire.begin();</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  Serial.println(&quot;\nI2C Scanner&quot;);</span><br><span class="line">&#125;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  byte error, address;</span><br><span class="line">  int nDevices;</span><br><span class="line">  Serial.println(&quot;Scanning...&quot;);</span><br><span class="line">  nDevices = 0;</span><br><span class="line">  for (address = 1; address &lt; 127; address++ )&#123;</span><br><span class="line">    // The i2c_scanner uses the return value of</span><br><span class="line">    // the Write.endTransmisstion to see if</span><br><span class="line">    // a device did acknowledge to the address.</span><br><span class="line">    Wire.beginTransmission(address);</span><br><span class="line">    error = Wire.endTransmission();</span><br><span class="line">    if (error == 0)&#123;</span><br><span class="line">      Serial.print(&quot;I2C device found at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.print(address, HEX);</span><br><span class="line">      Serial.println(&quot; !&quot;);</span><br><span class="line">      nDevices++;</span><br><span class="line">    &#125;else if (error == 4)&#123;</span><br><span class="line">      Serial.print(&quot;Unknow error at address 0x&quot;);</span><br><span class="line">      if (address &lt; 16)</span><br><span class="line">        Serial.print(&quot;0&quot;);</span><br><span class="line">      Serial.println(address, HEX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (nDevices == 0)</span><br><span class="line">    Serial.println(&quot;No I2C devices found\n&quot;);</span><br><span class="line">  else</span><br><span class="line">    Serial.println(&quot;done\n&quot;);</span><br><span class="line">  delay(5000); // wait 5 seconds for next scan</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-硬件电路是否连接错误"><a href="#2-硬件电路是否连接错误" class="headerlink" title="2.硬件电路是否连接错误"></a>2.硬件电路是否连接错误</h4><p>检查原理图后，发现IIC模块背部有调光旋钮，使用螺丝刀旋转该旋钮，背光减弱，可以正常观察到显示的数据，代码并没有错误，最后问题成功解决。</p>
-<h3 id="手势识别问题"><a href="#手势识别问题" class="headerlink" title="手势识别问题"></a>手势识别问题</h3><p><strong>问题描述</strong>：通过DMP库读取MPU6050的姿态角后，通过上位机观察陀螺仪翻转时的姿态数据，发现当向后翻转时，姿态角数据反向增大后，再逐渐恢复正常值，现象如下图黄线所示：<br><img src="https://s2.loli.net/2023/05/28/IEyu9gZYrPaGfen.png" alt="陀螺仪数据.png"></p>
-<p>这不利于设置阈值判定手势。</p>
-<p><strong>解决方案</strong>：通过与同伴交流，发现应该在陀螺仪初始化时将其正向放置，即遵循电路板上丝印进行静止初始化，即可实现，向后翻转，数据直接增大至稳定值。</p>
-<h3 id="通讯延时问题"><a href="#通讯延时问题" class="headerlink" title="通讯延时问题"></a>通讯延时问题</h3><p><strong>问题描述</strong>：使用UDP进行两块ESP32间的通信，但控制延时较大，且发送数据过快时，会出现更大的延时。</p>
-<p><strong>解决方案</strong>：</p>
-<h4 id="1-通讯方式选择"><a href="#1-通讯方式选择" class="headerlink" title="1.通讯方式选择"></a>1.通讯方式选择</h4><p>ESP32中的UDP通信原理是将自己作为UDP服务器，并通过调用库函数实现数据传输。但UDP处于计算机网络中的传输层(第四层)，通信双方每次传输均需要两次数据封装与解封操作。经过仔细阅读任务文档，发现了多ESP32的通讯实例：<a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32">多ESP32通信</a>。 该方法通过ESP私有协议<strong>ESP-NOW</strong>完成通信，传输时只需要知晓一方的MAC地址即可完成双向通信，这意味着该协议处于数据链路层，减少了数据封装过程，因此通讯速率有所提升。经测试，从UDP更换为ESP-NOW通信后，通信延时减少了一秒。</p>
-<h4 id="2-数据发送频率"><a href="#2-数据发送频率" class="headerlink" title="2.数据发送频率"></a>2.数据发送频率</h4><p>原始代码中，在遥控端，每隔100ms发送一次控制数据。</p>
-<p>当无线通讯(ESP32间通讯)速率大于串口转发速率时，会导致遥控端发送的控制数据在小车端的ESP32和Arduino间堆积，即数据占满了串口缓存区。由于串口读取数据较慢，会导致实时的控制指令无法被实时接收，由此产生控制延时。于是减少控制数据的发送频率，通过判定上一次控制指令与当前指令是否相同来决定是否发送数据，若相同，则不发送，若不同，则发送数据。</p>
-<p>修改后，控制延时大幅减小，能实现控制延时在1秒内。</p>
-<h3 id="字符串传输与解析"><a href="#字符串传输与解析" class="headerlink" title="字符串传输与解析"></a>字符串传输与解析</h3><p><strong>问题描述</strong>：Arduino需要向ESP32传输温度、湿度、距离数据，实现数据上云。</p>
-<p><strong>解决方案</strong>：确定通讯协议如下：A[温度数据],[湿度数据],[距离数据]F，如温度23摄氏度，湿度40%，距离50厘米即可传输字符串：A23,40,50F。其中字母A和F是数据标志位。</p>
-<p>最终Arduino的数据发送代码段如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(humidity);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(temperature);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">Serial.<span class="built_in">print</span>(distance);</span><br><span class="line">Serial.<span class="built_in">print</span>(<span class="string">&#x27;F&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>其中humidity，temperature,  distance为获取的传感器数据。</p>
-<p>ESP32端先接收数据到receive字符串数组中，然后使用strtok，atoi，atof函数将字符串中的传感器数据转换为float和int型。整体处理代码如下</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="comment">//接收数据</span></span><br><span class="line">  <span class="keyword">if</span>(Serial2.<span class="built_in">available</span>())&#123;</span><br><span class="line">    <span class="keyword">while</span>(Serial2.<span class="built_in">available</span>())<span class="comment">//读完串口中的所有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">      receive[i++]=Serial2.<span class="built_in">read</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/***调试用***/</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I receive this:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(receive);</span><br><span class="line">    i=<span class="number">0</span>;  <span class="comment">//清零，方便下一次读取数据</span></span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="string">&quot;I split this:&quot;</span>);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    <span class="built_in">data_process</span>(receive);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//data_process函数原型如下</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">data_process</span><span class="params">(<span class="type">char</span> *data)</span></span>&#123;</span><br><span class="line">  <span class="type">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span>(data[j]!=<span class="string">&#x27;F&#x27;</span>)&#123;</span><br><span class="line">    j++;</span><br><span class="line">  &#125;</span><br><span class="line">  data[j]=<span class="string">&#x27;\0&#x27;</span>;   <span class="comment">//字符串的结束标志位，方便后续strtok准确地分离数据</span></span><br><span class="line">  <span class="type">char</span> *p;</span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *d = <span class="string">&quot;,&quot;</span>;</span><br><span class="line">  <span class="comment">//分离字符数据</span></span><br><span class="line">  p = <span class="built_in">strtok</span>((data+i+<span class="number">1</span>),d);</span><br><span class="line">  <span class="type">float</span> hum = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">float</span> tem = <span class="built_in">atof</span>(p);</span><br><span class="line">  p = <span class="built_in">strtok</span>(<span class="literal">NULL</span>,d);</span><br><span class="line">  <span class="type">int</span> dis = <span class="built_in">atoi</span>(p);</span><br><span class="line">  Serial.<span class="built_in">printf</span>(<span class="string">&quot;%f,%f,%d\n&quot;</span>,hum,tem,dis);</span><br><span class="line">  Number1.<span class="built_in">print</span>(hum);	<span class="comment">//Blinker中BlinkerNumber的对象，用于上传数据至云端</span></span><br><span class="line">  Number2.<span class="built_in">print</span>(tem);</span><br><span class="line">  Number3.<span class="built_in">print</span>(dis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+    <title>行百里者半九十</title>
+    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
+    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
+<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
+<li><strong>心高气傲，轻敌大意</strong></li>
+</ul>
+<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
+<ul>
+<li><strong>优柔寡断，心生退意</strong></li>
+</ul>
+<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
+<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
+<li><strong>志同道合</strong></li>
+</ul>
+<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
+<ul>
+<li><strong>沟通交流</strong></li>
+</ul>
+<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
+<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
+<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
-        <tag>Arduino</tag>
+        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -2252,33 +2279,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行百里者半九十</title>
-    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
-    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
-<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
-<li><strong>心高气傲，轻敌大意</strong></li>
-</ul>
-<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
-<ul>
-<li><strong>优柔寡断，心生退意</strong></li>
-</ul>
-<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
-<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
-<li><strong>志同道合</strong></li>
-</ul>
-<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
-<ul>
-<li><strong>沟通交流</strong></li>
-</ul>
-<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
-<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
-<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
-]]></content>
-      <tags>
-        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
