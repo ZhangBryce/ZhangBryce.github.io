@@ -1,8 +1,8 @@
+http://example.com/publications/index.html
 http://example.com/2022/03/10/Alphago/
 http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/
 http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/
 http://example.com/categories/index.html
-http://example.com/publications/index.html
 http://example.com/tags/index.html
 http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/
 http://example.com/2024/07/08/git/
@@ -74,8 +74,8 @@ http://example.com/tags/%E5%B7%A5%E5%85%B7/
 http://example.com/tags/Commonroad/
 http://example.com/tags/Docker/
 http://example.com/tags/Python/
-http://example.com/tags/C/
 http://example.com/tags/ESP32/
+http://example.com/tags/C/
 http://example.com/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/
 http://example.com/tags/STM32/
 http://example.com/tags/Flow/
