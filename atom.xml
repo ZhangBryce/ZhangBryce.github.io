@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-07-11T09:44:43.147Z</updated>
+  <updated>2024-10-20T11:40:56.479Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2024/07/08/git/"/>
     <id>http://example.com/2024/07/08/git/</id>
     <published>2024-07-08T03:47:05.000Z</published>
-    <updated>2024-07-11T09:44:43.147Z</updated>
+    <updated>2024-10-20T11:40:56.479Z</updated>
     
     
       
@@ -34,6 +34,8 @@
       
     
     
+    
+    <category term="软件应用笔记" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="工具" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7/"/>
@@ -69,7 +71,7 @@
     <link href="http://example.com/2023/07/21/Clash%E9%85%8D%E7%BD%AE/"/>
     <id>http://example.com/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</id>
     <published>2023-07-21T01:53:25.000Z</published>
-    <updated>2023-07-21T01:53:59.242Z</updated>
+    <updated>2024-10-20T11:40:46.802Z</updated>
     
     
       
@@ -81,6 +83,8 @@
       
     
     
+    
+    <category term="软件应用笔记" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="工具" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7/"/>
@@ -143,7 +147,7 @@
     <link href="http://example.com/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/"/>
     <id>http://example.com/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</id>
     <published>2023-07-01T06:54:24.000Z</published>
-    <updated>2023-07-01T07:30:50.733Z</updated>
+    <updated>2024-10-20T11:47:57.761Z</updated>
     
     
       
@@ -155,6 +159,8 @@
       
     
     
+    
+    <category term="个人感悟" scheme="http://example.com/categories/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/"/>
     
     
     <category term="C++" scheme="http://example.com/tags/C/"/>
@@ -246,7 +252,7 @@
     <link href="http://example.com/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/"/>
     <id>http://example.com/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</id>
     <published>2023-05-25T01:47:14.000Z</published>
-    <updated>2023-05-25T01:53:31.273Z</updated>
+    <updated>2024-10-20T11:47:11.937Z</updated>
     
     
       
@@ -259,6 +265,8 @@
       
     
     
+    
+    <category term="软件应用笔记" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="工具" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7/"/>
@@ -295,7 +303,7 @@
     <link href="http://example.com/2023/03/22/string%E6%80%BB%E7%BB%93/"/>
     <id>http://example.com/2023/03/22/string%E6%80%BB%E7%BB%93/</id>
     <published>2023-03-22T02:34:45.000Z</published>
-    <updated>2023-03-22T03:04:36.413Z</updated>
+    <updated>2024-10-20T08:21:58.982Z</updated>
     
     
       
@@ -309,6 +317,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="C++" scheme="http://example.com/tags/C/"/>
@@ -708,7 +718,7 @@
     <link href="http://example.com/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
     <id>http://example.com/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</id>
     <published>2022-02-19T05:02:01.000Z</published>
-    <updated>2022-02-24T15:30:26.356Z</updated>
+    <updated>2024-10-20T11:40:49.942Z</updated>
     
     
       
@@ -720,6 +730,8 @@
       
     
     
+    
+    <category term="软件应用笔记" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
@@ -760,7 +772,7 @@
     <link href="http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/"/>
     <id>http://example.com/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/</id>
     <published>2022-02-17T01:11:06.000Z</published>
-    <updated>2022-03-04T01:31:02.945Z</updated>
+    <updated>2024-10-20T08:21:54.218Z</updated>
     
     
       
@@ -773,6 +785,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
     
@@ -783,7 +797,7 @@
     <link href="http://example.com/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/"/>
     <id>http://example.com/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</id>
     <published>2022-02-15T05:01:18.000Z</published>
-    <updated>2022-04-19T07:54:52.656Z</updated>
+    <updated>2024-10-20T08:21:51.627Z</updated>
     
     
       
@@ -797,6 +811,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
     
@@ -807,7 +823,7 @@
     <link href="http://example.com/2022/02/12/RL-Summary-2-Basic-Concept/"/>
     <id>http://example.com/2022/02/12/RL-Summary-2-Basic-Concept/</id>
     <published>2022-02-12T02:53:40.000Z</published>
-    <updated>2022-02-12T04:25:25.033Z</updated>
+    <updated>2024-10-20T08:21:48.623Z</updated>
     
     
       
@@ -822,6 +838,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
@@ -858,7 +876,7 @@
     <link href="http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/"/>
     <id>http://example.com/2022/02/08/RL-Summary-1-Initial-Contact/</id>
     <published>2022-02-08T02:26:00.000Z</published>
-    <updated>2022-02-08T05:50:12.197Z</updated>
+    <updated>2024-10-20T08:21:45.858Z</updated>
     
     
       
@@ -871,6 +889,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Reinforcement Learning" scheme="http://example.com/tags/Reinforcement-Learning/"/>
@@ -933,7 +953,7 @@
     <link href="http://example.com/2022/01/20/ML-Summary-6-Clustering/"/>
     <id>http://example.com/2022/01/20/ML-Summary-6-Clustering/</id>
     <published>2022-01-20T03:08:09.000Z</published>
-    <updated>2022-01-20T03:38:17.206Z</updated>
+    <updated>2024-10-20T08:21:36.757Z</updated>
     
     
       
@@ -947,6 +967,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -957,7 +979,7 @@
     <link href="http://example.com/2022/01/16/ML-Summary5-How-to-use-SVM/"/>
     <id>http://example.com/2022/01/16/ML-Summary5-How-to-use-SVM/</id>
     <published>2022-01-16T02:50:39.000Z</published>
-    <updated>2022-01-20T08:07:09.162Z</updated>
+    <updated>2024-10-20T08:21:39.627Z</updated>
     
     
       
@@ -970,6 +992,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -980,7 +1004,7 @@
     <link href="http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/"/>
     <id>http://example.com/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</id>
     <published>2022-01-13T00:51:29.000Z</published>
-    <updated>2022-01-20T08:24:39.043Z</updated>
+    <updated>2024-10-20T08:21:33.819Z</updated>
     
     
       
@@ -993,6 +1017,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -1003,7 +1029,7 @@
     <link href="http://example.com/2022/01/10/Machine-learning-Summary-3/"/>
     <id>http://example.com/2022/01/10/Machine-learning-Summary-3/</id>
     <published>2022-01-10T10:17:30.000Z</published>
-    <updated>2022-01-20T08:08:14.067Z</updated>
+    <updated>2024-10-20T08:21:30.943Z</updated>
     
     
       
@@ -1016,6 +1042,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -1026,7 +1054,7 @@
     <link href="http://example.com/2022/01/06/Machine-Learning-Summary-2/"/>
     <id>http://example.com/2022/01/06/Machine-Learning-Summary-2/</id>
     <published>2022-01-06T03:38:30.000Z</published>
-    <updated>2022-01-10T13:05:43.438Z</updated>
+    <updated>2024-10-20T08:21:28.171Z</updated>
     
     
       
@@ -1039,6 +1067,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -1049,7 +1079,7 @@
     <link href="http://example.com/2022/01/04/Machine%20Learning%20Summary%201/"/>
     <id>http://example.com/2022/01/04/Machine%20Learning%20Summary%201/</id>
     <published>2022-01-04T05:18:00.000Z</published>
-    <updated>2022-01-16T08:51:09.439Z</updated>
+    <updated>2024-10-20T08:21:22.929Z</updated>
     
     
       
@@ -1062,6 +1092,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Machine Learning" scheme="http://example.com/tags/Machine-Learning/"/>
     
@@ -1072,7 +1104,7 @@
     <link href="http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     <id>http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
     <published>2021-12-31T16:00:00.000Z</published>
-    <updated>2024-10-19T01:54:42.277Z</updated>
+    <updated>2024-10-20T11:41:00.508Z</updated>
     
     
       
@@ -1085,6 +1117,8 @@
     
     
     
+    <category term="软件应用笔记" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="hexo" scheme="http://example.com/tags/hexo/"/>
     
@@ -1095,7 +1129,7 @@
     <link href="http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://example.com/2021/01/21/OpenCV%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
     <published>2021-01-21T02:28:51.000Z</published>
-    <updated>2021-01-21T03:51:40.896Z</updated>
+    <updated>2024-10-20T08:21:43.168Z</updated>
     
     
       
@@ -1107,6 +1141,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Python" scheme="http://example.com/tags/Python/"/>
@@ -1280,7 +1316,7 @@
     <link href="http://example.com/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/"/>
     <id>http://example.com/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</id>
     <published>2020-08-21T02:51:30.000Z</published>
-    <updated>2020-08-21T03:03:03.519Z</updated>
+    <updated>2024-10-20T11:48:35.930Z</updated>
     
     
       
@@ -1293,8 +1329,35 @@
     
     
     
+    <category term="个人感悟" scheme="http://example.com/categories/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/"/>
+    
     
     <category term="成长感悟" scheme="http://example.com/tags/%E6%88%90%E9%95%BF%E6%84%9F%E6%82%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AD基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:14.522Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
     
   </entry>
   
@@ -1326,22 +1389,29 @@
   </entry>
   
   <entry>
-    <title>AD基础操作</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <title>AD输出坐标文件及网表</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:52.995Z</updated>
+    <updated>2024-10-20T08:20:31.663Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
+&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1</summary>
         
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
@@ -1353,7 +1423,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:37.282Z</updated>
+    <updated>2024-10-20T08:20:39.201Z</updated>
     
     
       
@@ -1366,6 +1436,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
     
@@ -1376,7 +1448,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:47.645Z</updated>
+    <updated>2024-10-20T08:20:23.019Z</updated>
     
     
       
@@ -1389,6 +1461,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
@@ -1421,39 +1495,11 @@
   </entry>
   
   <entry>
-    <title>AD输出坐标文件及网表</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:41.233Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
-&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Verilog程序框架</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-18T14:33:17.844Z</updated>
+    <updated>2024-10-20T08:20:52.221Z</updated>
     
     
       
@@ -1466,6 +1512,8 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
     
@@ -1476,7 +1524,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2023-08-16T11:57:27.978Z</updated>
+    <updated>2024-10-20T08:20:54.131Z</updated>
     
     
       
@@ -1489,56 +1537,10 @@
     
     
     
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>状态机</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:17.707Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
-        
-      
-    
-    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>STM32前期学习的一些知识点总结</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:04.108Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
   </entry>
   
@@ -1547,7 +1549,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T03:01:09.619Z</updated>
+    <updated>2024-10-20T08:20:58.301Z</updated>
     
     
       
@@ -1560,8 +1562,62 @@
     
     
     
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
     
     <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>状态机</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:56.112Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STM32前期学习的一些知识点总结</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:21:00.860Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;【学习笔记】STM32前期学习的一些知识点总结&quot;&gt;&lt;a href=&quot;#【学习笔记】STM32前期学习的一些知识点总结&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
     
   </entry>
   
@@ -1570,7 +1626,7 @@
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9FRT-Thread%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2020-08-05T02:49:43.263Z</updated>
+    <updated>2024-10-20T08:21:05.992Z</updated>
     
     
       
@@ -1583,6 +1639,8 @@
       
     
     
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
