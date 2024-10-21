@@ -563,7 +563,7 @@
             </div>
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:refresh-3-fill" ></iconify-icon>
-              Edited: <time class="w-max">2024-10-20</time>
+              Edited: <time class="w-max">2024-10-21</time>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-x-3 gap-y-3">
@@ -573,7 +573,7 @@
             <!-- Word count -->
             <span class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:book-2-fill" ></iconify-icon>
-              <span>522 words, 1 min</span>
+              <span>659 words, 2 min</span>
             </span>
             <!-- Categories -->
             
@@ -658,10 +658,12 @@
 </li>
 </ul>
 <h2 id="遇到的问题和解决方案"><a href="#遇到的问题和解决方案" class="headerlink" title="遇到的问题和解决方案"></a>遇到的问题和解决方案</h2><ul>
-<li><p>运行<code>hexo s</code>时，出现错误<code>Error: listen EACCES: permission denied 0.0.0.0:3000</code>。用<code>netstat -ano| findstr 3000</code>发现并没有其他程序占用该端口，转为管理员模式下启动命令行，依然不行，最终重启winnat服务解决，使用管理员权限运行：</p>
+<li><p>运行<code>hexo s</code>时，出现错误<code>Error: listen EACCES: permission denied 0.0.0.0:3000</code>。用<code>netstat -ano| findstr 3000</code>发现并没有其他程序占用该端口，转为管理员模式下启动命令行，依然不行。<br><strong>解决方案：</strong>重启winnat服务解决，使用管理员权限运行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop winnat</span><br><span class="line">net start winnat</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>生成categories页面后，categories总是空白页面。<br>这是因为，需要再categories目录下的index.md文件中正确添加<code>layout:配置文件名称</code>，这个配置文件名称是主题文件夹下，对应的els文件名称。</p>
+<li><p>生成categories页面后，categories总是空白页面。<br><strong>解决方案：</strong>需要再categories目录下的index.md文件中正确添加<code>layout:配置文件名称</code>，这个配置文件名称是主题文件夹下，对应的els文件名称。</p>
+</li>
+<li><p>想要把图片分类到md文件下的文件夹，使用<code>hexo-asset-image</code>插件，_config.yml文件中已经将<code>post_asset_folder</code>设置为<code>true</code>。<br><strong>解决方案：</strong>卸载hexo-asset-image插件，使用<code>hexo-asset-img</code>。<strong>注意：</strong>在md文件中索引图片的路径应该改成<code>![example](与md文件同名文件夹/example.jpg)</code>，这个文件格式不可以是其他形式，连<code>[example](./与md文件同名文件夹/example.jpg)</code>都不行。这样再生成，html文件就有正确的图片路径索引，图片正常显示。</p>
 </li>
 </ul>
 <h1 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h1><ul>

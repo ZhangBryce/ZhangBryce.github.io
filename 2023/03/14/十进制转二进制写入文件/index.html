@@ -623,11 +623,11 @@
 <h1 id="字符输入"><a href="#字符输入" class="headerlink" title="字符输入"></a>字符输入</h1><p><strong>方案一</strong>：使用cin输入</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">cin&gt;&gt;n;</span><br></pre></td></tr></table></figure>
 
-<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></string></p>
+<p><strong>方案二</strong>：使用getline输入，该函数需要包含头文件<string></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//istream &amp;is为输入流，如cin; sting &amp;str为承接输入的字符串; delim为停止输入的字符，默认参数为&#x27;\n&#x27;</span></span><br><span class="line"><span class="function">istream&amp; <span class="title">getline</span> <span class="params">( istream &amp;is , string &amp;str , <span class="type">char</span> delim )</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p><strong>方案比较</strong>：需要进行进制转换，使用<strong>方案一</strong>读取数据至整形变量，再转换为二进制数据，最后将二进制数据转换为字符串。</p>
-<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</string></p>
+<h1 id="十进制正整数转化为二进制字符串"><a href="#十进制正整数转化为二进制字符串" class="headerlink" title="十进制正整数转化为二进制字符串"></a>十进制正整数转化为二进制字符串</h1><p>该过程分为两步，<strong>第一步</strong>为十进制数转化为二进制数，通过对2取余，可依次得到二进制数的逆序。<strong>第二步</strong>为整数转化为字符串，使用to_string函数，该函数需要包含头文件<string>。</p>
 <h1 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h1><p>使用输入输出流<code>fstream</code>完成文件写入操作，它的子集<code>ofstream</code>为输出流，<code>ifstream</code>为输入流。需要注意的是，<code>fstream::open</code>的函数原型如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span> <span class="params">(<span class="type">const</span> <span class="type">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out)</span></span>;</span><br></pre></td></tr></table></figure>
 
