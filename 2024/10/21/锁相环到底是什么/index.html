@@ -32,7 +32,7 @@
   <meta name="keywords" content="Badminton, Motor Control">
 
 
-<title>系统任务和系统函数 | Bingyang&#39;s Page</title>
+<title>锁相环到底是什么 | Bingyang&#39;s Page</title>
 
 
 
@@ -549,7 +549,7 @@
     <div class="flex flex-col gap-2 pt-4 md:pt-6">
       <!-- Title -->
       <div id="article-title" class="leading-snug">
-        <p class="text-3xl font-bold text-[var(--c-100)] mb-4">系统任务和系统函数</p>
+        <p class="text-3xl font-bold text-[var(--c-100)] mb-4">锁相环到底是什么</p>
       </div>
       <!-- Meta data -->
       <div>
@@ -559,11 +559,11 @@
             <!-- Dates -->
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:add-circle-fill" ></iconify-icon>
-              Created: <time class="w-max">2020-08-04</time>
+              Created: <time class="w-max">2024-10-21</time>
             </div>
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:refresh-3-fill" ></iconify-icon>
-              Edited: <time class="w-max">2024-10-20</time>
+              Edited: <time class="w-max">2024-10-21</time>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-x-3 gap-y-3">
@@ -573,7 +573,7 @@
             <!-- Word count -->
             <span class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:book-2-fill" ></iconify-icon>
-              <span>290 words, 1 min</span>
+              <span>874 words, 3 min</span>
             </span>
             <!-- Categories -->
             
@@ -595,7 +595,7 @@
 <div class="flex flex-wrap gap-1">
   
     
-      <a href="/tags/FPGA%E5%9F%BA%E7%A1%80/" 
+      <a href="/tags/%E7%94%B5%E6%9C%BA/" 
         class="
           tag
           text-sm
@@ -612,7 +612,7 @@
           dark:hover:text-[var(--c-10)]
           dark:hover:bg-[var(--c-theme)]
         ">
-        FPGA基础
+        电机
       </a>
     
   
@@ -622,41 +622,27 @@
   </header>
   <!-- content -->
   <article class="post-content prose m-auto dark:prose-invert">
-    <h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
-<li>$display(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后会加一个<strong>换行</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>$write(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后<strong>不会</strong>加换行</li>
-</ul>
-<ol start="3">
-<li>$strobe和$monltor</li>
-</ol>
-<ul>
-<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
-<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
-</ul>
-<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
-<li>$finish表示停止仿真</li>
-<li>$stop表示暂停仿真</li>
-</ol>
-<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
-<li>$time返回一个64位整数时间值</li>
-<li>$stime返回一个32位整数时间值</li>
-<li>$realtime返回一个实数时间值</li>
-<li>$timeformat控制时间的显示方式</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
-
+    <p>最开始了解到锁相环，是在学习STM32时钟系统时，听说有个锁相环(Phase-Locked Loop, PLL)结构可以将原始晶振信号倍频，比如，你的外置高速晶振是16MHz，那么经过锁相环之后，就可以变成32，64或者128MHz。后来，学习电机控制的时候，同门说可以用锁相环进行速度信号跟踪，求解出速度信号。我就非常疑惑，锁相环在我的认知中，应该是一个硬件电路，为什么软件上也可以实现锁相环呢，这个软件上实现的锁相环和STM32中用来倍频的锁相环有什么区别呢。那么这篇博客，就将详细解释硬件锁相环，软件用来跟踪信号的锁相环，以及两者的异同。</p>
+<h1 id="硬件锁相环"><a href="#硬件锁相环" class="headerlink" title="硬件锁相环"></a>硬件锁相环</h1><blockquote>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fb4y1H7gv/?spm_id_from=333.337.search-card.all.click&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">锁相环基本工作原理</a></p>
+</blockquote>
+<h2 id="锁相环基本工作原理"><a href="#锁相环基本工作原理" class="headerlink" title="锁相环基本工作原理"></a>锁相环基本工作原理</h2><p>硬件中的锁相环是一个能够比较输入和输出相位差的反馈系统，利用外部输入的参考信号控制环路内部震荡信号的频率和相位，使震荡信号同步至参考信号。其框图如下所示：</p>
+<p><img src="/.com//image-20241021145244446.png" alt="锁相环基本结构"></p>
+<p>由于鉴相器的输出$V_{PD}$包含高频噪声和低频信号，所以使用低通滤波器去除噪声，这样得到的输出电压$V_{cont}$就可以去调节压控振荡器的频率。$V_{in}$和$V_{out}$误差越大，$V_{cont}$就越大，VCO就震荡得越快，$V_{out}$就逐渐追赶上$V_{in}$。一段时间后，$V_{in}$和$V_{out}$频率相同，$V_{cont}$就会恢复未开始追赶频率的状态。信号的变化过程如下图所示</p>
+<p><img src="/.com//image-20241021150031248.png" alt="原始信号与跟踪信号"></p>
+<h2 id="硬件锁相环的应用"><a href="#硬件锁相环的应用" class="headerlink" title="硬件锁相环的应用"></a>硬件锁相环的应用</h2><h3 id="频率合成器"><a href="#频率合成器" class="headerlink" title="频率合成器"></a>频率合成器</h3><p>前言提到，STM32中通过PLL就可以实现信号倍频，那它是怎么实现的呢？诶，结构框图如下：<br><img src="/.com//image-20241021150559527.png" alt="修改后的锁相环1"></p>
+<p>通过M和N的选择，可以实现$f_{out}$频率相对于输入频率$f_{ref}$的倍频或分频。例如，当$f_{ref}&#x3D;16MHz$，$N&#x3D;2$，$M&#x3D;1$时，此时输出信号的频率就为$f_{out}&#x3D;32MHz$，实现了二倍频。将M和N数值互换，就实现了二分频。</p>
+<h3 id="数据恢复与数据重定时"><a href="#数据恢复与数据重定时" class="headerlink" title="数据恢复与数据重定时"></a>数据恢复与数据重定时</h3><p> 数据从发送端到接收端，由于通信线路干扰，可能会出现数据失真现象。在锁相环中，把数据作为输入参考，然后产生与数据能同步的时钟，就能实现数据恢复。图中的DATA信号就是数据的重定时信号，CLK信号就是恢复出的时钟信号。</p>
+<p><img src="/.com//image-20241021151042008.png" alt="修改后的锁相环2"></p>
+<h1 id="软件锁相环"><a href="#软件锁相环" class="headerlink" title="软件锁相环"></a>软件锁相环</h1><blockquote>
+<p>参考文献：《现代永磁同步电机控制原理及MATLAB仿真》袁雷</p>
+</blockquote>
+<p>在经过学习后，我发现软件锁相环和硬件锁相环并没有本质区别，或者说，软件锁相环只不过是硬件锁相环数字化后的形式。下图是在永磁同步电机无传感器控制中用来跟踪电机位置的基于锁相环的滑膜观测器，其中$E_\alpha,E_\beta$是静止坐标轴的反电动势。</p>
+<p><img src="/.com//image-20241021165623144.png" alt="基于锁相环的滑膜观测器"></p>
+<p>在$0-\frac{\pi}{6}$角度内经过简化后，其简化后框图如下图所示：</p>
+<p><img src="/.com//image-20241021165245484.png" alt="简化后的PLL位置观测器"></p>
+<p>可以看出，其中间部分就是一个PI调节器。</p>
+<p>那么，可以暂时理解为，软件的锁相环，就是通过跟踪误差来实现的观测器。</p>
 
   </article>
 
@@ -667,22 +653,10 @@
   ">
     <div>
       
-        <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"
-          class="
-            transition-all
-            flex justify-center
-            hover:-translate-x-1
-            hover:text-[var(--c-80)]
-          ">
-          <iconify-icon width="20" icon="mingcute:left-fill" data-inline="false">
-          </iconify-icon>
-          状态机
-        </a>
-      
     </div>
     <div>
       
-        <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"
+        <a href="/2024/07/08/git/"
           class="
             flex 
             justify-center
@@ -691,7 +665,7 @@
             hover:text-[var(--c-100)]
           "
         >
-          STM32前期学习的一些知识点总结
+          git使用笔记
           <iconify-icon width="20" icon="mingcute:right-fill" data-inline="false"></iconify-icon>
         </a>
       
