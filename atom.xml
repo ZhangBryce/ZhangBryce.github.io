@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-10-21T15:13:46.717Z</updated>
+  <updated>2024-10-22T10:15:29.041Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>高端检测与低端检测</title>
+    <link href="http://example.com/2024/10/22/%E9%AB%98%E7%AB%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E4%BD%8E%E7%AB%AF%E6%A3%80%E6%B5%8B/"/>
+    <id>http://example.com/2024/10/22/%E9%AB%98%E7%AB%AF%E6%A3%80%E6%B5%8B%E4%B8%8E%E4%BD%8E%E7%AB%AF%E6%A3%80%E6%B5%8B/</id>
+    <published>2024-10-22T05:39:37.000Z</published>
+    <updated>2024-10-22T10:15:29.041Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在电机电流环控制中，需要检测电机三相电流，实现三相电流重建。电流采样方案则分为高端检测和低端检测。&lt;strong&gt;低端检测&lt;/strong&gt;即在近地端附加采样电阻，用运算放大器读取采样电阻上的电压，根据欧姆定律得到流过采样电阻的电流，以此实现电流检测。&lt;strong&gt;高端检</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="电路" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF/"/>
+    
+    
+    <category term="电机" scheme="http://example.com/tags/%E7%94%B5%E6%9C%BA/"/>
+    
+    <category term="电流采样" scheme="http://example.com/tags/%E7%94%B5%E6%B5%81%E9%87%87%E6%A0%B7/"/>
+    
+    <category term="电路" scheme="http://example.com/tags/%E7%94%B5%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>锁相环到底是什么</title>
     <link href="http://example.com/2024/10/21/%E9%94%81%E7%9B%B8%E7%8E%AF%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/"/>
     <id>http://example.com/2024/10/21/%E9%94%81%E7%9B%B8%E7%8E%AF%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/</id>
     <published>2024-10-21T06:35:07.000Z</published>
-    <updated>2024-10-21T15:13:46.717Z</updated>
+    <updated>2024-10-22T02:25:50.964Z</updated>
     
     
       
@@ -1129,7 +1160,7 @@
     <link href="http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     <id>http://example.com/2022/01/01/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
     <published>2021-12-31T16:00:00.000Z</published>
-    <updated>2024-10-21T15:21:20.731Z</updated>
+    <updated>2024-10-21T15:18:37.940Z</updated>
     
     
       
@@ -1414,31 +1445,6 @@
   </entry>
   
   <entry>
-    <title>智能PDF导出</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:39.201Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;1-文件——智能PDF&quot;&gt;&lt;a href=&quot;#1-文件——智能PDF&quot; class=&quot;headerlink&quot; title=&quot;1. 文件——智能PDF&quot;&gt;&lt;/a&gt;1. 文件——智能PDF&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
-    
-  </entry>
-  
-  <entry>
     <title>AD输出Gerber文件</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
@@ -1452,6 +1458,31 @@
         
     <summary type="html">&lt;p&gt;我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件&lt;/p&gt;
 &lt;h1 id=&quot;1-文件——制造输出——Gerber-Files&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>智能PDF导出</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:39.201Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-文件——智能PDF&quot;&gt;&lt;a href=&quot;#1-文件——智能PDF&quot; class=&quot;headerlink&quot; title=&quot;1. 文件——智能PDF&quot;&gt;&lt;/a&gt;1. 文件——智能PDF&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
         
       
     
@@ -1495,31 +1526,6 @@
   </entry>
   
   <entry>
-    <title>Verilog程序框架</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:52.221Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Verilog语法</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/</id>
@@ -1545,18 +1551,18 @@
   </entry>
   
   <entry>
-    <title>状态机</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</id>
+    <title>Verilog程序框架</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:56.112Z</updated>
+    <updated>2024-10-20T08:20:52.221Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
+    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -1582,6 +1588,31 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>状态机</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%804%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:56.112Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
         
       
     
