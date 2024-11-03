@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-11-03T14:27:53.863Z</updated>
+  <updated>2024-11-03T14:31:21.683Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/"/>
     <id>http://example.com/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/</id>
     <published>2024-11-03T13:54:11.000Z</published>
-    <updated>2024-11-03T14:27:53.863Z</updated>
+    <updated>2024-11-03T14:31:21.683Z</updated>
     
     
       
@@ -1439,6 +1439,31 @@
   </entry>
   
   <entry>
+    <title>AD基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:14.522Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>__FPU_PRESENT重定义出现大量警告</title>
     <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
     <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
@@ -1466,18 +1491,18 @@
   </entry>
   
   <entry>
-    <title>AD基础操作</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <title>智能PDF导出</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:14.522Z</updated>
+    <updated>2024-10-20T08:20:39.201Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;1-文件——智能PDF&quot;&gt;&lt;a href=&quot;#1-文件——智能PDF&quot; class=&quot;headerlink&quot; title=&quot;1. 文件——智能PDF&quot;&gt;&lt;/a&gt;1. 文件——智能PDF&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
         
       
     
@@ -1491,18 +1516,19 @@
   </entry>
   
   <entry>
-    <title>智能PDF导出</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</id>
+    <title>AD输出Gerber文件</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:39.201Z</updated>
+    <updated>2024-10-20T08:20:23.019Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-文件——智能PDF&quot;&gt;&lt;a href=&quot;#1-文件——智能PDF&quot; class=&quot;headerlink&quot; title=&quot;1. 文件——智能PDF&quot;&gt;&lt;/a&gt;1. 文件——智能PDF&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+    <summary type="html">&lt;p&gt;我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件&lt;/p&gt;
+&lt;h1 id=&quot;1-文件——制造输出——Gerber-Files&quot;&gt;&lt;a</summary>
         
       
     
@@ -1546,32 +1572,6 @@
   </entry>
   
   <entry>
-    <title>AD输出Gerber文件</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:23.019Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件&lt;/p&gt;
-&lt;h1 id=&quot;1-文件——制造输出——Gerber-Files&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Verilog语法</title>
     <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/"/>
     <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%801%E2%80%94%E2%80%94Veriog%E8%AF%AD%E6%B3%95/</id>
@@ -1584,31 +1584,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、逻辑值&quot;&gt;&lt;a href=&quot;#一、逻辑值&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Verilog语句</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:54.131Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
         
       
     
@@ -1659,6 +1634,31 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、状态机概念-State-Machine&quot;&gt;&lt;a href=&quot;#一、状态机概念-State-Machine&quot; class=&quot;headerlink&quot; title=&quot;一、状态机概念(State Machine)&quot;&gt;&lt;/a&gt;一、状态机概念(State</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Verilog语句</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:54.131Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、结构语句&quot;&gt;&lt;a href=&quot;#一、结构语句&quot; class=&quot;headerlink&quot; title=&quot;一、结构语句&quot;&gt;&lt;/a&gt;一、结构语句&lt;/h2&gt;&lt;h4 id=&quot;initial和always&quot;&gt;&lt;a href=&quot;#initial和always&quot;</summary>
         
       
     

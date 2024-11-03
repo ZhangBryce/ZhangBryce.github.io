@@ -37,6 +37,28 @@
       </tags>
   </entry>
   <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Arduino基础功能例程</title>
     <url>/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/</url>
     <content><![CDATA[<p>开发环境：PlatformIO</p>
@@ -96,28 +118,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>The install of Commonroad-rl</title>
     <url>/2022/02/17/Commonroad-rl%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="基础环境搭建"><a href="#基础环境搭建" class="headerlink" title="基础环境搭建"></a>基础环境搭建</h1><p>commonroad-rl框架目前不支持windows系统，请使用mac、linux或docker构建环境。我使用的系统环境为：</p>
@@ -172,35 +172,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP32 PWM输入捕获</title>
-    <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
-    <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
-<p>方案一为直接修改飞控内部代码，方案二为通过外部设备模拟遥控器信号控制飞控。方案一需要对内部代码较为熟悉，而飞控代码较为复杂，修改代码难度较高。方案二则需要读取遥控器信号，经过自定义控制逻辑后，再输出遥控器信号控制无人机。方案二相对简单易行，本文使用ESP32作为遥控器与飞控的”中间人“，主要讲解使用ESP32读取遥控器信号。</p>
-<p>硬件开发板：LolinLite ESP32</p>
-<p>编程环境：PlatformIO</p>
-<h1 id="脉宽读取"><a href="#脉宽读取" class="headerlink" title="脉宽读取"></a>脉宽读取</h1><p>ESP32内部有脉冲宽度计数器(Pulse Counter)，通过计算高低电平的持续时间来实现脉冲宽度读取。在PlatformIO编程环境中，使用ESP32 for Arduino库进行开发时，没有对应的库<a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/libraries.html#supported-peripherals">^1</a>，因此需要自己编写库函数。搜索后移植某项目<a href="https://blog.csdn.net/jasper_JA/article/details/103366988">^2</a>后成功实现脉宽读取。在移植过程中遇到如下问题：</p>
-<ol>
-<li><p>原项目中代码报错：<code>error: invalid conversion from &#39;int&#39; to &#39;gpio_num_t&#39; [-fpermissive]</code><br>原代码为：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN 25   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
-
-<p>修改为<a href="https://www.esp32.com/viewtopic.php?t=1591">^3</a>:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN GPIO_NUM_15   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原项目中第108行代码报错：<code>[invalid conversion from void* to void(*)(void*)[-fpermissive\]](https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive)</code><br>原代码为：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure>
-
-<p>修改为<a href="https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive">^4</a>：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, (<span class="built_in">void</span> (*)(<span class="type">void</span> *))isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>修改后成功上传编译，能从串口输出高电平的持续时间。于是可以判断出遥控器拨杆在哪个档位，以此实现自定义控制功能。若想实现占空比检测，可设置脉宽计数器在上升沿和下降沿都可触发，触发后进入回调函数时判断引脚的当前电平，即可实现占空比计算。</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>C++</tag>
-        <tag>ESP32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>The install of Docker</title>
     <url>/2022/02/19/Docker%20%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="Windows系统下Docker的安装"><a href="#Windows系统下Docker的安装" class="headerlink" title="Windows系统下Docker的安装"></a>Windows系统下Docker的安装</h1><ul>
@@ -241,6 +212,35 @@
       </tags>
   </entry>
   <entry>
+    <title>ESP32 PWM输入捕获</title>
+    <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
+    <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
+<p>方案一为直接修改飞控内部代码，方案二为通过外部设备模拟遥控器信号控制飞控。方案一需要对内部代码较为熟悉，而飞控代码较为复杂，修改代码难度较高。方案二则需要读取遥控器信号，经过自定义控制逻辑后，再输出遥控器信号控制无人机。方案二相对简单易行，本文使用ESP32作为遥控器与飞控的”中间人“，主要讲解使用ESP32读取遥控器信号。</p>
+<p>硬件开发板：LolinLite ESP32</p>
+<p>编程环境：PlatformIO</p>
+<h1 id="脉宽读取"><a href="#脉宽读取" class="headerlink" title="脉宽读取"></a>脉宽读取</h1><p>ESP32内部有脉冲宽度计数器(Pulse Counter)，通过计算高低电平的持续时间来实现脉冲宽度读取。在PlatformIO编程环境中，使用ESP32 for Arduino库进行开发时，没有对应的库<a href="https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/libraries.html#supported-peripherals">^1</a>，因此需要自己编写库函数。搜索后移植某项目<a href="https://blog.csdn.net/jasper_JA/article/details/103366988">^2</a>后成功实现脉宽读取。在移植过程中遇到如下问题：</p>
+<ol>
+<li><p>原项目中代码报错：<code>error: invalid conversion from &#39;int&#39; to &#39;gpio_num_t&#39; [-fpermissive]</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN 25   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://www.esp32.com/viewtopic.php?t=1591">^3</a>:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> GPIO_CAP0_IN GPIO_NUM_15   <span class="comment">//Set GPIO 25 as  CAP0</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原项目中第108行代码报错：<code>[invalid conversion from void* to void(*)(void*)[-fpermissive\]](https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive)</code><br>原代码为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure>
+
+<p>修改为<a href="https://stackoverflow.com/questions/18278127/invalid-conversion-from-void-to-voidvoid-fpermissive">^4</a>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mcpwm_isr_register</span>(MCPWM_UNIT_0, (<span class="built_in">void</span> (*)(<span class="type">void</span> *))isr_handler, <span class="literal">NULL</span>, ESP_INTR_FLAG_IRAM, <span class="literal">NULL</span>);  <span class="comment">//Set ISR Handler</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>修改后成功上传编译，能从串口输出高电平的持续时间。于是可以判断出遥控器拨杆在哪个档位，以此实现自定义控制功能。若想实现占空比检测，可设置脉宽计数器在上升沿和下降沿都可触发，触发后进入回调函数时判断引脚的当前电平，即可实现占空比计算。</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>C++</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ESP32常用例程</title>
     <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -253,6 +253,24 @@
       <tags>
         <tag>嵌入式</tag>
         <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP8266设置UDP透传</title>
+    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
+    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
+<li>+++不加换行退出透传</li>
+<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
+<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
+<li>查询端口IP：AT+CIFSR</li>
+<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
+<li>开启透传模式：AT+CIPSEND</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>小技巧</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -300,24 +318,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP8266设置UDP透传</title>
-    <url>/2020/10/17/ESP8266%E8%AE%BE%E7%BD%AEUDP%E9%80%8F%E4%BC%A0/</url>
-    <content><![CDATA[<h1 id="ESP8266UDP模式配置"><a href="#ESP8266UDP模式配置" class="headerlink" title="ESP8266UDP模式配置"></a>ESP8266UDP模式配置</h1><ol>
-<li>+++不加换行退出透传</li>
-<li>设置成wifi模式：AT+CWMODE&#x3D;3</li>
-<li>连接wifi：AT+CWJAP&#x3D;”WITEAA”,”asdfghjkl”</li>
-<li>查询端口IP：AT+CIFSR</li>
-<li>方案一：不保存设置，此次有效：UDP+远端IP+远端端口+本端端口（随便设置，在那范围且不冲突就行）:<br>AT+CIPSTART&#x3D;”UDP”,”192.168.0.103”,686,787<br>方案二：保存设置至flash中：1是保持透传，远端IP，远端端口,UDP，本端端口<br>（注意远端IP需要查看电脑IP）<br>AT+SAVETRANSLINK&#x3D;1,”192.168.0.106”,686,”UDP”,787</li>
-<li>开启透传模式：AT+CIPSEND</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>小技巧</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flow--交通网络仿真框架的安装</title>
     <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
@@ -362,24 +362,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FreeRTOS中断管理</title>
-    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
-<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
-<li>延迟中断方案是处何实现的  </li>
-<li>如何创建和使用二值信号量以及计数信号量  </li>
-<li>二值信号量和计数信号量之间的区别  </li>
-<li>如何利用队利在中断服务例程中把数据传入传出  </li>
-<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FreeRTOS任务间通信方式——队列</title>
     <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
     <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
@@ -404,6 +386,24 @@
 </li>
 <li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
 </li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS中断管理</title>
+    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
+<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
+<li>延迟中断方案是处何实现的  </li>
+<li>如何创建和使用二值信号量以及计数信号量  </li>
+<li>二值信号量和计数信号量之间的区别  </li>
+<li>如何利用队利在中断服务例程中把数据传入传出  </li>
+<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
 </ol>
 ]]></content>
       <tags>
@@ -547,48 +547,6 @@
 ]]></content>
       <tags>
         <tag>Commonroad</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 6-Clustering</title>
-    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
-    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
-<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
-<ol>
-<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
-<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
-<li>将“数值中心点”确定为下一次循环的中心点</li>
-</ol>
-<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>数据压缩</li>
-<li>数据可视化</li>
-<li>减少存储空间</li>
-<li>加速算法</li>
-</ul>
-<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
-<ol>
-<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
-</li>
-<li><p>对数据进行归一化处理</p>
-</li>
-<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
-</li>
-<li><p>计算特征向量，使用svd库函数</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用特征向量对样本数据降维</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>PCA和线性拟合是完全不同的两种算法</li>
-<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -741,6 +699,48 @@
       </tags>
   </entry>
   <entry>
+    <title>ML Summary 6-Clustering</title>
+    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
+    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
+<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
+<ol>
+<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
+<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
+<li>将“数值中心点”确定为下一次循环的中心点</li>
+</ol>
+<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>数据压缩</li>
+<li>数据可视化</li>
+<li>减少存储空间</li>
+<li>加速算法</li>
+</ul>
+<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
+<ol>
+<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
+</li>
+<li><p>对数据进行归一化处理</p>
+</li>
+<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
+</li>
+<li><p>计算特征向量，使用svd库函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用特征向量对样本数据降维</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>PCA和线性拟合是完全不同的两种算法</li>
+<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ML Summary 2-Classification</title>
     <url>/2022/01/06/Machine-Learning-Summary-2/</url>
     <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
@@ -809,14 +809,6 @@
       </categories>
       <tags>
         <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Odrivel控制指令记录</title>
-    <url>/2024/10/22/Odrivel%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>Odrive</tag>
       </tags>
   </entry>
   <entry>
@@ -896,63 +888,11 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 2-Basic Concept</title>
-    <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
-    <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
-<thead>
-<tr>
-<th align="center"><strong>名词</strong></th>
-<th align="center">Agent</th>
-<th align="center">Environment</th>
-<th align="center">State</th>
-<th align="center">Action</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">行动的主体</td>
-<td align="center">主体所在的环境</td>
-<td align="center">主体与所处环境的状态 s</td>
-<td align="center">主体做出的行为 a</td>
-</tr>
-<tr>
-<td align="center"><strong>名词</strong></td>
-<td align="center"><strong>Reward</strong></td>
-<td align="center"><strong>Policy</strong></td>
-<td align="center"><strong>State transition</strong></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><strong>解释</strong></td>
-<td align="center">回报 r</td>
-<td align="center">主体根据回报做出动作所遵循的规则  π(a|s)</td>
-<td align="center">状态转换，知道当前状态和行为，预测下一个状态 p(s^|s,a)</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<ul>
-<li>Policy的作用是从包含所有action的集合中抽样，取出Agent要做的action。</li>
-<li>状态转移是随机的，因为环境是随机的，而玩家对环境并无全面了解。</li>
-<li>强化学习的随机性来自于<strong>行为</strong>和<strong>状态转移</strong>。<strong>行为</strong>是由policy抽样得到的，具有随机性。状态转移随机性见上一条。</li>
-</ul>
-<h1 id="Return-and-Value"><a href="#Return-and-Value" class="headerlink" title="Return and Value"></a>Return and Value</h1><ul>
-<li><p>Return是回报，是所有的奖励之和，它的随机性来自于对未来的不确定。回报用U表示：<br>$$<br>U_t&#x3D;R_t+\gamma R_{t+1}+\gamma^2R_{t+2}+…<br>$$</p>
-</li>
-<li><p>Action-value function是行动价值函数，它是针对Ut求期望，它能在知道当前状态和行为时，根据policy函数告诉我们当前动作是好是坏。它用Q表示：<br>$$<br>Q_\pi(s_t,a_t)&#x3D;E[U_t|s_t,a_t]<br>$$</p>
-</li>
-<li><p>Optimal action-value function是最大行动价值函数，它把行动价值函数中的policy函数消掉了。它告诉我们，不管你使用怎样的policy，根据t时刻的状态和行为，你最多能得到多少回报。它的表示如下<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi Q_\pi(s_t,a_t)<br>$$</p>
-</li>
-<li><p>State-value function是状态价值函数，它针对行动价值函数求期望，把A消掉了。它能根据当前状态告诉你场上的局势，例如在围棋中，它能告诉你，你是快赢了还是快输了。它的表示如下<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]<br>$$</p>
-</li>
-</ul>
-<h1 id="强化学习在干什么"><a href="#强化学习在干什么" class="headerlink" title="强化学习在干什么"></a>强化学习在干什么</h1><p>一个简单的循环为：第t个状态下—-&gt;Agent做动作—-&gt;环境更新为第t+1个状态，给Agent第t个奖励，直到游戏结束。</p>
-<p>强化学习就是学习policy或者Optimal action-value function，有两者中的一个，就能控制agent。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
+    <title>Odrivel控制指令记录</title>
+    <url>/2024/10/22/Odrivel%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[]]></content>
       <tags>
-        <tag>Reinforcement Learning</tag>
+        <tag>Odrive</tag>
       </tags>
   </entry>
   <entry>
@@ -1097,6 +1037,66 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 2-Basic Concept</title>
+    <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
+    <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
+<thead>
+<tr>
+<th align="center"><strong>名词</strong></th>
+<th align="center">Agent</th>
+<th align="center">Environment</th>
+<th align="center">State</th>
+<th align="center">Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>解释</strong></td>
+<td align="center">行动的主体</td>
+<td align="center">主体所在的环境</td>
+<td align="center">主体与所处环境的状态 s</td>
+<td align="center">主体做出的行为 a</td>
+</tr>
+<tr>
+<td align="center"><strong>名词</strong></td>
+<td align="center"><strong>Reward</strong></td>
+<td align="center"><strong>Policy</strong></td>
+<td align="center"><strong>State transition</strong></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><strong>解释</strong></td>
+<td align="center">回报 r</td>
+<td align="center">主体根据回报做出动作所遵循的规则  π(a|s)</td>
+<td align="center">状态转换，知道当前状态和行为，预测下一个状态 p(s^|s,a)</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Policy的作用是从包含所有action的集合中抽样，取出Agent要做的action。</li>
+<li>状态转移是随机的，因为环境是随机的，而玩家对环境并无全面了解。</li>
+<li>强化学习的随机性来自于<strong>行为</strong>和<strong>状态转移</strong>。<strong>行为</strong>是由policy抽样得到的，具有随机性。状态转移随机性见上一条。</li>
+</ul>
+<h1 id="Return-and-Value"><a href="#Return-and-Value" class="headerlink" title="Return and Value"></a>Return and Value</h1><ul>
+<li><p>Return是回报，是所有的奖励之和，它的随机性来自于对未来的不确定。回报用U表示：<br>$$<br>U_t&#x3D;R_t+\gamma R_{t+1}+\gamma^2R_{t+2}+…<br>$$</p>
+</li>
+<li><p>Action-value function是行动价值函数，它是针对Ut求期望，它能在知道当前状态和行为时，根据policy函数告诉我们当前动作是好是坏。它用Q表示：<br>$$<br>Q_\pi(s_t,a_t)&#x3D;E[U_t|s_t,a_t]<br>$$</p>
+</li>
+<li><p>Optimal action-value function是最大行动价值函数，它把行动价值函数中的policy函数消掉了。它告诉我们，不管你使用怎样的policy，根据t时刻的状态和行为，你最多能得到多少回报。它的表示如下<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi Q_\pi(s_t,a_t)<br>$$</p>
+</li>
+<li><p>State-value function是状态价值函数，它针对行动价值函数求期望，把A消掉了。它能根据当前状态告诉你场上的局势，例如在围棋中，它能告诉你，你是快赢了还是快输了。它的表示如下<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]<br>$$</p>
+</li>
+</ul>
+<h1 id="强化学习在干什么"><a href="#强化学习在干什么" class="headerlink" title="强化学习在干什么"></a>强化学习在干什么</h1><p>一个简单的循环为：第t个状态下—-&gt;Agent做动作—-&gt;环境更新为第t+1个状态，给Agent第t个奖励，直到游戏结束。</p>
+<p>强化学习就是学习policy或者Optimal action-value function，有两者中的一个，就能控制agent。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows中的实用软件</title>
     <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
@@ -1181,21 +1181,6 @@
       </categories>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>__FPU_PRESENT重定义出现大量警告</title>
-    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
-    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
-<ul>
-<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
-<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1301,6 +1286,21 @@
       </tags>
   </entry>
   <entry>
+    <title>__FPU_PRESENT重定义出现大量警告</title>
+    <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
+    <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
+<ul>
+<li>warning:  #47-D: incompatible redefinition of macro “__FPU_PRESENT”<br><img src="https://img-blog.csdnimg.cn/20200428203234192.png" alt="1"><br>查看警告后发现警告全在stm32f427xx.h文件中<br><img src="https://img-blog.csdnimg.cn/20200428203440937.png" alt="2"><br>注释后再编译,0 warning,0 error<br><img src="https://img-blog.csdnimg.cn/20200428203816985.png" alt="3"></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200428203639435.png" alt="4"></p>
+<p>这样修改库文件感觉不太好,但是也不清楚为什么会出现重定义问题,<strong>在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT实际操作的是什么文件呢,或者直接在编译过程中生成开启指令码?</strong><br>有些困惑,如果有大佬看到还请指点</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>智能PDF导出</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
     <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
@@ -1315,26 +1315,6 @@
 </ul>
 <h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
 <h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Altinum Designer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AD输出坐标文件及网表</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
-    <content><![CDATA[<p>【名词解释及其功能】</p>
-<ul>
-<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
-<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
-</ul>
-<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
-]]></content>
       <categories>
         <category>学习笔记</category>
       </categories>
@@ -1359,6 +1339,26 @@
 <li>直接点确定<br><img src="https://img-blog.csdnimg.cn/20200407121625333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"><br><img src="https://img-blog.csdnimg.cn/20200407121707780.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
 </ul>
 <h1 id="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"><a href="#至此输出的文件已在你所在的工程目录下，可以将文件交付板场了" class="headerlink" title="至此输出的文件已在你所在的工程目录下，可以将文件交付板场了"></a>至此输出的文件已在你所在的工程目录下，可以将文件交付板场了</h1><p><img src="https://img-blog.csdnimg.cn/20200407121901477.png" alt="7"></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AD输出坐标文件及网表</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
+    <content><![CDATA[<p>【名词解释及其功能】</p>
+<ul>
+<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
+<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
+</ul>
+<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1423,80 +1423,6 @@
 <p>学习视频：<a href="https://www.bilibili.com/video/BV194411f7GD?p=12">正点原子FPGA系列教程Verilog语法篇</a></p>
 </li>
 </ol>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Verilog语句</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</url>
-    <content><![CDATA[<h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
-<li>两语句后紧跟的都是过程块(顺序块)语句</li>
-</ul>
-<ol>
-<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
-</ol>
-<ul>
-<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
-</blockquote>
-<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
-<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
-</ul>
-<ol>
-<li>阻塞赋值(可看作一个步骤)</li>
-</ol>
-<ul>
-<li>计算RHS并更新LHS</li>
-<li>一条语句执行完再执行下一条语句</li>
-</ul>
-<ol start="2">
-<li>非阻塞赋值</li>
-</ol>
-<ul>
-<li>赋值开始，计算RHS</li>
-<li>赋值结束，更新LHS</li>
-<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
-</ul>
-<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
-<li>if_else语句(与C语言相同)</li>
-</ol>
-<ul>
-<li>条件语句必须在过程块中使用</li>
-<li>允许一定形式的简写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(!a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>允许嵌套</li>
-</ul>
-<ol start="2">
-<li>case语句</li>
-</ol>
-<ul>
-<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
-<li>casex不考虑高阻值z 和 不定值x</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1589,6 +1515,80 @@
 <li>进行时序计算和约束</li>
 <li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
 </ol>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Verilog语句</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
+<li>两语句后紧跟的都是过程块(顺序块)语句</li>
+</ul>
+<ol>
+<li>initial语句在模块中只执行一次，常用于测试文件的编写，用来产生仿真测试信号(激励信号)，或者用于对存储器变量赋初值</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">initial begin</span><br><span class="line">    _sys_clk      &lt;=1&#x27;b0;</span><br><span class="line">    _sys_rst_n    &lt;=1&#x27;b0;</span><br><span class="line">    _touch_key    &lt;=1&#x27;b0;</span><br><span class="line">    #20 sys_rst_n &lt;=1&#x27;b1;</span><br><span class="line">    #10 touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">    #110touch_key &lt;=1&#x27;b1;</span><br><span class="line">    #30 touch_key &lt;=1&#x27;b0;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>always语句一直在不断地重复活动，但是只有和一定的时间控制结合在一起才有作用</li>
+</ol>
+<ul>
+<li>always的时间控制可以是沿触发，也可以是电平触发。<strong>沿触发的always块常常描述时许逻辑行为，电平触发的描述常常描述组合逻辑行为</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @( * ) begin     //表示对后面语句块中所有输入变量的变化都是敏感的</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>组合逻辑电路</strong>中，任意时刻的输出仅仅取决于该时刻的输入，与电路原来的状态无关。<br><strong>时许逻辑电路</strong>中，任意时刻的输出不仅取决于当时的输入信号，而且还取决于电路原来的状态。或者说还与以前的输入有关，因此时许逻辑必须具备记忆功能。</p>
+</blockquote>
+<h2 id="二、赋值语句"><a href="#二、赋值语句" class="headerlink" title="二、赋值语句"></a>二、赋值语句</h2><ul>
+<li><strong>不允许在多个always块中对同一个变量进行赋值！</strong></li>
+</ul>
+<ol>
+<li>阻塞赋值(可看作一个步骤)</li>
+</ol>
+<ul>
+<li>计算RHS并更新LHS</li>
+<li>一条语句执行完再执行下一条语句</li>
+</ul>
+<ol start="2">
+<li>非阻塞赋值</li>
+</ol>
+<ul>
+<li>赋值开始，计算RHS</li>
+<li>赋值结束，更新LHS</li>
+<li>非阻塞赋值只能用于对寄存器类型的变量进行赋值，因此<strong>只能在initial块和always块等过程块中</strong></li>
+</ul>
+<h2 id="三、条件语句"><a href="#三、条件语句" class="headerlink" title="三、条件语句"></a>三、条件语句</h2><ol>
+<li>if_else语句(与C语言相同)</li>
+</ol>
+<ul>
+<li>条件语句必须在过程块中使用</li>
+<li>允许一定形式的简写</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(a)等同于if(a==1)</span><br><span class="line">if(!a)等同于if(a!=1)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>允许嵌套</li>
+</ul>
+<ol start="2">
+<li>case语句</li>
+</ol>
+<ul>
+<li>所有表达式位宽要相等：不能用’bx来代替n’bx</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">case (num)</span><br><span class="line">    4&#x27;h0 :    seg_led &lt;= 8&#x27;b1100_0000;</span><br><span class="line">    default : seg_led &lt;= 8&#x27;b1100_0000;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>casez表示不考虑表达式中的高阻值，要考虑x</li>
+<li>casex不考虑高阻值z 和 不定值x</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1843,7 +1843,8 @@
 </blockquote>
 <p>这篇文章在基于ADRC的死拍电流环中，加入了一个由神经网络构成的谐波观测器，以此来抑制不同频率的谐波，即使不知道谐波频率也不要紧，这个观测器能观测。</p>
 <p>整个系统的框图如下：</p>
-<p><img src="/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8%5Cimage-20241103220657928.png" alt="整体系统框图"></p>
+<img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103220657928.png" class="" title="整体系统框图">
+
 <p>电流观测器是用的ESO，死拍控制器用的是ADRC，RBFNN用来观测<strong>高频</strong>周期性波动，就是谐波。直流误差和低频分量由ESO观测。</p>
 <img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103221241774.png" class="" title="RBFNN内部结构">
 
@@ -1981,25 +1982,6 @@
       </tags>
   </entry>
   <entry>
-    <title>函数模板与类模板</title>
-    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
-<ul>
-<li>函数模板在编译时不会生成</li>
-<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
-<li>函数指针指向模板的实例，并不指向模板本身</li>
-</ul>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>十进制转二进制写入文件</title>
     <url>/2023/03/14/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p><strong>问题</strong>：输入n个十进制正数，将其转化为二进制，写到文件。</p>
@@ -2026,6 +2008,25 @@
 
 <h1 id="本题完整代码如下"><a href="#本题完整代码如下" class="headerlink" title="本题完整代码如下"></a>本题完整代码如下</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Dec2Binary</span><span class="params">(<span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">if</span> (d == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (d)</span><br><span class="line">    &#123;</span><br><span class="line">        s += <span class="built_in">to_string</span>(d % <span class="number">2</span>);</span><br><span class="line">        d = d / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    fstream file;</span><br><span class="line">    file.<span class="built_in">open</span>(<span class="string">&quot;../../output.txt&quot;</span>,ios::out);</span><br><span class="line">    <span class="keyword">if</span> (!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Failed to open &quot;</span> &lt;&lt; <span class="string">&quot;output.txt&quot;</span> &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Please input a positive number&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        <span class="keyword">while</span> (n--)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; a;</span><br><span class="line">            file &lt;&lt; <span class="built_in">Dec2Binary</span>(a) &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数模板与类模板</title>
+    <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
+<ul>
+<li>函数模板在编译时不会生成</li>
+<li>多个源文件引用函数模板，应连同函数体放在头文件中</li>
+<li>函数指针指向模板的实例，并不指向模板本身</li>
+</ul>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line">类型名 函数名(参数表)</span><br><span class="line">&#123;</span><br><span class="line">	函数定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;模板参数表&gt;</span><br><span class="line"><span class="keyword">class</span> 类名</span><br><span class="line">&#123;</span><br><span class="line">	类定义</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="也许有用"><a href="#也许有用" class="headerlink" title="也许有用"></a>也许有用</h1><p>一些基于函数模板的排序算法：<a href="https://beyond886.gitee.io/2023/03/06/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a></p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2096,6 +2097,24 @@
       </tags>
   </entry>
   <entry>
+    <title>常用控制算法</title>
+    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.c文件</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中调用方式</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>指针与引用</title>
     <url>/2022/03/22/%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><strong>引用</strong>是对<strong>指针</strong>进行了包装的高层机制，是C++ 语法中特有的。指针是C语言和C++语言中都可以使用的底层机制。引用本质上还是使用指针进行操作。引用在<strong>数据参数传递</strong>、<strong>减少大对象的参数传递开销</strong>这两个用途上，引用比指针更加简洁、安全。但是在下列情况中，引用并不能替代指针。</p>
@@ -2142,24 +2161,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常用控制算法</title>
-    <url>/2023/07/02/%E5%B8%B8%E7%94%A8%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h1><p>.h文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __PID_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __PID_H</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #include &quot;sys.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">  LAST  = <span class="number">0</span>,</span><br><span class="line">  NOW   = <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_pid_struct_t</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> kp;</span><br><span class="line">  <span class="type">float</span> ki;</span><br><span class="line">  <span class="type">float</span> kd;</span><br><span class="line">  <span class="type">float</span> i_max;</span><br><span class="line">  <span class="type">float</span> out_max;</span><br><span class="line">  </span><br><span class="line">  <span class="type">float</span> ref;      <span class="comment">// target value</span></span><br><span class="line">  <span class="type">float</span> fdb;      <span class="comment">// feedback value</span></span><br><span class="line">  <span class="type">float</span> err[<span class="number">2</span>];   <span class="comment">// error and last error</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> set;</span><br><span class="line">  <span class="type">float</span> get;</span><br><span class="line">	</span><br><span class="line">  <span class="type">float</span> p_out;</span><br><span class="line">  <span class="type">float</span> i_out;</span><br><span class="line">  <span class="type">float</span> d_out;</span><br><span class="line">  <span class="type">float</span> output;</span><br><span class="line">&#125;<span class="type">pid_struct_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_wheel_spd[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">extern</span> <span class="type">pid_struct_t</span> pid_chassis_angle;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span>;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span>          </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>.c文件</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pid.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// // 底盘电机 PID 结构体定义</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_wheel_spd[4] = &#123;0&#125;;</span></span><br><span class="line"><span class="comment">// pid_struct_t pid_chassis_angle = &#123;0&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  init pid parameter</span></span><br><span class="line"><span class="comment">  * @param  pid struct</span></span><br><span class="line"><span class="comment">    @param  parameter</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">abs_limit</span><span class="params">(<span class="type">float</span> *a, <span class="type">float</span> ABS_MAX)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (*a &gt; ABS_MAX)</span><br><span class="line">		*a = ABS_MAX;</span><br><span class="line">	<span class="keyword">if</span> (*a &lt; -ABS_MAX)</span><br><span class="line">		*a = -ABS_MAX;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pid_init</span><span class="params">(<span class="type">pid_struct_t</span> *pid,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kp,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> ki,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> kd,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> i_max,</span></span></span><br><span class="line"><span class="params"><span class="function">              <span class="type">float</span> out_max)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  pid-&gt;kp      = kp;</span><br><span class="line">  pid-&gt;ki      = ki;</span><br><span class="line">  pid-&gt;kd      = kd;</span><br><span class="line">  pid-&gt;i_max   = i_max;</span><br><span class="line">  pid-&gt;out_max = out_max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  位置式PID函数</span></span><br><span class="line"><span class="comment">  * @param  pid结构体</span></span><br><span class="line"><span class="comment">    @param  反馈值</span></span><br><span class="line"><span class="comment">    @param  目标值</span></span><br><span class="line"><span class="comment">  * @retval 计算输出值</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">pid_general</span><span class="params">(<span class="type">pid_struct_t</span> *pid, <span class="type">float</span> get, <span class="type">float</span> set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	pid-&gt;get = get;</span><br><span class="line">	pid-&gt;set = set;</span><br><span class="line">	pid-&gt;err[NOW] = set - get;</span><br><span class="line"></span><br><span class="line">	pid-&gt;p_out = pid-&gt;kp * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;i_out += pid-&gt;ki * pid-&gt;err[NOW];</span><br><span class="line">	pid-&gt;d_out = pid-&gt;kd * (pid-&gt;err[NOW] - pid-&gt;err[LAST]);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;i_out), pid-&gt;i_max);</span><br><span class="line">	pid-&gt;output = pid-&gt;p_out + pid-&gt;i_out + pid-&gt;d_out;</span><br><span class="line">	<span class="built_in">abs_limit</span>(&amp;(pid-&gt;output), pid-&gt;out_max);</span><br><span class="line"></span><br><span class="line">	pid-&gt;err[LAST] = pid-&gt;err[NOW];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> pid-&gt;output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>主函数中调用方式</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">pid_struct_t</span> MOTOR_Left=&#123;<span class="number">0</span>&#125;;<span class="comment">//声明一个PID结构体</span></span><br><span class="line"><span class="built_in">pid_init</span>(&amp;MOTOR_Left,<span class="number">0.1</span>,<span class="number">0.01</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">20</span>);<span class="comment">//初始化一个结构体</span></span><br><span class="line">PWM_OUT_ms = <span class="built_in">pid_general</span>(&amp;MOTOR_Left,Velocity_Left,<span class="number">100</span>); <span class="comment">//计算PID输出</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2210,6 +2211,58 @@
 ]]></content>
       <tags>
         <tag>机器人</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深浅复制</title>
+    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
+
+<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
+<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
+<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
+<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
+<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">浅复制</th>
+<th align="center">深复制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">定义</td>
+<td align="center">复制对象时，不开辟新内存空间的过程</td>
+<td align="center">复制对象时，开辟新内存空间的过程</td>
+</tr>
+<tr>
+<td align="center">优点</td>
+<td align="center">操作简单</td>
+<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">实现方式</td>
+<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
+<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2267,58 +2320,6 @@
       <tags>
         <tag>算法</tag>
         <tag>可解释性</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深浅复制</title>
-    <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayOfPoints类的对象pointsArray1</span></span><br><span class="line"><span class="function">ArrayOfPoints <span class="title">pointsArray1</span><span class="params">(count)</span></span>;<span class="comment">//count为创建对象时的一个参数</span></span><br><span class="line"><span class="comment">//创建对象数组副本</span></span><br><span class="line">ArrayOfPoints pointsArray2 = pointsArray1;</span><br></pre></td></tr></table></figure>
-
-<p>在代码形式上，对象1和对象2表面上完成了复制，但实际上pointsArray2对pointsArray1中的数据（如数组、变量等）并没有完成真正的复制，只是将自己的变量指针指向了pointsArray1中对应的变量。浅复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/gn1FQr7omtRDheI.png" alt="浅复制.png"></p>
-<p>很明显，当程序通过对pointsArray1中的数据进行修改时，pointsArray2中的数据也会相应发生变化，这是浅复制的弊病之一。</p>
-<p>另外，在程序结束之前，pointsArray1和pointsArray2的析构函数会自动被调用动态分配的内存空间会被释放。由于两个对象公用了同一块内存空间，因此该空间被两次释放时会导致运行错误。那么如何解决浅复制的问题呢？答案是编写<strong>复制构造函数</strong>，实现“深复制”。</p>
-<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><p>对比浅复制，<strong>深复制</strong>时，不同对象中的同名变量拥有自己内存空间，深复制效果图如下所示：</p>
-<p><img src="https://s2.loli.net/2022/03/22/WuzsenBYIh41qEO.png" alt="深复制.png"></p>
-<p>那么， 类ArrayOfPoints的复制构造函数怎样编写呢？基本思路为在构造函数中为新对象开辟新的内存空间。例如，对于ArrayOfPoints类中的数组，可以用下列方法编写<strong>复制构造函数</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ArrayOfPoints::ArrayOfPoints(const ArrayOfPoints&amp; v)</span><br><span class="line">&#123;</span><br><span class="line">	size = v.size();//对象中已定义了size函数</span><br><span class="line">	points = new char[size];	//开辟新的存储空间，完成深复制</span><br><span class="line">	for (int i=0; i&lt;size; i++)</span><br><span class="line">		points[i] = v.points[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">浅复制</th>
-<th align="center">深复制</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">定义</td>
-<td align="center">复制对象时，不开辟新内存空间的过程</td>
-<td align="center">复制对象时，开辟新内存空间的过程</td>
-</tr>
-<tr>
-<td align="center">优点</td>
-<td align="center">操作简单</td>
-<td align="center">使用原对象数据的同时，保证了不同对象之间数据的独立性</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">不同对象共用同一内存空间，在运行过程中数据相互干扰，在运行结束时释放内存空间出错</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">实现方式</td>
-<td align="center">无需其他操作，复制时自动调用默认复制构造函数</td>
-<td align="center">自定义复制构造函数，根据不同类型的对象编写不同构造函数</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>参考文献：C++语言程序设计（第5版）郑莉 清华大学计算机系列</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
