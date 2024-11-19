@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
+    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
+    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
+<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
+<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
+<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
+<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
+<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
+<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
+<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
+<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AlphaGo</title>
     <url>/2022/03/10/Alphago/</url>
     <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
@@ -37,25 +59,26 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
-    <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
-    <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
-<p>均值的公式：<br>$$<br>\mu_i&#x3D;{1\over m}\Sigma_{j&#x3D;1}^mx_i^{(j)}<br>$$<br>方差的公式：<br>$$<br>\sigma_i^2&#x3D;{1\over m}\Sigma_{i&#x3D;1}^m(x_i^{(j)}-\mu_i)^2<br>$$<br>当样本数量大于特征数量时，可以选用多元高斯分布，多元高斯分布相比于原分布增加了协方差矩阵Sigma，Sigma对高斯分布的影响如下图所示。</p>
-<p><img src="https://s2.loli.net/2022/01/22/mwbaXYrONVDBGoS.png" alt="多元高斯.png"></p>
-<p>当样本数量大于特征数量时，可以选用多元高斯分布。原高斯分布如果想要体现特征之间的特征，需要额外组合出新的特征，多元高斯分布则可以直接找出特征间的关系。原高斯分布与多元高斯分布对比图如下。</p>
-<p><img src="https://s2.loli.net/2022/01/22/NYDr58wLtPm3QMb.png" alt="多元高斯与原高斯对比.png"></p>
-<p>在异常检测数据集分配中，正常样本和异常样本都需分配到交叉验证数据集和测试数据集中，这两个数据集最好不要用相同的数据。</p>
-<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h2><p>可以用theta和x交替优化，求出最优的theta和特征值x。如先用theta求出最优的特征x，再用特征x拟合出最佳theta，如此循环计算，最后算法收敛于最优的theta和x。</p>
-<p>为方便计算，将theta和x组合到同一个代价函数中，以便同时最小化theta和特征x。<strong>没有正则化</strong>时的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})\theta_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}<br>$$</p>
-<p><strong>正则化</strong>后的代价函数为<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})&#x3D;{1\over 2}\Sigma_{(i,j):r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+({\lambda\over 2}\Sigma_{j&#x3D;1}^{n_u}\Sigma_{k&#x3D;1}^n(\theta_k^{(j)})^2)+({\lambda\over 2}\Sigma_{i&#x3D;1}^{n_m}\Sigma_{k&#x3D;1}^n(x_k^{(j)})^2)<br>$$<br>代价函数的对x和theta的偏导数为<br>$$<br>{\part J \over \part x_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda x_k^{(j)}<br>$$</p>
-<p>$$<br>{\part J \over \part \theta_k^{(i)}}&#x3D;\Sigma_{j:r(i,j)&#x3D;1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(j)}+\lambda\theta_k^{(j)}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在电影推荐系统中，通常默认为用户在0到5分之间打分。如果其他的推荐系统不在固定范围内评分，需要将评分进行放缩及归一化处理。示例如下<br><img src="https://s2.loli.net/2022/01/22/4T9vUqXufMzVjx3.png" alt="评分系统归一化.png"></li>
+    <title>Clash配置</title>
+    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
+
+<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
+<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>重启clash程序</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
+<ul>
+<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
+<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>软件应用笔记</category>
+      </categories>
       <tags>
-        <tag>Machine Learning</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -92,29 +115,6 @@
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Clash配置</title>
-    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
-
-<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
-<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>重启clash程序</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
-<ul>
-<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
-<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
-</ul>
-]]></content>
-      <categories>
-        <category>软件应用笔记</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -684,6 +684,31 @@
       </tags>
   </entry>
   <entry>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ML Summary 1-Initial contact</title>
     <url>/2022/01/04/Machine%20Learning%20Summary%201/</url>
     <content><![CDATA[<h1 id="初步印象"><a href="#初步印象" class="headerlink" title="初步印象"></a>初步印象</h1><p>机器学习并没有明确而严格的定义，下面是两个大师给出的定义(描述)</p>
@@ -732,31 +757,6 @@
 <blockquote>
 <p>本文为吴恩达Machine learning课程的学习笔记</p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
-</ul>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1109,52 +1109,6 @@
       </tags>
   </entry>
   <entry>
-    <title>git使用笔记</title>
-    <url>/2024/07/08/git/</url>
-    <content><![CDATA[<h2 id="仓库推送"><a href="#仓库推送" class="headerlink" title="仓库推送"></a>仓库推送</h2><p>设置本地仓库对应的远程仓库地址</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add 别名 链接地址</span><br></pre></td></tr></table></figure>
-
-<p>查看添加的仓库信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote -vv</span><br></pre></td></tr></table></figure>
-
-<p>推送仓库</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push -u 仓库别名 本地仓库的分支名字</span><br></pre></td></tr></table></figure>
-
-<p>修改分支名字</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 原分支名称 新分支名称</span><br></pre></td></tr></table></figure>
-
-<p>修改远程仓库的别名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote rename 原别名 新别名</span><br></pre></td></tr></table></figure>
-
-<h2 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h2><p> 有时候由于远程仓库和本地仓库的版本不一致，需要先<code>git pull</code>回远程仓库的内容，进行冲突解决后，再<code>git push</code>。<code>git pull</code>命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支:要拉取到本地仓库的分支</span><br></pre></td></tr></table></figure>
-
-<p>如果是直接与当前分支合并，则直接使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支</span><br></pre></td></tr></table></figure>
-
-<p>如果是本来不相同的两个仓库，需要强行合并，则使用可选参数来进行<code>git pull</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支 --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
-
-<p>如果合并过程中发生冲突，则先解决冲突，再<code>commit</code>，最后才可重新<code>push</code>。</p>
-<h2 id="代理端口设置"><a href="#代理端口设置" class="headerlink" title="代理端口设置"></a>代理端口设置</h2><p>推送过程中出现127.0.0.1:xxxx端口错误，这有可能是因为git中的代理端口设置不对导致的。</p>
-<p>重新设置你的端口号</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br><span class="line">git config --global https.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br></pre></td></tr></table></figure>
-
-<p>查看设置是否生效</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global -l</span><br></pre></td></tr></table></figure>
-
-<p>如果你不需要代码，可以取消代理设置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>软件应用笔记</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>string总结</title>
     <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<ul>
@@ -1188,6 +1142,28 @@
       <tags>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Altinum Designer</tag>
       </tags>
   </entry>
   <entry>
@@ -1293,25 +1269,49 @@
       </tags>
   </entry>
   <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+    <title>git使用笔记</title>
+    <url>/2024/07/08/git/</url>
+    <content><![CDATA[<h2 id="仓库推送"><a href="#仓库推送" class="headerlink" title="仓库推送"></a>仓库推送</h2><p>设置本地仓库对应的远程仓库地址</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add 别名 链接地址</span><br></pre></td></tr></table></figure>
+
+<p>查看添加的仓库信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote -vv</span><br></pre></td></tr></table></figure>
+
+<p>推送仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push -u 仓库别名 本地仓库的分支名字</span><br></pre></td></tr></table></figure>
+
+<p>修改分支名字</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 原分支名称 新分支名称</span><br></pre></td></tr></table></figure>
+
+<p>修改远程仓库的别名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote rename 原别名 新别名</span><br></pre></td></tr></table></figure>
+
+<h2 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h2><p> 有时候由于远程仓库和本地仓库的版本不一致，需要先<code>git pull</code>回远程仓库的内容，进行冲突解决后，再<code>git push</code>。<code>git pull</code>命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支:要拉取到本地仓库的分支</span><br></pre></td></tr></table></figure>
+
+<p>如果是直接与当前分支合并，则直接使用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支</span><br></pre></td></tr></table></figure>
+
+<p>如果是本来不相同的两个仓库，需要强行合并，则使用可选参数来进行<code>git pull</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git pull 远程仓库别名 远程仓库分支 --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
+
+<p>如果合并过程中发生冲突，则先解决冲突，再<code>commit</code>，最后才可重新<code>push</code>。</p>
+<h2 id="代理端口设置"><a href="#代理端口设置" class="headerlink" title="代理端口设置"></a>代理端口设置</h2><p>推送过程中出现127.0.0.1:xxxx端口错误，这有可能是因为git中的代理端口设置不对导致的。</p>
+<p>重新设置你的端口号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br><span class="line">git config --global https.proxy 127.0.0.1:&lt;你的端口号&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看设置是否生效</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global -l</span><br></pre></td></tr></table></figure>
+
+<p>如果你不需要代码，可以取消代理设置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-        <category>学习笔记</category>
+        <category>软件应用笔记</category>
       </categories>
       <tags>
-        <tag>Altinum Designer</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1424,6 +1424,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Verilog程序框架</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+</ul>
+<ol>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Verilog语句</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%803%E2%80%94%E2%80%94Verilog%E8%AF%AD%E5%8F%A5/</url>
     <content><![CDATA[<h2 id="一、结构语句"><a href="#一、结构语句" class="headerlink" title="一、结构语句"></a>一、结构语句</h2><h4 id="initial和always"><a href="#initial和always" class="headerlink" title="initial和always"></a>initial和always</h4><ul>
@@ -1489,39 +1522,6 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reg [7:0] sel;</span><br><span class="line">casez(sel)</span><br><span class="line">    8&#x27; b1100_zzzz;</span><br><span class="line">    8&#x27; b1100_xxzz;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Verilog程序框架</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
-<blockquote>
-<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
-</blockquote>
-<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
-<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
-<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
-<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
-<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
-</ul>
-<ol>
-<li>assign语句(描述组合逻辑)</li>
-<li>always语句(组合&#x2F;时许逻辑)</li>
-<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
-<li>在模块调用时，信号通过模块端口在模块之间传递</li>
-<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
-<li>模块调用位宽必须保持一致</li>
-</ul>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1633,6 +1633,59 @@
       </categories>
       <tags>
         <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32前期学习的一些知识点总结</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
+<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
+<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
+<blockquote>
+<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
+</blockquote>
+<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
+<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
+<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
+<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
+<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
+<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
+<ol>
+<li>栈区存放函数的参数值、局部变量的值。</li>
+<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
+<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
+</ol>
+<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
+<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
+<ol>
+<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
+<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
+</ol>
+<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
+<ol>
+<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
+<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
+<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
+<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
+</ol>
+<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
+<ol>
+<li><p>共模信号是幅度相等、相位相同的信号。</p>
+</li>
+<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
+</li>
+<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
+</li>
+</ol>
+<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
+<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1774,59 +1827,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32前期学习的一些知识点总结</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="【学习笔记】STM32前期学习的一些知识点总结"><a href="#【学习笔记】STM32前期学习的一些知识点总结" class="headerlink" title="【学习笔记】STM32前期学习的一些知识点总结"></a>【学习笔记】STM32前期学习的一些知识点总结</h2><p>在2019年的8月，一个月入门STM32，仍然记得每天在实验室埋头苦干的日子。最近翻出来当时的暑假学习总结文档，与大家分享分享。论述如有错误，望大家指正。</p>
-<p><strong>1. CPU时钟如何产生？</strong><br>由晶体振荡器产生的，俗称晶振。之所以晶振能当作振荡器使用是因为它具有“压电效应”。在晶振两端加上电场，晶振会产生机械变形，若加上交变电场就能产生机械振动。</p>
-<p><strong>2. 时钟定时器（TIM）的周期（或者频率）怎么确定？计算公式是什么？<br>定时器的时钟来源于APB1和APB2的一个倍频器，定时器的周期公式为</strong></p>
-<blockquote>
-<p>T&#x3D;（arr+1）*(PSC+1)&#x2F;Tck  </p>
-</blockquote>
-<p>其中TCK为时钟频率，时钟频率可以直接由晶振产生，也可以用PLL电路对晶振频率倍频或分频产生。PSC为时钟预分频系数，arr为自动重装载值。这两个值可以自己设置，从而设置定时器的定时时间。</p>
-<p><strong>3.	PWM是什么？举例说明它有什么作用。</strong><br>PWM是脉冲宽度调制技术，通过调节高低电平的占空比来输出，来等效地获得所需要波形，从而输出不同大小的等效电流。灯的亮度，电机转动速度等均可以用PWM控制。</p>
-<p><strong>4.	寄存器、RAM、ROM（Flash）有什么区别？</strong><br>寄存器是CPU的内部组成部分，它们可以暂存指令、数据、地址。我们配置库函数实现各种功能的本质是对寄存器操作，向其发送指令，缓存数据等。<br>RAM也叫内存，它分为静态RAM（SRAM）和动态RAM（DRAM）。SRAM速度非常快，不需要刷新电路就能保存数据，是目前最快的存储设备。DRAM保存数据的时间很短，它需要内存刷新电路，每隔一段时间刷新充电一次。<br>注：刷新涉及到内存工作原理，一个DRAM存储单元是0还是1取决于电容是否有电荷，有电荷表示1，无电荷表示0。代表1的电容会放电，代表0的电容会吸收电荷，这就是数据丢失的原因；刷新操作定期对电容进行检查，若电量大于满电量的1／2，则认为其代表1，并把电容充满电；若电量小于1／2，则认为其代表0，并把电容放电，藉此来保持数据的连续性。<br>ROM是只读存储器，一旦储存资料就无法再将之改变或删除，后来发展出来了可编程只读存储器（PROM），可擦可编程只读存储器（EPROM）和电子式可擦除可编程只读存储器（EEPROM）<br>FLASH就是闪存，属于内存器件的一种，不仅具备EEPROM的性能，且掉电不会丢失数据。</p>
-<p><strong>5.	看门狗有什么作用？它的原理是什么？</strong><br>看门狗是一种用于监测单片机程序运行状态的模块或者芯片。作用是：当程序执行异常，看门狗发送复位信号，使程序重新执行。本质是计数器从设定值计数到0时，看门狗发送复位信号。当程序正常运行时，在计数器减到0前“喂狗”，即使计数值回到设定值，使得看门狗始终不发送复位信号。当程序异常时，无法“喂狗”，则计数器到0时，“狗叫”，发送复位信号，程序重新执行。</p>
-<p><strong>6.	在调用函数、进入中断时会压栈。简述一下压栈？</strong><br>栈又名堆栈，它是存储的系统。可以把栈理解为弹夹，压栈就是压子弹，写入数据；出栈是发射子弹，输出数据。这样的顺序满足：先进后出，后进先出。</p>
-<p><strong>7.	内存分为哪几个区？栈区、堆区、全局变量区中分别存储哪些数据？</strong><br>内存分为：代码区(code area)、全局变量区(data area)、栈区(stack area)、堆区(heap area)。</p>
-<ol>
-<li>栈区存放函数的参数值、局部变量的值。</li>
-<li>堆是由程序员自己申请并指明大小，栈区能存放的数据它也能存放。</li>
-<li>全局变量区存放全局变量、静态数据、const常量，程序结束后由系统释放。</li>
-</ol>
-<p><strong>8.	负数在内存中是如何存储的？字符串在内存中是如何存储的？什么是大端序和小端序？</strong><br>负数先求相应正数、按位取反、再加1。字符串在内存中是以ASCII码存储的。大端序就是数据的高位字节存放在地址的低端，低位字节存放在地址的高端；小端序则是数据的高位字节存放在地址的高端，低位字节存放在地址的低端。</p>
-<p><strong>9.	什么是内存对齐？为什么会有内存对齐？</strong> </p>
-<ol>
-<li>内存对齐就是将数据根据数据类型存放到以数据类型为倍数的地址处。而间隙处由无效数据补满。内存对齐通常出现在结构体中，最后结构体的大小是最大数据类型大小的整数倍。</li>
-<li>内存对齐的原因：①硬件原因。某些平台只能在某些地址处取某些特定类型的数据。②内存对齐是内存规则分配的表现，能够提高CPU处理速率。</li>
-</ol>
-<p><strong>10.	CAN、I2C、UART、USB 2.0，它们分别需要几根线？每根线的功能是什么？如何连接？</strong></p>
-<ol>
-<li>CAN需要CAN-H和CAN-L两根线，通过两根线上的高低电平变化来实现数据的传输。CAN-H与CAN-L各自连接到CAN-H和CAN-L。</li>
-<li>I2C需要时钟线(SCL)和数据线(SDA)，时钟线高低电平变化频率恒定，数据线通过高低电平跳变来实现数据的传输。两根线分别接到MCU的两个引脚，或SCL接SCL、SDA接SDA。</li>
-<li>UART有三根线：TXD、RXD、GND。TXD用于发送数据，RXD用于接收数据，GND用于给信息传输的双方提供参考电平。发送方的TXD接到接收方RXD，RXD接到接收方TXD，GND相连。</li>
-<li>USB2.0需要四根线：电源正极(VCC)、地线(GND)、负电压数据线(D-)、正电压数据线(D+)。两根数据线，两根电源线。每根线接收方与发送方一一对应连接。</li>
-</ol>
-<p><strong>11.	共模信号与差分信号的定义是什么？特点是什么？</strong></p>
-<ol>
-<li><p>共模信号是幅度相等、相位相同的信号。</p>
-</li>
-<li><p>差分信号就是差模信号，它是幅度相等，相位相反的信号。</p>
-</li>
-<li><p>在差分对中，差分信号被定义为两根单端信号的差值，共模信号指的是两根信号线上的平均值。</p>
-</li>
-</ol>
-<p><strong>12.	模拟地与数字地为何需要隔离开并使用单点连接？</strong><br>这是在PCB设计中涉及到的问题。由于数字信号变化快，导致在数字地上会引起噪声，而模拟信号需要一个干净的地参考工作。若连在一起噪声会影响到模拟信号。单点连接即所有模拟地都拉出线，到同一点汇总，而两个模拟地之间都不再有另外的连接节点。这也是为了防止噪声干扰。</p>
-<p><strong>13.	为何CAN总线需要加入终端电阻，不加会有什么后果？CAN通信拓扑结构为什么不能是环形？</strong><br>加入终端电阻是为了吸收信号反射及回波，提高抗干扰能力，提高信号质量。不加终端电阻会导致信号不稳、差分电压也会发生变化。环形拓扑结构可靠性差，若环上任意一个节点出现故障就会引起全网故障。而CAN总线正是具有多主控制，隔离故障单元的功能，若采用环形拓扑则使CAN不再是CAN。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【论文阅读】用来对电机电流谐波抑制的在线训练的径向基函数神经网络补偿器</title>
     <url>/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/</url>
     <content><![CDATA[<p>论文原题：</p>
@@ -1841,13 +1841,13 @@
 <img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103221241774.png" class="" title="RBFNN内部结构">
 
 <p>所以这个补偿器其本质就是一个通过转子位置来观测出周期性扰动的观测器。因为用了神经网络，所以用李雅普诺夫函数做了稳定性证明。</p>
-<p>这里有几个问题：</p>
+<p>这里有两个需要注意的点：</p>
 <ul>
-<li>神经网络的LOSS是怎么计算的？还是RBFNN有自己的特性，没有额外的LOSS计算。</li>
-<li>还不太懂死拍控制。了解一点死拍预测电流控制，就是用当前和上一时刻的电流和电压信息，预测下一时刻的电流，再对当前时刻将要施加的电压(即下一时刻的电压)进行设定，以弥补采样延时。那这篇文章里的DB+ADRC是怎么做的？</li>
+<li>径向基函数神经网络的结构，由输入层，隐含层和输出层三个部分组成。输入层和隐含层之间是固定的表达式，隐含层的输出最后通过线性加权到输出层，<strong>这个权重系数则是神经网络优化的部分</strong>。一般使用梯度下降或者递推最小二乘法来优化。也可以自己定义损失函数来进行网络的权重优化。</li>
+<li>死拍预测电流控制，就是用当前和上一时刻的电流和电压信息，预测下一时刻的电流，再对当前时刻将要施加的电压(即下一时刻的电压)进行设定，以弥补采样延时。死拍预测电流控制是在预测电流控制的基础上加了死拍补偿做的，其隶属于预测电流控制，其应用的主要难点是运行过程中，电机参数会实时变化，会导致模型预测出来的不准，控制效果不佳。<strong>所以，预测电流控制的研究热点在其鲁棒性</strong>。</li>
 </ul>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
-<li>用了神经网络就要做稳定性分析，更有说服力。</li>
+<li>用了神经网络最好做稳定性分析。</li>
 <li>这个本质就是改进的电流环DB-ADRC，用了另一种说法(谐波抑制)把文章写出来了。所以，包装很重要。</li>
 <li>ADRC通病，观测器带宽不能太大，低频和直流误差能通过ESO观测，高频的，需要额外的补偿器，之前看的一篇ADRC加高通滤波器的也是。</li>
 </ul>
@@ -1859,6 +1859,53 @@
         <tag>PMSM</tag>
         <tag>神经网络</tag>
         <tag>谐波观测器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>&lt;代码美学&gt;观后感</title>
+    <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
+    <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
+<li>不要缩写名字。在有代码补全功能以及大屏幕的当下，缩写名字是没必要的</li>
+<li>不要在变量名前添加类型缩写</li>
+<li>在入口参数中添加变量单位，像<code>int delay_ms</code></li>
+<li>不要在自己定义的类型名后加上变量的类型名称，像<code>AbstractX</code></li>
+<li>避免定义“实用类”，这个类里包含了各种你觉得用起来方便的函数，你应该把这些函数分门别类地放到<strong>名字更有意义的类</strong>里。<br>例如：你的“实用类”里有洗水果，买酱油，洗衣服三个函数，应该把他们分门别类地放在<strong>采购类</strong>与<strong>家务类</strong>中，而不用一个<strong>实用类</strong>来包含这些函数。</li>
+</ul>
+<h1 id="组合优于继承"><a href="#组合优于继承" class="headerlink" title="组合优于继承"></a>组合优于继承</h1><p>继承，即通过一个基类派生出各种类。</p>
+<p>组合，把每个类独立开，如果需要其他类的参数，可以把函数的入口参数设置为某类的对象。</p>
+<h1 id="抽象并非百利而无一害"><a href="#抽象并非百利而无一害" class="headerlink" title="抽象并非百利而无一害"></a>抽象并非百利而无一害</h1><p>当你在调用不同代码，并使用抽象特性时，会导致一些不可控的行为发生。</p>
+<h1 id="不要写注释"><a href="#不要写注释" class="headerlink" title="不要写注释"></a>不要写注释</h1><p>通过变量命名，让代码更易读，这样就不需要注释了。强迫自己不写注释，而注重代码可读性，可以大大提升自己的代码编写能力。</p>
+<p>例如，以下为原代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//5代表信息接收成功</span></span><br><span class="line"><span class="keyword">if</span>(STATE == <span class="number">5</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以修改成</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> MessagereceiveSuccess = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">if</span>(STATE == MessagereceiveSuccess)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码中的嵌套不要超过3层"><a href="#代码中的嵌套不要超过3层" class="headerlink" title="代码中的嵌套不要超过3层"></a>代码中的嵌套不要超过3层</h1><ol>
+<li><p>抽象出功能，用函数包装。</p>
+</li>
+<li><p>结构反转，减少嵌套。<br>例如，原代码是这样</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &gt; bottom)&#123;</span><br><span class="line">		<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">			sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过反转结构，把负面条件写在前面，遇到负面条件可以提前返回，同时，可以在函数中留下大量的主体代码。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &lt; bottom)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">    	sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="不要过早优化代码"><a href="#不要过早优化代码" class="headerlink" title="不要过早优化代码"></a>不要过早优化代码</h1><ol>
+<li>当你真的遇到性能问题时，再优化代码。</li>
+<li>先测试它（PS.通常是一颗老鼠shit坏了一锅粥）。</li>
+<li>尝试更换数据结构，采用公认最快的算法获得80%的优化。测试它</li>
+<li>通过性能分析找到最拖后腿的点。测试它</li>
+<li>底层分析(存储空间)。测试它</li>
+</ol>
+<p>视频中提到的代码优化的逻辑和平常做项目的逻辑非常相似，选择最简单的方案完成它，实现目标后再考虑性能优化，<strong>而不要求自己一开始就做到尽善尽美</strong>。大道至简。</p>
+<p>附上视频链接：<a href="https://www.bilibili.com/video/BV1gP411B7CT?p=1&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">Code Aesthetic</a></p>
+]]></content>
+      <categories>
+        <category>个人感悟</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -1911,53 +1958,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>&lt;代码美学&gt;观后感</title>
-    <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
-    <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
-<li>不要缩写名字。在有代码补全功能以及大屏幕的当下，缩写名字是没必要的</li>
-<li>不要在变量名前添加类型缩写</li>
-<li>在入口参数中添加变量单位，像<code>int delay_ms</code></li>
-<li>不要在自己定义的类型名后加上变量的类型名称，像<code>AbstractX</code></li>
-<li>避免定义“实用类”，这个类里包含了各种你觉得用起来方便的函数，你应该把这些函数分门别类地放到<strong>名字更有意义的类</strong>里。<br>例如：你的“实用类”里有洗水果，买酱油，洗衣服三个函数，应该把他们分门别类地放在<strong>采购类</strong>与<strong>家务类</strong>中，而不用一个<strong>实用类</strong>来包含这些函数。</li>
-</ul>
-<h1 id="组合优于继承"><a href="#组合优于继承" class="headerlink" title="组合优于继承"></a>组合优于继承</h1><p>继承，即通过一个基类派生出各种类。</p>
-<p>组合，把每个类独立开，如果需要其他类的参数，可以把函数的入口参数设置为某类的对象。</p>
-<h1 id="抽象并非百利而无一害"><a href="#抽象并非百利而无一害" class="headerlink" title="抽象并非百利而无一害"></a>抽象并非百利而无一害</h1><p>当你在调用不同代码，并使用抽象特性时，会导致一些不可控的行为发生。</p>
-<h1 id="不要写注释"><a href="#不要写注释" class="headerlink" title="不要写注释"></a>不要写注释</h1><p>通过变量命名，让代码更易读，这样就不需要注释了。强迫自己不写注释，而注重代码可读性，可以大大提升自己的代码编写能力。</p>
-<p>例如，以下为原代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//5代表信息接收成功</span></span><br><span class="line"><span class="keyword">if</span>(STATE == <span class="number">5</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以修改成</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> MessagereceiveSuccess = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">if</span>(STATE == MessagereceiveSuccess)&#123;<span class="built_in">printf</span>(<span class="string">&quot;Success&quot;</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码中的嵌套不要超过3层"><a href="#代码中的嵌套不要超过3层" class="headerlink" title="代码中的嵌套不要超过3层"></a>代码中的嵌套不要超过3层</h1><ol>
-<li><p>抽象出功能，用函数包装。</p>
-</li>
-<li><p>结构反转，减少嵌套。<br>例如，原代码是这样</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &gt; bottom)&#123;</span><br><span class="line">		<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">			sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过反转结构，把负面条件写在前面，遇到负面条件可以提前返回，同时，可以在函数中留下大量的主体代码。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">calculate</span><span class="params">(<span class="type">int</span> bottom, <span class="type">int</span> top)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(top &lt; bottom)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> number = bottom;  number &lt;= top; number++)&#123;</span><br><span class="line">    	sum += <span class="built_in">filterNumber</span>(number);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="不要过早优化代码"><a href="#不要过早优化代码" class="headerlink" title="不要过早优化代码"></a>不要过早优化代码</h1><ol>
-<li>当你真的遇到性能问题时，再优化代码。</li>
-<li>先测试它（PS.通常是一颗老鼠shit坏了一锅粥）。</li>
-<li>尝试更换数据结构，采用公认最快的算法获得80%的优化。测试它</li>
-<li>通过性能分析找到最拖后腿的点。测试它</li>
-<li>底层分析(存储空间)。测试它</li>
-</ol>
-<p>视频中提到的代码优化的逻辑和平常做项目的逻辑非常相似，选择最简单的方案完成它，实现目标后再考虑性能优化，<strong>而不要求自己一开始就做到尽善尽美</strong>。大道至简。</p>
-<p>附上视频链接：<a href="https://www.bilibili.com/video/BV1gP411B7CT?p=1&vd_source=4b3ae1caa6bb09d8f730c35903fa2a54">Code Aesthetic</a></p>
-]]></content>
-      <categories>
-        <category>个人感悟</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -2038,6 +2038,16 @@
       </tags>
   </entry>
   <entry>
+    <title>可变参数模板</title>
+    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>复制构造函数</title>
     <url>/2023/03/01/%E5%A4%8D%E5%88%B6%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>复制构造函数是一种特殊的<strong>构造函数</strong>，具有一般构造函数的所有特性，其形参是本类对象的引用。其作用是使用一个已经存在的对象(由复制构造函数的参数指定)，去初始化同类的一个新对象。<br>声明和实现复制构造函数的一般方法如下:</p>
@@ -2058,16 +2068,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Point g()&#123;</span><br><span class="line">	Point a(1,2);</span><br><span class="line">	return a;		//函数的返回值是类对象，返回函数值时，调用复制构造函数</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	Point b;</span><br><span class="line">	b = g();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p>当类的数据成员中有<strong>指针类型</strong>时，默认的复制构造函数实现的只能是<strong>浅复制</strong>。浅复制会带来数据安全方面的隐患，要实现正确的复制，也就是<strong>深复制</strong>，必须编写复制构造函数。深浅复制的相关问题可以阅览这篇文章：<a href="https://beyond886.gitee.io/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/?highlight=%E6%B7%B1">深浅复制</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>可变参数模板</title>
-    <url>/2023/03/16/%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(T x)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span>... Tail&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(T head, Tail... tail)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">g</span>(head);</span><br><span class="line">	<span class="built_in">f</span>(tail...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;first:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">1</span>, <span class="number">2.2</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line">	cout &lt;&lt; endl &lt;&lt; <span class="string">&quot;second:&quot;</span>;</span><br><span class="line">	<span class="built_in">f</span>(<span class="number">0.2</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&quot;lucky&quot;</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2110,7 +2110,7 @@
     <title>怎样评估控制系统的好坏</title>
     <url>/2024/11/08/%E6%80%8E%E6%A0%B7%E8%AF%84%E4%BC%B0%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A5%BD%E5%9D%8F/</url>
     <content><![CDATA[<p>半路出家学控制，一直搞不懂为什么评估一个系统要看开环增益，然后相位裕度这些名词只是听过很多，不知道他们是什么作用，他们是越大越好吗？于是我问了G老师，这是它的总结：</p>
-<h1 id="初探"><a href="#初探" class="headerlink" title="初探"></a>初探</h1><p>Q1：所以综合上面的内容，开环增益是为了探究被控制系统内部的机理，闭环增益并不能评判整个系统的好坏，它只是一种控制属性。增益属于伯德图的一部分，另一部分是相位图，相位图则可以用来观察系统的稳定性，即其在多少频率范围内的信号或控制指令，都可以让系统稳定。那么，系统应该是相位裕度越大越好，在能承受的频率范围内，增益越大越好，这样系统就响应快，且最终能保持稳定。 我总结的有不对的地方吗</p>
+<p>Q1：所以综合上面的内容，开环增益是为了探究被控制系统内部的机理，闭环增益并不能评判整个系统的好坏，它只是一种控制属性。增益属于伯德图的一部分，另一部分是相位图，相位图则可以用来观察系统的稳定性，即其在多少频率范围内的信号或控制指令，都可以让系统稳定。那么，系统应该是相位裕度越大越好，在能承受的频率范围内，增益越大越好，这样系统就响应快，且最终能保持稳定。 我总结的有不对的地方吗</p>
 <p>A1：你的总结总体上是准确的！对于控制系统的开环和闭环特性、伯德图的增益和相位图的功能，你的理解基本到位。不过，有一些细微之处可以补充和澄清，以帮助完善对系统稳定性和性能的全面理解：</p>
 <ol>
 <li><p><strong>开环增益的作用</strong>：<br>正确理解开环增益可以帮助我们揭示系统的本质特性以及它在没有反馈时的行为。开环增益确实用于分析系统的动态响应（如放大率和频率响应），但其调整不仅影响系统内部的机理，还直接影响闭环系统的稳定性。因此，在调节闭环增益时，我们通常以开环增益的分析为基础。</p>
@@ -2130,7 +2130,6 @@
 <li><strong>开环与闭环的关系</strong>：开环增益用于揭示系统本质特性并为闭环控制提供基础，而闭环增益直接影响实际系统响应。</li>
 </ul>
 <p>总体来说，你的理解已经很好了！这几点补充希望能更全面地帮助你理解增益、相位裕度在控制系统中的作用。</p>
-<h1 id="再探"><a href="#再探" class="headerlink" title="再探"></a>再探</h1><p>目前大体有个概念了，但是现在还是有些懵，在于开环增益怎么就能评估闭环系统的性能呢？后面再针对性学习一下，留一个坑先</p>
 ]]></content>
       <categories>
         <category>技术感悟</category>
@@ -2382,6 +2381,36 @@
       </tags>
   </entry>
   <entry>
+    <title>行百里者半九十</title>
+    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
+    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
+<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
+<li><strong>心高气傲，轻敌大意</strong></li>
+</ul>
+<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
+<ul>
+<li><strong>优柔寡断，心生退意</strong></li>
+</ul>
+<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
+<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
+<li><strong>志同道合</strong></li>
+</ul>
+<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
+<ul>
+<li><strong>沟通交流</strong></li>
+</ul>
+<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
+<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
+<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
+]]></content>
+      <categories>
+        <category>个人感悟</category>
+      </categories>
+      <tags>
+        <tag>成长感悟</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>虚函数</title>
     <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
@@ -2410,36 +2439,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行百里者半九十</title>
-    <url>/2020/08/21/%E8%A1%8C%E7%99%BE%E9%87%8C%E8%80%85%E5%8D%8A%E4%B9%9D%E5%8D%81/</url>
-    <content><![CDATA[<p>​		第十五届智能车大赛就这样结束了。惶恐、焦躁、紧张……比赛这几天遇到的负面情绪，在比赛完成的那一刻算是勉强得到了解脱。最后跌跌撞撞的，抱着最后一丝希望，甚至说不报希望地用着半小时临时改的程序，完赛了。在比赛时跑下来的那唯一一次，就是这几天在现场跑车唯一成功的一次，险之又险，只是我却没有劫后余生的喜悦。因为，实在是有些遗憾。整个比赛的复盘，就从自身不足，团队合作，自身收获三个方面来讲吧。</p>
-<h2 id="一、自身不足"><a href="#一、自身不足" class="headerlink" title="一、自身不足"></a>一、自身不足</h2><ul>
-<li><strong>心高气傲，轻敌大意</strong></li>
-</ul>
-<p>当时是怀揣着向国一发起冲刺的心态来到武汉的，此时，我不禁想问一句，我凭什么有这么大的心诶。在来参赛之前，单个灯声音定位成功，摄像头识别灯罩成功，简单地认为，只要在现场将摄像头调好，那么就非常完美。可惜的是，在现场测试时，现场环境、多灯识别决策等一系列问题都暴露了出来，短短的一天半，这些问题并没有得到解决，最后比赛时，<strong>摄像头被完全拿掉</strong>，裸车跑完了全程。<br>只准备一种方案，没有备选，一旦该方案丧失作用，一切努力都付诸东流。或许当初确定方案时本就应该多次验证，多方测试。看似简单的控制，思路很简单，但实际落到实处，需要研发时同等的精力去做测试，切不可轻敌大意。行百里者半九十，一百里的路走九十里，才是刚刚完成一半呢！愿自己谦虚慎行，永远保持一颗求知的心。</p>
-<ul>
-<li><strong>优柔寡断，心生退意</strong></li>
-</ul>
-<p>当第一天摄像头无法正常工作的时候，我本可以立刻转换方案用上FM测距来进行避障。只是我一直在犹豫，寄希望于摄像头能够调好并发挥作用，甚至抱着一旦没有成功就放弃比赛的想法。虽然最后是战胜自己的退意，临赛前改代码，终于完赛，但心里总是有不安与自责。我自始至终都对自己讲着一句话，<strong>最悲哀的事不是我不行，而是，我本可以</strong>。愿以后的自己无所畏惧，奋力拼搏之后坦然接受自我，至少那样无愧于心，还好，这次比赛我勉强做到了。</p>
-<h2 id="二、团队合作"><a href="#二、团队合作" class="headerlink" title="二、团队合作"></a>二、团队合作</h2><ul>
-<li><strong>志同道合</strong></li>
-</ul>
-<p>从这个小队伍刚刚组建完成，到最后完赛，经历了一次人员变动。老队员的退出，可能由于互相之间的不信任，可能是其他种种原因。每个人都有自由选择的权利，我表示理解，而我也更愿意去选择和我一样，愿意为一件事情拼尽全力的伙伴们一起努力，队友选择上，宁缺毋滥，希望我自己谨记。</p>
-<ul>
-<li><strong>沟通交流</strong></li>
-</ul>
-<p>方案合作与商讨应该是整个团队的事情，切不可一人定音。当多种方案出炉时，首先进行理论分析，当没有足够的理论支撑时，将所有方案实现，测试，最后决定优胜者。当然，这也涉及到时间分配，资源管理等多种因素。但不管怎样，沟通，交流是必须的。</p>
-<h2 id="三、自身收获"><a href="#三、自身收获" class="headerlink" title="三、自身收获"></a>三、自身收获</h2><p>通过与武汉理工的交流，他们的传感器数量少，方案简单易行，仅用麦克风，FM，编码器就完成了整个比赛。最令我震撼的是，在避障上，他们<strong>采用按键外加泡沫的形式触发避障</strong>。简单的器件，只要能完美达到所需功能，那就是好方案。想问题时，不需要太复杂，我们解决问题本就需要复杂问题简单化的过程，<strong>准确快速地完成任务，才是最终的目的</strong>。<br>​另外，我深刻体会到，调试和纸上谈兵完全是两回事，特别是工程实践类学科，在实地一边调试一边优化的过程，正是做出产品不可缺少的一部分，且极为重要。</p>
-<p><strong>不管是开心或者难过，比赛就这样结束了，这段在疫情期间发生的难能可贵的记忆，也将变成我的财富。很庆幸自己还有犯错的机会，有选择的权利，有为了目标而不停奋斗的勇气。奔跑吧，年轻人，做一个Beyonder，眼里有火，心里有光的超越者，超越自己，就很了不起！</strong></p>
-]]></content>
-      <categories>
-        <category>个人感悟</category>
-      </categories>
-      <tags>
-        <tag>成长感悟</tag>
       </tags>
   </entry>
   <entry>
