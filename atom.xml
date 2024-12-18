@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-12-12T05:17:06.253Z</updated>
+  <updated>2024-12-18T07:52:50.826Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>初探PR和重复控制器</title>
+    <link href="http://example.com/2024/12/18/%E5%88%9D%E6%8E%A2PR%E5%92%8C%E9%87%8D%E5%A4%8D%E6%8E%A7%E5%88%B6%E5%99%A8/"/>
+    <id>http://example.com/2024/12/18/%E5%88%9D%E6%8E%A2PR%E5%92%8C%E9%87%8D%E5%A4%8D%E6%8E%A7%E5%88%B6%E5%99%A8/</id>
+    <published>2024-12-18T07:13:37.000Z</published>
+    <updated>2024-12-18T07:52:50.826Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;根据内模原理，对于一个控制系统，控制回路需要包含与外部信号相同的动态模型，系统能够实现无静差跟踪输入信号。外部信号的动态模型称为内部模型。&lt;/p&gt;
+&lt;p&gt;对于包含逆变器的系统，输入信号和干扰信号都是单一频率的正弦周期信号，用PI控制器是不能实现对输入信号的零静态误差跟踪的。</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用Matlab来对控制系统进行分析</title>
+    <link href="http://example.com/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/"/>
+    <id>http://example.com/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/</id>
+    <published>2024-12-15T04:31:18.000Z</published>
+    <updated>2024-12-18T07:58:10.667Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在做PMSM电流环模型预测控制的研究，初步实验做出来了，相同参数下，我提出的方案是比现有方案有较大优势的，证明我的想法可行。接下来想从理论上对控制器性能进行定量和定性分析，以完善理论，所以有了这篇学习笔记。&lt;/p&gt;
+&lt;p&gt;在对控制器进行分析时，我想到了如下方法：&lt;/p&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="工具，Matlab" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7%EF%BC%8CMatlab/"/>
+    
+  </entry>
   
   <entry>
     <title>《聪明人的个人成长》读后感</title>
@@ -1481,6 +1531,31 @@
   </entry>
   
   <entry>
+    <title>AD基础操作</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-08-04T09:36:30.000Z</published>
+    <updated>2024-10-20T08:20:14.522Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>__FPU_PRESENT重定义出现大量警告</title>
     <link href="http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/"/>
     <id>http://example.com/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</id>
@@ -1533,18 +1608,23 @@
   </entry>
   
   <entry>
-    <title>AD基础操作</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</id>
+    <title>AD输出坐标文件及网表</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:14.522Z</updated>
+    <updated>2024-10-20T08:20:31.663Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;AD&quot;&gt;&lt;a href=&quot;#AD&quot; class=&quot;headerlink&quot; title=&quot;AD&quot;&gt;&lt;/a&gt;AD&lt;/h1&gt;&lt;h2 id=&quot;创建工程&quot;&gt;&lt;a href=&quot;#创建工程&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
+&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1</summary>
         
       
     
@@ -1584,23 +1664,18 @@
   </entry>
   
   <entry>
-    <title>AD输出坐标文件及网表</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</id>
+    <title>Verilog程序框架</title>
+    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
     <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:31.663Z</updated>
+    <updated>2024-10-20T08:20:52.221Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;【名词解释及其功能】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到&lt;/li&gt;
-&lt;li&gt;IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1</summary>
+    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -1609,7 +1684,7 @@
     <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="Altinum Designer" scheme="http://example.com/tags/Altinum-Designer/"/>
+    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
@@ -1626,31 +1701,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、逻辑值&quot;&gt;&lt;a href=&quot;#一、逻辑值&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="FPGA基础" scheme="http://example.com/tags/FPGA%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Verilog程序框架</title>
-    <link href="http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/"/>
-    <id>http://example.com/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</id>
-    <published>2020-08-04T09:36:30.000Z</published>
-    <updated>2024-10-20T08:20:52.221Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、Verilog注释&quot;&gt;&lt;a href=&quot;#一、Verilog注释&quot; class=&quot;headerlink&quot;</summary>
         
       
     

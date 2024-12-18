@@ -32,7 +32,7 @@
   <meta name="keywords" content="Badminton, Motor Control">
 
 
-<title>RT-Thread基础操作 | Bingyang&#39;s Page</title>
+<title>用Matlab来对控制系统进行分析 | Bingyang&#39;s Page</title>
 
 
 
@@ -549,7 +549,7 @@
     <div class="flex flex-col gap-2 pt-4 md:pt-6">
       <!-- Title -->
       <div id="article-title" class="leading-snug">
-        <p class="text-3xl font-bold text-[var(--c-100)] mb-4">RT-Thread基础操作</p>
+        <p class="text-3xl font-bold text-[var(--c-100)] mb-4">用Matlab来对控制系统进行分析</p>
       </div>
       <!-- Meta data -->
       <div>
@@ -559,11 +559,11 @@
             <!-- Dates -->
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:add-circle-fill" ></iconify-icon>
-              Created: <time class="w-max">2020-08-04</time>
+              Created: <time class="w-max">2024-12-15</time>
             </div>
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:refresh-3-fill" ></iconify-icon>
-              Edited: <time class="w-max">2024-10-20</time>
+              Edited: <time class="w-max">2024-12-18</time>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-x-3 gap-y-3">
@@ -573,18 +573,9 @@
             <!-- Word count -->
             <span class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:book-2-fill" ></iconify-icon>
-              <span>1.4k words, 4 min</span>
+              <span>1.6k words, 5 min</span>
             </span>
             <!-- Categories -->
-            
-              <!-- <span class="text-gray-400">·</span> -->
-              <span class="flex flex-row items-center gap-1 group hover:underline">
-                <iconify-icon class="transition-all group-hover:scale-125 mr-0"
-                  width="18"
-                  icon="mingcute:classify-2-fill">
-                </iconify-icon>
-                <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-              </span>
             
           </div>
         </section>
@@ -595,7 +586,7 @@
 <div class="flex flex-wrap gap-1">
   
     
-      <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" 
+      <a href="/tags/%E5%B7%A5%E5%85%B7%EF%BC%8CMatlab/" 
         class="
           tag
           text-sm
@@ -612,47 +603,7 @@
           dark:hover:text-[var(--c-10)]
           dark:hover:bg-[var(--c-theme)]
         ">
-        嵌入式
-      </a>
-    
-      <a href="/tags/STM32/" 
-        class="
-          tag
-          text-sm
-          rounded-full
-          px-[5px]
-          border-[1px]
-          border-[var(--c-theme)]
-          text-[var(--c-theme)]
-          bg-[var(--c-0)]
-          dark:bg-[var(--c-0)]
-          dark:drop-shadow-none
-          hover:bg-[var(--c-theme)]
-          hover:text-[var(--c-0)]
-          dark:hover:text-[var(--c-10)]
-          dark:hover:bg-[var(--c-theme)]
-        ">
-        STM32
-      </a>
-    
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" 
-        class="
-          tag
-          text-sm
-          rounded-full
-          px-[5px]
-          border-[1px]
-          border-[var(--c-theme)]
-          text-[var(--c-theme)]
-          bg-[var(--c-0)]
-          dark:bg-[var(--c-0)]
-          dark:drop-shadow-none
-          hover:bg-[var(--c-theme)]
-          hover:text-[var(--c-0)]
-          dark:hover:text-[var(--c-10)]
-          dark:hover:bg-[var(--c-theme)]
-        ">
-        操作系统
+        工具，Matlab
       </a>
     
   
@@ -662,131 +613,81 @@
   </header>
   <!-- content -->
   <article class="post-content prose m-auto dark:prose-invert">
-    <blockquote>
-<p>RT-Thread是一个集实时操作系统（RTOS）内核、中间件组件和开发者社区于一体的技术平台，由熊谱翔先生带领并集合开源社区力量开发而成，RT-Thread也是一个组件完整丰富、高度可伸缩、简易开发、超低功耗、高安全性的物联网操作系统。RT-Thread 具备一个 IoT OS平台所需的所有关键组件，例如GUI、网络协议栈、安全传输、低功耗组件等等。经过11年的累积发展，RT-Thread 已经拥有一个国内最大的嵌入式开源社区，同时被广泛应用于能源、车载、医疗、消费电子等多个行业，累积装机量超过4亿台，成为国人自主开发、国内最成熟稳定和装机量最大的开源RTOS。</p>
-<p>RT-Thread 拥有良好的软件生态，支持市面上所有主流的编译工具如 GCC、Keil、IAR 等，工具链完善、友好，支持各类标准接口，如:POSIX、CMSIS、C++应用环境、Javascript 执行环境等，方便开发者移植各类应用程序。商用支持所有主流MCU架构，如 ARM,Cortex-M&#x2F;R&#x2F;A, MIPS, X86, Xtensa, C-Sky, RISC-V，几乎支持市场上所有主流的 MCU 和Wi-Fi 芯片。</p>
-</blockquote>
-<p>最近初步了解了RT-Thread操作系统，在此记录下其基础操作。下面附上RT-Thread相关网址：<br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/">RT-Thread官网</a><br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/document/site/">RT-Thread文档中心</a><br><a target="_blank" rel="noopener" href="https://www.rt-thread.org/page/video.html">RT-Thread教学视频中心</a></p>
-<h2 id="初步认识"><a href="#初步认识" class="headerlink" title="初步认识"></a>初步认识</h2><ol>
-<li><p>嵌入式操作系统是用来和上位机与硬件层对接的软件操作系统</p>
-</li>
-<li><p>RT-Thread 不仅是一个内核，还包含了众多组件，管理系统等</p>
-</li>
+    <p>最近在做PMSM电流环模型预测控制的研究，初步实验做出来了，相同参数下，我提出的方案是比现有方案有较大优势的，证明我的想法可行。接下来想从理论上对控制器性能进行定量和定性分析，以完善理论，所以有了这篇学习笔记。</p>
+<p>在对控制器进行分析时，我想到了如下方法：</p>
+<p><strong>方案一</strong>：在Simulink中搭建仿真模型，使用Simulink中的模型线性化器，直接绘制出伯德图。</p>
+<p><strong>方案二</strong>：手动推导我设计的控制器的闭环传递函数，通过分析闭环传递函数来绘制伯德图。</p>
+<p>我最开始的想法就是使用方案一，但是设置完线性分析点后，发现得到的控制器伯德图啥也没有，如下所示：</p>
+<style>.rgqcyjpmqaue{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="rgqcyjpmqaue" alt="image-20241215124140306">
+
+<p>于是我开始怀疑是不是我搭建的模型中是用matlab function进行创建的，导致它线性化失败，然后出现了不对。对于这个线性化器，我有以下几个疑惑点：</p>
+<ol>
+<li>该线性化器的工作原理，它线性化的结果是什么？是开环传递函数还是闭环传递函数，还是其他。</li>
+<li>基于问题1和我得到的实验现象，它绘制伯德图的很明显是不对的，那么是否有其他参数需要设置。</li>
+<li>我观察到模型线性化器中，有工作点的设置和参数变化的选择，特别是工作点的设置，它对仿真结果有什么影响。</li>
 </ol>
-<h2 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h2><ol>
-<li><p>systrmInit()</p>
-</li>
-<li><p>$Sub$$main()</p>
-</li>
-<li><p><strong>rtthreadread_startup</strong></p>
-</li>
+<p>基于上述分析，我推断是线性化后的传递函数不对。由于我写论文也是要经历传递函数的推导过程的，所以，我选择从方案二开始入手，用matlab编程的方式来对传递函数进行分析。方案二将经历以下步骤：</p>
+<ol>
+<li>先得到控制系统的连续域传递函数</li>
+<li>将控制系统传递函数离散化，这一步正可以研究离散采样时间对控制系统性能的影响，这反映在电流环控制系统中，就是ADC采样频率和控制系统计算频率。</li>
+<li>绘制系统的伯德图，观测系统基本性能。</li>
+<li>对不不同参数下系统的相位裕度。</li>
+<li>将现有控制器和我提出的控制器做对比，充分说明我的控制器的优越性，在此过程中，也许会有新的科研想法产生。</li>
 </ol>
-<ul>
-<li>board初始化即硬件初始化</li>
-<li>rt_application_init();是用户任务创建函数</li>
-<li>rt_system_scheduler_start();让rtthread跑起来</li>
-<li>使用$Super $ $ test（）来替代原函数fun（），然后在$Sub $$ test（）函数中调用它，便可以在函数前后添加自定义代码了，这样便能够达到在完全对原函数不做修改的情况下，在前后添加自己的代码。</li>
-</ul>
-<ol start="4">
-<li><p>rt_application_init()</p>
-</li>
-<li><p>main_thread_entry</p>
-</li>
-<li><p>$Super$$main(用户主函数)</p>
-</li>
+<h1 id="Matlab中实用的分析函数"><a href="#Matlab中实用的分析函数" class="headerlink" title="Matlab中实用的分析函数"></a>Matlab中实用的分析函数</h1><p>绘制传递函数<code>G</code>的伯德图：<code>bode(G)</code>。</p>
+<p>将连续传递函数转化为离散传递函数：<code>Gd = c2d(Gs,Ts)</code>。</p>
+<p>由传递函数<code>G</code>获取幅值裕度和相位裕度：<code>[Gm,Pm,Wcg,Wcp] = margin(G)</code>。<br><code>Gm</code>为幅位裕度，<code>Wcg</code>为幅值裕度对应的频率，即相频曲线穿越180°的频率，也称为剪切频率；<code>Pm</code>为相位裕度，<code>Wcp</code>为相位裕度对应的频率，即幅频特性曲线穿越零轴的频率，称为穿越频率。如果<code>Wcg</code>或<code>Wcp</code>为<code>NaN</code>或<code>Inf</code>，则对应的<code>Gm</code>或<code>Pm</code>为无穷大。</p>
+<h2 id="一些基本概念的阐明"><a href="#一些基本概念的阐明" class="headerlink" title="一些基本概念的阐明"></a>一些基本概念的阐明</h2><p>对于一个控制器，既需要进行开环分析也需要进行闭环分析，以PID控制器说明开、闭环分析的区别(来自G老师)：</p>
+<h3 id="开环分析-vs-闭环分析"><a href="#开环分析-vs-闭环分析" class="headerlink" title="开环分析 vs. 闭环分析"></a><strong>开环分析 vs. 闭环分析</strong></h3><table>
+<thead>
+<tr>
+<th><strong>目的</strong></th>
+<th><strong>开环分析</strong></th>
+<th><strong>闭环分析</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>设计 PID 控制器参数</strong></td>
+<td>需要，确保系统稳定裕度足够</td>
+<td>不需要，直接用开环分析即可</td>
+</tr>
+<tr>
+<td><strong>验证性能（稳定性）</strong></td>
+<td>不需要，闭环性能主要看闭环极点分布</td>
+<td>必须，确保超调量、响应速度符合要求</td>
+</tr>
+<tr>
+<td><strong>频率域特性分析</strong></td>
+<td>必须，增益裕度、相位裕度用开环分析</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td><strong>时域响应分析</strong></td>
+<td>不需要</td>
+<td>必须，超调量、调节时间、稳态误差</td>
+</tr>
+</tbody></table>
+<h3 id="开环分析的伯德图"><a href="#开环分析的伯德图" class="headerlink" title="开环分析的伯德图"></a>开环分析的伯德图</h3><p><strong>增益裕度和相位裕度都是对开环传递函数</strong>而言的。</p>
+<p>增益裕度：当相频曲线达到-180度时，幅频曲线中该点距离0dB的距离。</p>
+<p>相位裕度：当幅频曲线达到0dB时，相频曲线该点距离-180度的距离。 </p>
+<h3 id="闭环分析"><a href="#闭环分析" class="headerlink" title="闭环分析"></a>闭环分析</h3><p>可以看不同参数下零极点分布图，以此来判断系统的稳定程度。</p>
+<p>根轨迹分析法</p>
+<h2 id="关于控制器性能好坏的思考"><a href="#关于控制器性能好坏的思考" class="headerlink" title="关于控制器性能好坏的思考"></a>关于控制器性能好坏的思考</h2><p>那么对于同一个被控对象，是否有必要对不同的控制器都进行开环分析来判断控制器性能呢？</p>
+<p>我认为这当然是有必要的。</p>
+<p>现在回到我的控制系统，拆解一下模型预测电流环控制系统，<strong>模型</strong>就是电机的电学模型，<strong>预测</strong>则用超局部模型和状态观测器来完成。那么，我现在的想法是加上一个高通滤波器来完成<strong>模型输出部分</strong>由于状态观测器带宽过高引入的高频噪声，那有如下问题：</p>
+<ol>
+<li>为什么不在状态观测器上加呢？</li>
+<li>为什么在输出端加也会有用呢？</li>
 </ol>
-<h2 id="动态内存堆的使用"><a href="#动态内存堆的使用" class="headerlink" title="动态内存堆的使用"></a>动态内存堆的使用</h2><ol>
-<li><p>rt_system_heap_init()中，起始地址一般为ZI结束段，结束地址为片内地址的最后一段。将这一段分配出来的空间作为动态内存空间</p>
-</li>
-<li><p>RT-Thread中内存的使用和裸机状态下的区别不大，只需要换掉对应的API就可以</p>
-</li>
-<li><p>内存复位：申请到新的内存空间后，将内存空间清零，内存在之前可能是其他程序的数据存储区</p>
-</li>
+<p>用闭环传递函数来说明问题？</p>
+<p>我的目的是为了提高模型预测控制的鲁棒性。现在超局部模型需要调整参数以适应不同工况下的控制需求，而且它容易失稳。那么，失稳的原因是什么？做实验？</p>
+<p>做个实验，让电机转一下，看看是不是真的容易失稳，长时间运行测试一下。实践出真知，不要钻牛角尖。论文是为了展示自己的成果，先找到一个问题，再解决问题。<strong>不能先射箭再画靶</strong>。</p>
+<p>所以，下一步工作：</p>
+<ol>
+<li>编写模型预测控制代码，空载运行</li>
+<li>用测试平台多条件测试运行</li>
 </ol>
-<ul>
-<li>P&#x3D;rt_malloc(10);<br>  如果申请成功<br>  rt_memset(p,0,10)</li>
-</ul>
-<ol start="4">
-<li>内存泄漏：未释放已分配的动态内存</li>
-</ol>
-<ul>
-<li>用rt_malloc申请后，用rt_free释放</li>
-</ul>
-<ol start="5">
-<li><p>rt_realoc在已分配的内存块基础上重新分配内存块大小，变大就扩展，变小就会将后面的数据截断</p>
-</li>
-<li><p>rt——calloc(rt_size_t count,rt_size_t size)从内存堆中分配连续内存地址的多个内存块</p>
-</li>
-</ol>
-<h2 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h2><h3 id="1-相关概念"><a href="#1-相关概念" class="headerlink" title="1.相关概念"></a>1.相关概念</h3><ul>
-<li><p>线程代码（入口参数）</p>
-<ul>
-<li>无限循环，需要有让出内存的动作</li>
-<li>顺序执行</li>
-</ul>
-</li>
-<li><p>线程控制块</p>
-<ul>
-<li>用于管理线程的一个数据结构，会存放线程的一些信息</li>
-</ul>
-</li>
-<li><p>线程堆栈</p>
-<ul>
-<li>每个线程有独立的栈空间，线程切换时会将线程的上下文（线程执行时的环境）保存在线程栈中</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-线程创建"><a href="#2-线程创建" class="headerlink" title="2.线程创建"></a>2.线程创建</h3><ul>
-<li><p>创建线程</p>
-<ul>
-<li><p>rt_thread_init（创建的是静态线程，需要你告诉堆栈起始地址）</p>
-<ul>
-<li>const char  *name为线程名字</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>void *parameter为线程代码<br>*parameter为线程（入口）参数</p>
-<pre><code>- rt_thread_create（创建的是动态线程，系统自动为你分配运行空间）
-</code></pre>
-<ul>
-<li><p>启动线程</p>
-<ul>
-<li>tr_thread_startup之后线程才受调度</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-静态线程和动态线程"><a href="#3-静态线程和动态线程" class="headerlink" title="3.静态线程和动态线程"></a>3.静态线程和动态线程</h3><ul>
-<li><p>相关资源分配形式</p>
-</li>
-<li><p>运行效率</p>
-<ul>
-<li>没有外扩RAM，效率相同</li>
-<li>有外扩RAM，如果动态线程是在外扩RAM中被分配的话，那它的运行速度就会下降，因为片内RAM运行速度大于片外RAM</li>
-</ul>
-</li>
-</ul>
-<h2 id="创建LED流水灯线程"><a href="#创建LED流水灯线程" class="headerlink" title="创建LED流水灯线程"></a>创建LED流水灯线程</h2><ol>
-<li><p>在thread_sample中创建线程函数</p>
-</li>
-<li><p>创建入口函数，必须要有让出CPU的操作，比如流水灯中的延时</p>
-</li>
-<li><p>将创建的线程函数放入main中</p>
-</li>
-<li><p>怎样分配栈空间大小</p>
-</li>
-</ol>
-<ul>
-<li>在调试界面下，用list_thread命令，查看当前所有线程状态，max used百分比为线程最大使用了你分配的栈空间，可以通过修改栈空间大小，一般将线程栈最大使用量设置为70%</li>
-</ul>
-<ol start="5">
-<li><strong>RT-Thread移植后与裸机 LED 闪烁应用代码的不同</strong></li>
-</ol>
-<ul>
-<li>延时函数不同： RT-Thread 提供的 rt_thread_mdelay() 函数可以引起操作系统进行调度，当调用该函数进行延时时，本线程将不占用 CPU，调度器切换到系统的其他线程开始运行。而裸机的 delay 函数是一直占用 CPU 运行的。</li>
-<li>初始化系统时钟的位置不同：移植好 RT-Thread Nano 之后，不需要再在 main() 中做相应的系统配置（如 hal 初始化、时钟初始化等），这是因为 RT-Thread 在系统启动时，已经做好了系统时钟初始化等的配置，这在上一小节 “系统时钟配置” 中有讲解</li>
-</ul>
+<h4 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS:"></a>TIPS:</h4><p>怎样在Simulink中对多系统进行对比，有一个简单的方法，就是用一个乘法器，如果你需要这个控制器，那么，就把控制器系数设置为1，如果不需要这个控制器，就把这个控制器设置为0。</p>
 
   </article>
 
@@ -797,7 +698,7 @@
   ">
     <div>
       
-        <a href="/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91STM32%E5%89%8D%E6%9C%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"
+        <a href="/2024/12/18/%E5%88%9D%E6%8E%A2PR%E5%92%8C%E9%87%8D%E5%A4%8D%E6%8E%A7%E5%88%B6%E5%99%A8/"
           class="
             transition-all
             flex justify-center
@@ -806,11 +707,24 @@
           ">
           <iconify-icon width="20" icon="mingcute:left-fill" data-inline="false">
           </iconify-icon>
-          STM32前期学习的一些知识点总结
+          初探PR和重复控制器
         </a>
       
     </div>
     <div>
+      
+        <a href="/2024/12/12/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/"
+          class="
+            flex 
+            justify-center
+            hover:translate-x-1 
+            transition-transform
+            hover:text-[var(--c-100)]
+          "
+        >
+          《聪明人的个人成长》读后感
+          <iconify-icon width="20" icon="mingcute:right-fill" data-inline="false"></iconify-icon>
+        </a>
       
     </div>
   </div>
