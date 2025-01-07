@@ -638,7 +638,7 @@
 <p><strong>方案一</strong>：在Simulink中搭建仿真模型，使用Simulink中的模型线性化器，直接绘制出伯德图。</p>
 <p><strong>方案二</strong>：手动推导我设计的控制器的闭环传递函数，通过分析闭环传递函数来绘制伯德图。</p>
 <p>我最开始的想法就是使用方案一，但是设置完线性分析点后，发现得到的控制器伯德图啥也没有，如下所示：</p>
-<style>.jewarbreitfy{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="jewarbreitfy" alt="image-20241215124140306">
+<style>.lxrwxvpurwpi{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="lxrwxvpurwpi" alt="image-20241215124140306">
 
 <p>于是我开始怀疑是不是我搭建的模型中是用matlab function进行创建的，导致它线性化失败，然后出现了不对。对于这个线性化器，我有以下几个疑惑点：</p>
 <ol>

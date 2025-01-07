@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>AlphaGo</title>
-    <url>/2022/03/10/Alphago/</url>
-    <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
-<p><strong>此博客为Wang Shusen老师课程的笔记，且更侧重基础框架的理解，并无公式推导。详细的公式表示可以在老师的课程中找到，链接放在文章最后。</strong></p>
-<h1 id="1-训练方法"><a href="#1-训练方法" class="headerlink" title="1.训练方法"></a>1.训练方法</h1><p>在围棋中，棋盘是19*19的大小，一共361个点位。AlphaGo通过17个19*19的矩阵表示状态，为什么是17个矩阵呢？17个矩阵的构成如下：</p>
-<p><strong>8个白棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果白棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>8个黑棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果黑棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>1个该谁走的矩阵</strong>：如果该黑子走，则矩阵全1，如果该白子走，矩阵全0。</p>
-<p>在真实对战中，AlphaGo借助策略网络和价值网络筛选胜率不大的落子，使用<strong>蒙特卡洛树搜索</strong>(Monte Carlo Tree Search)从可能赢的落子中选取最佳落子。AlphaGo训练的正是策略网络和价值网络。训练分为以下三步。</p>
-<ul>
-<li>通过模仿人类下棋(behavior cloning)训练最初的策略网络。<br>行为模仿<strong>不是强化学习</strong>，它是监督学习的一种，行为模仿是没有奖励(reword)的。开始时，随机生成策略网络的参数。用人类棋局的数据集对策略网络进行训练，让它模仿人类下棋。在经过行为模仿后，策略网络已经可以击败优秀的业余选手。</li>
-<li>使用策略梯度算法(强化学习)训练策略网络(polict network)。<br>此时不再使用人类对局的数据，而是通过两个策略网络来自我博弈。被训练的Agent使用最新的参数，而它的对手，使用的是Agent之前的旧参数。</li>
-<li>用上述训练出来的策略网络(polict network)去训练价值网络(value network)。<br>通过对弈的胜负，训练价值网络对每步棋的价值评估准确度，以便在真实对局中过滤出胜率较大的落子。</li>
-</ul>
-<h1 id="2-选取落子"><a href="#2-选取落子" class="headerlink" title="2.选取落子"></a>2.选取落子</h1><p>AlphaGo先通过策略函数选取出几个好的落子(价值较大的落子)，策略网络的训练在之前已经讲过。现在，根据棋局，策略网络已经计算出几步价值较大的棋子，接下来需要使用蒙特卡洛树搜索(Monte Carlo Tree Search)决定最终落子。那么，蒙特卡洛树搜索的具体过程是怎样的呢？</p>
-<h2 id="蒙特卡洛树搜索-Monte-Carlo-Tree-Search"><a href="#蒙特卡洛树搜索-Monte-Carlo-Tree-Search" class="headerlink" title="蒙特卡洛树搜索(Monte Carlo Tree Search)"></a>蒙特卡洛树搜索(Monte Carlo Tree Search)</h2><ul>
-<li>随机选取一个落子(从策略网络计算出的落子集合中选取)。</li>
-<li>让<strong>策略网络</strong>自我博弈直到下完这局棋得到胜负。根据胜负和<strong>价值网络</strong>给选取的落子打分。</li>
-<li>重复自我博弈的过程多次，这样一个动作就有很多分数</li>
-<li>把好的落子集合中所有落子都根据上述三个过程打分，AlphaGo会执行总分最高的落子。</li>
-</ul>
-<h1 id="3-AlphaGo-Zero与AlphaGo"><a href="#3-AlphaGo-Zero与AlphaGo" class="headerlink" title="3.AlphaGo Zero与AlphaGo"></a>3.AlphaGo Zero与AlphaGo</h1><p>AlphaGo Zero是AlphaGo的改良版，在AlphaGo Zero与AlphaGo的对局中，AlphaGo Zero以100-0赢得胜利。两者的区别在哪呢？</p>
-<ul>
-<li>AlphaGo Zero没有使用人类棋局的经验，即没有进行行为模仿</li>
-<li>MCTS被用来训练策略网络了</li>
-</ul>
-<p>那么，没有使用人类棋局经验的AlphaGo Zero是不是说明人类的经验对于AlphaGo来说是有害的呢？答案是肯定的，起码在围棋领域，答案是肯定的。但是，行为模仿就一定是无用的吗？并不是。例如，对于手术机器人来说，它如果想要获得优化，就需要训练，即做手术。但是，并不可能让它做真实的手术，毕竟人的性命可不是玩笑。那么，它就可以模仿优秀医生手术时的数据，这样起码可以确保在真实环境中，并不会对病人产生生命威胁。在经过模仿人类医生后，再考虑后续的优化。</p>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
     <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
     <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
@@ -95,26 +59,39 @@
       </tags>
   </entry>
   <entry>
-    <title>Clash配置</title>
-    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
-
-<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
-<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>重启clash程序</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
+    <title>AlphaGo</title>
+    <url>/2022/03/10/Alphago/</url>
+    <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
+<p><strong>此博客为Wang Shusen老师课程的笔记，且更侧重基础框架的理解，并无公式推导。详细的公式表示可以在老师的课程中找到，链接放在文章最后。</strong></p>
+<h1 id="1-训练方法"><a href="#1-训练方法" class="headerlink" title="1.训练方法"></a>1.训练方法</h1><p>在围棋中，棋盘是19*19的大小，一共361个点位。AlphaGo通过17个19*19的矩阵表示状态，为什么是17个矩阵呢？17个矩阵的构成如下：</p>
+<p><strong>8个白棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果白棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
+<p><strong>8个黑棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果黑棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
+<p><strong>1个该谁走的矩阵</strong>：如果该黑子走，则矩阵全1，如果该白子走，矩阵全0。</p>
+<p>在真实对战中，AlphaGo借助策略网络和价值网络筛选胜率不大的落子，使用<strong>蒙特卡洛树搜索</strong>(Monte Carlo Tree Search)从可能赢的落子中选取最佳落子。AlphaGo训练的正是策略网络和价值网络。训练分为以下三步。</p>
 <ul>
-<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
-<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
+<li>通过模仿人类下棋(behavior cloning)训练最初的策略网络。<br>行为模仿<strong>不是强化学习</strong>，它是监督学习的一种，行为模仿是没有奖励(reword)的。开始时，随机生成策略网络的参数。用人类棋局的数据集对策略网络进行训练，让它模仿人类下棋。在经过行为模仿后，策略网络已经可以击败优秀的业余选手。</li>
+<li>使用策略梯度算法(强化学习)训练策略网络(polict network)。<br>此时不再使用人类对局的数据，而是通过两个策略网络来自我博弈。被训练的Agent使用最新的参数，而它的对手，使用的是Agent之前的旧参数。</li>
+<li>用上述训练出来的策略网络(polict network)去训练价值网络(value network)。<br>通过对弈的胜负，训练价值网络对每步棋的价值评估准确度，以便在真实对局中过滤出胜率较大的落子。</li>
 </ul>
+<h1 id="2-选取落子"><a href="#2-选取落子" class="headerlink" title="2.选取落子"></a>2.选取落子</h1><p>AlphaGo先通过策略函数选取出几个好的落子(价值较大的落子)，策略网络的训练在之前已经讲过。现在，根据棋局，策略网络已经计算出几步价值较大的棋子，接下来需要使用蒙特卡洛树搜索(Monte Carlo Tree Search)决定最终落子。那么，蒙特卡洛树搜索的具体过程是怎样的呢？</p>
+<h2 id="蒙特卡洛树搜索-Monte-Carlo-Tree-Search"><a href="#蒙特卡洛树搜索-Monte-Carlo-Tree-Search" class="headerlink" title="蒙特卡洛树搜索(Monte Carlo Tree Search)"></a>蒙特卡洛树搜索(Monte Carlo Tree Search)</h2><ul>
+<li>随机选取一个落子(从策略网络计算出的落子集合中选取)。</li>
+<li>让<strong>策略网络</strong>自我博弈直到下完这局棋得到胜负。根据胜负和<strong>价值网络</strong>给选取的落子打分。</li>
+<li>重复自我博弈的过程多次，这样一个动作就有很多分数</li>
+<li>把好的落子集合中所有落子都根据上述三个过程打分，AlphaGo会执行总分最高的落子。</li>
+</ul>
+<h1 id="3-AlphaGo-Zero与AlphaGo"><a href="#3-AlphaGo-Zero与AlphaGo" class="headerlink" title="3.AlphaGo Zero与AlphaGo"></a>3.AlphaGo Zero与AlphaGo</h1><p>AlphaGo Zero是AlphaGo的改良版，在AlphaGo Zero与AlphaGo的对局中，AlphaGo Zero以100-0赢得胜利。两者的区别在哪呢？</p>
+<ul>
+<li>AlphaGo Zero没有使用人类棋局的经验，即没有进行行为模仿</li>
+<li>MCTS被用来训练策略网络了</li>
+</ul>
+<p>那么，没有使用人类棋局经验的AlphaGo Zero是不是说明人类的经验对于AlphaGo来说是有害的呢？答案是肯定的，起码在围棋领域，答案是肯定的。但是，行为模仿就一定是无用的吗？并不是。例如，对于手术机器人来说，它如果想要获得优化，就需要训练，即做手术。但是，并不可能让它做真实的手术，毕竟人的性命可不是玩笑。那么，它就可以模仿优秀医生手术时的数据，这样起码可以确保在真实环境中，并不会对病人产生生命威胁。在经过模仿人类医生后，再考虑后续的优化。</p>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
 ]]></content>
-      <categories>
-        <category>软件应用笔记</category>
-      </categories>
       <tags>
-        <tag>工具</tag>
+        <tag>Reinforcement Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -169,6 +146,29 @@
       <tags>
         <tag>Reinforcement Learning</tag>
         <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Clash配置</title>
+    <url>/2023/07/21/Clash%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Dreamacro/clash/releases</span><br></pre></td></tr></table></figure>
+
+<p>解压后第一次运行，会自动在~&#x2F;.config&#x2F;clash下生成配置文件</p>
+<p>使用下列指令，更新配置文件。其中链接为你订阅的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o config.yaml &#x27;https://xxx.example.com/yyy&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>重启clash程序</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在network proxy中根据运行配置，设置</p>
+<ul>
+<li>HTTP Proxy为：127.0.0.1，端口为clash输出的端口</li>
+<li>Sockets Host为：127.0.0.1，端口为clash输出的端口</li>
+</ul>
+]]></content>
+      <categories>
+        <category>软件应用笔记</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -274,101 +274,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FreeRTOS中断管理</title>
-    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
-<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
-<li>延迟中断方案是处何实现的  </li>
-<li>如何创建和使用二值信号量以及计数信号量  </li>
-<li>二值信号量和计数信号量之间的区别  </li>
-<li>如何利用队利在中断服务例程中把数据传入传出  </li>
-<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Flow--交通网络仿真框架的安装</title>
-    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
-<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
-<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
-<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
-<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
-<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
-<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
-<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
-<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
-</ol>
-<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
-<h2 id="使用scripts-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
-<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
-<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
-<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
-<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
-
-<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
-<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
-<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
-<li>ps afx|grep apt ：列出所有apt进程</li>
-<li>sudo kill -9 进程号：沙掉进程</li>
-<li>ls -l ：列出文件夹权限</li>
-<li>source activate：conda切换环境</li>
-<li>chmod 766 .&#x2F;*：赋予执行权限</li>
-<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
-<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
-<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
-</ul>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
-<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Flow</tag>
-        <tag>Anaconda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FreeRTOS任务间通信方式——队列</title>
-    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
-    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
-<li>优先级抢占式调度<ul>
-<li>每个任务都赋予了一个优先级</li>
-<li>每个任务都可以存在于一个或多个状态</li>
-<li>在任何时候都只有一个任务可以处于运行状态</li>
-<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
-</ul>
-</li>
-<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
-<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
-</ol>
-<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
-<ol>
-<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
-</li>
-<li><p>如何创建一个队列</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
-</li>
-<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flow vs CommonRoad-RL</title>
     <url>/2022/02/10/FlOW-OR-CommonRoad/</url>
     <content><![CDATA[<p><a href="https://flow-project.github.io/">FLOW</a>：A modular learning framework is presented, which leverages deep RL to address complex traffic dynamics.<br><a href="https://commonroad.in.tum.de/">CommonRoad-rl</a>：An open-source toolbox to train and evaluate RL-based motion planners for autonomous vehicles.</p>
@@ -410,6 +315,101 @@
       <tags>
         <tag>Python</tag>
         <tag>Flow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flow--交通网络仿真框架的安装</title>
+    <url>/2022/01/28/Flow-%E4%BA%A4%E9%80%9A%E7%BD%91%E7%BB%9C%E4%BB%BF%E7%9C%9F%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><blockquote>
+<h3 id="A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic"><a href="#A-deep-reinforcement-learning-framework-for-mixed-autonomy-traffic" class="headerlink" title="A deep reinforcement learning framework for mixed autonomy traffic"></a>A deep reinforcement learning framework for mixed autonomy traffic</h3></blockquote>
+<p>Flow 是一个开源的流量控制基准测试框架。它提供了一套交通控制场景（基准）、用于设计自定义交通场景的工具，以及与深度强化学习和交通微观模拟库的集成。官网链接为<a href="https://flow-project.github.io/">https://flow-project.github.io/</a></p>
+<p>官方安装教程链接为：<a href="https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation">https://flow.readthedocs.io/en/latest/flow_setup.html#local-installation</a></p>
+<p>Flow可能对linux和mac系统更为友好，经历一番波折后，我将FLow框架在虚拟机的Ubuntu18.4.1系统上搭建成功，并运行了第一个示例程序。</p>
+<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>要基于Flow运行程序，你需要安装git，Anaconda用于环境配置，安装SUMO与Flow搭配使用。在这一章节，我将着重记录我在安装过程中遇到的问题，具体的安装流程参见官方安装教程。</p>
+<h2 id="使用conda-env-create-f-environment-yml遇到的问题"><a href="#使用conda-env-create-f-environment-yml遇到的问题" class="headerlink" title="使用conda env create -f environment.yml遇到的问题"></a>使用conda env create -f environment.yml遇到的问题</h2><ol>
+<li>重复提示未指明具体pip版本，且一直安装未完成。<br>原因：这是因为在git下来的flow文件夹中，environment.yml文件中限定pip&gt;&#x3D;18.0，但并未指明具体版本。<br>解决方案：查看anaconda的base环境下pip的版本，然后在environment.yml文件中直接指明pip。修改后成功配置环境。</li>
+<li>提示根据environment.yml文件安装时，没有找到符合条件的包。如redis<del>&#x3D;2.10.6<br>解决方案：删除版本号限制，尝试安装并运行。例如把**redis</del>&#x3D;2.10.6<strong>修改为</strong>redis**</li>
+</ol>
+<p>小结：执行该命令遇到的问题需要报错尝试不同方案，见招拆招。</p>
+<h2 id="使用scripts-setup-sumo-ubuntu1804-sh安装SUMO无效"><a href="#使用scripts-setup-sumo-ubuntu1804-sh安装SUMO无效" class="headerlink" title="使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效"></a>使用scripts&#x2F;setup_sumo_ubuntu1804.sh安装SUMO无效</h2><p>原因：该命令应该是建立SUMO的节点文件，使Flow框架能顺利调用SUMO。但不知何故，命令运行完成后没有提示，执行测试命令时直接报错。</p>
+<p>解决方案：按照教程通过直接从github下载源码，编译安装</p>
+<h2 id="获取包时网络连接失败或握手超时"><a href="#获取包时网络连接失败或握手超时" class="headerlink" title="获取包时网络连接失败或握手超时"></a>获取包时网络连接失败或握手超时</h2><p>原因：服务器在国外，网络被墙</p>
+<p>解决方案：更换国内源，不管是Python的源，还是Ubuntu的源等，都可Google或者Baidu方法。其中Github下载过慢可转存至gitee后再下载，具体操作可参考我的这篇博文：<a href="https://blog.csdn.net/qq_30447315/article/details/105806353">【便捷Tip】极速下载Github资源</a></p>
+<h1 id="三、验证是否安装成功"><a href="#三、验证是否安装成功" class="headerlink" title="三、验证是否安装成功"></a>三、验证是否安装成功</h1><p>在git下来的flow文件夹下，使用anaconda切换到生成的flow环境，运行</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python examples/simulate.py ring</span><br></pre></td></tr></table></figure>
+
+<p>这时会唤起SUMO软件gui界面，点击运行按钮会出现不确定的车流，运行结果如下：</p>
+<p><img src="https://s2.loli.net/2022/01/28/pnX3dBwPzVgYLky.gif" alt="Example_Ring.gif"></p>
+<h1 id="四、Linux命令"><a href="#四、Linux命令" class="headerlink" title="四、Linux命令"></a>四、Linux命令</h1><ul>
+<li>ps afx|grep apt ：列出所有apt进程</li>
+<li>sudo kill -9 进程号：沙掉进程</li>
+<li>ls -l ：列出文件夹权限</li>
+<li>source activate：conda切换环境</li>
+<li>chmod 766 .&#x2F;*：赋予执行权限</li>
+<li>sudo chmod 777 -R 文件夹名：赋予文件夹下所有文件管理员权限</li>
+<li>mv 旧文件夹名 新文件夹名：修改文件夹名称</li>
+<li>source ~&#x2F;.bashrc：立即加载修改后的设置，在当前命令行有效</li>
+</ul>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>远程链接能ping通但是链接不上，可能是远程主机没开通ssh</li>
+<li>秉承着缺什么补什么的原则，特别是出现找不到特定版本的包或者工具链时，应当自行安装包或者工具链。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Flow</tag>
+        <tag>Linux</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS中断管理</title>
+    <url>/2020/08/26/FreeRTOS%E4%B8%AD%E6%96%AD%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="一、FreeRTOS基本知识点"><a href="#一、FreeRTOS基本知识点" class="headerlink" title="一、FreeRTOS基本知识点"></a>一、FreeRTOS基本知识点</h2><ol>
+<li>哪些FreeRTOS 的 API 函数可以在中断服务例程中使用 </li>
+<li>延迟中断方案是处何实现的  </li>
+<li>如何创建和使用二值信号量以及计数信号量  </li>
+<li>二值信号量和计数信号量之间的区别  </li>
+<li>如何利用队利在中断服务例程中把数据传入传出  </li>
+<li>一些 FreeRTOS 移植中采用的中断嵌套模型</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS任务间通信方式——队列</title>
+    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
+<li>优先级抢占式调度<ul>
+<li>每个任务都赋予了一个优先级</li>
+<li>每个任务都可以存在于一个或多个状态</li>
+<li>在任何时候都只有一个任务可以处于运行状态</li>
+<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+</ul>
+</li>
+<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
+<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
+</ol>
+<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
+<ol>
+<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
+</li>
+<li><p>如何创建一个队列</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
+</li>
+<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -550,48 +550,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 6-Clustering</title>
-    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
-    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
-<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
-<ol>
-<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
-<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
-<li>将“数值中心点”确定为下一次循环的中心点</li>
-</ol>
-<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>数据压缩</li>
-<li>数据可视化</li>
-<li>减少存储空间</li>
-<li>加速算法</li>
-</ul>
-<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
-<ol>
-<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
-</li>
-<li><p>对数据进行归一化处理</p>
-</li>
-<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
-</li>
-<li><p>计算特征向量，使用svd库函数</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用特征向量对样本数据降维</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>PCA和线性拟合是完全不同的两种算法</li>
-<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 4-How to optimize the network</title>
     <url>/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</url>
     <content><![CDATA[<h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
@@ -655,25 +613,109 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 5-How to use SVM</title>
-    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
-    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
-<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
+    <title>ML Summary 6-Clustering</title>
+    <url>/2022/01/20/ML-Summary-6-Clustering/</url>
+    <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
+<h1 id="K-平均算法"><a href="#K-平均算法" class="headerlink" title="K-平均算法"></a>K-平均算法</h1><p>要对数据进行分类，每个数据簇中会有一个中心点，K即为数据簇的个数，也是聚类中心点的个数。K-平均算法过程为如下几步的循环：</p>
 <ol>
-<li>参数C</li>
-<li>核函数</li>
+<li>对数据进行分类，数据点离哪个中心点近，就分给该中心点。即计算每个样本点到每个中心点的距离。</li>
+<li>划分完成后，每个中心点都有一些数据点围绕在它身边，把这些点成为数据簇。计算每个簇中，点坐标的平均值，找到簇的“数值中心点”。</li>
+<li>将“数值中心点”确定为下一次循环的中心点</li>
 </ol>
-<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
-<h1 id="逻辑回归-SVM-神经网络"><a href="#逻辑回归-SVM-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
-<ul>
-<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
-<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
-<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
+<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>数据压缩</li>
+<li>数据可视化</li>
+<li>减少存储空间</li>
+<li>加速算法</li>
 </ul>
-<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
+<h2 id="PCA（Principle-Component-Analys）"><a href="#PCA（Principle-Component-Analys）" class="headerlink" title="PCA（Principle Component Analys）"></a>PCA（Principle Component Analys）</h2><p>PCA算法步骤如下：</p>
+<ol>
+<li><p>选取K个特征，该特征能包含数据集超过百分之99的信息，特征数尽量小</p>
+</li>
+<li><p>对数据进行归一化处理</p>
+</li>
+<li><p>计算协方差矩阵<br>$$<br>\Sigma&#x3D;{1\over m}\Sigma_{i&#x3D;1}^n(x^{(i)})(x^{(i)})^T<br>$$</p>
+</li>
+<li><p>计算特征向量，使用svd库函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">[U, S, V] = svd(Sigma);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用特征向量对样本数据降维</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Ureduce = U(:,<span class="number">1</span>:k);</span><br><span class="line">z = Ureduce&#x27;*x;</span><br></pre></td></tr></table></figure></li>
+</ol>
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
-<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
+<li>PCA和线性拟合是完全不同的两种算法</li>
+<li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 3-Backpropagation</title>
+    <url>/2022/01/10/Machine-learning-Summary-3/</url>
+    <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
+<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>首先明确，反向传播算法是用来算神经网络成本函数的偏导数的，目的是改变θ大小，以最快的速度找到最小的成本函数。只要求出了成本函数和成本函数的偏导数，就能使用各种优化算法求出最优的参数θ。</p>
+<p>这里直接给出反向传播算法的计算过程（伪代码）。</p>
+<ol>
+<li><p>前向传播计算出期望函数</p>
+</li>
+<li><p>引入误差函数δ的概念，其中L代表第L层，即输出层，a为神经元的激励值，可以理解为神经元按照θ算出的期望值。<br>$$<br>\delta^{(L)}&#x3D;a^{(L)}-y^{(t)}<br>$$<br>对于第(L-1)层到第2层，其误差函数矩阵化后的计算公式如下<br>$$<br>\delta^{(l)}&#x3D;((\Theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})<br>$$<br>其中Sigmoid函数的倒数就是下列公式计算的<br>$$<br>g^{‘}(z^{(l)})&#x3D;a^{(l)}.*(1-a^{(l)})<br>$$</p>
+</li>
+<li><p>以下列公式求出总的误差函数<br>$$<br>\Delta_{i,j}^{(l)}:&#x3D;\Delta_{i,j}^{(l)}+a^{(l)}_j\delta_i^{(l+1)}&#x3D;&#x3D;&gt;\Delta^{(l)}:&#x3D;\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T<br>$$</p>
+</li>
+<li><p>以此求出成本函数的偏导数，D即为偏导数</p>
+<ul>
+<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}(\Delta^{(l)}<em>{i,j}+\lambda\Theta^{(l)}</em>{i,j}) \qquad j\not&#x3D;0<br>$$</p>
+</li>
+<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}\Delta^{(l)}_{i,j}\qquad j&#x3D;0<br>$$</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="梯度检查算法"><a href="#梯度检查算法" class="headerlink" title="梯度检查算法"></a>梯度检查算法</h1><p>为了检验反向传播函数是否计算正确，可以使用如下算法，计算出来的结果应该与反向传播函数相差无几。<br>$$<br>{\partial \over \partial\Theta_j}J(\Theta)\approx{J(\Theta_1,…,\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,\Theta_j-\epsilon,…,\Theta_n) \over 2\epsilon}<br>$$</p>
+<h1 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h1><p>在有监督神经网络中，训练神经网络即为找到合适的θ值，使样本输出最大限度的接近样本正确值。其过程如下</p>
+<ol>
+<li><strong>随机</strong>初始化权重，之所以随机，是为了打破相同初始参数时神经网络的对称性。</li>
+<li>实现前项传播得到样本的期望值</li>
+<li>计算代价函数（成本函数）</li>
+<li>使用后向传播算法计算成本函数对不同θ的偏导数</li>
+<li>使用梯度检查来确认您的反向传播是否有效。然后禁用梯度检查。</li>
+<li>使用梯度下降或内置优化函数来最小化具有 theta 权重的成本函数。</li>
+</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>i*n 阶矩阵与 n*j 阶矩阵相乘，最后的维度为i*j</li>
+</ul>
+<blockquote>
+<p>本文为吴恩达Machine learning课程的学习笔记</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 2-Classification</title>
+    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
+    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
+<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
+<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
+<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
+<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
+<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
+<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
+<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
+<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
 </ul>
 ]]></content>
       <categories>
@@ -741,68 +783,26 @@
       </tags>
   </entry>
   <entry>
-    <title>ML Summary 2-Classification</title>
-    <url>/2022/01/06/Machine-Learning-Summary-2/</url>
-    <content><![CDATA[<h1 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h1><p>有监督学习分为<strong>回归</strong>和<strong>分类</strong>两类问题，在Summary 1中总结了线性回归的假设函数、成本函数(代价函数)以及使用梯度下降去寻找最优解的方法等内容。这里我们开始讨论分类问题。分类问题可以沿用回归问题的思路，不同的是，我们此时的目标是找出对数据分类的边界线，即<strong>决策边界</strong>。</p>
-<h2 id="假设函数"><a href="#假设函数" class="headerlink" title="假设函数"></a>假设函数</h2><p>分类问题中，假设函数的输出值为样本等于1的概率。需要说明的是，在只包含两种结果的样本值中，输出值只有1和0，即y&#x3D;0或y&#x3D;1。由于假设函数的值为概率值，需要将输出值限制在0到1之间，在这里引入逻辑函数，或称Sigmoid函数，当z&gt;0时，g(z)&gt;0.5；z&lt;0时，g(z)&lt;0.5;<br>$$<br>g(z)&#x3D; {1\over{1+e^{-z}}}<br>$$<br>再得出假设函数为：<br>$$<br>h_\theta(x)&#x3D;g(\theta^Tx)<br>$$<br>当z&#x3D;0时，即满足<br>$$<br>z&#x3D;\theta^Tx&#x3D;0<br>$$<br>此时该方程表示的曲线即代表<strong>决策边界</strong>。</p>
-<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]<br>$$</p>
-<p>向量化之后代价函数如下<br>$$<br>J(\theta)&#x3D;{1\over m}[-y^Tlog(h)-(1-y)^Tlog(1-h)]<br>$$</p>
-<h2 id="更新矩阵"><a href="#更新矩阵" class="headerlink" title="更新矩阵"></a>更新矩阵</h2><p>直接写出梯度下降参数更新向量化后的形式<br>$$<br>\theta:&#x3D;\theta-{\alpha \over m}X^T(g(X\theta)-y)<br>$$</p>
-<h1 id="过拟合及解决方案"><a href="#过拟合及解决方案" class="headerlink" title="过拟合及解决方案"></a>过拟合及解决方案</h1><p>当样本中有太多特征时，导致拟合样本数据非常优秀，以至于不能很好地预测未知的数据。其解决方法就是正则化，可理解为惩罚多余的特征。或者说，在模型中，让多余特征前面的参数趋向于0，从而减少多余特征的影响，又能让这些特征为模型做出少量贡献。</p>
-<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化后的代价函数为<br>$$<br>J(\theta)&#x3D;-{1 \over m}\Sigma^m_{i&#x3D;1}[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br><strong>梯度下降</strong>参数更新正则化后的函数为，需要将θ0和θj分开求，lambda为正则化参数，lambda过大时说明欠拟合了<br>$$<br>\theta_0:&#x3D;\theta_0-\alpha{1 \over m}\Sigma_{i&#x3D;1}^m[h_\theta(x^{(i)})-y^{(i)}]x^{(i)}_0<br>$$</p>
-<p>$$<br>\theta_j:&#x3D;\theta_j-\alpha[({1 \over m}\Sigma_{i&#x3D;1}^m(h_\theta(x^{(i)})-y^{(i)})x_j^{(i)})+{\lambda \over m}\theta_j]<br>$$</p>
-<p><strong>正规方程</strong>正则化公式如下<br>$$<br>\theta&#x3D;(X^TX+\lambda L)^{-1}X^Ty<br>$$<br>其中L为单位矩阵第一个元素替换为0。</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
-<li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
-<li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 3-Backpropagation</title>
-    <url>/2022/01/10/Machine-learning-Summary-3/</url>
-    <content><![CDATA[<h1 id="神经网络中的代价函数"><a href="#神经网络中的代价函数" class="headerlink" title="神经网络中的代价函数"></a>神经网络中的代价函数</h1><p>回顾一下在逻辑回归中的成本函数为<br>$$<br>J(\theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m[y^{(i)}log(h_\theta(x^{(i)}))+(1-y^{(i)})log(1-h_\theta(x^{(i)}))]+{\lambda \over 2m}\Sigma_{j&#x3D;1}^n\theta_j^2<br>$$<br>在神经网络中，特别是多层神经网络中，成本函数更加复杂，其表达式如下<br>$$<br>J(\Theta)&#x3D;-{1\over m}\Sigma_{i&#x3D;1}^m\Sigma_{k&#x3D;1}^K[y^{(i)}log((h_\Theta(x^{(i)}))<em>k)+(1-y^{(i)}<em>k)log(1-h_\Theta(x^{(i)}))<em>k)]+{\lambda \over 2m}\Sigma</em>{l&#x3D;1}^{L-1}\Sigma</em>{i&#x3D;1}^{sl}\Sigma</em>{j&#x3D;1}^{sl+1}(\Theta_{j,i}^{(l)})^2<br>$$<br>其中，其中K代表输出单元的个数，L代表整个网络的层数，S代表每层网络的神经元个数(不包含偏置神经元)。如果在神经网络第j层有S(j)个单元，在j+1层有S(j+1)个单元，那么某一层的参数θ矩阵的维度应该为S(j+1) * (S(j)+1)  (行 * 列)。</p>
-<h1 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h1><p>首先明确，反向传播算法是用来算神经网络成本函数的偏导数的，目的是改变θ大小，以最快的速度找到最小的成本函数。只要求出了成本函数和成本函数的偏导数，就能使用各种优化算法求出最优的参数θ。</p>
-<p>这里直接给出反向传播算法的计算过程（伪代码）。</p>
+    <title>ML Summary 5-How to use SVM</title>
+    <url>/2022/01/16/ML-Summary5-How-to-use-SVM/</url>
+    <content><![CDATA[<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>SVM全称为支持向量机，它也是一种通过最小化目标函数来求解theta的方法。<strong>线性分类边界</strong>问题中，SVM需要最小化的代价函数为<br>$$<br>C\Sigma_{i&#x3D;1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+{1 \over 2}\Sigma_{i&#x3D;1}^n\theta^2_j\quad (C&#x3D;{1\over \lambda})<br>$$<br>为了实现<strong>非线性分类边界</strong>，对于代价函数中得特征X，有没有不同的，或者更好的选择呢？有，将特征X替换为相似函数f，即<br>$$<br>f_1&#x3D;similarity(x,l^{(1)})&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>可以分析出，F的取值范围在0和1之间，其中，L为手动标记的点。</p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>现在已经集成好了许多的软件SVM库，使用SVM算法，即使用SVM库，它要求你指定下列参数</p>
 <ol>
-<li><p>前向传播计算出期望函数</p>
-</li>
-<li><p>引入误差函数δ的概念，其中L代表第L层，即输出层，a为神经元的激励值，可以理解为神经元按照θ算出的期望值。<br>$$<br>\delta^{(L)}&#x3D;a^{(L)}-y^{(t)}<br>$$<br>对于第(L-1)层到第2层，其误差函数矩阵化后的计算公式如下<br>$$<br>\delta^{(l)}&#x3D;((\Theta^{(l)})^T\delta^{(l+1)}).<em>a^{(l)}.</em>(1-a^{(l)})<br>$$<br>其中Sigmoid函数的倒数就是下列公式计算的<br>$$<br>g^{‘}(z^{(l)})&#x3D;a^{(l)}.*(1-a^{(l)})<br>$$</p>
-</li>
-<li><p>以下列公式求出总的误差函数<br>$$<br>\Delta_{i,j}^{(l)}:&#x3D;\Delta_{i,j}^{(l)}+a^{(l)}_j\delta_i^{(l+1)}&#x3D;&#x3D;&gt;\Delta^{(l)}:&#x3D;\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T<br>$$</p>
-</li>
-<li><p>以此求出成本函数的偏导数，D即为偏导数</p>
+<li>参数C</li>
+<li>核函数</li>
+</ol>
+<p>对于线性分类边界，无核。非线性分类边界有许多核，其中常用的有高斯核，即<br>$$<br>f_1&#x3D;exp(-{||x-l^{(1)}||^2 \over 2\sigma^2})<br>$$<br>注意：在使用高斯核前，需要对数据进行放缩和归一化处理。高斯核中，sigma参数需要人为设置。</p>
+<h1 id="逻辑回归-SVM-神经网络"><a href="#逻辑回归-SVM-神经网络" class="headerlink" title="逻辑回归 &amp; SVM &amp; 神经网络"></a>逻辑回归 &amp; SVM &amp; 神经网络</h1><p>逻辑回归、SVM和神经网络都是有监督学习中的重要算法，不同情况下如何对算法进行处理呢？（设n为特征的数量，m为训练样本的数量）</p>
 <ul>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}(\Delta^{(l)}<em>{i,j}+\lambda\Theta^{(l)}</em>{i,j}) \qquad j\not&#x3D;0<br>$$</p>
-</li>
-<li><p>$$<br>D_{i,j}^{(l)}:&#x3D;{1 \over m}\Delta^{(l)}_{i,j}\qquad j&#x3D;0<br>$$</p>
-</li>
+<li>当n很大时(如n&#x3D;10000，m&#x3D;10到1000)，用逻辑回归或者线性SVM(无核SVM)</li>
+<li>当n小，m为中等大小时(如n&#x3D;1到1000，m&#x3D;10到10000)，用高斯核SVM</li>
+<li>当n小，m大时(n&#x3D;1到1000，m&#x3D;50000+)，增加更多的特征，然后使用逻辑回归或者线性SVM(无核SVM)</li>
 </ul>
-</li>
-</ol>
-<h1 id="梯度检查算法"><a href="#梯度检查算法" class="headerlink" title="梯度检查算法"></a>梯度检查算法</h1><p>为了检验反向传播函数是否计算正确，可以使用如下算法，计算出来的结果应该与反向传播函数相差无几。<br>$$<br>{\partial \over \partial\Theta_j}J(\Theta)\approx{J(\Theta_1,…,\Theta_j+\epsilon,…,\Theta_n)-J(\Theta_1,…,\Theta_j-\epsilon,…,\Theta_n) \over 2\epsilon}<br>$$</p>
-<h1 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h1><p>在有监督神经网络中，训练神经网络即为找到合适的θ值，使样本输出最大限度的接近样本正确值。其过程如下</p>
-<ol>
-<li><strong>随机</strong>初始化权重，之所以随机，是为了打破相同初始参数时神经网络的对称性。</li>
-<li>实现前项传播得到样本的期望值</li>
-<li>计算代价函数（成本函数）</li>
-<li>使用后向传播算法计算成本函数对不同θ的偏导数</li>
-<li>使用梯度检查来确认您的反向传播是否有效。然后禁用梯度检查。</li>
-<li>使用梯度下降或内置优化函数来最小化具有 theta 权重的成本函数。</li>
-</ol>
+<p>神经网络适合于上述所有情况，只是训练起来可能有点慢</p>
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>i*n 阶矩阵与 n*j 阶矩阵相乘，最后的维度为i*j</li>
+<li>还有一些SVM核，如多项式核、字符串核等，都很少用到，通常使用的都是高斯核</li>
+<li>算法的选择应该是简单的第一步，在机器学习中，如何debug，如何选择正确的参数都是值得探讨与深究的学问。</li>
 </ul>
-<blockquote>
-<p>本文为吴恩达Machine learning课程的学习笔记</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -930,6 +930,77 @@
       </tags>
   </entry>
   <entry>
+    <title>RL Summary 4 - Policy-Based Reinforcement Learning</title>
+    <url>/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/</url>
+    <content><![CDATA[<h1 id="策略函数-π-a-s"><a href="#策略函数-π-a-s" class="headerlink" title="策略函数: π(a|s)"></a>策略函数: π(a|s)</h1><p>策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足<br>$$<br>\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1<br>$$<br>其中theta代表神经网络的参数。</p>
+<h1 id="策略学习"><a href="#策略学习" class="headerlink" title="策略学习"></a>策略学习</h1><p>对动作价值函数求A的期望，即得到状态价值函数<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]&#x3D;\Sigma_a\pi(a|s_t)*Q_\pi(s_t,a)<br>$$<br>接下来，就要用神经网络近似状态价值函数，即用策略函数替换为神经网络。此时状态价值函数应该是关于s和theta的函数，那么在状态价值函数中，对状态求期望，就能得到一个只和theta有关的函数：<br>$$<br>J(\theta)&#x3D;E_s[V(S;\theta)]<br>$$<br>那么我们的目标很明确了，通过改变theta，使函数J得到最大值。那么如何优化theta呢？使用策略梯度算法梯度上升优化theta。策略梯度算法分为两步：</p>
+<ul>
+<li><p>观察状态S</p>
+</li>
+<li><p>更新theta值：<br>$$<br>\theta&#x3D;\theta+\beta*{\partial V(s;\theta) \over \partial \theta}<br>$$</p>
+</li>
+</ul>
+<h1 id="算法流程总结"><a href="#算法流程总结" class="headerlink" title="算法流程总结"></a>算法流程总结</h1><ul>
+<li><p>获取状态S</p>
+</li>
+<li><p>由神经网络近似的π函数计算出a</p>
+</li>
+<li><p>计算行动价值函数，记为：<br>$$<br>q_t\approx Q_\pi(s_t,a_t)<br>$$</p>
+</li>
+<li><p>对策略网络π求导, tensorflow和pytorch都将这个函数封装好，可以直接调用：<br>$$<br>d_{\theta,t}&#x3D;{\partial log\pi(a_t|s_t,\theta) \over \partial\theta}|_{\theta&#x3D;\theta_t}<br>$$</p>
+</li>
+<li><p>近似地算策略梯度<br>$$<br>g(a_t,\theta_t)&#x3D;q_t*d_{\theta,t}<br>$$</p>
+</li>
+<li><p>更新策略网络<br>$$<br>\Theta_{t+1}&#x3D;\Theta_t+\beta*g(a_t,\Theta_t)<br>$$</p>
+</li>
+</ul>
+<p>在上述流程中，如何近似地计算行动价值函数qt呢，有两种算法：</p>
+<ol>
+<li>REINFORCE算法<br>在一次完整的训练结束后，即在围棋中，一局完整的棋局结束后，计算所有的折扣汇报之和ut，并使用ut作为行动价值函数qt的近似值</li>
+<li>用神经网络做近似<br>原本已经用了神经网络近似函数π，现在用另一个神经网络近似qt。这两个神经网络一个被称为actor，一个被称为critic，这种方法被称为actor-critic方法。</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
+    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
+    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
+<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
+<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
+<li><p>获取t时刻的状态值St和行为At</p>
+</li>
+<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
+</li>
+<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
+</li>
+<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
+</li>
+<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
+</li>
+<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
+</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RL Summary 2-Basic Concept</title>
     <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
     <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
@@ -990,74 +1061,23 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
-    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
-    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
-<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
-<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
-<li><p>获取t时刻的状态值St和行为At</p>
-</li>
-<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
-</li>
-<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
-</li>
-<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
-</li>
-<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
-</li>
-<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
-</li>
-</ol>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
+    <title>Windows中的实用软件</title>
+    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
+<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
+<p>快捷键如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
+
+<h1 id="Listary"><a href="#Listary" class="headerlink" title="Listary"></a>Listary</h1><p>和everything软件一样的效果，按两下ctrl键呼出快捷搜索栏，可以快速找到你想要的文件，就算只记得文件中的几个字符也能自动匹配。</p>
+<p>官网地址：<a href="https://listary.xxkjxf.cn/index.html?bd_vid=8564182720116062105">Listary</a></p>
+<h1 id="Synctrayzor"><a href="#Synctrayzor" class="headerlink" title="Synctrayzor"></a>Synctrayzor</h1><p>是点对点传输的同步软件，只需要在两台设备上配置文件夹路径，那么这两台设备上的这个文件夹都会实时同步，可比百度云用起来舒服多了。如果是在同一个局域网内，不用互联网就可以实现同步。当然，只要连接上了互联网，他也能同步。</p>
+<p>开源地址：<a href="https://github.com/canton7/SyncTrayzor/releases">Synctrayzor release</a></p>
 ]]></content>
       <categories>
-        <category>学习笔记</category>
+        <category>软件应用笔记</category>
       </categories>
       <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RL Summary 4 - Policy-Based Reinforcement Learning</title>
-    <url>/2022/02/17/RL-Summary-4-Policy-Based-Reinforcement-Learning/</url>
-    <content><![CDATA[<h1 id="策略函数-π-a-s"><a href="#策略函数-π-a-s" class="headerlink" title="策略函数: π(a|s)"></a>策略函数: π(a|s)</h1><p>策略函数的输入是当前状态S，输出是概率分布，即根据状态确定输出。我们需要用一个函数来近似策略函数，近似函数有很多种方法，可以用核函数，线性函数，也可以用神经网络。如果用神经网络来近似这个策略函数，那么我们把这个函数称为策略网络(Policy Network)，其表达式应满足<br>$$<br>\Sigma_{a\in A}\pi(a|s,\theta)&#x3D;1<br>$$<br>其中theta代表神经网络的参数。</p>
-<h1 id="策略学习"><a href="#策略学习" class="headerlink" title="策略学习"></a>策略学习</h1><p>对动作价值函数求A的期望，即得到状态价值函数<br>$$<br>V_\pi(s_t)&#x3D;E_A[Q_\pi(s_t,A)]&#x3D;\Sigma_a\pi(a|s_t)*Q_\pi(s_t,a)<br>$$<br>接下来，就要用神经网络近似状态价值函数，即用策略函数替换为神经网络。此时状态价值函数应该是关于s和theta的函数，那么在状态价值函数中，对状态求期望，就能得到一个只和theta有关的函数：<br>$$<br>J(\theta)&#x3D;E_s[V(S;\theta)]<br>$$<br>那么我们的目标很明确了，通过改变theta，使函数J得到最大值。那么如何优化theta呢？使用策略梯度算法梯度上升优化theta。策略梯度算法分为两步：</p>
-<ul>
-<li><p>观察状态S</p>
-</li>
-<li><p>更新theta值：<br>$$<br>\theta&#x3D;\theta+\beta*{\partial V(s;\theta) \over \partial \theta}<br>$$</p>
-</li>
-</ul>
-<h1 id="算法流程总结"><a href="#算法流程总结" class="headerlink" title="算法流程总结"></a>算法流程总结</h1><ul>
-<li><p>获取状态S</p>
-</li>
-<li><p>由神经网络近似的π函数计算出a</p>
-</li>
-<li><p>计算行动价值函数，记为：<br>$$<br>q_t\approx Q_\pi(s_t,a_t)<br>$$</p>
-</li>
-<li><p>对策略网络π求导, tensorflow和pytorch都将这个函数封装好，可以直接调用：<br>$$<br>d_{\theta,t}&#x3D;{\partial log\pi(a_t|s_t,\theta) \over \partial\theta}|_{\theta&#x3D;\theta_t}<br>$$</p>
-</li>
-<li><p>近似地算策略梯度<br>$$<br>g(a_t,\theta_t)&#x3D;q_t*d_{\theta,t}<br>$$</p>
-</li>
-<li><p>更新策略网络<br>$$<br>\Theta_{t+1}&#x3D;\Theta_t+\beta*g(a_t,\Theta_t)<br>$$</p>
-</li>
-</ul>
-<p>在上述流程中，如何近似地计算行动价值函数qt呢，有两种算法：</p>
-<ol>
-<li>REINFORCE算法<br>在一次完整的训练结束后，即在围棋中，一局完整的棋局结束后，计算所有的折扣汇报之和ut，并使用ut作为行动价值函数qt的近似值</li>
-<li>用神经网络做近似<br>原本已经用了神经网络近似函数π，现在用另一个神经网络近似qt。这两个神经网络一个被称为actor，一个被称为critic，这种方法被称为actor-critic方法。</li>
-</ol>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Reinforcement Learning</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1086,26 +1106,6 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows中的实用软件</title>
-    <url>/2023/05/25/Windows%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="Zoomlt"><a href="#Zoomlt" class="headerlink" title="Zoomlt"></a>Zoomlt</h1><p>用来放大缩小屏幕，在屏幕上写写画画，非常使用。</p>
-<p>官网网址：<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/zoomit">Zoomlt</a></p>
-<p>快捷键如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ctrl + 1 : 放大屏幕</span><br><span class="line">Ctrl + 2 : 开始绘画，可Ctrl+Z撤销比划，E清除所有比划</span><br><span class="line">Ctrl + 3 : 倒计时</span><br></pre></td></tr></table></figure>
-
-<h1 id="Listary"><a href="#Listary" class="headerlink" title="Listary"></a>Listary</h1><p>和everything软件一样的效果，按两下ctrl键呼出快捷搜索栏，可以快速找到你想要的文件，就算只记得文件中的几个字符也能自动匹配。</p>
-<p>官网地址：<a href="https://listary.xxkjxf.cn/index.html?bd_vid=8564182720116062105">Listary</a></p>
-<h1 id="Synctrayzor"><a href="#Synctrayzor" class="headerlink" title="Synctrayzor"></a>Synctrayzor</h1><p>是点对点传输的同步软件，只需要在两台设备上配置文件夹路径，那么这两台设备上的这个文件夹都会实时同步，可比百度云用起来舒服多了。如果是在同一个局域网内，不用互联网就可以实现同步。当然，只要连接上了互联网，他也能同步。</p>
-<p>开源地址：<a href="https://github.com/canton7/SyncTrayzor/releases">Synctrayzor release</a></p>
-]]></content>
-      <categories>
-        <category>软件应用笔记</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -2349,6 +2349,36 @@
       </tags>
   </entry>
   <entry>
+    <title>深度学习的可解释性</title>
+    <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
+    <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
+<h2 id="可解释性方法"><a href="#可解释性方法" class="headerlink" title="可解释性方法"></a>可解释性方法</h2><ul>
+<li>在建模之前的可解释性方法</li>
+<li>建立本身可解释性的模型</li>
+<li>在建模之后使用可解释方法对模型做出解释</li>
+</ul>
+<h3 id="在建模之前的可解释性方法"><a href="#在建模之前的可解释性方法" class="headerlink" title="在建模之前的可解释性方法"></a>在建模之前的可解释性方法</h3><p>主要涉及一些数据预处理或数据展示的方法。</p>
+<p>在建模之前的可解释性方法的关键在于帮助我们<strong>迅速而全面地了解数据分布的特征</strong></p>
+<p>使用一些交互式的可视化方法会极大帮助我们从各个层次角度理解数据的分布。</p>
+<h3 id="建立本身具备可解释性的模型"><a href="#建立本身具备可解释性的模型" class="headerlink" title="建立本身具备可解释性的模型"></a>建立本身具备可解释性的模型</h3><ul>
+<li>基于规则的方法：但当规则表示过多或者原始的特征本身就不是特别好解释的时候，基于规则的方法有时候也不太适用。</li>
+<li>基于单个特征的方法</li>
+<li>基于实例的方法：基于实例的方法的一些局限在于可能挑出来的样本不具有代表性或者人们可能会有过度泛化的倾向。</li>
+<li>稀疏性方法</li>
+<li>单调性方法</li>
+</ul>
+<h3 id="在建模之后使用可解释性方法做出解释"><a href="#在建模之后使用可解释性方法做出解释" class="headerlink" title="在建模之后使用可解释性方法做出解释"></a>在建模之后使用可解释性方法做出解释</h3><ul>
+<li>隐层分析法</li>
+<li>模拟&#x2F;代理模型</li>
+<li>敏感性分析方法</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>可解释性</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深浅复制</title>
     <url>/2022/03/22/%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6/</url>
     <content><![CDATA[<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><p><strong>浅复制</strong>是对象复制过程中发生的现象。对象复制使，不同对象的指针指向同一个变量的内存地址即为浅复制。看下面这两行代码</p>
@@ -2401,6 +2431,28 @@
       </tags>
   </entry>
   <entry>
+    <title>滤波器</title>
+    <url>/2025/01/07/%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
+    <content><![CDATA[<p>在这篇文章中整理一阶高通滤波器和低通滤波器的各种形式，包括连续域传递函数、离散域传递函数、离散迭代方程。</p>
+<h1 id="高通滤波器"><a href="#高通滤波器" class="headerlink" title="高通滤波器"></a>高通滤波器</h1><h2 id="连续域传递函数"><a href="#连续域传递函数" class="headerlink" title="连续域传递函数"></a>连续域传递函数</h2><p>$$<br>H(s)&#x3D;\frac{s}{s+w_c}<br>$$</p>
+<p>其中$w_c$为截止角频率。<br>$$<br>w_c&#x3D;\frac{1}{RC}&#x3D;2<em>\pi</em>f_c<br>$$</p>
+<h2 id="离散迭代方程"><a href="#离散迭代方程" class="headerlink" title="离散迭代方程"></a>离散迭代方程</h2><p>$$<br>y[k]&#x3D;a*[y[k-1]+x[k]-x[k-1]]<br>$$</p>
+<p>其中a:<br>$$<br>a &#x3D; \frac{RC}{ts+RC}<br>$$</p>
+<h2 id="离散域传递函数"><a href="#离散域传递函数" class="headerlink" title="离散域传递函数"></a>离散域传递函数</h2><p>即z域传递函数为<br>$$<br>H(z)&#x3D;\frac{a(1-z^{-1})}{1-(1-a)z^{-1}}<br>$$</p>
+<h1 id="低通滤波器"><a href="#低通滤波器" class="headerlink" title="低通滤波器"></a>低通滤波器</h1><h2 id="连续域传递函数-1"><a href="#连续域传递函数-1" class="headerlink" title="连续域传递函数"></a>连续域传递函数</h2><p>$$<br>H(s)&#x3D;\frac{1}{w_cs+1}<br>$$</p>
+<p>其中$w_c$为时间常数：<br>$$<br>w_c &#x3D; \frac{1}{2<em>\pi</em>f_{截止}}<br>$$<br>其中$f_{截止}$为低通滤波器的截止频率。</p>
+<h2 id="离散迭代方程-1"><a href="#离散迭代方程-1" class="headerlink" title="离散迭代方程"></a>离散迭代方程</h2><p>在实际控制系统中，并不能像仿真那样直接使用传递函数使用低通滤波器，通常使用离散迭代方程：<br>$$<br>y[k]&#x3D;b*x[k]+(1-b)*y[k-1]<br>$$<br>其中，$y$为滤波后变量，b为:<br>$$<br>b&#x3D;\frac{ts}{ts+RC}<br>$$<br>其中$ts$为采样时间。</p>
+<h2 id="离散域传递函数-1"><a href="#离散域传递函数-1" class="headerlink" title="离散域传递函数"></a>离散域传递函数</h2><p>即z域传递函数：<br>$$<br>G(z)&#x3D;\frac{b}{1-(1-b)*z^{-1}}<br>$$</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>PMSM</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>物联网手势控制小车所遇问题与解决方案</title>
     <url>/2023/05/24/%E7%89%A9%E8%81%94%E7%BD%91%E6%89%8B%E5%8A%BF%E6%8E%A7%E5%88%B6%E5%B0%8F%E8%BD%A6%E6%89%80%E9%81%87%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<h3 id="LCD1602无法显示问题"><a href="#LCD1602无法显示问题" class="headerlink" title="LCD1602无法显示问题"></a>LCD1602无法显示问题</h3><p><strong>问题描述</strong>：按照开源社区教程完成LCD1602驱动显示程序的编写，成功点亮屏幕，开启背光，但无法观察到显示数据。</p>
@@ -2434,36 +2486,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深度学习的可解释性</title>
-    <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
-    <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
-<h2 id="可解释性方法"><a href="#可解释性方法" class="headerlink" title="可解释性方法"></a>可解释性方法</h2><ul>
-<li>在建模之前的可解释性方法</li>
-<li>建立本身可解释性的模型</li>
-<li>在建模之后使用可解释方法对模型做出解释</li>
-</ul>
-<h3 id="在建模之前的可解释性方法"><a href="#在建模之前的可解释性方法" class="headerlink" title="在建模之前的可解释性方法"></a>在建模之前的可解释性方法</h3><p>主要涉及一些数据预处理或数据展示的方法。</p>
-<p>在建模之前的可解释性方法的关键在于帮助我们<strong>迅速而全面地了解数据分布的特征</strong></p>
-<p>使用一些交互式的可视化方法会极大帮助我们从各个层次角度理解数据的分布。</p>
-<h3 id="建立本身具备可解释性的模型"><a href="#建立本身具备可解释性的模型" class="headerlink" title="建立本身具备可解释性的模型"></a>建立本身具备可解释性的模型</h3><ul>
-<li>基于规则的方法：但当规则表示过多或者原始的特征本身就不是特别好解释的时候，基于规则的方法有时候也不太适用。</li>
-<li>基于单个特征的方法</li>
-<li>基于实例的方法：基于实例的方法的一些局限在于可能挑出来的样本不具有代表性或者人们可能会有过度泛化的倾向。</li>
-<li>稀疏性方法</li>
-<li>单调性方法</li>
-</ul>
-<h3 id="在建模之后使用可解释性方法做出解释"><a href="#在建模之后使用可解释性方法做出解释" class="headerlink" title="在建模之后使用可解释性方法做出解释"></a>在建模之后使用可解释性方法做出解释</h3><ul>
-<li>隐层分析法</li>
-<li>模拟&#x2F;代理模型</li>
-<li>敏感性分析方法</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-        <tag>可解释性</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用Matlab来对控制系统进行分析</title>
     <url>/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>最近在做PMSM电流环模型预测控制的研究，初步实验做出来了，相同参数下，我提出的方案是比现有方案有较大优势的，证明我的想法可行。接下来想从理论上对控制器性能进行定量和定性分析，以完善理论，所以有了这篇学习笔记。</p>
@@ -2471,7 +2493,7 @@
 <p><strong>方案一</strong>：在Simulink中搭建仿真模型，使用Simulink中的模型线性化器，直接绘制出伯德图。</p>
 <p><strong>方案二</strong>：手动推导我设计的控制器的闭环传递函数，通过分析闭环传递函数来绘制伯德图。</p>
 <p>我最开始的想法就是使用方案一，但是设置完线性分析点后，发现得到的控制器伯德图啥也没有，如下所示：</p>
-<style>.jewarbreitfy{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="jewarbreitfy" alt="image-20241215124140306">
+<style>.lxrwxvpurwpi{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="lxrwxvpurwpi" alt="image-20241215124140306">
 
 <p>于是我开始怀疑是不是我搭建的模型中是用matlab function进行创建的，导致它线性化失败，然后出现了不对。对于这个线性化器，我有以下几个疑惑点：</p>
 <ol>
@@ -2548,6 +2570,41 @@
       </tags>
   </entry>
   <entry>
+    <title>系统离散化</title>
+    <url>/2024/12/26/%E7%B3%BB%E7%BB%9F%E7%A6%BB%E6%95%A3%E5%8C%96/</url>
+    <content><![CDATA[<p>系统在时域分析后，转化为频域连续域分析，即在s域进行分析。在实际应用中，往往需要离散的控制器，来进行实际系统的控制。那么，对连续系统离散化一般有什么方法，再将离散化后的控制器应用在实际系统中需要什么步骤呢？</p>
+<p>针对s域的传递函数离散化方法一般有两种：</p>
+<ul>
+<li>双线性差分法</li>
+<li>零阶保持法</li>
+</ul>
+<h1 id="双线性差分"><a href="#双线性差分" class="headerlink" title="双线性差分"></a>双线性差分</h1><p>就是把s直接转化为z，其转换公式如下：<br>$$<br>s &#x3D; \frac{1+z^{-1}}{1-z^{-1}}<br>$$</p>
+<h1 id="零阶保持法"><a href="#零阶保持法" class="headerlink" title="零阶保持法"></a>零阶保持法</h1><p>根据零阶保持法，离散时间传递函数$G_{d}(z)$的求解公式为：<br>$$<br>G_{d}(z)&#x3D;\mathcal{Z}\left{\left.\mathcal{L}^{-1}\left[\frac{G_{c}(s)}{s}\right]\right|_{t&#x3D;k T}\right}<br>$$<br>分为4个步骤：</p>
+<ol>
+<li><p>附加$\frac{1}{s}$因子：在零阶保持器中，输入信号在每个采样周期内保持恒定，因此连续时间的传递函数需要先与一个零阶保持器的等效因子$\frac{1}{s}$相乘，零阶保持器的等效函数为：<br>$$<br>H(s)&#x3D;\frac{1-e^{-sT}}{s}<br>$$</p>
+</li>
+<li><p>求$G_c(s)*H(s)$的拉普拉斯逆变换：将$G_c(s)*H(s)$转换到时域，得到其单位采样响应。</p>
+</li>
+<li><p>在上述时域表达式$t&#x3D;kT$处取值，形成离散时间序列。</p>
+</li>
+<li><p>应用Z变换：对离散时间序列做$Z$变换，得到离散时间的传递函数$G_d(z)$。</p>
+</li>
+</ol>
+<h1 id="实际系统应用方法"><a href="#实际系统应用方法" class="headerlink" title="实际系统应用方法"></a>实际系统应用方法</h1><p>得到了离散的控制器，怎样将其应用在实际系统中呢？<strong>就是将离散化的控制器转化为差分方程的形式</strong>。</p>
+<p>在Matlab中，可以使用c2d函数将系统离散化。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>在系统分析中，可以先在连续域进行分析，分析完成后将连续域离散化，转化为差分方程的形式以便可以顺利利用控制器。</p>
+]]></content>
+      <categories>
+        <category>自动控制原理</category>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>PMSM</tag>
+        <tag>算法</tag>
+        <tag>自动控制原理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>虚函数</title>
     <url>/2023/02/07/%E8%99%9A%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>虚函数是动态绑定的基础，它通常在类的定义中进行申明，可以为类中的一般函数，析构函数等。需要注意的是，虚函数必须是<strong>非静态</strong>的成员函数，且由于要实现动态绑定，虚函数一般<strong>不声明为内联函数</strong>，因为编译器对内联函数的处理是静态的。</p>
@@ -2573,6 +2630,16 @@
 
 <p>声明为纯虚函数后，基类中就可以不再给出函数的实现部分(即使给出也无法实例化)，纯虚函数的函数体由派生类给出。</p>
 <p>带有虚函数的类是<strong>抽象类</strong>。抽象类不能实例化，即不能定义一个抽象类的对象，但是可以定义一个抽象类的指针和引用，通过指针和引用，就能指向并访问派生类的对象，其操作方法与一般虚函数相同。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>运算符重载</title>
+    <url>/2023/03/16/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2606,16 +2673,6 @@
       </categories>
       <tags>
         <tag>成长感悟</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>运算符重载</title>
-    <url>/2023/03/16/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="type">const</span> Entry&amp; e) &#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;&#123;\&quot;&quot;</span> &lt;&lt; e.name &lt;&lt; <span class="string">&quot;\&quot;,&quot;</span> &lt;&lt; e.number &lt;&lt; <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Entry A;</span><br><span class="line">	A.name = <span class="string">&quot;Peter&quot;</span>;</span><br><span class="line">	A.number = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; A &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2680,8 +2737,8 @@
       </categories>
       <tags>
         <tag>算法</tag>
-        <tag>电机</tag>
         <tag>自动控制原理</tag>
+        <tag>电机</tag>
       </tags>
   </entry>
   <entry>
