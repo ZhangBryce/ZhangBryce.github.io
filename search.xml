@@ -1,78 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Arduino基础功能例程</title>
-    <url>/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/</url>
-    <content><![CDATA[<p>开发环境：PlatformIO</p>
-<p>开发板型号：Arduino UNO</p>
-<h1 id="I-O口"><a href="#I-O口" class="headerlink" title="I&#x2F;O口"></a>I&#x2F;O口</h1><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN, OUTPUT);		<span class="comment">//设置LED_BUILTIN引脚为输出模式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">digitalWrite</span>(LED_BUILTIN,HIGH);	<span class="comment">//将引脚拉低</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);						<span class="comment">//延时1秒</span></span><br><span class="line">  <span class="built_in">digitalWrite</span>(LED_BUILTIN,LOW);	<span class="comment">//将引脚拉高</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);						<span class="comment">//延时1秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(<span class="number">7</span>, INPUT);				<span class="comment">//定义引脚7为输入引脚</span></span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN,OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">digitalRead</span>(<span class="number">7</span>);</span><br><span class="line">  <span class="keyword">if</span>(a)&#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_BUILTIN,HIGH);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_BUILTIN,LOW);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="串口"><a href="#串口" class="headerlink" title="串口"></a>串口</h1><h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);		<span class="comment">//初始化串口波特率为115200</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>);	<span class="comment">//通过串口输出Hello</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(Serial.<span class="built_in">available</span>())&#123;		<span class="comment">//如果串口中有数据</span></span><br><span class="line">    <span class="type">char</span> a = Serial.<span class="built_in">read</span>();		<span class="comment">//读取数据</span></span><br><span class="line">    Serial.<span class="built_in">print</span>(a);			<span class="comment">//把读出来的数据再输出</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="舵机"><a href="#舵机" class="headerlink" title="舵机"></a>舵机</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Servo.h&gt;</span>            <span class="comment">//加载文件库</span></span></span><br><span class="line"><span class="type">int</span> pos = <span class="number">0</span>;</span><br><span class="line">Servo myservo;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  myservo.<span class="built_in">attach</span>(<span class="number">9</span>, <span class="number">500</span>, <span class="number">2500</span>);          <span class="comment">//修正脉冲宽度</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (pos = <span class="number">0</span>; pos &lt;= <span class="number">180</span>; pos += <span class="number">1</span>) &#123;       <span class="comment">//pos+=1等价于pos=pos+1</span></span><br><span class="line">    myservo.<span class="built_in">write</span>(pos);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>);					</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (pos = <span class="number">180</span>; pos &gt;= <span class="number">0</span>; pos -= <span class="number">1</span>) &#123;</span><br><span class="line">    myservo.<span class="built_in">write</span>(pos);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>); 					</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="传感器"><a href="#传感器" class="headerlink" title="传感器"></a>传感器</h1><h2 id="I-O类型传感器"><a href="#I-O类型传感器" class="headerlink" title="I&#x2F;O类型传感器"></a>I&#x2F;O类型传感器</h2><h3 id="温湿度DHT11"><a href="#温湿度DHT11" class="headerlink" title="温湿度DHT11"></a>温湿度DHT11</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;DHT.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DHTPIN A0     <span class="comment">// Digital pin connected to the DHT sensor</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DHTTYPE DHT11   <span class="comment">// DHT 22  OR DHT 11</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">DHT <span class="title">dht</span><span class="params">(DHTPIN, DHTTYPE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;DHTxx test!&quot;</span>));</span><br><span class="line"></span><br><span class="line">  dht.<span class="built_in">begin</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Wait a few seconds between measurements.</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Reading temperature or humidity takes about 250 milliseconds!</span></span><br><span class="line">  <span class="comment">// Sensor readings may also be up to 2 seconds &#x27;old&#x27; (its a very slow sensor)</span></span><br><span class="line">  <span class="type">float</span> h = dht.<span class="built_in">readHumidity</span>();</span><br><span class="line">  <span class="comment">// Read temperature as Celsius (the default)</span></span><br><span class="line">  <span class="type">float</span> t = dht.<span class="built_in">readTemperature</span>();</span><br><span class="line">  <span class="comment">// Read temperature as Fahrenheit (isFahrenheit = true)</span></span><br><span class="line">  <span class="type">float</span> f = dht.<span class="built_in">readTemperature</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Check if any reads failed and exit early (to try again).</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">isnan</span>(h) || <span class="built_in">isnan</span>(t) || <span class="built_in">isnan</span>(f)) &#123;</span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;Failed to read from DHT sensor!&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Compute heat index in Fahrenheit (the default)</span></span><br><span class="line">  <span class="type">float</span> hif = dht.<span class="built_in">computeHeatIndex</span>(f, h);</span><br><span class="line">  <span class="comment">// Compute heat index in Celsius (isFahreheit = false)</span></span><br><span class="line">  <span class="type">float</span> hic = dht.<span class="built_in">computeHeatIndex</span>(t, h, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;Humidity: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(h);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;%  Temperature: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(t);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;  &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(f);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;    Heat index: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(hic);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;   &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(hif);</span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;  &quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="超声波"><a href="#超声波" class="headerlink" title="超声波"></a>超声波</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> inputPin=<span class="number">13</span>;  <span class="comment">//ECHO</span></span><br><span class="line"><span class="type">int</span> outputPin=<span class="number">12</span>; <span class="comment">//TRIG</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetDistance</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>); </span><br><span class="line">    </span><br><span class="line">  <span class="built_in">pinMode</span>(inputPin, INPUT); <span class="comment">//超声波初始化</span></span><br><span class="line">  <span class="built_in">pinMode</span>(outputPin, OUTPUT);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="built_in">GetDistance</span>();</span><br><span class="line">	Serial.<span class="built_in">print</span>(<span class="string">&quot;Distance:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(a);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetDistance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> distance=<span class="number">0</span>;</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, LOW);</span><br><span class="line">  <span class="built_in">delayMicroseconds</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, HIGH); <span class="comment">// Pulse for 10μ s to trigger ultrasonic detection</span></span><br><span class="line">  <span class="built_in">delayMicroseconds</span>(<span class="number">10</span>);</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, LOW);</span><br><span class="line">  distance = <span class="built_in">pulseIn</span>(inputPin, HIGH);</span><br><span class="line">  distance= distance/<span class="number">58</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> distance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="电机控制"><a href="#电机控制" class="headerlink" title="电机控制"></a>电机控制</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pinMode(8, OUTPUT);</span><br><span class="line">pinMode(9, OUTPUT);</span><br><span class="line">pinMode(10, OUTPUT);</span><br><span class="line">pinMode(11, OUTPUT);</span><br><span class="line"></span><br><span class="line">digitalWrite(8, HIGH);</span><br><span class="line">digitalWrite(9, LOW);</span><br><span class="line">digitalWrite(10, HIGH);</span><br><span class="line">digitalWrite(11, LOW);</span><br><span class="line"></span><br><span class="line">analogWrite(5, 255);</span><br><span class="line">analogWrite(6, 255);</span><br><span class="line"></span><br><span class="line">int i = GetDistance();</span><br><span class="line">if(i &lt; 50) &#123;</span><br><span class="line">analogWrite(5, 75);</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    analogWrite(5, 255);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="MPU6050"><a href="#MPU6050" class="headerlink" title="MPU6050"></a>MPU6050</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;MPU6050_tockn.h&gt;</span><br><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">MPU6050 mpu6050(Wire);</span><br><span class="line"></span><br><span class="line">void setup()&#123;</span><br><span class="line">  Serial.begin(115200);</span><br><span class="line">//   Wire.begin(19,22);</span><br><span class="line">  mpu6050.begin();</span><br><span class="line">  mpu6050.calcGyroOffsets(true);</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()&#123;</span><br><span class="line">    mpu6050.update();</span><br><span class="line"></span><br><span class="line">    Serial.print(mpu6050.getGyroAngleX());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getGyroAngleY());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getGyroAngleZ());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line"></span><br><span class="line">    Serial.print(mpu6050.getAngleX());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getAngleY());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.println(mpu6050.getAngleZ());</span><br><span class="line">    </span><br><span class="line">    delay(10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="LCD"><a href="#LCD" class="headerlink" title="LCD"></a>LCD</h1><p>U8g2库</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;U8g2lib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Wire.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 0.96寸OLED: 128*64px</span></span><br><span class="line"><span class="comment">// 0.91寸OLED: 128*32px</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SCL 5</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SDA 4</span></span><br><span class="line"><span class="function">U8G2_SSD1306_128X64_NONAME_F_SW_I2C <span class="title">u8g2</span><span class="params">(U8G2_R0, <span class="comment">/*clock=*/</span>SCL, <span class="comment">/*data=*/</span>SDA, <span class="comment">/*reset=*/</span>U8X8_PIN_NONE)</span></span>;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN,OUTPUT);</span><br><span class="line">  u8g2.<span class="built_in">begin</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  u8g2.<span class="built_in">clearBuffer</span>();  <span class="comment">//清除缓存        </span></span><br><span class="line">  u8g2.<span class="built_in">setFont</span>(u8g2_font_ncenB08_tr);</span><br><span class="line">  u8g2.<span class="built_in">drawStr</span>(<span class="number">0</span>,<span class="number">10</span>,<span class="string">&quot;Hello World!&quot;</span>);  </span><br><span class="line">  u8g2.<span class="built_in">drawStr</span>(<span class="number">0</span>,<span class="number">18</span>,<span class="string">&quot;This is jellyfishaaa!&quot;</span>);  </span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,30,&quot;Welcome to U8G2!&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,40,&quot;Happy day&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,50,&quot;Happy day&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,60,&quot;Happy day&quot;);  </span></span><br><span class="line">  u8g2.<span class="built_in">drawTriangle</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">64</span>,<span class="number">128</span>,<span class="number">64</span>);</span><br><span class="line">  u8g2.<span class="built_in">sendBuffer</span>();  <span class="comment">//显示      </span></span><br><span class="line">  <span class="comment">// delay(1000);  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>LiquidCrystal_I2C库</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;LiquidCrystal_I2C.h&gt;</span></span></span><br><span class="line">byte customChar[] = &#123;</span><br><span class="line">  B10100,</span><br><span class="line">  B00010,</span><br><span class="line">  B01000,</span><br><span class="line">  B01100,</span><br><span class="line">  B00100,</span><br><span class="line">  B10011,</span><br><span class="line">  B00001,</span><br><span class="line">  B01100</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// Set the LCD address to 0x27 in PCF8574 by NXP and Set to 0x3F in PCF8574A by Ti</span></span><br><span class="line"><span class="function">LiquidCrystal_I2C <span class="title">lcd</span><span class="params">(<span class="number">0x27</span>, <span class="number">16</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    lcd.<span class="built_in">createChar</span>(<span class="number">0</span>,customChar);</span><br><span class="line">    lcd.<span class="built_in">init</span>();</span><br><span class="line">    lcd.<span class="built_in">backlight</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// put your main code here, to run repeatedly:</span></span><br><span class="line">    lcd.<span class="built_in">clear</span>();</span><br><span class="line">    lcd.<span class="built_in">setCursor</span>(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    lcd.<span class="built_in">write</span>(<span class="number">0</span>);</span><br><span class="line">    lcd.<span class="built_in">setCursor</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">    lcd.<span class="built_in">print</span>(<span class="string">&quot;AA&quot;</span>);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AlphaGo</title>
-    <url>/2022/03/10/Alphago/</url>
-    <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
-<p><strong>此博客为Wang Shusen老师课程的笔记，且更侧重基础框架的理解，并无公式推导。详细的公式表示可以在老师的课程中找到，链接放在文章最后。</strong></p>
-<h1 id="1-训练方法"><a href="#1-训练方法" class="headerlink" title="1.训练方法"></a>1.训练方法</h1><p>在围棋中，棋盘是19*19的大小，一共361个点位。AlphaGo通过17个19*19的矩阵表示状态，为什么是17个矩阵呢？17个矩阵的构成如下：</p>
-<p><strong>8个白棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果白棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>8个黑棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果黑棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
-<p><strong>1个该谁走的矩阵</strong>：如果该黑子走，则矩阵全1，如果该白子走，矩阵全0。</p>
-<p>在真实对战中，AlphaGo借助策略网络和价值网络筛选胜率不大的落子，使用<strong>蒙特卡洛树搜索</strong>(Monte Carlo Tree Search)从可能赢的落子中选取最佳落子。AlphaGo训练的正是策略网络和价值网络。训练分为以下三步。</p>
-<ul>
-<li>通过模仿人类下棋(behavior cloning)训练最初的策略网络。<br>行为模仿<strong>不是强化学习</strong>，它是监督学习的一种，行为模仿是没有奖励(reword)的。开始时，随机生成策略网络的参数。用人类棋局的数据集对策略网络进行训练，让它模仿人类下棋。在经过行为模仿后，策略网络已经可以击败优秀的业余选手。</li>
-<li>使用策略梯度算法(强化学习)训练策略网络(polict network)。<br>此时不再使用人类对局的数据，而是通过两个策略网络来自我博弈。被训练的Agent使用最新的参数，而它的对手，使用的是Agent之前的旧参数。</li>
-<li>用上述训练出来的策略网络(polict network)去训练价值网络(value network)。<br>通过对弈的胜负，训练价值网络对每步棋的价值评估准确度，以便在真实对局中过滤出胜率较大的落子。</li>
-</ul>
-<h1 id="2-选取落子"><a href="#2-选取落子" class="headerlink" title="2.选取落子"></a>2.选取落子</h1><p>AlphaGo先通过策略函数选取出几个好的落子(价值较大的落子)，策略网络的训练在之前已经讲过。现在，根据棋局，策略网络已经计算出几步价值较大的棋子，接下来需要使用蒙特卡洛树搜索(Monte Carlo Tree Search)决定最终落子。那么，蒙特卡洛树搜索的具体过程是怎样的呢？</p>
-<h2 id="蒙特卡洛树搜索-Monte-Carlo-Tree-Search"><a href="#蒙特卡洛树搜索-Monte-Carlo-Tree-Search" class="headerlink" title="蒙特卡洛树搜索(Monte Carlo Tree Search)"></a>蒙特卡洛树搜索(Monte Carlo Tree Search)</h2><ul>
-<li>随机选取一个落子(从策略网络计算出的落子集合中选取)。</li>
-<li>让<strong>策略网络</strong>自我博弈直到下完这局棋得到胜负。根据胜负和<strong>价值网络</strong>给选取的落子打分。</li>
-<li>重复自我博弈的过程多次，这样一个动作就有很多分数</li>
-<li>把好的落子集合中所有落子都根据上述三个过程打分，AlphaGo会执行总分最高的落子。</li>
-</ul>
-<h1 id="3-AlphaGo-Zero与AlphaGo"><a href="#3-AlphaGo-Zero与AlphaGo" class="headerlink" title="3.AlphaGo Zero与AlphaGo"></a>3.AlphaGo Zero与AlphaGo</h1><p>AlphaGo Zero是AlphaGo的改良版，在AlphaGo Zero与AlphaGo的对局中，AlphaGo Zero以100-0赢得胜利。两者的区别在哪呢？</p>
-<ul>
-<li>AlphaGo Zero没有使用人类棋局的经验，即没有进行行为模仿</li>
-<li>MCTS被用来训练策略网络了</li>
-</ul>
-<p>那么，没有使用人类棋局经验的AlphaGo Zero是不是说明人类的经验对于AlphaGo来说是有害的呢？答案是肯定的，起码在围棋领域，答案是肯定的。但是，行为模仿就一定是无用的吗？并不是。例如，对于手术机器人来说，它如果想要获得优化，就需要训练，即做手术。但是，并不可能让它做真实的手术，毕竟人的性命可不是玩笑。那么，它就可以模仿优秀医生手术时的数据，这样起码可以确保在真实环境中，并不会对病人产生生命威胁。在经过模仿人类医生后，再考虑后续的优化。</p>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML Summary 7-Anomaly Detection and Recommendation Systems</title>
     <url>/2022/01/22/Anomaly-Detection-and-Recommendation-Systems/</url>
     <content><![CDATA[<h1 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h1><p>通过现有正常样本<strong>拟合</strong>出高斯分布，当未知样本出现时，算出它出现的概率，若概率值小于设定值，则判定为异常样本。当数据不是标准高斯分布时，可先将数据转换为标准高斯分布（归一化及放缩），再将其送入异常检测算法。对于样本数据的均值和方差，计算公式为：</p>
@@ -115,6 +43,78 @@
       </categories>
       <tags>
         <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AlphaGo</title>
+    <url>/2022/03/10/Alphago/</url>
+    <content><![CDATA[<p>AlphaGo有两个版本，与李世石对战的是旧版本，改进版的<strong>AlphaGo Zero</strong>比AlphaGo更加强大。本文将阐述AlphaGo的Agent是如何训练，在与李世石的对战中如何选取最佳落子，最后简单说明AlphaGo Zero与AlphaGo的区别。</p>
+<p><strong>此博客为Wang Shusen老师课程的笔记，且更侧重基础框架的理解，并无公式推导。详细的公式表示可以在老师的课程中找到，链接放在文章最后。</strong></p>
+<h1 id="1-训练方法"><a href="#1-训练方法" class="headerlink" title="1.训练方法"></a>1.训练方法</h1><p>在围棋中，棋盘是19*19的大小，一共361个点位。AlphaGo通过17个19*19的矩阵表示状态，为什么是17个矩阵呢？17个矩阵的构成如下：</p>
+<p><strong>8个白棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果白棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
+<p><strong>8个黑棋矩阵</strong>：7个矩阵表示之前7步棋局的，1个表示当前棋局。棋局中如果黑棋在点位上，则矩阵对应位置为1，不在该点位上，则矩阵对应位置为0。</p>
+<p><strong>1个该谁走的矩阵</strong>：如果该黑子走，则矩阵全1，如果该白子走，矩阵全0。</p>
+<p>在真实对战中，AlphaGo借助策略网络和价值网络筛选胜率不大的落子，使用<strong>蒙特卡洛树搜索</strong>(Monte Carlo Tree Search)从可能赢的落子中选取最佳落子。AlphaGo训练的正是策略网络和价值网络。训练分为以下三步。</p>
+<ul>
+<li>通过模仿人类下棋(behavior cloning)训练最初的策略网络。<br>行为模仿<strong>不是强化学习</strong>，它是监督学习的一种，行为模仿是没有奖励(reword)的。开始时，随机生成策略网络的参数。用人类棋局的数据集对策略网络进行训练，让它模仿人类下棋。在经过行为模仿后，策略网络已经可以击败优秀的业余选手。</li>
+<li>使用策略梯度算法(强化学习)训练策略网络(polict network)。<br>此时不再使用人类对局的数据，而是通过两个策略网络来自我博弈。被训练的Agent使用最新的参数，而它的对手，使用的是Agent之前的旧参数。</li>
+<li>用上述训练出来的策略网络(polict network)去训练价值网络(value network)。<br>通过对弈的胜负，训练价值网络对每步棋的价值评估准确度，以便在真实对局中过滤出胜率较大的落子。</li>
+</ul>
+<h1 id="2-选取落子"><a href="#2-选取落子" class="headerlink" title="2.选取落子"></a>2.选取落子</h1><p>AlphaGo先通过策略函数选取出几个好的落子(价值较大的落子)，策略网络的训练在之前已经讲过。现在，根据棋局，策略网络已经计算出几步价值较大的棋子，接下来需要使用蒙特卡洛树搜索(Monte Carlo Tree Search)决定最终落子。那么，蒙特卡洛树搜索的具体过程是怎样的呢？</p>
+<h2 id="蒙特卡洛树搜索-Monte-Carlo-Tree-Search"><a href="#蒙特卡洛树搜索-Monte-Carlo-Tree-Search" class="headerlink" title="蒙特卡洛树搜索(Monte Carlo Tree Search)"></a>蒙特卡洛树搜索(Monte Carlo Tree Search)</h2><ul>
+<li>随机选取一个落子(从策略网络计算出的落子集合中选取)。</li>
+<li>让<strong>策略网络</strong>自我博弈直到下完这局棋得到胜负。根据胜负和<strong>价值网络</strong>给选取的落子打分。</li>
+<li>重复自我博弈的过程多次，这样一个动作就有很多分数</li>
+<li>把好的落子集合中所有落子都根据上述三个过程打分，AlphaGo会执行总分最高的落子。</li>
+</ul>
+<h1 id="3-AlphaGo-Zero与AlphaGo"><a href="#3-AlphaGo-Zero与AlphaGo" class="headerlink" title="3.AlphaGo Zero与AlphaGo"></a>3.AlphaGo Zero与AlphaGo</h1><p>AlphaGo Zero是AlphaGo的改良版，在AlphaGo Zero与AlphaGo的对局中，AlphaGo Zero以100-0赢得胜利。两者的区别在哪呢？</p>
+<ul>
+<li>AlphaGo Zero没有使用人类棋局的经验，即没有进行行为模仿</li>
+<li>MCTS被用来训练策略网络了</li>
+</ul>
+<p>那么，没有使用人类棋局经验的AlphaGo Zero是不是说明人类的经验对于AlphaGo来说是有害的呢？答案是肯定的，起码在围棋领域，答案是肯定的。但是，行为模仿就一定是无用的吗？并不是。例如，对于手术机器人来说，它如果想要获得优化，就需要训练，即做手术。但是，并不可能让它做真实的手术，毕竟人的性命可不是玩笑。那么，它就可以模仿优秀医生手术时的数据，这样起码可以确保在真实环境中，并不会对病人产生生命威胁。在经过模仿人类医生后，再考虑后续的优化。</p>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Arduino基础功能例程</title>
+    <url>/2023/06/05/Arduino%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD%E4%BE%8B%E7%A8%8B/</url>
+    <content><![CDATA[<p>开发环境：PlatformIO</p>
+<p>开发板型号：Arduino UNO</p>
+<h1 id="I-O口"><a href="#I-O口" class="headerlink" title="I&#x2F;O口"></a>I&#x2F;O口</h1><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN, OUTPUT);		<span class="comment">//设置LED_BUILTIN引脚为输出模式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">digitalWrite</span>(LED_BUILTIN,HIGH);	<span class="comment">//将引脚拉低</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);						<span class="comment">//延时1秒</span></span><br><span class="line">  <span class="built_in">digitalWrite</span>(LED_BUILTIN,LOW);	<span class="comment">//将引脚拉高</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);						<span class="comment">//延时1秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(<span class="number">7</span>, INPUT);				<span class="comment">//定义引脚7为输入引脚</span></span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN,OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> a = <span class="built_in">digitalRead</span>(<span class="number">7</span>);</span><br><span class="line">  <span class="keyword">if</span>(a)&#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_BUILTIN,HIGH);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_BUILTIN,LOW);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="串口"><a href="#串口" class="headerlink" title="串口"></a>串口</h1><h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);		<span class="comment">//初始化串口波特率为115200</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>);	<span class="comment">//通过串口输出Hello</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(Serial.<span class="built_in">available</span>())&#123;		<span class="comment">//如果串口中有数据</span></span><br><span class="line">    <span class="type">char</span> a = Serial.<span class="built_in">read</span>();		<span class="comment">//读取数据</span></span><br><span class="line">    Serial.<span class="built_in">print</span>(a);			<span class="comment">//把读出来的数据再输出</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="舵机"><a href="#舵机" class="headerlink" title="舵机"></a>舵机</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Servo.h&gt;</span>            <span class="comment">//加载文件库</span></span></span><br><span class="line"><span class="type">int</span> pos = <span class="number">0</span>;</span><br><span class="line">Servo myservo;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  myservo.<span class="built_in">attach</span>(<span class="number">9</span>, <span class="number">500</span>, <span class="number">2500</span>);          <span class="comment">//修正脉冲宽度</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (pos = <span class="number">0</span>; pos &lt;= <span class="number">180</span>; pos += <span class="number">1</span>) &#123;       <span class="comment">//pos+=1等价于pos=pos+1</span></span><br><span class="line">    myservo.<span class="built_in">write</span>(pos);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>);					</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (pos = <span class="number">180</span>; pos &gt;= <span class="number">0</span>; pos -= <span class="number">1</span>) &#123;</span><br><span class="line">    myservo.<span class="built_in">write</span>(pos);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">15</span>); 					</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="传感器"><a href="#传感器" class="headerlink" title="传感器"></a>传感器</h1><h2 id="I-O类型传感器"><a href="#I-O类型传感器" class="headerlink" title="I&#x2F;O类型传感器"></a>I&#x2F;O类型传感器</h2><h3 id="温湿度DHT11"><a href="#温湿度DHT11" class="headerlink" title="温湿度DHT11"></a>温湿度DHT11</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;DHT.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DHTPIN A0     <span class="comment">// Digital pin connected to the DHT sensor</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DHTTYPE DHT11   <span class="comment">// DHT 22  OR DHT 11</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">DHT <span class="title">dht</span><span class="params">(DHTPIN, DHTTYPE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;DHTxx test!&quot;</span>));</span><br><span class="line"></span><br><span class="line">  dht.<span class="built_in">begin</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Wait a few seconds between measurements.</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Reading temperature or humidity takes about 250 milliseconds!</span></span><br><span class="line">  <span class="comment">// Sensor readings may also be up to 2 seconds &#x27;old&#x27; (its a very slow sensor)</span></span><br><span class="line">  <span class="type">float</span> h = dht.<span class="built_in">readHumidity</span>();</span><br><span class="line">  <span class="comment">// Read temperature as Celsius (the default)</span></span><br><span class="line">  <span class="type">float</span> t = dht.<span class="built_in">readTemperature</span>();</span><br><span class="line">  <span class="comment">// Read temperature as Fahrenheit (isFahrenheit = true)</span></span><br><span class="line">  <span class="type">float</span> f = dht.<span class="built_in">readTemperature</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Check if any reads failed and exit early (to try again).</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">isnan</span>(h) || <span class="built_in">isnan</span>(t) || <span class="built_in">isnan</span>(f)) &#123;</span><br><span class="line">    Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;Failed to read from DHT sensor!&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Compute heat index in Fahrenheit (the default)</span></span><br><span class="line">  <span class="type">float</span> hif = dht.<span class="built_in">computeHeatIndex</span>(f, h);</span><br><span class="line">  <span class="comment">// Compute heat index in Celsius (isFahreheit = false)</span></span><br><span class="line">  <span class="type">float</span> hic = dht.<span class="built_in">computeHeatIndex</span>(t, h, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;Humidity: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(h);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;%  Temperature: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(t);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;  &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(f);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;    Heat index: &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(hic);</span><br><span class="line">  Serial.<span class="built_in">print</span>(<span class="built_in">F</span>(<span class="string">&quot;   &quot;</span>));</span><br><span class="line">  Serial.<span class="built_in">print</span>(hif);</span><br><span class="line">  Serial.<span class="built_in">println</span>(<span class="built_in">F</span>(<span class="string">&quot;  &quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="超声波"><a href="#超声波" class="headerlink" title="超声波"></a>超声波</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> inputPin=<span class="number">13</span>;  <span class="comment">//ECHO</span></span><br><span class="line"><span class="type">int</span> outputPin=<span class="number">12</span>; <span class="comment">//TRIG</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetDistance</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>); </span><br><span class="line">    </span><br><span class="line">  <span class="built_in">pinMode</span>(inputPin, INPUT); <span class="comment">//超声波初始化</span></span><br><span class="line">  <span class="built_in">pinMode</span>(outputPin, OUTPUT);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="built_in">GetDistance</span>();</span><br><span class="line">	Serial.<span class="built_in">print</span>(<span class="string">&quot;Distance:&quot;</span>);</span><br><span class="line">    Serial.<span class="built_in">println</span>(a);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">GetDistance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> distance=<span class="number">0</span>;</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, LOW);</span><br><span class="line">  <span class="built_in">delayMicroseconds</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, HIGH); <span class="comment">// Pulse for 10μ s to trigger ultrasonic detection</span></span><br><span class="line">  <span class="built_in">delayMicroseconds</span>(<span class="number">10</span>);</span><br><span class="line">  <span class="built_in">digitalWrite</span>(outputPin, LOW);</span><br><span class="line">  distance = <span class="built_in">pulseIn</span>(inputPin, HIGH);</span><br><span class="line">  distance= distance/<span class="number">58</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> distance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="电机控制"><a href="#电机控制" class="headerlink" title="电机控制"></a>电机控制</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pinMode(8, OUTPUT);</span><br><span class="line">pinMode(9, OUTPUT);</span><br><span class="line">pinMode(10, OUTPUT);</span><br><span class="line">pinMode(11, OUTPUT);</span><br><span class="line"></span><br><span class="line">digitalWrite(8, HIGH);</span><br><span class="line">digitalWrite(9, LOW);</span><br><span class="line">digitalWrite(10, HIGH);</span><br><span class="line">digitalWrite(11, LOW);</span><br><span class="line"></span><br><span class="line">analogWrite(5, 255);</span><br><span class="line">analogWrite(6, 255);</span><br><span class="line"></span><br><span class="line">int i = GetDistance();</span><br><span class="line">if(i &lt; 50) &#123;</span><br><span class="line">analogWrite(5, 75);</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    analogWrite(5, 255);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="MPU6050"><a href="#MPU6050" class="headerlink" title="MPU6050"></a>MPU6050</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;MPU6050_tockn.h&gt;</span><br><span class="line">#include &lt;Wire.h&gt;</span><br><span class="line">MPU6050 mpu6050(Wire);</span><br><span class="line"></span><br><span class="line">void setup()&#123;</span><br><span class="line">  Serial.begin(115200);</span><br><span class="line">//   Wire.begin(19,22);</span><br><span class="line">  mpu6050.begin();</span><br><span class="line">  mpu6050.calcGyroOffsets(true);</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop()&#123;</span><br><span class="line">    mpu6050.update();</span><br><span class="line"></span><br><span class="line">    Serial.print(mpu6050.getGyroAngleX());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getGyroAngleY());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getGyroAngleZ());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line"></span><br><span class="line">    Serial.print(mpu6050.getAngleX());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.print(mpu6050.getAngleY());</span><br><span class="line">    Serial.print(&quot;,&quot;);</span><br><span class="line">    Serial.println(mpu6050.getAngleZ());</span><br><span class="line">    </span><br><span class="line">    delay(10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="LCD"><a href="#LCD" class="headerlink" title="LCD"></a>LCD</h1><p>U8g2库</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;U8g2lib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Wire.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 0.96寸OLED: 128*64px</span></span><br><span class="line"><span class="comment">// 0.91寸OLED: 128*32px</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SCL 5</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SDA 4</span></span><br><span class="line"><span class="function">U8G2_SSD1306_128X64_NONAME_F_SW_I2C <span class="title">u8g2</span><span class="params">(U8G2_R0, <span class="comment">/*clock=*/</span>SCL, <span class="comment">/*data=*/</span>SDA, <span class="comment">/*reset=*/</span>U8X8_PIN_NONE)</span></span>;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">pinMode</span>(LED_BUILTIN,OUTPUT);</span><br><span class="line">  u8g2.<span class="built_in">begin</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  u8g2.<span class="built_in">clearBuffer</span>();  <span class="comment">//清除缓存        </span></span><br><span class="line">  u8g2.<span class="built_in">setFont</span>(u8g2_font_ncenB08_tr);</span><br><span class="line">  u8g2.<span class="built_in">drawStr</span>(<span class="number">0</span>,<span class="number">10</span>,<span class="string">&quot;Hello World!&quot;</span>);  </span><br><span class="line">  u8g2.<span class="built_in">drawStr</span>(<span class="number">0</span>,<span class="number">18</span>,<span class="string">&quot;This is jellyfishaaa!&quot;</span>);  </span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,30,&quot;Welcome to U8G2!&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,40,&quot;Happy day&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,50,&quot;Happy day&quot;);  </span></span><br><span class="line">  <span class="comment">// u8g2.drawStr(0,60,&quot;Happy day&quot;);  </span></span><br><span class="line">  u8g2.<span class="built_in">drawTriangle</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">64</span>,<span class="number">128</span>,<span class="number">64</span>);</span><br><span class="line">  u8g2.<span class="built_in">sendBuffer</span>();  <span class="comment">//显示      </span></span><br><span class="line">  <span class="comment">// delay(1000);  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LiquidCrystal_I2C库</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;LiquidCrystal_I2C.h&gt;</span></span></span><br><span class="line">byte customChar[] = &#123;</span><br><span class="line">  B10100,</span><br><span class="line">  B00010,</span><br><span class="line">  B01000,</span><br><span class="line">  B01100,</span><br><span class="line">  B00100,</span><br><span class="line">  B10011,</span><br><span class="line">  B00001,</span><br><span class="line">  B01100</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// Set the LCD address to 0x27 in PCF8574 by NXP and Set to 0x3F in PCF8574A by Ti</span></span><br><span class="line"><span class="function">LiquidCrystal_I2C <span class="title">lcd</span><span class="params">(<span class="number">0x27</span>, <span class="number">16</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    lcd.<span class="built_in">createChar</span>(<span class="number">0</span>,customChar);</span><br><span class="line">    lcd.<span class="built_in">init</span>();</span><br><span class="line">    lcd.<span class="built_in">backlight</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// put your main code here, to run repeatedly:</span></span><br><span class="line">    lcd.<span class="built_in">clear</span>();</span><br><span class="line">    lcd.<span class="built_in">setCursor</span>(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    lcd.<span class="built_in">write</span>(<span class="number">0</span>);</span><br><span class="line">    lcd.<span class="built_in">setCursor</span>(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">    lcd.<span class="built_in">print</span>(<span class="string">&quot;AA&quot;</span>);</span><br><span class="line">    <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -212,21 +212,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ESP32常用例程</title>
-    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>ESP32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ESP32 PWM输入捕获</title>
     <url>/2023/06/28/ESP32-PWM%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/</url>
     <content><![CDATA[<h1 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h1><p>除飞行控制外，还希望遥控器能控制无人机上的其他外部设备，并自定义飞行模式。常规思路下有两种方案。</p>
@@ -251,8 +236,23 @@
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
-        <tag>ESP32</tag>
         <tag>C++</tag>
+        <tag>ESP32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ESP32常用例程</title>
+    <url>/2023/07/02/ESP32%E5%B8%B8%E7%94%A8%E4%BE%8B%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="PWM输出"><a href="#PWM输出" class="headerlink" title="PWM输出"></a>PWM输出</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> freq=<span class="number">50</span>,out_chanel = <span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> Pout_pin = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">calculatePWM_Speed</span><span class="params">(<span class="type">float</span> Speed_ms)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">int</span>)(Speed_ms/<span class="number">20</span>*<span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">ledcSetup</span>(out_chanel,freq,<span class="number">8</span>);</span><br><span class="line">  <span class="built_in">ledcAttachPin</span>(Pout_pin,out_chanel);</span><br><span class="line">  <span class="built_in">ledcWrite</span>(out_chanel,<span class="built_in">calculatePWM_Speed</span>(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码器代码-含定时器"><a href="#编码器代码-含定时器" class="headerlink" title="编码器代码(含定时器)"></a>编码器代码(含定时器)</h1><p>推荐一个非常好的编码器原理讲解博客: <a href="https://zhuanlan.zhihu.com/p/350368518">编码器原理解析</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_L 	13  <span class="comment">//编码器采集引脚 每路2个 共4个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_L 15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ENCODER_R   4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DIRECTION_R 19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> interrupt_time 50 <span class="comment">// 中断时间</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Ticker.h&gt;</span></span></span><br><span class="line"><span class="type">int32_t</span> Velocity_L, Velocity_R;   <span class="comment">//左右轮编码器数据</span></span><br><span class="line"><span class="type">int16_t</span> Velocity_Left, Velocity_Right;     <span class="comment">//左右轮速度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_L</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_L) == LOW) &#123;     <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L--;  <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_L++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;     <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_L) == LOW)      Velocity_L++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_L--; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：外部中断读取编码器数据，具有二倍频功能 注意外部中断是跳变沿触发</span></span><br><span class="line"><span class="comment">入口参数：无</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">READ_ENCODER_R</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(ENCODER_R) == LOW) &#123; <span class="comment">//如果是下降沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R--;<span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>      Velocity_R++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;   <span class="comment">//如果是上升沿触发的中断</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">digitalRead</span>(DIRECTION_R) == LOW)      Velocity_R++; <span class="comment">//根据另外一相电平判定方向</span></span><br><span class="line">    <span class="keyword">else</span>     Velocity_R--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">计算为转速:c/s</span></span><br><span class="line"><span class="comment"> 转速 = 计数值*1000ms/周期(ms)/16(一圈触发16下)</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line">  Velocity_Left = Velocity_L*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_L = <span class="number">0</span>;  <span class="comment">//读取左轮编码器数据，并清零，这就是通过M法测速（单位时间内的脉冲数）得到速度。</span></span><br><span class="line">  Velocity_Right = Velocity_R*<span class="number">1000</span>/interrupt_time/<span class="number">16</span>;    Velocity_R = <span class="number">0</span>; <span class="comment">//读取右轮编码器数据，并清零</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ticker timer_read_encoder;  <span class="comment">// 中断函数定时器定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_L, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(ENCODER_R, INPUT);       <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_L, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	<span class="built_in">pinMode</span>(DIRECTION_R, INPUT);     <span class="comment">//编码器引脚 输入模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编码器接口1 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_L, READ_ENCODER_L, CHANGE);  <span class="comment">//中断函数READ_ENCODER_L</span></span><br><span class="line">	<span class="comment">//编码器接口2 开启外部跳边沿中断 </span></span><br><span class="line">	<span class="built_in">attachInterrupt</span>(ENCODER_R, READ_ENCODER_R, CHANGE);  <span class="comment">//中断函数READ_ENCODER_R</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">interrupts</span>();                      <span class="comment">//打开外部中断</span></span><br><span class="line">  timer_read_encoder.<span class="built_in">attach_ms</span>(interrupt_time, read);  <span class="comment">//ESP32定时器中断,第一个参数为定时器中断,第二个参数为回调函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ESP-NOW"><a href="#ESP-NOW" class="headerlink" title="ESP-NOW"></a>ESP-NOW</h1><p><a href="https://randomnerdtutorials.com/esp-now-many-to-one-esp32/">https://randomnerdtutorials.com/esp-now-many-to-one-esp32/</a></p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>ESP32</tag>
       </tags>
   </entry>
   <entry>
@@ -380,39 +380,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FreeRTOS任务间通信方式——队列</title>
-    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
-    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
-<li>优先级抢占式调度<ul>
-<li>每个任务都赋予了一个优先级</li>
-<li>每个任务都可以存在于一个或多个状态</li>
-<li>在任何时候都只有一个任务可以处于运行状态</li>
-<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
-</ul>
-</li>
-<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
-<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
-</ol>
-<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
-<ol>
-<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
-</li>
-<li><p>如何创建一个队列</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
-</li>
-<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FreeRTOS基础概念</title>
     <url>/2020/08/25/FreeRTOS%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>一些有意思的专用名词解释：</p>
@@ -458,35 +425,6 @@
         <tag>嵌入式</tag>
         <tag>STM32</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
-    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
-    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
-<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
-<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
-<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
-
-<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
-<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
-<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
-]]></content>
-      <tags>
-        <tag>Commonroad</tag>
       </tags>
   </entry>
   <entry>
@@ -550,6 +488,68 @@
       </tags>
   </entry>
   <entry>
+    <title>How to use tensorboard in Commonroad-RL(or any other environment)</title>
+    <url>/2022/06/29/How%20to%20use%20tensorboard%20in%20Commonroad-RL/</url>
+    <content><![CDATA[<p>Commonroad-RL软件包中，只有在整个模型训练<strong>完成后</strong>，才能使用plot_learning_curves.py文件对奖励曲线可视化，最后会生成PDF文件，图表均在该PDF文件中。然而，PDF文件中的图表均为静态图表，无法通过缩放图像查看细节。而且，生成的PDF文件常常会出现横坐标错乱，导致图表并无阅读价值。生成的PDF文件如下图所示：<br><img src="https://s2.loli.net/2022/06/29/LmOJ67KBPk3Dz1W.png"></p>
+<p>为实现一边训练模型一边监测奖励及损失曲线的功能，使用tensorboard对训练过程实时监控。</p>
+<h3 id="1-安装TensorBoard"><a href="#1-安装TensorBoard" class="headerlink" title="1.安装TensorBoard"></a>1.安装TensorBoard</h3><p>由于Commonroad基于Python3.7构建，选择的TensorBoard版本不应过高，选择Python版本对应支持的TensorBoard版本即可。本文使用的TensorBoard版本为1.15.0。安装时，应将conda环境先切换至Commonroad软件包所在环境，执行pip操作即可：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Switch to commonroad environment</span></span><br><span class="line">conda activate cr37</span><br><span class="line"><span class="comment"># install tensorboard</span></span><br><span class="line">pip install tensorboard==1.15.0</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，使用pip show tensorboard命令查看软件包信息，以确认安装了正确的版本</p>
+<h3 id="2-启动TensorBoard"><a href="#2-启动TensorBoard" class="headerlink" title="2.启动TensorBoard"></a>2.启动TensorBoard</h3><p>Commonroad-RL中，在配置模型阶段(具体的配置代码请参考<a href="https://commonroad.in.tum.de/tutorials/vanilla-learning">官方教程</a>)，增加第三个参数tensorboard_log，该参数的值为保存过程数据的文件夹，当设置好文件夹后再开始训练，过程数据(奖励值，损失值)会自动存储在该文件夹下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the model together with its model hyperparameters and the training environment</span></span><br><span class="line">model = PPO2(env=training_env, **hyperparams, tensorboard_log= <span class="string">&quot;./my_log_dir/&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行界面，切换到Commonroad-RL所在环境，使用下列命令开启tensorboard面板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./my_log_dir/</span><br></pre></td></tr></table></figure>
+
+<p>参数.&#x2F;my_log_dir&#x2F;为上一步设置的tensorboard_log文件夹，使用该命令后出现如下提示信息，进入最后一行的网址即可查看到监视界面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(cr37) biang@ubuntu:~/commonroad-rl/commonroad_rl/tensorboard$ tensorboard --logdir ./</span><br><span class="line">W0629 07:17:27.963020 140400359814912 plugin_event_accumulator.py:294] Found more than one graph event per run, or there was a metagraph containing a graph_def, as well as one or more graph events.  Overwriting the graph with the newest event.</span><br><span class="line">TensorBoard 1.15.0 at http://ubuntu:6006/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到激活后打开空白网页的情况，可以直接在命令行进入tensorboard_log所在的文件夹，改用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tensorboard --logdir ./</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-TensorBoard界面简介"><a href="#3-TensorBoard界面简介" class="headerlink" title="3.TensorBoard界面简介"></a>3.TensorBoard界面简介</h3><p>在Commonroad-RL中默认生成的监控界面由两部分组成。第一部分为与模型相关的各种曲线，如奖励曲线，损失曲线等。这些曲线可以随意的拖动、放大、缩小。更关键的是，<strong>模型一边训练，图像也会一边更新</strong>，让开发者能实时监测模型的训练状态。从下图中可以看出，此时PPO模型已经训练了200K个步长，但episode-reward曲线的峰值仍没有超过1.5。</p>
+<p><img src="https://s2.loli.net/2022/06/29/J5elFSzrD6aNfqM.png"></p>
+<p>第二部分为模型树页面，在该页面中双击某个模块，即可将模块内部结构展开，此页面中通过箭头展示数据流向。<br><img src="https://s2.loli.net/2022/06/29/IHfcJLzDE9oPtRU.png"></p>
+]]></content>
+      <tags>
+        <tag>Commonroad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FreeRTOS任务间通信方式——队列</title>
+    <url>/2020/08/26/FreeRTOS%E4%BB%BB%E5%8A%A1%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h2 id="一、三种任务调度方式"><a href="#一、三种任务调度方式" class="headerlink" title="一、三种任务调度方式"></a>一、三种任务调度方式</h2><ol>
+<li>优先级抢占式调度<ul>
+<li>每个任务都赋予了一个优先级</li>
+<li>每个任务都可以存在于一个或多个状态</li>
+<li>在任何时候都只有一个任务可以处于运行状态</li>
+<li>调度器总是在所有处于就绪态的任务中选择具有最高优先级的任务来执行</li>
+</ul>
+</li>
+<li>选择任务优先级<br>这种任务调度方式是依据每个任务的运行周期来做决定的，简单来讲，就是任务运行频率越高，优先级越高，受调度运行的次数就越多。但是运行时间不定以及并非所有任务都具有周期性，会让这种方式的全面计算变得复杂。</li>
+<li>协作式调度<br>纯粹的协作式调度器只能在运行态任务进入阻塞态或是运行态任务显式调用taskYIELD()时，才会进行上下文切换。任务永远不会被抢占，而具有相同优先级的任务也不会自动共享处理器时间，协作式调度的这种工作方式虽然比较简单，但是可能会导致系统响应不够快</li>
+</ol>
+<h2 id="二、队列管理"><a href="#二、队列管理" class="headerlink" title="二、队列管理"></a>二、队列管理</h2><p>FreeRTOS中各个单独任务的功能实现很可能需要<strong>任务之间相互通信</strong>以提供有用的系统功能。而在FreeRTOS中所有的通信和同步机制都是基于<strong>队列</strong>实现的。</p>
+<ol>
+<li><p>什么是队列<br>队列是数据结构中的一个概念，其最大的特性为先进先出(FIFO：First In First Out)</p>
+</li>
+<li><p>如何创建一个队列</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回值为NULL表示没有足够的堆空间分配给队列，非NULL表示队列创建成功，此返回值应该保存下来，作为操作此队列的句柄</span></span><br><span class="line">xQueueHandle <span class="title function_">xQueueCreate</span><span class="params">( <span class="type">unsigned</span> portBASE_TYPE uxQueueLength,<span class="comment">//队列深度</span></span></span><br><span class="line"><span class="params">			 <span class="type">unsigned</span> portBASE_TYPE uxItemSize )</span>;<span class="comment">//数据单元长度，以字节为单位</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是队列阻塞<br><strong>读队列阻塞</strong>：读队列阻塞并不是指在读队列时遇到问题，阻塞住了。而是队列任务主动进入阻塞态以等待队列数据有效，一旦队列中数据单元有效，或者即使队列数据无效但等待时间超过100毫秒，此任务将会接触阻塞。<br><strong>写队列阻塞</strong>：写队列阻塞是当被写队列已满时，任务进入阻塞态以等待队列空间有效的最长时间</p>
+</li>
+<li><p>往队列发送和从队列接收时，任务优先级会有怎样的影响<br><strong>任务优先级会在阻塞情况下起作用：</strong><br>在<strong>读阻塞</strong>情况下，如果有多个任务同时读阻塞，一旦队列数据有效，则最高优先级任务解除阻塞，来读数据；如果所有阻塞的任务优先级相同，则数据有效时，等待时间最长的任务解除阻塞来读数据。在<strong>写阻塞</strong>情况下，处理流程和读阻塞情况下相同</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ML Summary 6-Clustering</title>
     <url>/2022/01/20/ML-Summary-6-Clustering/</url>
     <content><![CDATA[<p>无监督学习中，样本数据没有标签，通常需要无监督学习算法将数据进行分类，探寻数据内部结构等。聚类算法中，K-平均算法应用较为广泛。</p>
@@ -582,69 +582,6 @@
 <h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
 <li>PCA和线性拟合是完全不同的两种算法</li>
 <li>数据降维不能用来阻止过拟合，最好还是用正则化来阻止过拟合</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ML Summary 4-How to optimize the network</title>
-    <url>/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</url>
-    <content><![CDATA[<h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
-<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
-<ol>
-<li>获取更多样本</li>
-<li>尝试较小的特征集</li>
-<li>增加正则化系数lambda</li>
-</ol>
-<p>修复高偏差(欠拟合)可采取如下措施</p>
-<ol>
-<li>增加额外的特征</li>
-<li>尝试更多多项式特征</li>
-<li>减少正则化系数lambda</li>
-</ol>
-<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
-<p>同理，可画出关于lambda的误差图像并进行分析</p>
-<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
-<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
-<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
-<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">P</th>
-<th align="center">R</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Algorithm1</td>
-<td align="center">0.5</td>
-<td align="center">0.4</td>
-</tr>
-<tr>
-<td align="center">Algorithm2</td>
-<td align="center">0.7</td>
-<td align="center">0.1</td>
-</tr>
-<tr>
-<td align="center">Algorithm3</td>
-<td align="center">0.02</td>
-<td align="center">1.0</td>
-</tr>
-</tbody></table>
-<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
-<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
-<li>使用一个有很多参数的学习算法</li>
-<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
-</ul>
-</li>
 </ul>
 ]]></content>
       <categories>
@@ -756,6 +693,69 @@
 <li>正则化时，一定要注意<strong>θ0和代价函数</strong>的计算</li>
 <li>高级的优化算法有：Conjugate gradient、BFGS、L-BFGS等</li>
 <li>当遇到包含n种类的分类问题时，可将某一类作为一类，其他n-1类作为一类，拟合出决策边界。依此类推，做出n-1个决策边界，以此来分类</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ML Summary 4-How to optimize the network</title>
+    <url>/2022/01/13/ML-Summary-HoW-to-optimize-the-network/</url>
+    <content><![CDATA[<h1 id="评判与优化"><a href="#评判与优化" class="headerlink" title="评判与优化"></a>评判与优化</h1><p>为更好地对神经网络进行优化与检验，一般将总数据的60%用来训练数据，20%用来作为交叉验证数据集，20%作为测试数据集。</p>
+<p>在训练过程中，会出现<strong>欠拟合</strong>与<strong>过拟合</strong>的问题。欠拟合的本质是偏差问题，过拟合的本质是方差问题。修复高方差(过拟合)可采取如下措施</p>
+<ol>
+<li>获取更多样本</li>
+<li>尝试较小的特征集</li>
+<li>增加正则化系数lambda</li>
+</ol>
+<p>修复高偏差(欠拟合)可采取如下措施</p>
+<ol>
+<li>增加额外的特征</li>
+<li>尝试更多多项式特征</li>
+<li>减少正则化系数lambda</li>
+</ol>
+<p>以多项式阶数为横坐标，误差为纵坐标的坐标系中，画出交叉数据集的代价函数Jcv和训练数据集的代价函数Jtrain。可从图中观察并选取最优的多项式阶数。<br><img src="https://s2.loli.net/2022/01/20/uOmnfNYIidJK9jF.png" alt="BiasORvariance.png"></p>
+<p>同理，可画出关于lambda的误差图像并进行分析</p>
+<p><img src="https://s2.loli.net/2022/01/20/s4oWLPBuAd7tlJO.png" alt="λ的分析.png"></p>
+<h1 id="误差分析-Error-Analyze"><a href="#误差分析-Error-Analyze" class="headerlink" title="误差分析(Error Analyze)"></a>误差分析(Error Analyze)</h1><p>在开发神经网络系统时，通常从一个简单的算法开始，然后根据学习曲线(Learning Curve)来分析出下一步怎么做。那么当其他参数基本良好，如何更好地改变其他条件，以使网络满足现实的需求呢？首先，提出Precision和Recall的概念。若y只有1与0两个取值，则有<br>$$<br>P&#x3D;{True\quad positives \over predicted\quad positive}<br>$$</p>
+<p>$$<br>R&#x3D;{True\quad positives \over actual\quad psitive}<br>$$</p>
+<p>根据实际情况，可以选取P更大或R更大的网络。那么以下情况如何选取呢</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">P</th>
+<th align="center">R</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Algorithm1</td>
+<td align="center">0.5</td>
+<td align="center">0.4</td>
+</tr>
+<tr>
+<td align="center">Algorithm2</td>
+<td align="center">0.7</td>
+<td align="center">0.1</td>
+</tr>
+<tr>
+<td align="center">Algorithm3</td>
+<td align="center">0.02</td>
+<td align="center">1.0</td>
+</tr>
+</tbody></table>
+<p>引入F的概念，选取F更大的网络，F的计算公式如下<br>$$<br>F&#x3D;{2<em>P</em>R \over P+R}<br>$$</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>多层（大型）神经网络更容易过拟合，可使用λ正则化以避免过拟合</li>
+<li>只有满足下列两个条件，大量数据才能取得更好地训练效果<ul>
+<li>使用一个有很多参数的学习算法</li>
+<li>输入参数中包含足够的信息(人类可以预测出结果)</li>
+</ul>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -888,48 +888,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 1-Initial Contact</title>
-    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
-    <content><![CDATA[<blockquote>
-<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-</blockquote>
-<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
-<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
-<blockquote>
-<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
-</blockquote>
-<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
-<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
-<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
-<p>Agent干了什么呢？</p>
-<ul>
-<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
-<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
-</ul>
-<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
-<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
-<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
-<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
-<p>​																						——《Reinforcement Learning: An Introduction》</p>
-<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
-</blockquote>
-<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
-<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
-<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
-<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
-<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
-<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Reinforcement Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RL Summary 2-Basic Concept</title>
     <url>/2022/02/12/RL-Summary-2-Basic-Concept/</url>
     <content><![CDATA[<h1 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h1><table>
@@ -990,27 +948,39 @@
       </tags>
   </entry>
   <entry>
-    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
-    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
-    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
-<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
-<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
-<li><p>获取t时刻的状态值St和行为At</p>
-</li>
-<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
-</li>
-<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
-</li>
-<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
-</li>
-<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
-</li>
-<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
-</li>
-</ol>
-<blockquote>
-<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+    <title>RL Summary 1-Initial Contact</title>
+    <url>/2022/02/08/RL-Summary-1-Initial-Contact/</url>
+    <content><![CDATA[<blockquote>
+<p>Reinforcement learning is learning what to do—how to map situations to actions—so as to maximize a numerical reward signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. In the most interesting and challenging cases, actions may affect not only the immediate reward but also the next situation and, through that, all subsequent rewards. These two characteristics—trial-and-error search and delayed reward—are the two most important distinguishing features of reinforcement learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
 </blockquote>
+<p>这是《强化学习导论》中对强化学习的一段阐述，这篇博文将讲讲我对强化学习的初步印象。</p>
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>提到强化学习，大多数人可能有些陌生，但是如果提到AlphaGo和李世石的那场围棋人机大战，大多数人可能会说，有点印象。没错，AlphaGo正是应用了强化学习战胜李世石的。为了便于理解，我们将类比围棋，翻译出文章开头引文的大意。</p>
+<blockquote>
+<p>强化学习是学习如何下围棋——如何根据棋局审时度势——如何让每一步都接近胜利。棋手无人指导，他必须自己通过不断尝试来发现那些最有价值的落子。最有意思，也是最有挑战的是，每一步落子不仅影响当前的状况，也会<strong>持续</strong>影响整个棋局，直到对局结束。试错搜索和延迟奖励是强化学习最重要的两个特别的特征。</p>
+</blockquote>
+<p>强化学习是一种学习方式，它要棋手学习如何落子以获得胜利。在强化学习领域，通常把“棋手”称为Agent。Agent无人指导，就像一个从未涉猎围棋的新手。它的目标(Goal)非常明确，获得胜利。人类小白棋手通过不断地<strong>对弈</strong>，不断地<strong>复盘</strong>，成长为优秀棋手。强化学习也正是如此。</p>
+<p>细化<strong>对弈</strong>中的每个步骤，如下图所示，</p>
+<p><img src="https://s2.loli.net/2022/02/08/qPXjGHIiZteNpzD.png"></p>
+<p>Agent干了什么呢？</p>
+<ul>
+<li>落子：根据棋局，结合自己的**策略(policies)<strong>做出</strong>行动(Action)**。</li>
+<li>观察棋局：当棋局发生变化时，Agent会通过**观察(observation)<strong>接收到</strong>反馈(reward)**。</li>
+</ul>
+<p>棋局之后，人类棋手<strong>复盘</strong>，会对下过的每一子进行价值评估(Value functions)，以改变自己的策略(policies)。强化学习所做的就是如此，不但对弈，复盘，改进策略。强化学习领域中，常有人将Agent与Policies混用，的确，Policies决定着Agent的行为(Action)，这样混用也无可厚非。</p>
+<p>以上有中英文标注的词语即为强化学习中常出现的概念，相应的，如何实现一个基础的强化学习算法，应该都有公式与代码实现与之一一对应，希望在之后的学习中能一一对应起来。</p>
+<h1 id="交互与目标导向"><a href="#交互与目标导向" class="headerlink" title="交互与目标导向"></a>交互与目标导向</h1><blockquote>
+<p>The approach we explore, called reinforcement learning, is much more focused on goal-directed learning from interaction than are other approaches to machine learning.</p>
+<p>​																						——《Reinforcement Learning: An Introduction》</p>
+<p>翻译：我们探索的方法称为强化学习，与机器学习的其他方法相比，它更注重从交互中进行目标导向的学习。</p>
+</blockquote>
+<p><strong>强化学习是机器学习的一种，且它并不属于监督学习或无监督学习</strong>。从上面这段话中，我们能捕捉到两个关键词，<strong>交互</strong>和<strong>目标导向</strong>。交互，需要Agent不断从环境中获取反馈，从而调整自己下一步的行动。下图为Agent与环境的交互图。</p>
+<p><img src="https://s2.loli.net/2022/02/08/ejPh7H416cykDsg.png"></p>
+<p>目标导向则决定了从环境中的反馈，以及对每一步动作的价值评估。毕竟，价值评估的依据就是是否对完成目标有所贡献。</p>
+<h1 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h1><ul>
+<li>强化学习算法是会根据每一步之后的反馈动态调整<strong>策略(policies)<strong>吗？还是没一局棋局的策略都是固定的，只有下完一整局棋后，才会调整</strong>策略(policies)</strong></li>
+<li>我了解到，当Agent判定落子A比落子B有更大的获胜概率，但不一定就会选择落子A，Agent在下一步会尝试落子B甚至落子C，这在强化学习中成称为exploration。那么，exploration遵循怎样的规则呢？</li>
+</ul>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1051,6 +1021,36 @@
 </ol>
 <blockquote>
 <p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记 视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a> 课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Reinforcement Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RL Summary 3 - Value-Based Reinforcement Learning</title>
+    <url>/2022/02/15/RL-Summary-3-Value-Based-Reinforcement-Learning/</url>
+    <content><![CDATA[<p>基于价值的强化学习时通过优化动作价值函数来实现的，价值学习的目标是学习出一个函数来近似最大动作价值函数：<br>$$<br>Q^*(s_t,a_t)&#x3D;max_\pi E[U_t|S_t&#x3D;s_t,A_t&#x3D;a_t]<br>$$</p>
+<h1 id="DQN-Deep-Q-Network"><a href="#DQN-Deep-Q-Network" class="headerlink" title="DQN(Deep Q Network)"></a>DQN(Deep Q Network)</h1><p><strong>DQN</strong>是用神经网络来近似Q函数的方法，即Deep Q Network。Q(s, a; w)是由参数w确定的神经网络。DQN的输入是s，为观测到的状态。DQN的输出是a，是对每一个行为的打分。在开始，DQN的参数是随机的，通过TD算法不断优化参数，经过多次迭代后得到合适的参数w。</p>
+<h1 id="TD学习算法-Temporal-Difference-Learning"><a href="#TD学习算法-Temporal-Difference-Learning" class="headerlink" title="TD学习算法(Temporal Difference Learning)"></a>TD学习算法(Temporal Difference Learning)</h1><ol>
+<li><p>获取t时刻的状态值St和行为At</p>
+</li>
+<li><p>用神经网络计算预测的动作价值：<br>$$<br>q_t&#x3D;Q(s_t,a_t;W_t)<br>$$</p>
+</li>
+<li><p>在神经网络公式中，对参数w求微分：<br>$$<br>d_t&#x3D;{\partial Q(s_t,a_t;w)\over {\partial w}}|_{w&#x3D;w_t}<br>$$</p>
+</li>
+<li><p>此时根据DQN的预测值qt可以做出下一步动作，做出动作后状态和反馈改变了，即可得到t+1时刻的S和R</p>
+</li>
+<li><p>计算TD target：<br>$$<br>y_t&#x3D;r_t+\gamma*max_aQ(s_{t+1},a;W_t)<br>$$</p>
+</li>
+<li><p>用梯度下降更新参数w：<br>$$<br>W_{t+1}&#x3D;W_t-\alpha*(q_t-y_t)*d_t<br>$$</p>
+</li>
+</ol>
+<blockquote>
+<p>本文内容为Shusen Wang老师深度强化学习系列课程的学习笔记<br>视频：<a href="https://youtu.be/vmkRMvhCW5c">https://youtu.be/vmkRMvhCW5c</a><br>课件：<a href="https://github.com/wangshusen/DeepLearning">https://github.com/wangshusen/DeepLearning</a></p>
 </blockquote>
 ]]></content>
       <categories>
@@ -1109,6 +1109,27 @@
       </tags>
   </entry>
   <entry>
+    <title>string总结</title>
+    <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<ul>
+<li><p>使用<code>find</code>找到字符串在主串中的位置，示例代码如下，返回值为7</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Have a happy day.&quot;</span>;</span><br><span class="line">string b = <span class="string">&quot;happy&quot;</span>;</span><br><span class="line">cout &lt;&lt; a.<span class="built_in">find</span>(b) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>erase</code>擦除字符串中部分字符，第一个参数为擦除起始位置(含该位置)，第二个参数为擦除结束位置</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string m = <span class="string">&quot;HaHaa233&quot;</span>;</span><br><span class="line">m.<span class="built_in">erase</span>(<span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">cout &lt;&lt; m &lt;&lt; endl;	<span class="comment">//此时m应为&quot;HaH&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>substr</code>分割字符串。其返回值即为分割出的字符串，第一个参数为<strong>子字符串起始位置</strong>，第二个参数为<strong>子字符串长度</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Happy&quot;</span>;</span><br><span class="line">string b = a.<span class="built_in">substr</span>(<span class="number">0</span>,<span class="number">2</span>);	<span class="comment">//此时b应该为&quot;Ha&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git使用笔记</title>
     <url>/2024/07/08/git/</url>
     <content><![CDATA[<h2 id="仓库推送"><a href="#仓库推送" class="headerlink" title="仓库推送"></a>仓库推送</h2><p>设置本地仓库对应的远程仓库地址</p>
@@ -1155,50 +1176,6 @@
       </tags>
   </entry>
   <entry>
-    <title>string总结</title>
-    <url>/2023/03/22/string%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<ul>
-<li><p>使用<code>find</code>找到字符串在主串中的位置，示例代码如下，返回值为7</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Have a happy day.&quot;</span>;</span><br><span class="line">string b = <span class="string">&quot;happy&quot;</span>;</span><br><span class="line">cout &lt;&lt; a.<span class="built_in">find</span>(b) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用<code>erase</code>擦除字符串中部分字符，第一个参数为擦除起始位置(含该位置)，第二个参数为擦除结束位置</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string m = <span class="string">&quot;HaHaa233&quot;</span>;</span><br><span class="line">m.<span class="built_in">erase</span>(<span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">cout &lt;&lt; m &lt;&lt; endl;	<span class="comment">//此时m应为&quot;HaH&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用<code>substr</code>分割字符串。其返回值即为分割出的字符串，第一个参数为<strong>子字符串起始位置</strong>，第二个参数为<strong>子字符串长度</strong>。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;Happy&quot;</span>;</span><br><span class="line">string b = a.<span class="built_in">substr</span>(<span class="number">0</span>,<span class="number">2</span>);	<span class="comment">//此时b应该为&quot;Ha&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《聪明人的个人成长》读后感</title>
-    <url>/2024/12/12/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</url>
-    <content><![CDATA[<p>这里有7个原则，他们在个人成长过程中起着至关重要的作用。</p>
-<p>三条基础原则：真实、爱、能量，衍生原则：一体、主导、勇气。</p>
-<p>在个人成长之前，要知道真实的自己是什么样子的。</p>
-<blockquote>
-<p>从生活习惯、职业发展、财务状况、身体健康、心理、社交&amp;关系、情绪、性格、人生目标&amp;社会贡献、身心灵发展这几个维度来评价自我。<strong>满分10分，如果你给自己打了9分以下，那么，这些方面请直接改为1分。</strong></p>
-</blockquote>
-<p>这段话震撼到了我，这让我清楚知道，<strong>不用粉饰太平，直面自己的欲望和恐惧</strong>。</p>
-<p>爱是联结的能力，要知道这个世界上每个人都是一座孤岛是完全经不起推敲的。这个世界上每个人都不是陌生人。不管是热爱爱好，还是爱人，在建立新联结的过程中，你能更清晰地认知自己。</p>
-<p>能量的组成分为6个部分：责任、欲望、自主选择、专注、努力行动、自律。</p>
-<blockquote>
-<p>把目标设定作为提升当下专注度的方法，而不是当做控制未来的手段。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>读书笔记</category>
-      </categories>
-      <tags>
-        <tag>个人感悟</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>__FPU_PRESENT重定义出现大量警告</title>
     <url>/2020/08/04/%E3%80%90STM32%E3%80%91%20__FPU_PRESENT%E9%87%8D%E5%AE%9A%E4%B9%89%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8F%E7%9A%84%E8%AD%A6%E5%91%8A/</url>
     <content><![CDATA[<p>芯片型号为STM32F427，在Options for Target—&gt;C&#x2F;C++—&gt;define中定义__FPU_PRESENT开启FPU时出现大量重定义警告</p>
@@ -1211,28 +1188,6 @@
       <tags>
         <tag>嵌入式</tag>
         <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>智能PDF导出</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
-<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
-</ul>
-<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
-<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
-<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
-</ul>
-<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
-<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Altinum Designer</tag>
       </tags>
   </entry>
   <entry>
@@ -1338,6 +1293,51 @@
       </tags>
   </entry>
   <entry>
+    <title>《聪明人的个人成长》读后感</title>
+    <url>/2024/12/12/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</url>
+    <content><![CDATA[<p>这里有7个原则，他们在个人成长过程中起着至关重要的作用。</p>
+<p>三条基础原则：真实、爱、能量，衍生原则：一体、主导、勇气。</p>
+<p>在个人成长之前，要知道真实的自己是什么样子的。</p>
+<blockquote>
+<p>从生活习惯、职业发展、财务状况、身体健康、心理、社交&amp;关系、情绪、性格、人生目标&amp;社会贡献、身心灵发展这几个维度来评价自我。<strong>满分10分，如果你给自己打了9分以下，那么，这些方面请直接改为1分。</strong></p>
+</blockquote>
+<p>这段话震撼到了我，这让我清楚知道，<strong>不用粉饰太平，直面自己的欲望和恐惧</strong>。</p>
+<p>爱是联结的能力，要知道这个世界上每个人都是一座孤岛是完全经不起推敲的。这个世界上每个人都不是陌生人。不管是热爱爱好，还是爱人，在建立新联结的过程中，你能更清晰地认知自己。</p>
+<p>能量的组成分为6个部分：责任、欲望、自主选择、专注、努力行动、自律。</p>
+<blockquote>
+<p>把目标设定作为提升当下专注度的方法，而不是当做控制未来的手段。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>个人感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能PDF导出</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E6%99%BA%E8%83%BDPDF%E5%AF%BC%E5%87%BA%EF%BC%88%E8%A3%85%E9%85%8D%E6%96%87%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="1-文件——智能PDF"><a href="#1-文件——智能PDF" class="headerlink" title="1. 文件——智能PDF"></a>1. 文件——智能PDF</h1><p><img src="https://img-blog.csdnimg.cn/20200407180042202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h1 id="2-可选择导出当前工程或当前文档"><a href="#2-可选择导出当前工程或当前文档" class="headerlink" title="2.可选择导出当前工程或当前文档"></a>2.可选择导出当前工程或当前文档</h1><p><img src="https://img-blog.csdnimg.cn/20200407180206711.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="3-可选择是否导出BOOM表"><a href="#3-可选择是否导出BOOM表" class="headerlink" title="3. 可选择是否导出BOOM表"></a>3. 可选择是否导出BOOM表</h1><p><img src="https://img-blog.csdnimg.cn/20200407180254612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h1 id="4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件"><a href="#4-在Multilayer-Composite-Print位置处右击，可选择需要导出的文件" class="headerlink" title="4.在Multilayer Composite Print位置处右击，可选择需要导出的文件"></a>4.在Multilayer Composite Print位置处右击，可选择需要导出的文件</h1><ul>
+<li>这里我选择的是装配文件Create Assembly Drawings<br><img src="https://img-blog.csdnimg.cn/20200407180442217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"></li>
+</ul>
+<h1 id="5-双击选项框，选择打印细节"><a href="#5-双击选项框，选择打印细节" class="headerlink" title="5.双击选项框，选择打印细节"></a>5.双击选项框，选择打印细节</h1><ul>
+<li>在这里我选择装配文件，top层和bottom层都选择的是：丝印、板框和阻焊层<br><img src="https://img-blog.csdnimg.cn/20200407181115386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="5"></li>
+<li>bottom层选择让它镜像<br><img src="https://img-blog.csdnimg.cn/20200407181401443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="6"></li>
+</ul>
+<h1 id="6-颜色选择"><a href="#6-颜色选择" class="headerlink" title="6.颜色选择"></a>6.颜色选择</h1><p><img src="https://img-blog.csdnimg.cn/20200407181447628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="7"></p>
+<h1 id="7-最后导出当前文件就OK了"><a href="#7-最后导出当前文件就OK了" class="headerlink" title="7.最后导出当前文件就OK了"></a>7.最后导出当前文件就OK了</h1>]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Altinum Designer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AD输出Gerber文件</title>
     <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BAGerber%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>我们在画好PCB后，需要将PCB输出为Gerber文件，并将文件交付板场，做出我们画的板子。接下来就讲讲怎样输出Gerber文件</p>
@@ -1363,23 +1363,36 @@
       </tags>
   </entry>
   <entry>
-    <title>AD输出坐标文件及网表</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
-    <content><![CDATA[<p>【名词解释及其功能】</p>
-<ul>
-<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
-<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
+    <title>Verilog程序框架</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
+<blockquote>
+<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
+</blockquote>
+<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
+<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
+<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
+<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
-<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
-<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
-<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
+<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
+<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
+</ul>
+<ol>
+<li>assign语句(描述组合逻辑)</li>
+<li>always语句(组合&#x2F;时许逻辑)</li>
+<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
+<li>在模块调用时，信号通过模块端口在模块之间传递</li>
+<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
+<li>模块调用位宽必须保持一致</li>
+</ul>
 ]]></content>
       <categories>
         <category>学习笔记</category>
       </categories>
       <tags>
-        <tag>Altinum Designer</tag>
+        <tag>FPGA基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1447,36 +1460,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Verilog程序框架</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%802%E2%80%94%E2%80%94Verilog%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h2 id="一、Verilog注释"><a href="#一、Verilog注释" class="headerlink" title="一、Verilog注释"></a>一、Verilog注释</h2><p>两种注释方式</p>
-<blockquote>
-<p>&#x2F;&#x2F;<br>&#x2F;*     *&#x2F;</p>
-</blockquote>
-<h2 id="二、Verilog关键字"><a href="#二、Verilog关键字" class="headerlink" title="二、Verilog关键字"></a>二、Verilog关键字</h2><p>变量定义不可以和关键字重合</p>
-<h2 id="三、Verilog程序框架"><a href="#三、Verilog程序框架" class="headerlink" title="三、Verilog程序框架"></a>三、Verilog程序框架</h2><ul>
-<li>基本设计单元是模块，模块由两部分组成，一部分描述<strong>接口</strong>，另一部分描述<strong>逻辑功能</strong></li>
-<li>每个Verilog程序包括4个主要部分：端口定义、IO说明、内部信号声明、功能定义<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module block(a,b,c,d);      //端口定义</span><br><span class="line">    input a,b;              //IO说明  </span><br><span class="line">    output c,d;</span><br><span class="line">    assign c = a | b;</span><br><span class="line">    assign d = a &amp; b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure></li>
+    <title>AD输出坐标文件及网表</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91AD%E8%BE%93%E5%87%BA%E5%9D%90%E6%A0%87%E6%96%87%E4%BB%B6%E5%8F%8A%E7%BD%91%E8%A1%A8/</url>
+    <content><![CDATA[<p>【名词解释及其功能】</p>
+<ul>
+<li>坐标文件：简单来讲就是你的元器件所在位置，一般在SMT贴片时需要用到</li>
+<li>IPC网表：该文件输出后，板场可根据该文件检查PCB的通短路情况，为电路设计的正确性打上双保险</li>
 </ul>
-<h4 id="功能定义部分的三种方法-并行"><a href="#功能定义部分的三种方法-并行" class="headerlink" title="功能定义部分的三种方法(并行)"></a>功能定义部分的三种方法(并行)</h4><ul>
-<li><strong>并行</strong>即模块同时开始执行，并无先后顺序</li>
-</ul>
-<ol>
-<li>assign语句(描述组合逻辑)</li>
-<li>always语句(组合&#x2F;时许逻辑)</li>
-<li>例化实例元件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">and #2 u1(q,a,b);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="模块的调用"><a href="#模块的调用" class="headerlink" title="模块的调用"></a>模块的调用</h4><ul>
-<li>在模块调用时，信号通过模块端口在模块之间传递</li>
-<li><strong>模块的输入可为wire、reg型，但输出必须为wire型</strong></li>
-<li>模块调用位宽必须保持一致</li>
-</ul>
+<h1 id="1-坐标文件"><a href="#1-坐标文件" class="headerlink" title="1. 坐标文件"></a>1. 坐标文件</h1><h2 id="文件——装配输出——Generates-pick-and-place-files"><a href="#文件——装配输出——Generates-pick-and-place-files" class="headerlink" title="文件——装配输出——Generates pick and place files"></a>文件——装配输出——Generates pick and place files</h2><p><img src="https://img-blog.csdnimg.cn/20200407162654400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="1"></p>
+<h2 id="点击确定，即可输出"><a href="#点击确定，即可输出" class="headerlink" title="点击确定，即可输出"></a>点击确定，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/20200407162917290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="2"></p>
+<h1 id="2-IPC网表输出"><a href="#2-IPC网表输出" class="headerlink" title="2. IPC网表输出"></a>2. IPC网表输出</h1><h2 id="文件——制造输出——Test-Point-Report"><a href="#文件——制造输出——Test-Point-Report" class="headerlink" title="文件——制造输出——Test Point Report"></a>文件——制造输出——Test Point Report</h2><p><img src="https://img-blog.csdnimg.cn/20200407163057316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="3"></p>
+<h2 id="选择IPC项，点击确认，即可输出"><a href="#选择IPC项，点击确认，即可输出" class="headerlink" title="选择IPC项，点击确认，即可输出"></a>选择IPC项，点击确认，即可输出</h2><p><img src="https://img-blog.csdnimg.cn/2020040716314023.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="4"><br>至此，坐标文件及网表已在工程文件夹下<br><img src="https://img-blog.csdnimg.cn/20200407163254669.png" alt="5"></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
       </categories>
       <tags>
-        <tag>FPGA基础</tag>
+        <tag>Altinum Designer</tag>
       </tags>
   </entry>
   <entry>
@@ -1604,6 +1604,52 @@
 <li>进行时序计算和约束</li>
 <li>对于总线形式的输出信号来说，容易使总线数据对齐，从而减小总线数据间的偏移，减小接收端数据采样出错的频率</li>
 </ol>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>FPGA基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>系统任务和系统函数</title>
+    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
+<li>$display(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后会加一个<strong>换行</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>$write(“带格式字符串”,参数1,参数2,…);</li>
+</ol>
+<ul>
+<li>在文本后<strong>不会</strong>加换行</li>
+</ul>
+<ol start="3">
+<li>$strobe和$monltor</li>
+</ol>
+<ul>
+<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
+<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
+</ul>
+<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
+<li>$finish表示停止仿真</li>
+<li>$stop表示暂停仿真</li>
+</ol>
+<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
+<li>$time返回一个64位整数时间值</li>
+<li>$stime返回一个32位整数时间值</li>
+<li>$realtime返回一个实数时间值</li>
+<li>$timeformat控制时间的显示方式</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -1804,87 +1850,6 @@
       </tags>
   </entry>
   <entry>
-    <title>系统任务和系统函数</title>
-    <url>/2020/08/04/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91FPGA%E5%9F%BA%E7%A1%805%E2%80%94%E2%80%94%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="一、显示函数"><a href="#一、显示函数" class="headerlink" title="一、显示函数"></a>一、显示函数</h2><ol>
-<li>$display(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后会加一个<strong>换行</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module sdispl;</span><br><span class="line">	interger i;		//i为整型</span><br><span class="line">	reg [3:0] x;	//x为4位</span><br><span class="line">	initial begin	//initial块，只执行一次</span><br><span class="line">	i=21;			</span><br><span class="line">	x=4&#x27;he;</span><br><span class="line">	$display(&quot;1\t%d\n2\t%h\\&quot;,i, x);//输出显示</span><br><span class="line">	end </span><br><span class="line">endmodule	</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200624103639699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwNDQ3MzE1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>$write(“带格式字符串”,参数1,参数2,…);</li>
-</ol>
-<ul>
-<li>在文本后<strong>不会</strong>加换行</li>
-</ul>
-<ol start="3">
-<li>$strobe和$monltor</li>
-</ol>
-<ul>
-<li>$strobe  (“带格式字符串”,参数1,参数2,…);</li>
-<li>$monitor(“带格式字符串”,参数1,参数2,…);</li>
-</ul>
-<h2 id="二、停止函数"><a href="#二、停止函数" class="headerlink" title="二、停止函数"></a>二、停止函数</h2><ol>
-<li>$finish表示停止仿真</li>
-<li>$stop表示暂停仿真</li>
-</ol>
-<h2 id="三、系统时间函数"><a href="#三、系统时间函数" class="headerlink" title="三、系统时间函数"></a>三、系统时间函数</h2><ol>
-<li>$time返回一个64位整数时间值</li>
-<li>$stime返回一个32位整数时间值</li>
-<li>$realtime返回一个实数时间值</li>
-<li>$timeformat控制时间的显示方式</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">示例代码</span><br><span class="line">$monitor(&quot;%d d=%b,e=%b&quot;,$stime,d,e);</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件句柄=$fopen(&quot;文件名&quot;)					//打开文件</span><br><span class="line">$fstrobe(文件句柄,&quot;带格式字符串&quot;,参数列表)   //strobe到文件，$fdisplay语句格式与它相同</span><br><span class="line">$monitor可以多个进程同时进行</span><br><span class="line">$fclose(文件);						   //关闭文件</span><br><span class="line">$feof(文件);							   //检查是否到文件末尾</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>FPGA基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【论文阅读】用来对电机电流谐波抑制的在线训练的径向基函数神经网络补偿器</title>
-    <url>/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/</url>
-    <content><![CDATA[<p>论文原题：</p>
-<blockquote>
-<p>Online-Trained Radial Basis Function Neural Network Compensator for Current Harmonics Suppression of Electric Drives</p>
-</blockquote>
-<p>这篇文章在基于ADRC的死拍电流环中，加入了一个由神经网络构成的谐波观测器，以此来抑制不同频率的谐波，即使不知道谐波频率也不要紧，这个观测器能观测。</p>
-<p>整个系统的框图如下：</p>
-<img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103220657928.png" class="" title="整体系统框图">
-
-<p>电流观测器是用的ESO，死拍控制器用的是ADRC，RBFNN用来观测<strong>高频</strong>周期性波动，就是谐波。直流误差和低频分量由ESO观测。</p>
-<img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103221241774.png" class="" title="RBFNN内部结构">
-
-<p>所以这个补偿器其本质就是一个通过转子位置来观测出周期性扰动的观测器。因为用了神经网络，所以用李雅普诺夫函数做了稳定性证明。</p>
-<p>这里有两个需要注意的点：</p>
-<ul>
-<li>径向基函数神经网络的结构，由输入层，隐含层和输出层三个部分组成。输入层和隐含层之间是固定的表达式，隐含层的输出最后通过线性加权到输出层，<strong>这个权重系数则是神经网络优化的部分</strong>。一般使用梯度下降或者递推最小二乘法来优化。也可以自己定义损失函数来进行网络的权重优化。</li>
-<li>死拍预测电流控制，就是用当前和上一时刻的电流和电压信息，预测下一时刻的电流，再对当前时刻将要施加的电压(即下一时刻的电压)进行设定，以弥补采样延时。死拍预测电流控制是在预测电流控制的基础上加了死拍补偿做的，其隶属于预测电流控制，其应用的主要难点是运行过程中，电机参数会实时变化，会导致模型预测出来的不准，控制效果不佳。<strong>所以，预测电流控制的研究热点在其鲁棒性</strong>。</li>
-</ul>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
-<li>用了神经网络最好做稳定性分析。</li>
-<li>这个本质就是改进的电流环DB-ADRC，用了另一种说法(谐波抑制)把文章写出来了。所以，包装很重要。</li>
-<li>ADRC通病，观测器带宽不能太大，低频和直流误差能通过ESO观测，高频的，需要额外的补偿器，之前看的一篇ADRC加高通滤波器的也是。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>论文阅读</category>
-      </categories>
-      <tags>
-        <tag>PMSM</tag>
-        <tag>神经网络</tag>
-        <tag>谐波观测器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>一些C++知识点</title>
     <url>/2023/03/06/%E4%B8%80%E4%BA%9BC-%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
     <content><![CDATA[<ul>
@@ -1937,6 +1902,41 @@
       </tags>
   </entry>
   <entry>
+    <title>【论文阅读】用来对电机电流谐波抑制的在线训练的径向基函数神经网络补偿器</title>
+    <url>/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/</url>
+    <content><![CDATA[<p>论文原题：</p>
+<blockquote>
+<p>Online-Trained Radial Basis Function Neural Network Compensator for Current Harmonics Suppression of Electric Drives</p>
+</blockquote>
+<p>这篇文章在基于ADRC的死拍电流环中，加入了一个由神经网络构成的谐波观测器，以此来抑制不同频率的谐波，即使不知道谐波频率也不要紧，这个观测器能观测。</p>
+<p>整个系统的框图如下：</p>
+<img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103220657928.png" class="" title="整体系统框图">
+
+<p>电流观测器是用的ESO，死拍控制器用的是ADRC，RBFNN用来观测<strong>高频</strong>周期性波动，就是谐波。直流误差和低频分量由ESO观测。</p>
+<img src="/2024/11/03/%E3%80%90%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E3%80%91%E7%94%A8%E6%9D%A5%E5%AF%B9%E7%94%B5%E6%9C%BA%E7%94%B5%E6%B5%81%E8%B0%90%E6%B3%A2%E6%8A%91%E5%88%B6%E7%9A%84%E5%9C%A8%E7%BA%BF%E8%AE%AD%E7%BB%83%E7%9A%84%E5%BE%84%E5%90%91%E5%9F%BA%E5%87%BD%E6%95%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%A1%A5%E5%81%BF%E5%99%A8/image-20241103221241774.png" class="" title="RBFNN内部结构">
+
+<p>所以这个补偿器其本质就是一个通过转子位置来观测出周期性扰动的观测器。因为用了神经网络，所以用李雅普诺夫函数做了稳定性证明。</p>
+<p>这里有两个需要注意的点：</p>
+<ul>
+<li>径向基函数神经网络的结构，由输入层，隐含层和输出层三个部分组成。输入层和隐含层之间是固定的表达式，隐含层的输出最后通过线性加权到输出层，<strong>这个权重系数则是神经网络优化的部分</strong>。一般使用梯度下降或者递推最小二乘法来优化。也可以自己定义损失函数来进行网络的权重优化。</li>
+<li>死拍预测电流控制，就是用当前和上一时刻的电流和电压信息，预测下一时刻的电流，再对当前时刻将要施加的电压(即下一时刻的电压)进行设定，以弥补采样延时。死拍预测电流控制是在预测电流控制的基础上加了死拍补偿做的，其隶属于预测电流控制，其应用的主要难点是运行过程中，电机参数会实时变化，会导致模型预测出来的不准，控制效果不佳。<strong>所以，预测电流控制的研究热点在其鲁棒性</strong>。</li>
+</ul>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
+<li>用了神经网络最好做稳定性分析。</li>
+<li>这个本质就是改进的电流环DB-ADRC，用了另一种说法(谐波抑制)把文章写出来了。所以，包装很重要。</li>
+<li>ADRC通病，观测器带宽不能太大，低频和直流误差能通过ESO观测，高频的，需要额外的补偿器，之前看的一篇ADRC加高通滤波器的也是。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>论文阅读</category>
+      </categories>
+      <tags>
+        <tag>PMSM</tag>
+        <tag>神经网络</tag>
+        <tag>谐波观测器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>&lt;代码美学&gt;观后感</title>
     <url>/2023/07/01/%E4%BB%A3%E7%A0%81%E7%BE%8E%E5%AD%A6-%E8%A7%82%E5%90%8E%E6%84%9F/</url>
     <content><![CDATA[<h1 id="在代码中取名"><a href="#在代码中取名" class="headerlink" title="在代码中取名"></a>在代码中取名</h1><ul>
@@ -1984,19 +1984,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
-    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
-<p>} 变成了 &amp;#125</p>
-<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
-<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>小技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数模板与类模板</title>
     <url>/2023/03/06/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
     <content><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>函数模板是C++多态性的一种表现形式。在面对模板的定义时，编译器并不会将该模板实例化。只有在主函数中遇到调用模板函数的代码时，才会将函数模板实例化。在代码执行时，执行的是由编译器根据函数模板生成的函数。关于函数模板和类模板需要注意以下几点：</p>
@@ -2013,6 +2000,19 @@
 ]]></content>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于使用hexo-prism-plugin，代码 “{” ，“ }” 不能正常显示 </title>
+    <url>/2021/01/20/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8hexo-prism-plugin%EF%BC%8C%E4%BB%A3%E7%A0%81%E2%80%9C%7B%E2%80%9D%20%EF%BC%8C%E2%80%9C%20%7D%E2%80%9D%20%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>{ 变成了 &amp;#123</p>
+<p>} 变成了 &amp;#125</p>
+<p>即大括号不能正常渲染，而显示出原始编码的情况</p>
+<h3 id="首先在hexo配置文件中修改"><a href="#首先在hexo配置文件中修改" class="headerlink" title="首先在hexo配置文件中修改"></a>首先在hexo配置文件中修改</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map"><a href="#再在-node-modules-hexo-prism-plugin-src中修改index-js里的const-map" class="headerlink" title="再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map"></a>再在\node_modules\hexo-prism-plugin\src中修改index.js里的const map</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> map = &#123;</span><br><span class="line">  <span class="string">&#x27;&amp;#39;&#x27;</span>: <span class="string">&#x27;\&#x27;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;amp;&#x27;</span>: <span class="string">&#x27;&amp;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;gt;&#x27;</span>: <span class="string">&#x27;&gt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;lt;&#x27;</span>: <span class="string">&#x27;&lt;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;quot;&#x27;</span>: <span class="string">&#x27;&quot;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#123;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;&amp;#125;&#x27;</span>: <span class="string">&#x27;&#125;&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加入  &#x27;&amp;#123;&#x27;: &#x27;&#123;&#x27;,和&#x27;&amp;#125;&#x27;: &#x27;&#125;&#x27;即可</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>小技巧</tag>
       </tags>
   </entry>
   <entry>
@@ -2127,35 +2127,6 @@
       </tags>
   </entry>
   <entry>
-    <title>复矢量PI电流环控制器</title>
-    <url>/2024/11/21/%E5%A4%8D%E7%9F%A2%E9%87%8FPI%E7%94%B5%E6%B5%81%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8/</url>
-    <content><![CDATA[<p>这名字一听挺唬人的，没错，我第一次看到这个名词的时候也有点懵。于是我选择一个名词一个名词搞定。</p>
-<h1 id="标量与复矢量"><a href="#标量与复矢量" class="headerlink" title="标量与复矢量"></a>标量与复矢量</h1><p><strong>标量</strong>就是正常的数，比如$a,b,c…$之类的，标量的矢量形式通常长这样$[a,b]$，对应的是$x$轴和$y$轴上这个矢量的大小。</p>
-<p><strong>复矢量</strong>呢，其实就是一个数学表达式，假设有一个复数$V$，其中$a$是实部，$b$是虚部，$j$是虚数单位。那这里的$a$和$b$就对应的是这个矢量在实轴和虚轴上的大小。<br>$$<br> V&#x3D;a+bj<br>$$<br>那么这个复数的矢量形式就是：<br>$$<br>V &#x3D; \sqrt{a^2+b^2} e^{j\theta}<br>$$<br>其中，$θ&#x3D;arctan(\frac{b}{a})$。</p>
-<p>那写成这样有什么好处呢？标量和复矢量有什么联系呢？</p>
-<h1 id="电机系统中的矢量公式"><a href="#电机系统中的矢量公式" class="headerlink" title="电机系统中的矢量公式"></a>电机系统中的矢量公式</h1><p>PMSM系统中，dq轴的电压方程为如下形式：<br>$$<br>V_{d}&#x3D;R_{s} I_{d}+L_{d} \frac{d I_{d}}{d t}-\omega L_{q} I_{q} \<br>V_{q}&#x3D;R_{s} I_{q}+L_{q} \frac{d I_{q}}{d t}+\omega L_{d} I_{d}+\omega\psi_{pm}<br>$$<br>那可以把dq轴的电压和电流方程规定为下列矢量：<br>$$<br>V&#x3D; V_d+V_qj\<br>I &#x3D; I_d+Iq<br>$$<br>这样，dq轴两个电压公式，就转换成了<strong>一个</strong>电压公式。<br>$$<br>u_{d q}&#x3D;R i_{d q}+L_{m} \frac{d i_{d q}}{d t}+j \omega_{e} L_{m} i_{d q}+j \omega_{e} \psi_{m}<br>$$<br>至此，PMSM的dq轴电流控制器原本是两输入，两输出的系统，经过复矢量变换后，就变成了单输入单输出的系统。针对该系统进行控制器设计，结构得到了统一。</p>
-<h1 id="复矢量PI控制器"><a href="#复矢量PI控制器" class="headerlink" title="复矢量PI控制器"></a>复矢量PI控制器</h1><p>将$u_{d q}$中的$j \omega_{e} \psi_{m}$作为扰动项，则将dq轴的电流和电压表述为传递函数形式为：<br>$$<br>G_{dq}&#x3D;\frac{i_{dq}}{u_{dq}}&#x3D;\frac{1}{L_ss+R_s+jw_eL_s}<br>$$<br><strong>PI控制器的传递函数</strong>为：<br>$$<br>C(s)&#x3D;K_p+\frac{Ki}{s}<br>$$<br>则整个控制系统的<strong>开环传递函数</strong>为：<br>$$<br>C(s)G_{dq}&#x3D;\frac{K_ps+K_i}{s}\frac{1}{L_ss+R_s+jw_eL_s}<br>$$<br>为实现<strong>零极点</strong>对消，令：<br>$$<br>C(s)&#x3D;\frac{L_ss+R_s+jw_eL_s}{s}<br>$$<br>即$K_p&#x3D;Ls,K_i&#x3D;R_s+jw_eL_s$。</p>
-<p>tips:在控制器中，虚部表示两轴电流耦合的量。</p>
-<p>PI控制器的输入为电流，输出为电压，即：</p>
-<p>$$<br>U_s &#x3D; U_d+jU_q\&#x3D;(i_d+ji_q)*\frac{K_ps+K_i}{s}\&#x3D;(i_d+ji_q)*\frac{L_ss+R_s+jw_eL_s}{s}\<br>&#x3D;(L_S+\frac{Rc}{s})<em>i_d-\frac{w_eL_s}{s}i_q+j</em>[(L_s+\frac{Rc}{s})*i_q+\frac{w_eL_s}{s}*i_d]<br>$$</p>
-<p>那么，实部和实部对应，虚部和虚部对应可得：<br>$$<br>U_d &#x3D;(L_s+\frac{R_c}{s})*i_d-\frac{w_eL_s}{s}i_q\<br>U_q &#x3D;(L_s+\frac{R_c}{s})*i_q+\frac{w_eL_s}{s}*i_d<br>$$<br>此时，dq轴对应的Kp,Ki控制参数就出来了，其耦合前馈项也求出来了，最终的控制框图如下所示：</p>
-<img src="/2024/11/21/%E5%A4%8D%E7%9F%A2%E9%87%8FPI%E7%94%B5%E6%B5%81%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8/image-20241226145059154.png" class="" title="复矢量PI电流环控制器">
-
-<blockquote>
-<p>参考文献：《基于自抗扰观测器的永磁同步电机驱动系统高性能控制算法研究》王玉柱</p>
-</blockquote>
-<p>自此，电流环的复矢量PI控制器推导完成。对于电机这个两输入两输出系统，通过复矢量将dq轴电压方程<strong>统一</strong>为一个方程，并按零极点对消法设计PI控制器参数，最终再从设计的控制器转化为实部加虚部的形式，得到dq轴在应用过程中的控制参数，并实现控制过程中耦合项的分离，实现解耦控制。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>PMSM</tag>
-        <tag>算法</tag>
-        <tag>零极点</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>字符串中分离出数字</title>
     <url>/2023/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%88%86%E7%A6%BB%E5%87%BA%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<p><strong>问题</strong>：从字符串中分离出数字并逆序输出，要求使用递归实现。例如输入2s3sd5ewew8，应输出</p>
@@ -2186,6 +2157,35 @@
       <tags>
         <tag>C++</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>复矢量PI电流环控制器</title>
+    <url>/2024/11/21/%E5%A4%8D%E7%9F%A2%E9%87%8FPI%E7%94%B5%E6%B5%81%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8/</url>
+    <content><![CDATA[<p>这名字一听挺唬人的，没错，我第一次看到这个名词的时候也有点懵。于是我选择一个名词一个名词搞定。</p>
+<h1 id="标量与复矢量"><a href="#标量与复矢量" class="headerlink" title="标量与复矢量"></a>标量与复矢量</h1><p><strong>标量</strong>就是正常的数，比如$a,b,c…$之类的，标量的矢量形式通常长这样$[a,b]$，对应的是$x$轴和$y$轴上这个矢量的大小。</p>
+<p><strong>复矢量</strong>呢，其实就是一个数学表达式，假设有一个复数$V$，其中$a$是实部，$b$是虚部，$j$是虚数单位。那这里的$a$和$b$就对应的是这个矢量在实轴和虚轴上的大小。<br>$$<br> V&#x3D;a+bj<br>$$<br>那么这个复数的矢量形式就是：<br>$$<br>V &#x3D; \sqrt{a^2+b^2} e^{j\theta}<br>$$<br>其中，$θ&#x3D;arctan(\frac{b}{a})$。</p>
+<p>那写成这样有什么好处呢？标量和复矢量有什么联系呢？</p>
+<h1 id="电机系统中的矢量公式"><a href="#电机系统中的矢量公式" class="headerlink" title="电机系统中的矢量公式"></a>电机系统中的矢量公式</h1><p>PMSM系统中，dq轴的电压方程为如下形式：<br>$$<br>V_{d}&#x3D;R_{s} I_{d}+L_{d} \frac{d I_{d}}{d t}-\omega L_{q} I_{q} \<br>V_{q}&#x3D;R_{s} I_{q}+L_{q} \frac{d I_{q}}{d t}+\omega L_{d} I_{d}+\omega\psi_{pm}<br>$$<br>那可以把dq轴的电压和电流方程规定为下列矢量：<br>$$<br>V&#x3D; V_d+V_qj\<br>I &#x3D; I_d+Iq<br>$$<br>这样，dq轴两个电压公式，就转换成了<strong>一个</strong>电压公式。<br>$$<br>u_{d q}&#x3D;R i_{d q}+L_{m} \frac{d i_{d q}}{d t}+j \omega_{e} L_{m} i_{d q}+j \omega_{e} \psi_{m}<br>$$<br>至此，PMSM的dq轴电流控制器原本是两输入，两输出的系统，经过复矢量变换后，就变成了单输入单输出的系统。针对该系统进行控制器设计，结构得到了统一。</p>
+<h1 id="复矢量PI控制器"><a href="#复矢量PI控制器" class="headerlink" title="复矢量PI控制器"></a>复矢量PI控制器</h1><p>将$u_{d q}$中的$j \omega_{e} \psi_{m}$作为扰动项，则将dq轴的电流和电压表述为传递函数形式为：<br>$$<br>G_{dq}&#x3D;\frac{i_{dq}}{u_{dq}}&#x3D;\frac{1}{L_ss+R_s+jw_eL_s}<br>$$<br><strong>PI控制器的传递函数</strong>为：<br>$$<br>C(s)&#x3D;K_p+\frac{Ki}{s}<br>$$<br>则整个控制系统的<strong>开环传递函数</strong>为：<br>$$<br>C(s)G_{dq}&#x3D;\frac{K_ps+K_i}{s}\frac{1}{L_ss+R_s+jw_eL_s}<br>$$<br>为实现<strong>零极点</strong>对消，令：<br>$$<br>C(s)&#x3D;\frac{L_ss+R_s+jw_eL_s}{s}<br>$$<br>即$K_p&#x3D;Ls,K_i&#x3D;R_s+jw_eL_s$。</p>
+<p>tips:在控制器中，虚部表示两轴电流耦合的量。</p>
+<p>PI控制器的输入为电流，输出为电压，即：</p>
+<p>$$<br>U_s &#x3D; U_d+jU_q\&#x3D;(i_d+ji_q)*\frac{K_ps+K_i}{s}\&#x3D;(i_d+ji_q)*\frac{L_ss+R_s+jw_eL_s}{s}\<br>&#x3D;(L_S+\frac{Rc}{s})<em>i_d-\frac{w_eL_s}{s}i_q+j</em>[(L_s+\frac{Rc}{s})*i_q+\frac{w_eL_s}{s}*i_d]<br>$$</p>
+<p>那么，实部和实部对应，虚部和虚部对应可得：<br>$$<br>U_d &#x3D;(L_s+\frac{R_c}{s})*i_d-\frac{w_eL_s}{s}i_q\<br>U_q &#x3D;(L_s+\frac{R_c}{s})*i_q+\frac{w_eL_s}{s}*i_d<br>$$<br>此时，dq轴对应的Kp,Ki控制参数就出来了，其耦合前馈项也求出来了，最终的控制框图如下所示：</p>
+<img src="/2024/11/21/%E5%A4%8D%E7%9F%A2%E9%87%8FPI%E7%94%B5%E6%B5%81%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8/image-20241226145059154.png" class="" title="复矢量PI电流环控制器">
+
+<blockquote>
+<p>参考文献：《基于自抗扰观测器的永磁同步电机驱动系统高性能控制算法研究》王玉柱</p>
+</blockquote>
+<p>自此，电流环的复矢量PI控制器推导完成。对于电机这个两输入两输出系统，通过复矢量将dq轴电压方程<strong>统一</strong>为一个方程，并按零极点对消法设计PI控制器参数，最终再从设计的控制器转化为实部加虚部的形式，得到dq轴在应用过程中的控制参数，并实现控制过程中耦合项的分离，实现解耦控制。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>PMSM</tag>
+        <tag>算法</tag>
+        <tag>零极点</tag>
       </tags>
   </entry>
   <entry>
@@ -2401,6 +2401,36 @@
       </tags>
   </entry>
   <entry>
+    <title>深度学习的可解释性</title>
+    <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
+    <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
+<h2 id="可解释性方法"><a href="#可解释性方法" class="headerlink" title="可解释性方法"></a>可解释性方法</h2><ul>
+<li>在建模之前的可解释性方法</li>
+<li>建立本身可解释性的模型</li>
+<li>在建模之后使用可解释方法对模型做出解释</li>
+</ul>
+<h3 id="在建模之前的可解释性方法"><a href="#在建模之前的可解释性方法" class="headerlink" title="在建模之前的可解释性方法"></a>在建模之前的可解释性方法</h3><p>主要涉及一些数据预处理或数据展示的方法。</p>
+<p>在建模之前的可解释性方法的关键在于帮助我们<strong>迅速而全面地了解数据分布的特征</strong></p>
+<p>使用一些交互式的可视化方法会极大帮助我们从各个层次角度理解数据的分布。</p>
+<h3 id="建立本身具备可解释性的模型"><a href="#建立本身具备可解释性的模型" class="headerlink" title="建立本身具备可解释性的模型"></a>建立本身具备可解释性的模型</h3><ul>
+<li>基于规则的方法：但当规则表示过多或者原始的特征本身就不是特别好解释的时候，基于规则的方法有时候也不太适用。</li>
+<li>基于单个特征的方法</li>
+<li>基于实例的方法：基于实例的方法的一些局限在于可能挑出来的样本不具有代表性或者人们可能会有过度泛化的倾向。</li>
+<li>稀疏性方法</li>
+<li>单调性方法</li>
+</ul>
+<h3 id="在建模之后使用可解释性方法做出解释"><a href="#在建模之后使用可解释性方法做出解释" class="headerlink" title="在建模之后使用可解释性方法做出解释"></a>在建模之后使用可解释性方法做出解释</h3><ul>
+<li>隐层分析法</li>
+<li>模拟&#x2F;代理模型</li>
+<li>敏感性分析方法</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>可解释性</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>滤波器</title>
     <url>/2025/01/07/%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
     <content><![CDATA[<p>在这篇文章中整理一阶高通滤波器和低通滤波器的各种形式，包括连续域传递函数、离散域传递函数、离散迭代方程。</p>
@@ -2463,7 +2493,7 @@
 <p><strong>方案一</strong>：在Simulink中搭建仿真模型，使用Simulink中的模型线性化器，直接绘制出伯德图。</p>
 <p><strong>方案二</strong>：手动推导我设计的控制器的闭环传递函数，通过分析闭环传递函数来绘制伯德图。</p>
 <p>我最开始的想法就是使用方案一，但是设置完线性分析点后，发现得到的控制器伯德图啥也没有，如下所示：</p>
-<style>.grvsjiackwbc{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="grvsjiackwbc" alt="image-20241215124140306">
+<style>.iwwkdcnhjsxf{zoom:60%;}</style><img src="/2024/12/15/%E7%94%A8Matlab%E6%9D%A5%E5%AF%B9%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E5%88%86%E6%9E%90/image-20241215124140306.png" class="iwwkdcnhjsxf" alt="image-20241215124140306">
 
 <p>于是我开始怀疑是不是我搭建的模型中是用matlab function进行创建的，导致它线性化失败，然后出现了不对。对于这个线性化器，我有以下几个疑惑点：</p>
 <ol>
@@ -2537,36 +2567,6 @@
       <tags>
         <tag>工具</tag>
         <tag>Matlab</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习的可解释性</title>
-    <url>/2023/06/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</url>
-    <content><![CDATA[<p>《深度学习的可解释性研究概览》–BIGSCity 王小贱</p>
-<h2 id="可解释性方法"><a href="#可解释性方法" class="headerlink" title="可解释性方法"></a>可解释性方法</h2><ul>
-<li>在建模之前的可解释性方法</li>
-<li>建立本身可解释性的模型</li>
-<li>在建模之后使用可解释方法对模型做出解释</li>
-</ul>
-<h3 id="在建模之前的可解释性方法"><a href="#在建模之前的可解释性方法" class="headerlink" title="在建模之前的可解释性方法"></a>在建模之前的可解释性方法</h3><p>主要涉及一些数据预处理或数据展示的方法。</p>
-<p>在建模之前的可解释性方法的关键在于帮助我们<strong>迅速而全面地了解数据分布的特征</strong></p>
-<p>使用一些交互式的可视化方法会极大帮助我们从各个层次角度理解数据的分布。</p>
-<h3 id="建立本身具备可解释性的模型"><a href="#建立本身具备可解释性的模型" class="headerlink" title="建立本身具备可解释性的模型"></a>建立本身具备可解释性的模型</h3><ul>
-<li>基于规则的方法：但当规则表示过多或者原始的特征本身就不是特别好解释的时候，基于规则的方法有时候也不太适用。</li>
-<li>基于单个特征的方法</li>
-<li>基于实例的方法：基于实例的方法的一些局限在于可能挑出来的样本不具有代表性或者人们可能会有过度泛化的倾向。</li>
-<li>稀疏性方法</li>
-<li>单调性方法</li>
-</ul>
-<h3 id="在建模之后使用可解释性方法做出解释"><a href="#在建模之后使用可解释性方法做出解释" class="headerlink" title="在建模之后使用可解释性方法做出解释"></a>在建模之后使用可解释性方法做出解释</h3><ul>
-<li>隐层分析法</li>
-<li>模拟&#x2F;代理模型</li>
-<li>敏感性分析方法</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-        <tag>可解释性</tag>
       </tags>
   </entry>
   <entry>

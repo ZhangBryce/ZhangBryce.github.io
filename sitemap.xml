@@ -722,7 +722,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</loc>
+    <loc>http://example.com/tags/Machine-Learning/</loc>
+    <lastmod>2025-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -736,14 +743,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/Machine-Learning/</loc>
-    <lastmod>2025-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -771,14 +771,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/ESP32/</loc>
+    <loc>http://example.com/tags/C/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/C/</loc>
+    <loc>http://example.com/tags/ESP32/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -841,14 +841,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/</loc>
+    <loc>http://example.com/tags/Altinum-Designer/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Altinum-Designer/</loc>
+    <loc>http://example.com/tags/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -925,6 +925,13 @@
   </url>
   
   <url>
+    <loc>http://example.com/tags/%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</loc>
+    <lastmod>2025-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/Arduino/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -933,13 +940,6 @@
   
   <url>
     <loc>http://example.com/tags/Matlab/</loc>
-    <lastmod>2025-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/</loc>
     <lastmod>2025-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
