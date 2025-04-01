@@ -563,7 +563,7 @@
             </div>
             <div class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:refresh-3-fill" ></iconify-icon>
-              Edited: <time class="w-max">2025-01-07</time>
+              Edited: <time class="w-max">2025-04-01</time>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-x-3 gap-y-3">
@@ -573,7 +573,7 @@
             <!-- Word count -->
             <span class="flex items-center gap-1">
               <iconify-icon width="18" icon="mingcute:book-2-fill" ></iconify-icon>
-              <span>297 words, 1 min</span>
+              <span>299 words, 1 min</span>
             </span>
             <!-- Categories -->
             
@@ -644,12 +644,12 @@
   <article class="post-content prose m-auto dark:prose-invert">
     <p>在这篇文章中整理一阶高通滤波器和低通滤波器的各种形式，包括连续域传递函数、离散域传递函数、离散迭代方程。</p>
 <h1 id="高通滤波器"><a href="#高通滤波器" class="headerlink" title="高通滤波器"></a>高通滤波器</h1><h2 id="连续域传递函数"><a href="#连续域传递函数" class="headerlink" title="连续域传递函数"></a>连续域传递函数</h2><p>$$<br>H(s)&#x3D;\frac{s}{s+w_c}<br>$$</p>
-<p>其中$w_c$为截止角频率。<br>$$<br>w_c&#x3D;\frac{1}{RC}&#x3D;2<em>\pi</em>f_c<br>$$</p>
+<p>其中$w_c$为截止角频率。<br>$$<br>w_c&#x3D;\frac{1}{RC}&#x3D;2* \pi *f_c<br>$$</p>
 <h2 id="离散迭代方程"><a href="#离散迭代方程" class="headerlink" title="离散迭代方程"></a>离散迭代方程</h2><p>$$<br>y[k]&#x3D;a*[y[k-1]+x[k]-x[k-1]]<br>$$</p>
 <p>其中a:<br>$$<br>a &#x3D; \frac{RC}{ts+RC}<br>$$</p>
 <h2 id="离散域传递函数"><a href="#离散域传递函数" class="headerlink" title="离散域传递函数"></a>离散域传递函数</h2><p>即z域传递函数为<br>$$<br>H(z)&#x3D;\frac{a(1-z^{-1})}{1-(1-a)z^{-1}}<br>$$</p>
 <h1 id="低通滤波器"><a href="#低通滤波器" class="headerlink" title="低通滤波器"></a>低通滤波器</h1><h2 id="连续域传递函数-1"><a href="#连续域传递函数-1" class="headerlink" title="连续域传递函数"></a>连续域传递函数</h2><p>$$<br>H(s)&#x3D;\frac{1}{w_cs+1}<br>$$</p>
-<p>其中$w_c$为时间常数：<br>$$<br>w_c &#x3D; \frac{1}{2<em>\pi</em>f_{截止}}<br>$$<br>其中$f_{截止}$为低通滤波器的截止频率。</p>
+<p>其中$w_c$为时间常数：<br>$$<br>w_c &#x3D; \frac{1}{2* \pi *f_{截止}}<br>$$<br>其中$f_{截止}$为低通滤波器的截止频率。</p>
 <h2 id="离散迭代方程-1"><a href="#离散迭代方程-1" class="headerlink" title="离散迭代方程"></a>离散迭代方程</h2><p>在实际控制系统中，并不能像仿真那样直接使用传递函数使用低通滤波器，通常使用离散迭代方程：<br>$$<br>y[k]&#x3D;b*x[k]+(1-b)*y[k-1]<br>$$<br>其中，$y$为滤波后变量，b为:<br>$$<br>b&#x3D;\frac{ts}{ts+RC}<br>$$<br>其中$ts$为采样时间。</p>
 <h2 id="离散域传递函数-1"><a href="#离散域传递函数-1" class="headerlink" title="离散域传递函数"></a>离散域传递函数</h2><p>即z域传递函数：<br>$$<br>G(z)&#x3D;\frac{b}{1-(1-b)*z^{-1}}<br>$$</p>
 
